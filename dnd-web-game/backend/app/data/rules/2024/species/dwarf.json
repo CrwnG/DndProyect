@@ -1,0 +1,35 @@
+{
+  "id": "dwarf",
+  "name": "Dwarf",
+  "source": "2024 Player's Handbook",
+  "description": "Dwarves were raised up from the earth in the elder days by a deity of the forge. Called by various names on different worlds—Moradin, Reorx, and others—that deity gave dwarves a love of stonework and metalwork.",
+  "creature_type": "Humanoid",
+  "size": "Medium (about 4-5 feet tall)",
+  "speed": 30,
+  "languages": ["Common", "Dwarvish"],
+  "traits": [
+    {
+      "id": "darkvision_dwarf",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 120 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "dwarven_resilience",
+      "name": "Dwarven Resilience",
+      "description": "You have Resistance to Poison damage. You also have Advantage on saving throws you make to avoid or end the Poisoned condition."
+    },
+    {
+      "id": "dwarven_toughness",
+      "name": "Dwarven Toughness",
+      "description": "Your Hit Point maximum increases by 1, and it increases by 1 again whenever you gain a level."
+    },
+    {
+      "id": "stonecunning",
+      "name": "Stonecunning",
+      "description": "As a Bonus Action, you gain Tremorsense with a range of 60 feet for 10 minutes. You must be on a stone surface or touching a stone surface to use this Tremorsense. The stone can be natural or worked. You can use this Bonus Action a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a Long Rest."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

@@ -1,0 +1,1359 @@
+/**
+ * Inventory & Equipment System - BG3 Style
+ *
+ * Components:
+ * - Inventory Modal (main container)
+ * - Paper Doll (equipment slots)
+ * - Inventory Grid (backpack items)
+ * - Item Tooltips
+ * - Encumbrance Bar
+ */
+
+/* =============================================================================
+   CSS VARIABLES - Rarity Colors
+   ============================================================================= */
+
+:root {
+    /* Rarity Colors */
+    --rarity-common: #9d9d9d;
+    --rarity-uncommon: #1eff00;
+    --rarity-rare: #0070dd;
+    --rarity-very-rare: #a335ee;
+    --rarity-legendary: #ff8000;
+    --rarity-artifact: #e6cc80;
+}
+
+/* =============================================================================
+   INVENTORY MODAL
+   ============================================================================= */
+
+.inventory-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-modal.hidden {
+    display: none;
+}
+
+.inventory-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+.inventory-modal-content {
+    position: relative;
+    width: 95%;
+    max-width: 900px;
+    max-height: 90vh;
+    background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-dark) 100%);
+    border: 2px solid var(--accent-gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg), 0 0 60px rgba(212, 175, 55, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: inventorySlideIn 0.3s ease-out;
+}
+
+@keyframes inventorySlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Header */
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-title {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.inventory-close-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-close-btn:hover {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+/* Body */
+.inventory-body {
+    flex: 1;
+    display: flex;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+}
+
+/* Left Panel - Character & Paper Doll */
+.inventory-left-panel {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* Right Panel - Inventory Grid */
+.inventory-right-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* Footer */
+.inventory-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+}
+
+/* =============================================================================
+   CHARACTER SUMMARY
+   ============================================================================= */
+
+.character-summary {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+}
+
+.character-summary .char-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.character-summary .char-class {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.character-summary .char-stats {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.character-summary .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-panel);
+    border-radius: var(--radius-sm);
+    min-width: 60px;
+}
+
+.character-summary .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.character-summary .stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.no-character {
+    text-align: center;
+    color: var(--text-muted);
+    padding: var(--spacing-md);
+}
+
+/* =============================================================================
+   PAPER DOLL
+   ============================================================================= */
+
+.paper-doll-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+}
+
+.paper-doll-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.paper-doll-row {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+}
+
+.slot-spacer {
+    width: 70px;
+    height: 70px;
+}
+
+/* Equipment Slot */
+.equipment-slot {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--bg-panel) 0%, rgba(0, 0, 0, 0.3) 100%);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.equipment-slot:hover {
+    border-color: var(--accent-blue);
+    background: linear-gradient(135deg, var(--bg-hover) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.equipment-slot.empty {
+    opacity: 0.7;
+}
+
+.equipment-slot.equipped {
+    border-color: var(--rarity-color, var(--border-light));
+    box-shadow: inset 0 0 15px rgba(var(--rarity-color-rgb, 255, 255, 255), 0.1);
+}
+
+.equipment-slot.highlight-valid {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.5);
+    animation: slotPulse 1s ease-in-out infinite;
+}
+
+@keyframes slotPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(46, 204, 113, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.8); }
+}
+
+.equipment-slot.dragging {
+    opacity: 0.5;
+    border-style: dashed;
+}
+
+/* Slot Background */
+.slot-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
+}
+
+.slot-background .slot-icon {
+    font-size: 1.5rem;
+}
+
+/* Slot Item */
+.slot-item {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.slot-item .item-icon {
+    font-size: 1.8rem;
+}
+
+.slot-item .item-quantity {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: var(--bg-dark);
+    color: var(--accent-gold);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 1px 4px;
+    border-radius: 3px;
+    min-width: 14px;
+    text-align: center;
+}
+
+/* Slot Label */
+.slot-label {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    text-transform: capitalize;
+}
+
+/* Slot Rarity Border */
+.slot-rarity-border {
+    position: absolute;
+    inset: -2px;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--rarity-color, transparent);
+    pointer-events: none;
+}
+
+/* =============================================================================
+   INVENTORY GRID
+   ============================================================================= */
+
+.inventory-grid-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    flex: 1;
+    overflow-y: auto;
+}
+
+.inventory-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-grid-header .inventory-title {
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-shadow: none;
+}
+
+.inventory-grid-header .inventory-count {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.inventory-grid {
+    display: grid;
+    gap: var(--spacing-xs);
+}
+
+/* Inventory Cell */
+.inventory-cell {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--bg-panel) 0%, rgba(0, 0, 0, 0.2) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-cell:hover {
+    border-color: var(--accent-blue);
+    background: linear-gradient(135deg, var(--bg-hover) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.inventory-cell.empty {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.inventory-cell.empty:hover {
+    border-color: var(--border-color);
+    opacity: 0.6;
+}
+
+.inventory-cell.has-item {
+    border-color: var(--rarity-color, var(--border-light));
+}
+
+.inventory-cell.selected {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.inventory-cell.dragging {
+    opacity: 0.5;
+    border-style: dashed;
+}
+
+/* Inventory Item */
+.inventory-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.inventory-item .item-icon {
+    font-size: 1.5rem;
+}
+
+.inventory-item .item-quantity {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: var(--bg-dark);
+    color: var(--accent-gold);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 1px 4px;
+    border-radius: 3px;
+    min-width: 12px;
+    text-align: center;
+}
+
+/* Rarity Indicator */
+.item-rarity-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--rarity-color, var(--border-color));
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+/* =============================================================================
+   INVENTORY FILTERS
+   ============================================================================= */
+
+/* Search and Sort Bar */
+.inventory-search-sort {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.inventory-search {
+    flex: 1;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+
+.inventory-search::placeholder {
+    color: var(--text-muted);
+}
+
+.inventory-search:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.inventory-sort {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.inventory-sort:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.inventory-filters {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.filter-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+
+/* =============================================================================
+   ITEM TOOLTIP
+   ============================================================================= */
+
+.item-tooltip {
+    position: fixed;
+    z-index: 2000;
+    background: linear-gradient(180deg, rgba(26, 26, 46, 0.98) 0%, rgba(15, 15, 30, 0.98) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    max-width: 320px;
+    min-width: 220px;
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.item-tooltip.hidden {
+    display: none;
+}
+
+/* Tooltip Header */
+.tooltip-header {
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tooltip-header .item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.tooltip-header .item-type {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: capitalize;
+}
+
+/* Tooltip Sections */
+.tooltip-section {
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tooltip-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.tooltip-section .section-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-right: var(--spacing-xs);
+}
+
+/* Stats Section */
+.stats-section .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) 0;
+}
+
+.stats-section .stat-icon {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.stats-section .stat-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stats-section .damage-value {
+    color: var(--accent-red);
+}
+
+.stats-section .ac-value {
+    color: var(--accent-blue);
+}
+
+.stats-section .stealth-penalty {
+    color: var(--accent-red);
+}
+
+/* Property List */
+.property-list {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: capitalize;
+}
+
+/* Mastery Section */
+.mastery-section .mastery-type {
+    color: var(--accent-purple);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.mastery-section .mastery-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: var(--spacing-xs);
+    line-height: 1.4;
+}
+
+/* Description */
+.description-section .item-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Tooltip Footer */
+.tooltip-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border-color);
+    margin-top: var(--spacing-sm);
+}
+
+.tooltip-footer .footer-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Attunement */
+.tooltip-attunement {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    margin-top: var(--spacing-sm);
+}
+
+.tooltip-attunement.attuned {
+    background: rgba(46, 204, 113, 0.2);
+    color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+}
+
+.tooltip-attunement.not-attuned {
+    background: rgba(243, 156, 18, 0.2);
+    color: var(--hp-mid);
+    border: 1px solid var(--hp-mid);
+}
+
+/* =============================================================================
+   ENCUMBRANCE BAR
+   ============================================================================= */
+
+.encumbrance-section {
+    flex: 1;
+}
+
+.encumbrance-bar {
+    position: relative;
+    height: 20px;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.encumbrance-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-green) 100%);
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* Encumbrance States */
+.encumbrance-bar.encumbered .encumbrance-fill {
+    background: linear-gradient(90deg, var(--hp-mid) 0%, #b8860b 100%);
+}
+
+.encumbrance-bar.heavily-encumbered .encumbrance-fill {
+    background: linear-gradient(90deg, var(--accent-red) 0%, #8b0000 100%);
+}
+
+.encumbrance-bar.over-capacity .encumbrance-fill {
+    background: linear-gradient(90deg, #8b0000 0%, #4a0000 100%);
+    animation: overCapacityPulse 1s ease-in-out infinite;
+}
+
+@keyframes overCapacityPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Encumbrance Markers */
+.encumbrance-markers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.encumbrance-markers .marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--text-muted);
+}
+
+.encumbrance-markers .marker.normal {
+    opacity: 0.5;
+}
+
+.encumbrance-markers .marker.encumbered {
+    background: var(--accent-red);
+    opacity: 0.7;
+}
+
+/* Encumbrance Text */
+.encumbrance-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-xs);
+    font-size: 0.8rem;
+}
+
+.weight-value {
+    color: var(--text-secondary);
+}
+
+.encumbrance-status {
+    color: var(--accent-red);
+    font-weight: 600;
+}
+
+/* =============================================================================
+   GOLD DISPLAY
+   ============================================================================= */
+
+.gold-section {
+    display: flex;
+    align-items: center;
+}
+
+.gold-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--bg-panel);
+    border: 1px solid var(--accent-gold);
+    border-radius: var(--radius-sm);
+}
+
+.gold-icon {
+    color: var(--accent-gold);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.gold-amount {
+    color: var(--accent-gold);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* =============================================================================
+   CONTEXT MENU
+   ============================================================================= */
+
+.inventory-context-menu,
+.equipment-context-menu {
+    position: fixed;
+    z-index: 2100;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xs);
+    min-width: 160px;
+    box-shadow: var(--shadow-lg);
+}
+
+.context-menu-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--accent-gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.context-menu-item {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.context-menu-item:hover {
+    background: var(--bg-hover);
+}
+
+.context-menu-item.danger {
+    color: var(--accent-red);
+}
+
+.context-menu-item.danger:hover {
+    background: rgba(231, 76, 60, 0.2);
+}
+
+/* =============================================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .inventory-body {
+        flex-direction: column;
+    }
+
+    .inventory-left-panel {
+        width: 100%;
+    }
+
+    .paper-doll-row {
+        gap: var(--spacing-xs);
+    }
+
+    .equipment-slot {
+        width: 55px;
+        height: 55px;
+    }
+
+    .slot-spacer {
+        width: 55px;
+        height: 55px;
+    }
+
+    .inventory-cell {
+        width: 50px;
+        height: 50px;
+    }
+
+    .inventory-footer {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .encumbrance-section {
+        width: 100%;
+    }
+
+    .item-tooltip {
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .inventory-modal-content {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+    }
+
+    .inventory-filters {
+        flex-wrap: wrap;
+    }
+
+    .equipment-slot {
+        width: 48px;
+        height: 48px;
+    }
+
+    .slot-spacer {
+        width: 48px;
+        height: 48px;
+    }
+
+    .inventory-cell {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* =============================================================================
+   DRAG AND DROP VISUAL FEEDBACK
+   ============================================================================= */
+
+.inventory-modal.dragging-item {
+    cursor: grabbing;
+}
+
+.equipment-slot.drag-over {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: var(--accent-green);
+}
+
+.inventory-cell.drag-over {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: var(--accent-green);
+}
+
+/* =============================================================================
+   RARITY UTILITY CLASSES
+   ============================================================================= */
+
+.rarity-common { --rarity-color: var(--rarity-common); }
+.rarity-uncommon { --rarity-color: var(--rarity-uncommon); }
+.rarity-rare { --rarity-color: var(--rarity-rare); }
+.rarity-very-rare { --rarity-color: var(--rarity-very-rare); }
+.rarity-legendary { --rarity-color: var(--rarity-legendary); }
+.rarity-artifact { --rarity-color: var(--rarity-artifact); }
+
+/* =============================================================================
+   ARMOR-SPECIFIC TOOLTIP STYLES
+   ============================================================================= */
+
+/* Strength Requirement Warning */
+.str-warning {
+    color: var(--accent-red);
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Armor Don/Doff Times */
+.armor-times {
+    margin-top: var(--spacing-xs);
+    padding-top: var(--spacing-xs);
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.armor-times .stat-row {
+    font-size: 0.8rem;
+}
+
+.armor-times .stat-icon {
+    color: var(--text-muted);
+}
+
+.armor-times .stat-value {
+    color: var(--text-secondary);
+    font-weight: normal;
+}
+
+/* =============================================================================
+   ENCUMBRANCE STATUS INDICATORS
+   ============================================================================= */
+
+/* Speed Penalty Display */
+.encumbrance-status.normal {
+    color: var(--accent-green);
+}
+
+.encumbrance-status.encumbered {
+    color: var(--hp-mid);
+}
+
+.encumbrance-status.encumbered::after {
+    content: " (-10ft speed)";
+    font-size: 0.75rem;
+}
+
+.encumbrance-status.heavily-encumbered {
+    color: var(--accent-red);
+}
+
+.encumbrance-status.heavily-encumbered::after {
+    content: " (-20ft, disadvantage)";
+    font-size: 0.7rem;
+}
+
+/* Combat Mode Armor Lock */
+.equipment-slot.combat-locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.equipment-slot.combat-locked::after {
+    content: "In Combat";
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    color: var(--accent-red);
+    white-space: nowrap;
+}
+
+.equipment-slot.combat-locked:hover {
+    border-color: var(--accent-red);
+}
+
+/* Armor Change Warning Toast */
+.armor-change-warning {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    z-index: 3000;
+    box-shadow: var(--shadow-lg);
+    animation: warningSlideUp 0.3s ease-out;
+}
+
+@keyframes warningSlideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* =============================================================================
+   SHOP MODAL
+   ============================================================================= */
+
+.shop-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-modal.hidden {
+    display: none;
+}
+
+.shop-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.shop-modal-content {
+    position: relative;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xl);
+}
+
+.shop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.shop-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.shop-gold {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: var(--radius-md);
+}
+
+.gold-icon {
+    font-size: 1.2rem;
+}
+
+.gold-amount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffd700;
+}
+
+.gold-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.shop-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    line-height: 1;
+}
+
+.shop-close-btn:hover {
+    color: var(--text-primary);
+}
+
+.shop-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    overflow: hidden;
+    flex: 1;
+}
+
+.shop-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.panel-title {
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    background: var(--bg-hover);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.shop-items,
+.player-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--rarity-color, var(--rarity-common));
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-xs);
+    transition: background 0.2s ease;
+}
+
+.shop-item:hover {
+    background: var(--bg-hover);
+}
+
+.shop-item .item-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.shop-item .item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.shop-item .item-name {
+    font-weight: 500;
+    color: var(--rarity-color, var(--text-primary));
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shop-item .item-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.shop-item .item-price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.shop-item .price-amount {
+    font-weight: 600;
+    color: #ffd700;
+}
+
+.shop-item .price-currency {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.shop-item .sell-price {
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.shop-item .sell-price .price-amount {
+    color: var(--accent-green);
+}
+
+.buy-btn,
+.sell-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.buy-btn {
+    background: var(--accent-color);
+    color: var(--bg-primary);
+}
+
+.buy-btn:hover {
+    background: var(--accent-hover);
+}
+
+.sell-btn {
+    background: var(--accent-green);
+    color: var(--bg-primary);
+}
+
+.sell-btn:hover {
+    background: #27ae60;
+}
+
+.stock-info {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.no-items {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.shop-footer {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.shop-owner {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .shop-body {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+}

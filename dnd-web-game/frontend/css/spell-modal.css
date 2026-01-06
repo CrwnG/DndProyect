@@ -1,0 +1,659 @@
+/* ========================================
+   D&D Spell Modal Styles
+   BG3-inspired spell selection UI
+   ======================================== */
+
+/* Modal Base */
+.spell-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spell-modal.hidden {
+    display: none;
+}
+
+.spell-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 0;
+}
+
+/* Modal Content */
+.spell-modal-content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 900px;
+    max-height: 85vh;
+    background: linear-gradient(180deg, rgb(20, 20, 35) 0%, rgb(15, 15, 30) 100%);
+    border: 2px solid var(--accent-gold, #d4af37);
+    border-radius: 12px;
+    box-shadow:
+        0 0 40px rgba(212, 175, 55, 0.3),
+        0 10px 60px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Modal Header */
+.spell-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+}
+
+.spell-modal .modal-header h2 {
+    margin: 0;
+    color: var(--accent-gold, #d4af37);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.spell-modal .modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted, #888);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.spell-modal .modal-close:hover {
+    color: var(--accent-red, #e74c3c);
+}
+
+/* Modal Body */
+.spell-modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+/* Spell Slots Bar */
+.spell-slots-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.slots-label {
+    color: var(--text-muted, #888);
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+}
+
+.no-slots {
+    color: var(--text-muted, #888);
+    font-style: italic;
+}
+
+.slot-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.slot-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #aaa);
+    min-width: 28px;
+}
+
+.slot-pips {
+    display: flex;
+    gap: 3px;
+}
+
+.slot-pip {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-blue, #3498db);
+    transition: all 0.2s;
+}
+
+.slot-pip.available {
+    background: var(--accent-blue, #3498db);
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.6);
+}
+
+.slot-pip.used {
+    background: transparent;
+    opacity: 0.4;
+}
+
+/* Spell Tabs */
+.spell-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.spell-tab {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #aaa);
+    transition: all 0.2s;
+}
+
+.spell-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.spell-tab.active {
+    background: var(--accent-blue, #3498db);
+    border-color: var(--accent-blue, #3498db);
+    color: white;
+}
+
+/* Main Content Layout */
+.spell-main-content {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1rem;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Spell Grid Container */
+.spell-grid-container {
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.spell-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Spell Section */
+.spell-section h4 {
+    color: var(--text-muted, #888);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spell-section.no-slots h4 {
+    color: var(--text-muted, #666);
+}
+
+.spell-section.hidden {
+    display: none;
+}
+
+/* Cantrips Section - Green theme for unlimited use */
+.cantrips-section {
+    background: rgba(46, 204, 113, 0.05);
+    border: 1px solid rgba(46, 204, 113, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+.cantrips-section h4 {
+    color: var(--accent-green, #2ecc71);
+    border-bottom-color: rgba(46, 204, 113, 0.3);
+}
+
+.unlimited-badge {
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--accent-green, #2ecc71);
+    background: rgba(46, 204, 113, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+
+/* Divider between Cantrips and Leveled Spells */
+.spell-section-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1rem 0;
+    color: var(--accent-blue, #3498db);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.spell-section-divider::before,
+.spell-section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.5), transparent);
+}
+
+.spell-section-divider span {
+    padding: 0 1rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 12px;
+    padding: 4px 12px;
+}
+
+/* Leveled Spells Section - Blue theme */
+.leveled-section {
+    background: rgba(52, 152, 219, 0.05);
+    border: 1px solid rgba(52, 152, 219, 0.15);
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+.leveled-section h4 {
+    color: var(--accent-blue, #3498db);
+    border-bottom-color: rgba(52, 152, 219, 0.3);
+}
+
+.slots-available {
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--accent-blue, #3498db);
+    background: rgba(52, 152, 219, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+
+.no-slots-badge {
+    font-size: 0.75rem;
+    font-weight: normal;
+    color: var(--accent-red, #e74c3c);
+    background: rgba(231, 76, 60, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 0.5rem;
+}
+
+.spell-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+}
+
+/* Spell Card */
+.spell-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.spell-card:hover:not(.disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-blue, #3498db);
+    transform: translateY(-2px);
+}
+
+.spell-card.selected {
+    border-color: var(--accent-gold, #d4af37);
+    background: rgba(212, 175, 55, 0.15);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+.spell-card.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* On-hit spells (like Divine Smite) - Orange theme */
+.spell-card.on-hit-spell {
+    border-color: rgba(230, 126, 34, 0.4);
+    background: rgba(230, 126, 34, 0.08);
+}
+
+.spell-card.on-hit-spell:hover:not(.disabled) {
+    border-color: rgba(230, 126, 34, 0.7);
+    background: rgba(230, 126, 34, 0.15);
+}
+
+.badge.on-hit {
+    background: rgba(230, 126, 34, 0.3);
+    color: #e67e22;
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.spell-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.spell-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.spell-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary, #eee);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.spell-badges {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.spell-card .badge {
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.badge.concentration {
+    background: var(--accent-purple, #9b59b6);
+    color: white;
+}
+
+.badge.ritual {
+    background: var(--accent-green, #2ecc71);
+    color: white;
+}
+
+.spell-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--text-muted, #888);
+}
+
+.spell-level-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+/* Spell Details Panel */
+.spell-details-panel {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.spell-details-panel.hidden {
+    display: none;
+}
+
+.spell-details-panel h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--accent-gold, #d4af37);
+    font-size: 1.2rem;
+}
+
+.spell-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.spell-school {
+    color: var(--accent-blue, #3498db);
+    text-transform: capitalize;
+}
+
+.spell-level-text {
+    color: var(--text-secondary, #aaa);
+}
+
+.spell-info {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.spell-info > div {
+    margin: 0.3rem 0;
+    color: var(--text-secondary, #aaa);
+}
+
+.spell-info strong {
+    color: var(--text-primary, #eee);
+}
+
+.spell-description {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary, #aaa);
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 0.75rem;
+    flex: 1;
+}
+
+.spell-higher-levels {
+    font-size: 0.8rem;
+    color: var(--accent-purple, #9b59b6);
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(155, 89, 182, 0.1);
+    border-radius: 4px;
+}
+
+.spell-higher-levels.hidden {
+    display: none;
+}
+
+/* Slot Selector */
+.slot-selector {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.slot-selector.hidden {
+    display: none;
+}
+
+.slot-selector label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #aaa);
+}
+
+.slot-selector select {
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--text-primary, #eee);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.slot-selector select:focus {
+    outline: none;
+    border-color: var(--accent-blue, #3498db);
+}
+
+/* Cast Button */
+.btn-cast {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(135deg, var(--accent-blue, #3498db), var(--accent-purple, #9b59b6));
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-cast:hover:not(:disabled) {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.5);
+}
+
+.btn-cast:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* No Spells / Error States */
+.no-spells,
+.spell-error {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted, #888);
+    font-style: italic;
+}
+
+.spell-error {
+    color: var(--accent-red, #e74c3c);
+}
+
+/* Scrollbar Styling */
+.spell-grid-container::-webkit-scrollbar,
+.spell-description::-webkit-scrollbar,
+.spell-details-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.spell-grid-container::-webkit-scrollbar-track,
+.spell-description::-webkit-scrollbar-track,
+.spell-details-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.spell-grid-container::-webkit-scrollbar-thumb,
+.spell-description::-webkit-scrollbar-thumb,
+.spell-details-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.spell-grid-container::-webkit-scrollbar-thumb:hover,
+.spell-description::-webkit-scrollbar-thumb:hover,
+.spell-details-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Concentration Warning */
+.concentration-warning {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    margin: 12px 0;
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.2) 100%);
+    border: 1px solid rgba(231, 76, 60, 0.5);
+    border-radius: 6px;
+    color: #f5b7b1;
+    font-size: 0.85rem;
+}
+
+.concentration-warning .warning-icon {
+    font-size: 1.1rem;
+}
+
+.concentration-warning strong {
+    color: #e74c3c;
+}
+
+/* Ritual Info */
+.ritual-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    margin: 12px 0;
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(142, 68, 173, 0.15) 100%);
+    border: 1px solid rgba(155, 89, 182, 0.4);
+    border-radius: 6px;
+    color: #d2b4de;
+    font-size: 0.85rem;
+}
+
+.ritual-info .ritual-icon {
+    font-size: 1.1rem;
+}
+
+/* Upcast Preview */
+.upcast-preview {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(39, 174, 96, 0.15) 100%);
+    border: 1px solid rgba(46, 204, 113, 0.4);
+    border-radius: 6px;
+    color: #a9dfbf;
+    font-size: 0.85rem;
+}
+
+.upcast-preview .upcast-label {
+    font-weight: 600;
+    color: #2ecc71;
+    margin-right: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spell-main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .spell-details-panel {
+        order: -1;
+        max-height: 200px;
+    }
+
+    .spell-cards {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+}

@@ -1,0 +1,533 @@
+{
+  "rarity": "Very Rare",
+  "source": "2024 Dungeon Master's Guide",
+  "description": "Very Rare magic items are extremely powerful and valuable. They typically cost 5,000-50,000 GP and are found only in the most significant treasure hoards.",
+  "items": [
+    {
+      "id": "amulet_of_the_planes",
+      "name": "Amulet of the Planes",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this amulet, you can use an action to name a location that you are familiar with on another plane of existence. Then make a DC 15 Intelligence check. On a successful check, you cast the Plane Shift spell. On a failure, you and each creature and object within 15 feet of you travel to a random destination."
+    },
+    {
+      "id": "animated_shield",
+      "name": "Animated Shield",
+      "type": "Armor (shield)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While holding this shield, you can speak its command word as a Bonus Action to cause it to animate. The shield leaps into the air and hovers in your space to protect you as if you were wielding it, leaving your hands free. The shield remains animated for 1 minute, until you use a Bonus Action to end this effect, or until you are Incapacitated or die."
+    },
+    {
+      "id": "armor_plus_2",
+      "name": "Armor, +2",
+      "type": "Armor (light, medium, or heavy)",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "You have a +2 bonus to AC while wearing this armor."
+    },
+    {
+      "id": "bag_of_devouring",
+      "name": "Bag of Devouring",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This bag superficially resembles a Bag of Holding but is actually an extradimensional creature's feeding orifice. Reaching into the bag exposes the attacker to 2d6 Piercing damage. Any creature inside the bag is devoured and killed. An Identify spell reveals the bag's true nature."
+    },
+    {
+      "id": "belt_of_fire_giant_strength",
+      "name": "Belt of Fire Giant Strength",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this belt, your Strength score changes to 25. If your Strength is already equal to or greater than the belt's score, the item has no effect on you."
+    },
+    {
+      "id": "belt_of_frost_giant_strength",
+      "name": "Belt of Frost Giant Strength",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this belt, your Strength score changes to 23. If your Strength is already equal to or greater than the belt's score, the item has no effect on you."
+    },
+    {
+      "id": "candle_of_invocation",
+      "name": "Candle of Invocation",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This slender taper is dedicated to a deity and shares that deity's alignment. The candle's alignment can be detected with the Detect Evil and Good spell. The DM chooses the god and alignment or determines randomly. The candle's magic is activated when the candle is lit. For 4 hours, the candle provides Dim Light in a 30-foot radius. Any creature within that light whose alignment matches that of the candle makes attack rolls, saving throws, and ability checks with Advantage."
+    },
+    {
+      "id": "carpet_of_flying",
+      "name": "Carpet of Flying",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "You can speak the carpet's command word as an action to make the carpet hover and fly. It moves according to your spoken directions. Sizes vary: 3x5 ft (200 lb capacity, 80 ft fly), 4x6 ft (400 lb, 60 ft), 5x7 ft (600 lb, 40 ft), 6x9 ft (800 lb, 30 ft)."
+    },
+    {
+      "id": "cloak_of_arachnida",
+      "name": "Cloak of Arachnida",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This fine garment is made of black silk interwoven with faint silvery threads. While wearing it, you gain the following benefits: You have Resistance to Poison damage. You have a Climb Speed equal to your walking speed. You can move up, down, and across vertical surfaces and upside down along ceilings, while leaving your hands free. You can't be caught in webs and can move through webs as if they were Difficult Terrain."
+    },
+    {
+      "id": "crystal_ball",
+      "name": "Crystal Ball",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This crystal ball is about 6 inches in diameter. While touching it, you can cast the Scrying spell (save DC 17) with it."
+    },
+    {
+      "id": "dancing_sword",
+      "name": "Dancing Sword",
+      "type": "Weapon (any sword)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "You can use a Bonus Action to toss this magic sword into the air and speak the command word. When you do so, the sword begins to hover, flies up to 30 feet, and attacks one creature of your choice within 5 feet of it. The sword uses your attack roll and ability score modifier to damage rolls. While the sword hovers, you can use a Bonus Action to cause it to fly up to 30 feet and attack again."
+    },
+    {
+      "id": "demon_armor",
+      "name": "Demon Armor",
+      "type": "Armor (plate)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this armor, you gain a +1 bonus to AC, and you can understand and speak Abyssal. The armor's clawed gauntlets turn Unarmed Strikes with your hands into magic weapons that deal 1d8 Slashing damage and have a +1 bonus to attack and damage rolls. Cursed: Once you don this cursed armor, you can't doff it unless you are targeted by the Remove Curse spell."
+    },
+    {
+      "id": "dragon_slayer",
+      "name": "Dragon Slayer",
+      "type": "Weapon (any sword)",
+      "rarity": "Rare",
+      "attunement": false,
+      "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon. When you hit a Dragon with this weapon, the dragon takes an extra 3d6 damage of the weapon's type."
+    },
+    {
+      "id": "dwarven_plate",
+      "name": "Dwarven Plate",
+      "type": "Armor (plate)",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "While wearing this armor, you gain a +2 bonus to AC. In addition, if an effect moves you against your will along the ground, you can use your Reaction to reduce the distance you are moved by up to 10 feet."
+    },
+    {
+      "id": "dwarven_thrower",
+      "name": "Dwarven Thrower",
+      "type": "Weapon (warhammer)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Dwarf",
+      "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. It has the Thrown property with a normal range of 20 feet and a long range of 60 feet. When you hit with a ranged attack using this weapon, it deals an extra 1d8 damage or, if the target is a Giant, 2d8 damage. Immediately after the attack, the weapon flies back to your hand."
+    },
+    {
+      "id": "efreeti_bottle",
+      "name": "Efreeti Bottle",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This painted brass bottle weighs 1 pound. When you use an action to remove the stopper, a cloud of thick smoke flows out of the bottle. At the end of your turn, roll on the table to determine what happens."
+    },
+    {
+      "id": "elven_chain_plus_1",
+      "name": "Elven Chain",
+      "type": "Armor (chain shirt)",
+      "rarity": "Rare",
+      "attunement": false,
+      "description": "You gain a +1 bonus to AC while you wear this armor. You are considered proficient with this armor even if you lack proficiency with medium armor."
+    },
+    {
+      "id": "figurine_of_wondrous_power_obsidian_steed",
+      "name": "Figurine of Wondrous Power (Obsidian Steed)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This obsidian statuette can become a Nightmare for up to 24 hours. The nightmare fights only to defend itself. If you have a good alignment, there is a 10% chance each time you use the figurine that the nightmare ignores your orders, including a command to revert."
+    },
+    {
+      "id": "frost_brand",
+      "name": "Frost Brand",
+      "type": "Weapon (any sword)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "When you hit with an attack using this magic sword, the target takes an extra 1d6 Cold damage. In addition, while you hold the sword, you have Resistance to Fire damage. In freezing temperatures, the blade sheds Bright Light in a 10-foot radius and Dim Light for an additional 10 feet. When you draw this weapon, you can extinguish all nonmagical flames within 30 feet of you (no action required)."
+    },
+    {
+      "id": "helm_of_brilliance",
+      "name": "Helm of Brilliance",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This dazzling helm is set with 1d10 diamonds, 2d10 rubies, 3d10 fire opals, and 4d10 opals. Any gem pried from the helm crumbles to dust. When all the gems are removed or destroyed, the helm loses its magic. You gain the following benefits while wearing it: You have Resistance to Fire damage. You can use an action to cast spells (consuming gems): Daylight (opal), Fireball (fire opal), Prismatic Spray (diamond), Wall of Fire (ruby)."
+    },
+    {
+      "id": "horn_of_valhalla_bronze",
+      "name": "Horn of Valhalla (Bronze)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "You can use an action to blow this horn. In response, warrior spirits from the Valhalla appear within 60 feet of you. They use the Berserker statistics and return to Valhalla after 1 hour or when they drop to 0 Hit Points. Bronze: 4d4+4 Berserkers. You must be proficient with all martial weapons."
+    },
+    {
+      "id": "horseshoes_of_the_zephyr",
+      "name": "Horseshoes of a Zephyr",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "These iron horseshoes come in a set of four. While all four shoes are affixed to the hooves of a horse or similar creature, they allow the creature to move normally while floating 4 inches above the ground. This effect means the creature can cross or stand above nonsolid or unstable surfaces. The creature leaves no tracks and ignores Difficult Terrain. In addition, the creature can move at normal speed for up to 12 hours a day without tiring."
+    },
+    {
+      "id": "ioun_stone_absorption",
+      "name": "Ioun Stone (Absorption)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Pale lavender ellipsoid. While this stone orbits your head, you can use your Reaction to cancel a spell of 4th level or lower cast by a creature you can see. Once the stone has canceled 20 levels of spells, it burns out and turns dull gray."
+    },
+    {
+      "id": "ioun_stone_agility",
+      "name": "Ioun Stone (Agility)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Deep red sphere. Your Dexterity score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_fortitude",
+      "name": "Ioun Stone (Fortitude)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Pink rhomboid. Your Constitution score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_insight",
+      "name": "Ioun Stone (Insight)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Incandescent blue sphere. Your Wisdom score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_intellect",
+      "name": "Ioun Stone (Intellect)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Marbled scarlet and blue sphere. Your Intelligence score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_leadership",
+      "name": "Ioun Stone (Leadership)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Marbled pink and green sphere. Your Charisma score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_strength",
+      "name": "Ioun Stone (Strength)",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "Pale blue rhomboid. Your Strength score increases by 2, to a maximum of 20, while this ioun stone orbits your head."
+    },
+    {
+      "id": "manual_of_bodily_health",
+      "name": "Manual of Bodily Health",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book contains health and diet tips, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Constitution score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "manual_of_gainful_exercise",
+      "name": "Manual of Gainful Exercise",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book describes fitness exercises, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Strength score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "manual_of_golems",
+      "name": "Manual of Golems",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This tome contains information and incantations necessary to make a particular type of golem. The DM chooses the type or determines it randomly. To decipher and use the manual, you must be a spellcaster with at least two 5th-level spell slots."
+    },
+    {
+      "id": "manual_of_quickness_of_action",
+      "name": "Manual of Quickness of Action",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book contains coordination and balance exercises, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Dexterity score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "mirror_of_life_trapping",
+      "name": "Mirror of Life Trapping",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When this 4-foot-tall mirror is viewed indirectly, its surface shows faint images of creatures. The mirror weighs 50 pounds and has AC 11, 10 Hit Points, and Vulnerability to Bludgeoning damage. It shatters and is destroyed when reduced to 0 Hit Points. Any creature other than you that sees its reflection in the mirror must succeed on a DC 15 Charisma save or be trapped, along with anything it is wearing or carrying, in one of twelve extradimensional cells."
+    },
+    {
+      "id": "nine_lives_stealer",
+      "name": "Nine Lives Stealer",
+      "type": "Weapon (any sword)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "You gain a +2 bonus to attack and damage rolls made with this magic weapon. The sword has 1d8 + 1 charges. If you score a Critical Hit against a creature that has fewer than 100 Hit Points, it must succeed on a DC 15 Constitution save or be slain instantly as the sword tears its life force from its body (a Construct or an Undead is immune). The sword loses 1 charge if the creature is slain."
+    },
+    {
+      "id": "oathbow",
+      "name": "Oathbow",
+      "type": "Weapon (longbow)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "When you nock an arrow on this bow, it whispers 'Swift defeat to my enemies.' When you use this weapon to make a ranged attack, you can speak the command phrase: 'Swift death to you who have wronged me.' The target becomes your sworn enemy. You have Advantage on attack rolls against it with this weapon. While your sworn enemy lives, you have Disadvantage on attack rolls with all other weapons."
+    },
+    {
+      "id": "potion_of_cloud_giant_strength",
+      "name": "Potion of Cloud Giant Strength",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When you drink this potion, your Strength score changes to 27 for 1 hour. The potion has no effect on you if your Strength is equal to or greater than that score."
+    },
+    {
+      "id": "potion_of_flying",
+      "name": "Potion of Flying",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When you drink this potion, you gain a flying speed equal to your walking speed for 1 hour and can hover. If you're in the air when the potion wears off, you fall unless you have some other means of staying aloft."
+    },
+    {
+      "id": "potion_of_invisibility",
+      "name": "Potion of Invisibility",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This potion's container looks empty but feels as though it holds liquid. When you drink it, you become Invisible for 1 hour. Anything you wear or carry is invisible with you. The effect ends early if you attack or cast a spell."
+    },
+    {
+      "id": "potion_of_longevity",
+      "name": "Potion of Longevity",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When you drink this potion, your physical age is reduced by 1d6 + 6 years, to a minimum of 13 years. Each time you subsequently drink a potion of longevity, there is a 10 percent cumulative chance that you instead age by 1d6 + 6 years."
+    },
+    {
+      "id": "potion_of_speed",
+      "name": "Potion of Speed",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When you drink this potion, you gain the effect of the Haste spell for 1 minute (no concentration required). The potion's yellow fluid is streaked with black and swirls on its own."
+    },
+    {
+      "id": "potion_of_supreme_healing",
+      "name": "Potion of Supreme Healing",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "You regain 10d4 + 20 Hit Points when you drink this potion. The potion's red liquid glimmers when agitated."
+    },
+    {
+      "id": "potion_of_vitality",
+      "name": "Potion of Vitality",
+      "type": "Potion",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "When you drink this potion, it removes any exhaustion you are suffering and cures any disease or poison affecting you. For the next 24 hours, you regain the maximum number of Hit Points for any Hit Die you spend. The potion's crimson liquid regularly pulses with dull light, calling to mind a heartbeat."
+    },
+    {
+      "id": "ring_of_regeneration",
+      "name": "Ring of Regeneration",
+      "type": "Ring",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this ring, you regain 1d6 Hit Points every 10 minutes, provided that you have at least 1 Hit Point. If you lose a body part, the ring causes the missing part to regrow and return to full functionality after 1d6 + 1 days if you have at least 1 Hit Point the whole time."
+    },
+    {
+      "id": "ring_of_shooting_stars",
+      "name": "Ring of Shooting Stars",
+      "type": "Ring",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "outdoors at night",
+      "description": "While wearing this ring in Dim Light or Darkness, you can cast Dancing Lights and Light from the ring at will. Casting either spell from the ring requires an action. The ring has 6 charges and regains 1d6 charges daily at dusk. You can expend charges to cast: Faerie Fire (1 charge), Ball Lightning (2 charges), Shooting Stars (1-3 charges)."
+    },
+    {
+      "id": "ring_of_telekinesis",
+      "name": "Ring of Telekinesis",
+      "type": "Ring",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While wearing this ring, you can cast the Telekinesis spell at will, but you can target only objects that aren't being worn or carried."
+    },
+    {
+      "id": "robe_of_scintillating_colors",
+      "name": "Robe of Scintillating Colors",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This robe has 3 charges and regains 1d3 charges daily at dawn. While you wear it, you can use an action and expend 1 charge to cause the garment to display a shifting pattern of dazzling hues until the end of your next turn. During this time, the robe sheds Bright Light in a 30-foot radius and Dim Light for an additional 30 feet. Creatures that can see you have Disadvantage on attack rolls against you."
+    },
+    {
+      "id": "robe_of_stars",
+      "name": "Robe of Stars",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This black or dark blue robe is embroidered with small white or silver stars. You gain a +1 bonus to saving throws while you wear it. Six stars on the front of the robe are larger than the others. You can use an action to pull off one of the stars and use it to cast Magic Missile as a 5th-level spell. You can also enter the Astral Plane."
+    },
+    {
+      "id": "rod_of_absorption",
+      "name": "Rod of Absorption",
+      "type": "Rod",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While holding this rod, you can use your Reaction to absorb a spell that is targeting only you and not with an area of effect. The absorbed spell's effect is canceled, and the spell's energy is stored in the rod. The energy has the same level as the spell when it was cast. The rod can absorb and store up to 50 levels of energy."
+    },
+    {
+      "id": "rod_of_alertness",
+      "name": "Rod of Alertness",
+      "type": "Rod",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This rod has a flanged head and the following properties: Alertness (while holding, Advantage on Initiative and Perception). Spells (the rod has 10 charges for spells). Protective Aura (as an action, plant the rod in the ground to create a 60-foot-radius barrier against teleportation and planar travel)."
+    },
+    {
+      "id": "rod_of_security",
+      "name": "Rod of Security",
+      "type": "Rod",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "While holding this rod, you can use an action to activate it. The rod then instantly transports you and up to 199 other willing creatures to a paradise that exists in an extraplanar space. You choose the form the paradise takes. Regardless of its nature, the paradise contains enough water and food to sustain its visitors."
+    },
+    {
+      "id": "rod_of_the_pact_keeper_plus_2",
+      "name": "Rod of the Pact Keeper, +2",
+      "type": "Rod",
+      "rarity": "Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Warlock",
+      "description": "While holding this rod, you gain a +2 bonus to spell attack rolls and to the saving throw DCs of your warlock spells. In addition, you can regain one warlock spell slot as an action while holding the rod. You can't use this property again until you finish a Long Rest."
+    },
+    {
+      "id": "scimitar_of_speed",
+      "name": "Scimitar of Speed",
+      "type": "Weapon (scimitar)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "You gain a +2 bonus to attack and damage rolls made with this magic weapon. In addition, you can make one attack with it as a Bonus Action on each of your turns."
+    },
+    {
+      "id": "shield_plus_2",
+      "name": "Shield, +2",
+      "type": "Armor (shield)",
+      "rarity": "Rare",
+      "attunement": false,
+      "description": "While holding this shield, you have a +2 bonus to AC. This bonus is in addition to the shield's normal bonus to AC."
+    },
+    {
+      "id": "spellguard_shield",
+      "name": "Spellguard Shield",
+      "type": "Armor (shield)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "While holding this shield, you have Advantage on saving throws against spells and other magical effects, and spell attacks have Disadvantage against you."
+    },
+    {
+      "id": "staff_of_fire",
+      "name": "Staff of Fire",
+      "type": "Staff",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Druid, Sorcerer, Warlock, or Wizard",
+      "description": "You have Resistance to Fire damage while you hold this staff. The staff has 10 charges. While holding it, you can use an action to expend 1 or more charges to cast one of the following spells: Burning Hands (1 charge), Fireball (3 charges), Wall of Fire (4 charges). The staff regains 1d6 + 4 charges daily at dawn."
+    },
+    {
+      "id": "staff_of_frost",
+      "name": "Staff of Frost",
+      "type": "Staff",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Druid, Sorcerer, Warlock, or Wizard",
+      "description": "You have Resistance to Cold damage while you hold this staff. The staff has 10 charges. While holding it, you can use an action to expend 1 or more charges to cast one of the following spells: Cone of Cold (5 charges), Fog Cloud (1 charge), Ice Storm (4 charges), Wall of Ice (4 charges). The staff regains 1d6 + 4 charges daily at dawn."
+    },
+    {
+      "id": "staff_of_power",
+      "name": "Staff of Power",
+      "type": "Staff",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Sorcerer, Warlock, or Wizard",
+      "description": "This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls. While holding it, you gain a +2 bonus to AC, saving throws, and spell attack rolls. The staff has 20 charges for spellcasting. The staff regains 2d8 + 4 charges daily at dawn. Retributive Strike: Break the staff to create an explosion."
+    },
+    {
+      "id": "staff_of_striking",
+      "name": "Staff of Striking",
+      "type": "Staff",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This staff can be wielded as a magic quarterstaff that grants a +3 bonus to attack and damage rolls made with it. The staff has 10 charges. When you hit with a melee attack using it, you can expend up to 3 charges. For each charge you expend, the target takes an extra 1d6 Force damage. The staff regains 1d6 + 4 charges daily at dawn."
+    },
+    {
+      "id": "staff_of_thunder_and_lightning",
+      "name": "Staff of Thunder and Lightning",
+      "type": "Staff",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls. It also has the following additional properties: Lightning (5d6), Thunder (deafen), Lightning Strike (9d6), Thunderclap (2d6 + Stunned), Thunder and Lightning (combine both)."
+    },
+    {
+      "id": "sword_of_sharpness",
+      "name": "Sword of Sharpness",
+      "type": "Weapon (any sword that deals slashing damage)",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "description": "When you attack an object with this magic sword and hit, maximize your weapon damage dice against the target. When you attack a creature with this weapon and roll a 20 on the attack roll, that target takes an extra 4d6 Slashing damage. Then roll another d20. If you roll a 20, you lop off one of the target's limbs."
+    },
+    {
+      "id": "tome_of_clear_thought",
+      "name": "Tome of Clear Thought",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book contains memory and logic exercises, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Intelligence score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "tome_of_leadership_and_influence",
+      "name": "Tome of Leadership and Influence",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book contains guidelines for influencing and charming others, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Charisma score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "tome_of_understanding",
+      "name": "Tome of Understanding",
+      "type": "Wondrous Item",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "This book contains intuition and insight exercises, and its words are charged with magic. If you spend 48 hours over a period of 6 days or fewer studying the book's contents, your Wisdom score increases by 2, as does your maximum for that score. The manual then loses its magic but regains it in a century."
+    },
+    {
+      "id": "weapon_plus_3",
+      "name": "Weapon, +3",
+      "type": "Weapon (any)",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "You have a +3 bonus to attack and damage rolls made with this magic weapon."
+    }
+  ]
+}

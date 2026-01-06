@@ -1,0 +1,59 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "size": "medium",
+  "type": "undead",
+  "alignment": "lawful evil",
+  "armor_class": 13,
+  "hit_dice": "2d8+4",
+  "hit_points_average": 13,
+  "speed": 30,
+  "abilities": {
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 15,
+    "intelligence": 6,
+    "wisdom": 8,
+    "charisma": 5
+  },
+  "damage_vulnerabilities": ["bludgeoning"],
+  "damage_immunities": ["poison"],
+  "condition_immunities": ["exhaustion", "poisoned"],
+  "senses": {
+    "darkvision": 60,
+    "passive_perception": 9
+  },
+  "languages": ["understands languages it knew in life but can't speak"],
+  "challenge_rating": 0.25,
+  "xp": 50,
+  "traits": [],
+  "actions": [
+    {
+      "id": "shortsword",
+      "name": "Shortsword",
+      "type": "melee_weapon",
+      "attack_bonus": 4,
+      "reach": 5,
+      "damage": "1d6+2",
+      "damage_type": "piercing"
+    },
+    {
+      "id": "shortbow",
+      "name": "Shortbow",
+      "type": "ranged_weapon",
+      "attack_bonus": 4,
+      "range": 80,
+      "long_range": 320,
+      "damage": "1d6+2",
+      "damage_type": "piercing"
+    }
+  ],
+  "ai_behavior": {
+    "preferred_range": "mixed",
+    "flee_threshold": 0,
+    "uses_cover": false,
+    "target_priority": ["nearest", "lowest_ac"],
+    "tactics": "Skeletons fight mindlessly until destroyed. They follow simple commands but lack self-preservation instincts."
+  },
+  "sprite": "skeleton.png"
+}

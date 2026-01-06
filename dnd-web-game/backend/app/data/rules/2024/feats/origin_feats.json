@@ -1,0 +1,236 @@
+{
+  "category": "Origin Feats",
+  "description": "Origin feats are available at 1st level. You gain one Origin feat from your background.",
+  "source": "2024 Player's Handbook",
+  "feats": [
+    {
+      "id": "alert",
+      "name": "Alert",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "Always on the lookout for danger, you gain the following benefits:",
+      "benefits": [
+        {
+          "name": "Initiative Proficiency",
+          "description": "When you roll Initiative, you can add your proficiency bonus to the roll."
+        },
+        {
+          "name": "Initiative Swap",
+          "description": "Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition."
+        }
+      ]
+    },
+    {
+      "id": "crafter",
+      "name": "Crafter",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "You are adept at crafting objects and have the following benefits:",
+      "benefits": [
+        {
+          "name": "Tool Proficiency",
+          "description": "You gain proficiency with three different Artisan's Tools of your choice."
+        },
+        {
+          "name": "Discount",
+          "description": "Whenever you buy a nonmagical item, you receive a 20 percent discount on it."
+        },
+        {
+          "name": "Faster Crafting",
+          "description": "When you craft an item using a tool with which you have proficiency, the required crafting time is reduced by 20 percent."
+        }
+      ]
+    },
+    {
+      "id": "healer",
+      "name": "Healer",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "You have the training and intuition to administer first aid and other care effectively:",
+      "benefits": [
+        {
+          "name": "Battle Medic",
+          "description": "If you have a Healer's Kit, you can use it and spend one use as a Utilize action to tend to a creature within 5 feet of you. That creature can expend one of its Hit Point Dice, and you roll the die. The creature regains a number of Hit Points equal to the roll plus your proficiency bonus."
+        },
+        {
+          "name": "Healing Rerolls",
+          "description": "Whenever you roll a die to determine the number of Hit Points you restore with a spell or with the Battle Medic benefit, you can reroll the die if it rolls a 1, and you must use the new roll."
+        }
+      ]
+    },
+    {
+      "id": "lucky",
+      "name": "Lucky",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "You have inexplicable luck that can kick in at just the right moment:",
+      "benefits": [
+        {
+          "name": "Luck Points",
+          "description": "You have a number of Luck Points equal to your proficiency bonus. You regain your expended Luck Points when you finish a Long Rest."
+        },
+        {
+          "name": "Advantage",
+          "description": "You can spend 1 Luck Point immediately after you roll the d20 for a D20 Test, and you roll a d20 and choose which d20 to use."
+        },
+        {
+          "name": "Disadvantage to Others",
+          "description": "When a creature rolls a d20 for an attack roll against you, you can spend 1 Luck Point to roll a d20. If you roll a 1-10, the creature's roll is unaffected. If you roll 11-20, the attack misses, regardless of the actual roll."
+        }
+      ]
+    },
+    {
+      "id": "magic_initiate_cleric",
+      "name": "Magic Initiate (Cleric)",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": true,
+      "repeatable_note": "Choose a different spell list each time",
+      "description": "You have learned the basics of a particular magical tradition. Choose one of the following options:",
+      "benefits": [
+        {
+          "name": "Two Cantrips",
+          "description": "You learn two cantrips of your choice from the Cleric spell list."
+        },
+        {
+          "name": "1st-Level Spell",
+          "description": "You learn one 1st-level spell of your choice from the Cleric spell list. You always have it prepared. You can cast it once without expending a spell slot, and you regain the ability to do so when you finish a Long Rest. You can also cast the spell using any spell slots you have."
+        },
+        {
+          "name": "Spellcasting Ability",
+          "description": "Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells (choose when you select this feat)."
+        },
+        {
+          "name": "Spell Change",
+          "description": "Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the Cleric spell list."
+        }
+      ]
+    },
+    {
+      "id": "magic_initiate_druid",
+      "name": "Magic Initiate (Druid)",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": true,
+      "repeatable_note": "Choose a different spell list each time",
+      "description": "You have learned the basics of a particular magical tradition. Choose one of the following options:",
+      "benefits": [
+        {
+          "name": "Two Cantrips",
+          "description": "You learn two cantrips of your choice from the Druid spell list."
+        },
+        {
+          "name": "1st-Level Spell",
+          "description": "You learn one 1st-level spell of your choice from the Druid spell list. You always have it prepared. You can cast it once without expending a spell slot, and you regain the ability to do so when you finish a Long Rest. You can also cast the spell using any spell slots you have."
+        },
+        {
+          "name": "Spellcasting Ability",
+          "description": "Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells (choose when you select this feat)."
+        },
+        {
+          "name": "Spell Change",
+          "description": "Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the Druid spell list."
+        }
+      ]
+    },
+    {
+      "id": "magic_initiate_wizard",
+      "name": "Magic Initiate (Wizard)",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": true,
+      "repeatable_note": "Choose a different spell list each time",
+      "description": "You have learned the basics of a particular magical tradition. Choose one of the following options:",
+      "benefits": [
+        {
+          "name": "Two Cantrips",
+          "description": "You learn two cantrips of your choice from the Wizard spell list."
+        },
+        {
+          "name": "1st-Level Spell",
+          "description": "You learn one 1st-level spell of your choice from the Wizard spell list. You always have it prepared. You can cast it once without expending a spell slot, and you regain the ability to do so when you finish a Long Rest. You can also cast the spell using any spell slots you have."
+        },
+        {
+          "name": "Spellcasting Ability",
+          "description": "Intelligence, Wisdom, or Charisma is your spellcasting ability for these spells (choose when you select this feat)."
+        },
+        {
+          "name": "Spell Change",
+          "description": "Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the Wizard spell list."
+        }
+      ]
+    },
+    {
+      "id": "musician",
+      "name": "Musician",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "You are a practiced musician. You gain the following benefits:",
+      "benefits": [
+        {
+          "name": "Instrument Training",
+          "description": "You gain proficiency with three Musical Instruments of your choice."
+        },
+        {
+          "name": "Inspiring Song",
+          "description": "As you finish a Short or Long Rest, you can play a song on a Musical Instrument with which you have proficiency. Any ally who hears the song gains Heroic Inspiration. The number of allies you can affect in this way equals your proficiency bonus."
+        }
+      ]
+    },
+    {
+      "id": "savage_attacker",
+      "name": "Savage Attacker",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "You've trained to deal particularly devastating blows. Once per turn when you hit a target with a weapon, you can roll the weapon's damage dice twice and use either roll against the target."
+    },
+    {
+      "id": "skilled",
+      "name": "Skilled",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": true,
+      "description": "You gain proficiency in any combination of three skills or tools of your choice."
+    },
+    {
+      "id": "tavern_brawler",
+      "name": "Tavern Brawler",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "Accustomed to brawling, you gain the following benefits:",
+      "benefits": [
+        {
+          "name": "Enhanced Unarmed Strike",
+          "description": "When you hit with your Unarmed Strike and deal damage, you can deal Bludgeoning damage equal to 1d4 plus your Strength modifier instead of the normal damage of an Unarmed Strike."
+        },
+        {
+          "name": "Damage Rerolls",
+          "description": "Whenever you roll a damage die for your Unarmed Strike, you can reroll the die if it rolls a 1, and you must use the new roll."
+        },
+        {
+          "name": "Shove",
+          "description": "When you hit a creature with an Unarmed Strike as part of the Attack action on your turn, you can deal damage to the target and push it 5 feet away from you. You can use this benefit only once per turn."
+        },
+        {
+          "name": "Furniture as Weapons",
+          "description": "You can wield furniture as a weapon using the statistics of a Club for Small furniture or a Greatclub for Medium or larger furniture."
+        }
+      ]
+    },
+    {
+      "id": "tough",
+      "name": "Tough",
+      "category": "Origin",
+      "prerequisite": null,
+      "repeatable": false,
+      "description": "Your Hit Point maximum increases by an amount equal to twice your character level when you gain this feat. Whenever you gain a character level thereafter, your Hit Point maximum increases by an additional 2 Hit Points."
+    }
+  ]
+}

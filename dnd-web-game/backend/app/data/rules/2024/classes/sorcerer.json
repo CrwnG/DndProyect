@@ -1,0 +1,419 @@
+{
+  "id": "sorcerer",
+  "name": "Sorcerer",
+  "source": "2024 Player's Handbook",
+  "description": "A spellcaster who draws on inherent magic from a gift or bloodline.",
+  "hit_die": "d6",
+  "primary_ability": "charisma",
+  "saving_throw_proficiencies": ["constitution", "charisma"],
+  "armor_proficiencies": [],
+  "weapon_proficiencies": ["simple_weapons"],
+  "tool_proficiencies": [],
+  "skill_proficiencies": {
+    "choose": 2,
+    "from": ["arcana", "deception", "insight", "intimidation", "persuasion", "religion"]
+  },
+  "starting_equipment": {
+    "options": [
+      ["spear", "component_pouch", "dungoneers_pack", "two_daggers"],
+      ["spear", "arcane_focus", "explorers_pack", "two_daggers"]
+    ],
+    "gold_alternative": "3d4 x 10 gp"
+  },
+  "multiclass_requirements": {
+    "ability_minimum": {"charisma": 13}
+  },
+  "spellcasting": {
+    "ability": "charisma",
+    "focus": ["arcane_focus", "component_pouch"],
+    "ritual_casting": false,
+    "spells_known": {
+      "1": 4,
+      "2": 5,
+      "3": 6,
+      "4": 7,
+      "5": 8,
+      "6": 9,
+      "7": 10,
+      "8": 11,
+      "9": 12,
+      "10": 14,
+      "11": 15,
+      "12": 15,
+      "13": 16,
+      "14": 16,
+      "15": 17,
+      "16": 17,
+      "17": 18,
+      "18": 18,
+      "19": 19,
+      "20": 20
+    },
+    "cantrips_known": {
+      "1": 4,
+      "4": 5,
+      "10": 6
+    },
+    "spell_slots": {
+      "1": {"1": 2},
+      "2": {"1": 3},
+      "3": {"1": 4, "2": 2},
+      "4": {"1": 4, "2": 3},
+      "5": {"1": 4, "2": 3, "3": 2},
+      "6": {"1": 4, "2": 3, "3": 3},
+      "7": {"1": 4, "2": 3, "3": 3, "4": 1},
+      "8": {"1": 4, "2": 3, "3": 3, "4": 2},
+      "9": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 1},
+      "10": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2},
+      "11": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+      "12": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+      "13": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+      "14": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+      "15": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+      "16": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+      "17": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 1},
+      "18": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 1, "7": 1, "8": 1, "9": 1},
+      "19": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 1, "8": 1, "9": 1},
+      "20": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 2, "8": 1, "9": 1}
+    }
+  },
+  "class_features": [
+    {
+      "id": "spellcasting_sorcerer",
+      "name": "Spellcasting",
+      "level": 1,
+      "description": "An event in your past, or in the life of a parent or ancestor, left an indelible mark on you, infusing you with Arcane Magic. This font of magic, whatever its origin, fuels your spells. Charisma is your spellcasting ability."
+    },
+    {
+      "id": "innate_sorcery",
+      "name": "Innate Sorcery",
+      "level": 1,
+      "description": "An event in your past left an indelible mark on you, infusing you with simmering magic. As a Bonus Action, you can unleash that magic for 1 minute, during which you gain Advantage on Charisma checks. In addition, the saving throw DC for your Sorcerer spells and your spell attack modifier both increase by 1. You can use this feature twice, and you regain all expended uses when you finish a Long Rest.",
+      "uses_per_long_rest": 2,
+      "notes_2024": "This replaces Font of Magic at 1st level in 2024 rules."
+    },
+    {
+      "id": "font_of_magic",
+      "name": "Font of Magic",
+      "level": 2,
+      "description": "You tap into a deep wellspring of magic within yourself. This wellspring is represented by Sorcery Points, which allow you to create a variety of magical effects.",
+      "sorcery_points_by_level": {
+        "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+        "11": 11, "12": 12, "13": 13, "14": 14, "15": 15, "16": 16, "17": 17, "18": 18, "19": 19, "20": 20
+      },
+      "abilities": [
+        {
+          "name": "Converting Spell Slots to Sorcery Points",
+          "description": "As a Bonus Action, you can expend one spell slot and gain a number of Sorcery Points equal to the slot's level."
+        },
+        {
+          "name": "Creating Spell Slots",
+          "description": "As a Bonus Action, you can transform unexpended Sorcery Points into one spell slot. The cost is: 1st (2 points), 2nd (3 points), 3rd (5 points), 4th (6 points), 5th (7 points). Created slots vanish at the end of a Long Rest."
+        }
+      ]
+    },
+    {
+      "id": "metamagic",
+      "name": "Metamagic",
+      "level": 2,
+      "description": "You gain the ability to twist your spells to suit your needs. You gain two Metamagic options of your choice. You gain additional options at 10th level (1 more) and 17th level (1 more).",
+      "options": [
+        {
+          "id": "careful_spell",
+          "name": "Careful Spell",
+          "cost": 1,
+          "description": "When you cast a spell that forces other creatures to make a saving throw, you can protect some of them. Spend 1 Sorcery Point to choose a number of creatures up to your Charisma modifier (minimum 1). Chosen creatures automatically succeed on their saving throw."
+        },
+        {
+          "id": "distant_spell",
+          "name": "Distant Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you cast a spell. A spell with range of Touch has range 30 feet. A spell with range 5+ feet has its range doubled."
+        },
+        {
+          "id": "empowered_spell",
+          "name": "Empowered Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you roll damage for a spell. Reroll a number of damage dice up to your Charisma modifier (minimum 1). You must use the new rolls. Can combine with other Metamagic options."
+        },
+        {
+          "id": "extended_spell",
+          "name": "Extended Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you cast a spell with duration 1 minute or longer. Double the spell's duration, to a maximum of 24 hours."
+        },
+        {
+          "id": "heightened_spell",
+          "name": "Heightened Spell",
+          "cost": 3,
+          "description": "Spend 3 Sorcery Points when you cast a spell that forces a creature to make a saving throw. One target of the spell has Disadvantage on its first saving throw against the spell."
+        },
+        {
+          "id": "quickened_spell",
+          "name": "Quickened Spell",
+          "cost": 2,
+          "description": "Spend 2 Sorcery Points when you cast a spell that has a casting time of an Action. Change the casting time to a Bonus Action for this casting."
+        },
+        {
+          "id": "seeking_spell",
+          "name": "Seeking Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you make a spell attack roll that misses. Reroll the d20, and you must use the new roll."
+        },
+        {
+          "id": "subtle_spell",
+          "name": "Subtle Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you cast a spell. You can cast the spell without somatic or verbal components."
+        },
+        {
+          "id": "transmuted_spell",
+          "name": "Transmuted Spell",
+          "cost": 1,
+          "description": "Spend 1 Sorcery Point when you cast a spell that deals a damage type. Change the damage type to acid, cold, fire, lightning, poison, or thunder."
+        },
+        {
+          "id": "twinned_spell",
+          "name": "Twinned Spell",
+          "cost": "spell level (1 minimum)",
+          "description": "When you cast a spell that targets only one creature and doesn't have a range of self, spend Sorcery Points equal to the spell's level (1 for cantrips) to target a second creature in range with the same spell."
+        }
+      ]
+    },
+    {
+      "id": "subclass_feature",
+      "name": "Sorcerer Subclass",
+      "level": 3,
+      "description": "You gain a Sorcerer subclass of your choice: Aberrant Sorcery, Clockwork Sorcery, Draconic Sorcery, or Wild Magic Sorcery."
+    },
+    {
+      "id": "ability_score_improvement_sorcerer",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify.",
+      "repeats_at": [8, 12, 16, 19]
+    },
+    {
+      "id": "sorcerous_restoration",
+      "name": "Sorcerous Restoration",
+      "level": 5,
+      "description": "When you finish a Short Rest, you can regain expended Sorcery Points equal to half your Sorcerer level (rounded down). Once you use this feature, you can't use it again until you finish a Long Rest."
+    },
+    {
+      "id": "sorcery_incarnate",
+      "name": "Sorcery Incarnate",
+      "level": 7,
+      "description": "While your Innate Sorcery feature is active, you can use up to two Metamagic options on each spell you cast. In addition, if you have no uses of Innate Sorcery left, you can use it if you spend 2 Sorcery Points when you take the Bonus Action to activate it.",
+      "notes_2024": "This is a new 2024 feature that enhances Innate Sorcery."
+    },
+    {
+      "id": "arcane_apotheosis",
+      "name": "Arcane Apotheosis",
+      "level": 20,
+      "description": "While your Innate Sorcery feature is active, you can use one Metamagic option on each of your turns without spending Sorcery Points on it."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "aberrant_sorcery",
+      "name": "Aberrant Sorcery",
+      "description": "An alien influence has wrapped its tendrils around your mind, giving you psionic power. You can now touch other minds with that power and alter the world around you by using it to control the magical energy of the multiverse.",
+      "features": [
+        {
+          "id": "psionic_spells",
+          "name": "Psionic Spells",
+          "level": 3,
+          "description": "You learn additional spells when you reach certain levels. These spells don't count against the number of Sorcerer spells you know.",
+          "spells": {
+            "3": ["arms_of_hadar", "calm_emotions", "dissonant_whispers", "detect_thoughts", "mind_sliver"],
+            "5": ["hunger_of_hadar", "sending"],
+            "7": ["evards_black_tentacles", "summon_aberration"],
+            "9": ["rarys_telepathic_bond", "telekinesis"]
+          }
+        },
+        {
+          "id": "telepathic_speech",
+          "name": "Telepathic Speech",
+          "level": 3,
+          "description": "As a Bonus Action, choose one creature you can see, and form a telepathic link with that creature. Until the link ends, you can telepathically speak to the target if it's within a number of miles of you equal to your Charisma modifier (minimum 1 mile). The link lasts for a number of minutes equal to your Sorcerer level."
+        },
+        {
+          "id": "psionic_sorcery",
+          "name": "Psionic Sorcery",
+          "level": 6,
+          "description": "When you cast any spell from your Psionic Spells feature, you can cast it by expending a spell slot as normal or by spending Sorcery Points equal to the spell's level. If you cast the spell using Sorcery Points, it requires no verbal or somatic components, and no material components unless they are consumed by the spell."
+        },
+        {
+          "id": "psychic_defenses",
+          "name": "Psychic Defenses",
+          "level": 6,
+          "description": "You have Resistance to Psychic damage, and you have Advantage on saving throws against having the Charmed or Frightened condition."
+        },
+        {
+          "id": "revelation_in_flesh",
+          "name": "Revelation in Flesh",
+          "level": 14,
+          "description": "As a Bonus Action, spend 1 or more Sorcery Points to transform for 10 minutes. For each point spent, gain one of the following benefits: see invisible creatures (30 ft); gain a Fly Speed and hover; gain a Swim Speed and breathe underwater; move through creatures and objects (end in unoccupied space or take 1d10 Force damage)."
+        },
+        {
+          "id": "warping_implosion",
+          "name": "Warping Implosion",
+          "level": 18,
+          "description": "As a Magic action, teleport to an unoccupied space you can see within 120 feet. Each creature within 30 feet of the space you left must make a Strength saving throw. On a failed save, creature takes 3d10 Force damage and is pulled to the unoccupied space closest to where you were. On a success, half damage and not pulled. Once you use this feature, you can't do so again until you finish a Long Rest or until you spend 5 Sorcery Points to use it again."
+        }
+      ]
+    },
+    {
+      "id": "clockwork_sorcery",
+      "name": "Clockwork Sorcery",
+      "description": "The cosmic force of order has suffused you with magic. That power arises from Mechanus or a realm like it—a plane of existence shaped entirely by clockwork efficiency.",
+      "features": [
+        {
+          "id": "clockwork_spells",
+          "name": "Clockwork Spells",
+          "level": 3,
+          "description": "You learn additional spells when you reach certain levels. These spells don't count against the number of Sorcerer spells you know. When you gain a Sorcerer level, you can replace one spell from this feature with an Abjuration or Transmutation spell of the same level.",
+          "spells": {
+            "3": ["aid", "alarm", "lesser_restoration", "protection_from_evil_and_good"],
+            "5": ["dispel_magic", "protection_from_energy"],
+            "7": ["freedom_of_movement", "summon_construct"],
+            "9": ["greater_restoration", "wall_of_force"]
+          }
+        },
+        {
+          "id": "restore_balance",
+          "name": "Restore Balance",
+          "level": 3,
+          "description": "Your connection to the plane of absolute order allows you to equalize chaotic moments. When a creature you can see within 60 feet is about to roll a d20 with Advantage or Disadvantage, you can use your Reaction to prevent the roll from being affected by Advantage and Disadvantage. You can use this feature a number of times equal to your proficiency bonus, regaining all uses on a Long Rest."
+        },
+        {
+          "id": "bastion_of_law",
+          "name": "Bastion of Law",
+          "level": 6,
+          "description": "You can tap into the grand equation of existence to imbue a creature with a shimmering shield of order. As a Magic action, spend 1 to 5 Sorcery Points to create a magical ward around yourself or a creature you can see within 30 feet. The ward lasts until you finish a Long Rest or until you use this feature again. The ward is represented by a number of d8s equal to the Sorcery Points spent. When the warded creature takes damage, it can expend dice from the ward, roll them, and reduce the damage by the total rolled."
+        },
+        {
+          "id": "trance_of_order",
+          "name": "Trance of Order",
+          "level": 14,
+          "description": "As a Bonus Action, enter a state of clockwork consciousness for 1 minute. For the duration, attack rolls against you can't benefit from Advantage, and whenever you make an attack roll, ability check, or saving throw, you can treat a roll of 9 or lower as a 10. Once you use this feature, you can't use it again until you finish a Long Rest or until you spend 5 Sorcery Points to use it again."
+        },
+        {
+          "id": "clockwork_cavalcade",
+          "name": "Clockwork Cavalcade",
+          "level": 18,
+          "description": "As a Magic action, summon spirits of order to restore balance. Each creature of your choice within 30 feet can regain 100 Hit Points. Damaged objects in that area not worn or carried are mended. All spell effects of 6th level or lower on creatures or objects of your choice in that area end. Once you use this feature, you can't use it again until you finish a Long Rest or until you spend 7 Sorcery Points to use it again."
+        }
+      ]
+    },
+    {
+      "id": "draconic_sorcery",
+      "name": "Draconic Sorcery",
+      "description": "Your innate magic comes from draconic magic that was mingled with your blood or that of your ancestors. Most often, sorcerers with this origin trace their descent back to a mighty sorcerer of ancient times who made a bargain with a dragon.",
+      "features": [
+        {
+          "id": "draconic_resilience",
+          "name": "Draconic Resilience",
+          "level": 3,
+          "description": "As magic flows through your body, it causes physical traits of your dragon ancestors to emerge. Your Hit Point maximum increases by 3 and increases by 1 whenever you gain another Sorcerer level. Parts of your skin are covered by a thin sheen of dragon-like scales. When you aren't wearing armor, your AC equals 10 + your Dexterity modifier + your Charisma modifier."
+        },
+        {
+          "id": "dragon_ancestor",
+          "name": "Dragon Ancestor",
+          "level": 3,
+          "description": "Choose one kind of dragon as your ancestor. The damage type associated with each dragon is used by features you gain later.",
+          "options": [
+            {"dragon": "Black", "damage_type": "Acid"},
+            {"dragon": "Blue", "damage_type": "Lightning"},
+            {"dragon": "Brass", "damage_type": "Fire"},
+            {"dragon": "Bronze", "damage_type": "Lightning"},
+            {"dragon": "Copper", "damage_type": "Acid"},
+            {"dragon": "Gold", "damage_type": "Fire"},
+            {"dragon": "Green", "damage_type": "Poison"},
+            {"dragon": "Red", "damage_type": "Fire"},
+            {"dragon": "Silver", "damage_type": "Cold"},
+            {"dragon": "White", "damage_type": "Cold"}
+          ]
+        },
+        {
+          "id": "elemental_affinity",
+          "name": "Elemental Affinity",
+          "level": 6,
+          "description": "When you cast a spell that deals damage of the type associated with your draconic ancestry, you can add your Charisma modifier to one damage roll of that spell. At the same time, you can spend 1 Sorcery Point to gain Resistance to that damage type for 1 hour."
+        },
+        {
+          "id": "dragon_wings",
+          "name": "Dragon Wings",
+          "level": 14,
+          "description": "You gain the ability to sprout a pair of dragon wings from your back, gaining a Fly Speed equal to your Speed. You can create these wings as a Bonus Action on your turn. They last until you dismiss them as a Bonus Action. You can't manifest your wings while wearing armor unless the armor is made to accommodate them."
+        },
+        {
+          "id": "draconic_presence",
+          "name": "Draconic Presence",
+          "level": 18,
+          "description": "As a Magic action, spend 5 Sorcery Points to draw on your draconic power. For 1 minute or until you lose Concentration, you emanate an aura of awe or fear (your choice) to a distance of 60 feet. Each creature that starts its turn in this aura must succeed on a Wisdom saving throw or have the Charmed (if awe) or Frightened (if fear) condition until the aura ends. A creature that succeeds on this saving throw is immune to your aura for 24 hours."
+        }
+      ]
+    },
+    {
+      "id": "wild_magic_sorcery",
+      "name": "Wild Magic Sorcery",
+      "description": "Your innate magic comes from the wild forces of chaos that underlie the order of creation. You might have endured exposure to some form of raw magic, perhaps through a planar portal leading to Limbo or the Elemental Planes.",
+      "features": [
+        {
+          "id": "wild_magic_surge",
+          "name": "Wild Magic Surge",
+          "level": 3,
+          "description": "Your spellcasting can unleash surges of untamed magic. Once per turn, immediately after you cast a Sorcerer spell of 1st level or higher, the DM can have you roll a d20. If you roll a 1, roll on the Wild Magic Surge table to create a magical effect.",
+          "wild_magic_table": "See Wild Magic Surge table in Player's Handbook for 50 possible effects"
+        },
+        {
+          "id": "tides_of_chaos",
+          "name": "Tides of Chaos",
+          "level": 3,
+          "description": "You can manipulate the forces of chance and chaos. Once per turn, you can give yourself Advantage on one attack roll, ability check, or saving throw. Once you use this feature, the DM can have you roll on the Wild Magic Surge table immediately after you cast a Sorcerer spell of 1st level or higher. You regain the use of this feature after you roll on that table, finish a Short Rest, or finish a Long Rest."
+        },
+        {
+          "id": "bend_luck",
+          "name": "Bend Luck",
+          "level": 6,
+          "description": "You can use your Reaction and spend 1 Sorcery Point when another creature you can see makes an attack roll, ability check, or saving throw. Roll 1d4 and apply the number rolled as a bonus or penalty to the creature's roll."
+        },
+        {
+          "id": "controlled_chaos",
+          "name": "Controlled Chaos",
+          "level": 14,
+          "description": "You gain a modicum of control over the surges of your wild magic. Whenever you roll on the Wild Magic Surge table, you can roll twice and use either number."
+        },
+        {
+          "id": "spell_bombardment",
+          "name": "Spell Bombardment",
+          "level": 18,
+          "description": "The harmful energy of your spells intensifies. When you roll damage for a spell and roll the highest number possible on any of the dice, choose one of those dice, roll it again, and add that roll to the damage. You can use this feature only once per turn."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "features": ["spellcasting_sorcerer", "innate_sorcery"], "sorcery_points": 0, "cantrips": 4, "spells_known": 4},
+    {"level": 2, "features": ["font_of_magic", "metamagic"], "sorcery_points": 2, "cantrips": 4, "spells_known": 5, "metamagic_options": 2},
+    {"level": 3, "features": ["subclass_feature"], "sorcery_points": 3, "cantrips": 4, "spells_known": 6, "metamagic_options": 2},
+    {"level": 4, "features": ["ability_score_improvement_sorcerer"], "sorcery_points": 4, "cantrips": 5, "spells_known": 7, "metamagic_options": 2},
+    {"level": 5, "features": ["sorcerous_restoration"], "sorcery_points": 5, "cantrips": 5, "spells_known": 8, "metamagic_options": 2},
+    {"level": 6, "features": ["subclass_feature"], "sorcery_points": 6, "cantrips": 5, "spells_known": 9, "metamagic_options": 2},
+    {"level": 7, "features": ["sorcery_incarnate"], "sorcery_points": 7, "cantrips": 5, "spells_known": 10, "metamagic_options": 2},
+    {"level": 8, "features": ["ability_score_improvement_sorcerer"], "sorcery_points": 8, "cantrips": 5, "spells_known": 11, "metamagic_options": 2},
+    {"level": 9, "features": [], "sorcery_points": 9, "cantrips": 5, "spells_known": 12, "metamagic_options": 2},
+    {"level": 10, "features": ["metamagic"], "sorcery_points": 10, "cantrips": 6, "spells_known": 14, "metamagic_options": 3},
+    {"level": 11, "features": [], "sorcery_points": 11, "cantrips": 6, "spells_known": 15, "metamagic_options": 3},
+    {"level": 12, "features": ["ability_score_improvement_sorcerer"], "sorcery_points": 12, "cantrips": 6, "spells_known": 15, "metamagic_options": 3},
+    {"level": 13, "features": [], "sorcery_points": 13, "cantrips": 6, "spells_known": 16, "metamagic_options": 3},
+    {"level": 14, "features": ["subclass_feature"], "sorcery_points": 14, "cantrips": 6, "spells_known": 16, "metamagic_options": 3},
+    {"level": 15, "features": [], "sorcery_points": 15, "cantrips": 6, "spells_known": 17, "metamagic_options": 3},
+    {"level": 16, "features": ["ability_score_improvement_sorcerer"], "sorcery_points": 16, "cantrips": 6, "spells_known": 17, "metamagic_options": 3},
+    {"level": 17, "features": ["metamagic"], "sorcery_points": 17, "cantrips": 6, "spells_known": 18, "metamagic_options": 4},
+    {"level": 18, "features": ["subclass_feature"], "sorcery_points": 18, "cantrips": 6, "spells_known": 18, "metamagic_options": 4},
+    {"level": 19, "features": ["ability_score_improvement_sorcerer"], "sorcery_points": 19, "cantrips": 6, "spells_known": 19, "metamagic_options": 4},
+    {"level": 20, "features": ["arcane_apotheosis"], "sorcery_points": 20, "cantrips": 6, "spells_known": 20, "metamagic_options": 4}
+  ]
+}

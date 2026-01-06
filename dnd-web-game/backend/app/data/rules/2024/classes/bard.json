@@ -1,0 +1,295 @@
+{
+  "id": "bard",
+  "name": "Bard",
+  "source": "2024 Player's Handbook",
+  "description": "An inspiring magician whose power echoes the music of creation",
+  "hit_die": "d8",
+  "primary_ability": "charisma",
+  "saving_throw_proficiencies": ["dexterity", "charisma"],
+  "armor_proficiencies": ["light"],
+  "weapon_proficiencies": ["simple"],
+  "tool_proficiencies": ["three_musical_instruments"],
+  "skill_choices": {
+    "count": 3,
+    "options": "any"
+  },
+  "starting_equipment": {
+    "choices": [
+      {
+        "options": [
+          {"item": "lute", "quantity": 1},
+          {"item": "musical_instrument", "quantity": 1}
+        ]
+      },
+      {
+        "options": [
+          {"item": "diplomats_pack", "quantity": 1},
+          {"item": "entertainers_pack", "quantity": 1}
+        ]
+      }
+    ],
+    "default": [
+      {"item": "leather_armor", "quantity": 1},
+      {"item": "dagger", "quantity": 1}
+    ]
+  },
+  "multiclass_requirements": {
+    "charisma": 13
+  },
+  "multiclass_proficiencies": ["light_armor", "one_skill", "one_musical_instrument"],
+  "spellcasting": {
+    "ability": "charisma",
+    "ritual_casting": true,
+    "focus": "musical_instrument",
+    "spells_known": {
+      "1": 4, "2": 5, "3": 6, "4": 7, "5": 8, "6": 9, "7": 10, "8": 11, "9": 12, "10": 14,
+      "11": 15, "12": 15, "13": 16, "14": 16, "15": 17, "16": 17, "17": 18, "18": 18, "19": 19, "20": 20
+    },
+    "cantrips_known": {
+      "1": 2, "2": 2, "3": 2, "4": 3, "5": 3, "6": 3, "7": 3, "8": 3, "9": 3, "10": 4,
+      "11": 4, "12": 4, "13": 4, "14": 4, "15": 4, "16": 4, "17": 4, "18": 4, "19": 4, "20": 4
+    },
+    "spell_slots": {
+      "1":  {"1": 2, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "2":  {"1": 3, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "3":  {"1": 4, "2": 2, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "4":  {"1": 4, "2": 3, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "5":  {"1": 4, "2": 3, "3": 2, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "6":  {"1": 4, "2": 3, "3": 3, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "7":  {"1": 4, "2": 3, "3": 3, "4": 1, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "8":  {"1": 4, "2": 3, "3": 3, "4": 2, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "9":  {"1": 4, "2": 3, "3": 3, "4": 3, "5": 1, "6": 0, "7": 0, "8": 0, "9": 0},
+      "10": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 0, "7": 0, "8": 0, "9": 0},
+      "11": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0},
+      "12": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0},
+      "13": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 0, "9": 0},
+      "14": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 0, "9": 0},
+      "15": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 0},
+      "16": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 0},
+      "17": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 1},
+      "18": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 1, "7": 1, "8": 1, "9": 1},
+      "19": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 1, "8": 1, "9": 1},
+      "20": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 2, "8": 1, "9": 1}
+    }
+  },
+  "class_features": [
+    {
+      "id": "bardic_inspiration",
+      "name": "Bardic Inspiration",
+      "level": 1,
+      "description": "You can supernaturally inspire others through words, music, or dance. This inspiration is represented by your Bardic Inspiration die, which is a d6. Using Bardic Inspiration. As a Bonus Action, you can inspire another creature within 60 feet of yourself who can see or hear you. That creature gains one of your Bardic Inspiration dice. A creature can have only one Bardic Inspiration die at a time. Once within the next hour when the creature fails a d20 Test, the creature can roll the Bardic Inspiration die and add the number rolled to the d20, potentially turning the failure into a success. A Bardic Inspiration die is expended when it's rolled. Number of Uses. You can confer a Bardic Inspiration die a number of times equal to your Charisma modifier (minimum of once), and you regain all expended uses when you finish a Long Rest. At Higher Levels. Your Bardic Inspiration die changes when you reach certain Bard levels, as shown in the Bardic Die column of the Bard Features table. The die becomes a d8 at level 5, a d10 at level 10, and a d12 at level 15."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "level": 1,
+      "description": "You have learned to cast spells through your bardic arts. The information below details how you use those rules with Bard spells, which appear in the Bard spell list later in the class's description."
+    },
+    {
+      "id": "expertise",
+      "name": "Expertise",
+      "level": 2,
+      "description": "You gain Expertise in two of your skill proficiencies of your choice. Performance and Persuasion are recommended if you have proficiency in them. At level 9, you gain Expertise in two more of your skill proficiencies of your choice."
+    },
+    {
+      "id": "jack_of_all_trades",
+      "name": "Jack of All Trades",
+      "level": 2,
+      "description": "You can add half your Proficiency Bonus (round down) to any ability check you make that doesn't already include your Proficiency Bonus."
+    },
+    {
+      "id": "bard_subclass",
+      "name": "Bard Subclass",
+      "level": 3,
+      "description": "You gain a Bard subclass of your choice. The College of Dance, College of Glamour, College of Lore, and College of Valor subclasses are detailed after this class's description. A subclass is a specialization that grants you features at certain Bard levels. For the rest of your career, you gain each of your subclass's features that are of your Bard level or lower."
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify. You gain this feature again at Bard levels 8, 12, and 16."
+    },
+    {
+      "id": "font_of_inspiration",
+      "name": "Font of Inspiration",
+      "level": 5,
+      "description": "You now also regain all expended uses of Bardic Inspiration when you finish a Short Rest. In addition, you can expend a spell slot (no action required) to regain one expended use of Bardic Inspiration."
+    },
+    {
+      "id": "countercharm",
+      "name": "Countercharm",
+      "level": 7,
+      "description": "You can use musical notes or words of power to disrupt mind-influencing effects. If you or a creature within 30 feet of you fails a saving throw against an effect that applies the Charmed or Frightened condition, you can take a Reaction to cause the save to be rerolled, and the new roll must be used."
+    },
+    {
+      "id": "superior_inspiration",
+      "name": "Superior Inspiration",
+      "level": 18,
+      "description": "When you roll Initiative, you regain expended uses of Bardic Inspiration until you have two if you have fewer than that."
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "level": 19,
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Spell Recall is recommended."
+    },
+    {
+      "id": "words_of_creation",
+      "name": "Words of Creation",
+      "level": 20,
+      "description": "You have mastered two of the Words of Creation: the words of life and death. You therefore always have the Power Word Heal and Power Word Kill spells prepared. When you cast either spell, you can target a second creature with it if that creature is within 10 feet of the first target."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "college_of_dance",
+      "name": "College of Dance",
+      "source": "2024 Player's Handbook",
+      "description": "Bards of the College of Dance know that the Words of Creation can't be contained within speech or even song; they are uttered by the movements of celestial bodies and flow through the motions of even the smallest creatures. To these Bards, dance is an art freed from the constraints of a single point in space. By moving their bodies in specific patterns, they unlock the deepest secrets of magic.",
+      "features": [
+        {
+          "id": "dazzling_footwork",
+          "name": "Dazzling Footwork",
+          "level": 3,
+          "description": "While you aren't wearing armor or wielding a Shield, you gain the following benefits: Unarmored Defense (Your base Armor Class equals 10 plus your Dexterity and Charisma modifiers), Agile Strikes (When you expend a Bardic Inspiration die as part of an action, a Bonus Action, or a Reaction, you can make one Unarmed Strike as part of that action, Bonus Action, or Reaction), Bardic Damage (You can use Dexterity instead of Strength for the attack rolls of your Unarmed Strikes. When you deal damage with an Unarmed Strike, you can deal Bludgeoning damage equal to a roll of your Bardic Inspiration die plus your Dexterity modifier. This roll doesn't expend the die)."
+        },
+        {
+          "id": "inspiring_movement",
+          "name": "Inspiring Movement",
+          "level": 6,
+          "description": "When an enemy you can see ends its turn within 5 feet of an ally of yours who is within 60 feet of you, you can take a Reaction and expend one use of your Bardic Inspiration to move up to half your Speed. Then roll your Bardic Inspiration die, and the ally can move up to a number of feet equal to 5 times the number rolled. None of this feature's movement provokes Opportunity Attacks."
+        },
+        {
+          "id": "tandem_footwork",
+          "name": "Tandem Footwork",
+          "level": 6,
+          "description": "When you roll Initiative, you can spend one use of your Bardic Inspiration if you don't have the Incapacitated condition. When you do so, roll your Bardic Inspiration die, and choose a number of creatures within 60 feet of yourself (you can choose yourself) equal to your Charisma modifier (minimum of one creature). Each of them gains a bonus to their Initiative equal to the number rolled."
+        },
+        {
+          "id": "leading_evasion",
+          "name": "Leading Evasion",
+          "level": 14,
+          "description": "When you're subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw and only half damage if you fail. If any creatures within 5 feet of you are making the same Dexterity saving throw, you can share this benefit with them for that save. You can use this feature only if you aren't wearing armor or wielding a Shield."
+        }
+      ]
+    },
+    {
+      "id": "college_of_glamour",
+      "name": "College of Glamour",
+      "source": "2024 Player's Handbook",
+      "description": "Bards of the College of Glamour have mastered the art of magical artistry, their performances captivating audiences in otherworldly ways. These Bards are skilled in weaving illusion and enchantment to inspire emotions and enhance their stagecraft.",
+      "features": [
+        {
+          "id": "beguiling_magic",
+          "name": "Beguiling Magic",
+          "level": 3,
+          "description": "You always have the Charm Person and Mirror Image spells prepared. In addition, immediately after you cast an Enchantment or Illusion spell using a spell slot, you can cause a creature you can see within 60 feet of yourself to make a Wisdom saving throw against your spell save DC. On a failed save, the target has the Charmed or Frightened condition (your choice) for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Once you use this benefit, you can't use it again until you finish a Long Rest. You can also restore your use of it by expending a spell slot of level 3 or higher (no action required)."
+        },
+        {
+          "id": "mantle_of_inspiration",
+          "name": "Mantle of Inspiration",
+          "level": 3,
+          "description": "As a Bonus Action, you can expend a use of Bardic Inspiration to give yourself a wondrous appearance. When you do so, choose a number of creatures you can see in a 60-foot Emanation originating from you, up to a number equal to your Charisma modifier (minimum of one creature). Each of them gains a number of Temporary Hit Points equal to 2 rolls of your Bardic Inspiration die."
+        },
+        {
+          "id": "mantle_of_majesty",
+          "name": "Mantle of Majesty",
+          "level": 6,
+          "description": "As a Bonus Action, you take on a commanding presence for 1 minute or until you have the Incapacitated condition. For the duration, once on each of your turns, you can cast Command without expending a spell slot, and you take on an otherworldly appearance that makes you look more beautiful and fierce. Once you use this feature, you can't use it again until you finish a Long Rest."
+        },
+        {
+          "id": "unbreakable_majesty",
+          "name": "Unbreakable Majesty",
+          "level": 14,
+          "description": "As a Bonus Action, you take on an appearance of unearthly beauty for 1 minute. For the duration, whenever a creature hits you with an attack roll, that creature must succeed on a Charisma saving throw against your spell save DC, or the attack roll becomes a miss and the attacker has the Dazed condition until the end of its turn. Once you use this feature, you can't use it again until you finish a Long Rest."
+        }
+      ]
+    },
+    {
+      "id": "college_of_lore",
+      "name": "College of Lore",
+      "source": "2024 Player's Handbook",
+      "description": "Bards of the College of Lore know something about most things, collecting bits of knowledge from sources as diverse as scholarly tomes and peasant tales. Whether singing folk ballads in taverns or composing elaborate compositions for royal courts, these Bards use their gifts to hold audiences spellbound.",
+      "features": [
+        {
+          "id": "bonus_proficiencies",
+          "name": "Bonus Proficiencies",
+          "level": 3,
+          "description": "You gain proficiency in three skills of your choice."
+        },
+        {
+          "id": "cutting_words",
+          "name": "Cutting Words",
+          "level": 3,
+          "description": "You learn how to use your wit to supernaturally distract, confuse, and otherwise sap the confidence and competence of others. When a creature that you can see within 60 feet of yourself makes a damage roll or succeeds on an ability check or attack roll, you can take a Reaction to expend one use of your Bardic Inspiration, roll your Bardic Inspiration die, and subtract the number rolled from the creature's roll, reducing the damage or potentially turning the success into a failure."
+        },
+        {
+          "id": "magical_discoveries",
+          "name": "Magical Discoveries",
+          "level": 6,
+          "description": "You learn two spells of your choice. These spells can come from any spell list, and they must be of a level that you can cast."
+        },
+        {
+          "id": "peerless_skill",
+          "name": "Peerless Skill",
+          "level": 14,
+          "description": "When you make an ability check or attack roll and fail, you can expend one use of Bardic Inspiration, roll the Bardic Inspiration die, and add the number rolled to the d20, potentially turning a failure into a success. On a failure, the Bardic Inspiration isn't expended."
+        }
+      ]
+    },
+    {
+      "id": "college_of_valor",
+      "name": "College of Valor",
+      "source": "2024 Player's Handbook",
+      "description": "Bards of the College of Valor are daring skalds whose tales keep alive the memory of the great heroes of the past, inspiring a new generation of heroes. These Bards gather in mead halls or around campfires to sing the deeds of the mighty, both past and present.",
+      "features": [
+        {
+          "id": "combat_inspiration",
+          "name": "Combat Inspiration",
+          "level": 3,
+          "description": "When you grant a Bardic Inspiration die, the recipient can add the die to a damage roll they just made. Alternatively, when an attack roll is made against the recipient, they can roll the die and add the number rolled to their AC against that attack, after seeing the roll but before knowing whether it hits or misses."
+        },
+        {
+          "id": "martial_training",
+          "name": "Martial Training",
+          "level": 3,
+          "description": "You gain proficiency with Medium armor and Martial weapons."
+        },
+        {
+          "id": "extra_attack",
+          "name": "Extra Attack",
+          "level": 6,
+          "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn. In addition, you can cast one of your Bard cantrips that has a casting time of an action in place of one of those attacks."
+        },
+        {
+          "id": "battle_magic",
+          "name": "Battle Magic",
+          "level": 14,
+          "description": "When you cast a Bard spell that has a casting time of an action, you can make one attack with a weapon as part of the action of casting the spell."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "proficiency_bonus": 2, "features": ["Bardic Inspiration", "Spellcasting"], "bardic_die": "d6", "cantrips": 2, "spells_prepared": 4},
+    {"level": 2, "proficiency_bonus": 2, "features": ["Expertise", "Jack of All Trades"], "bardic_die": "d6", "cantrips": 2, "spells_prepared": 5},
+    {"level": 3, "proficiency_bonus": 2, "features": ["Bard Subclass"], "bardic_die": "d6", "cantrips": 2, "spells_prepared": 6},
+    {"level": 4, "proficiency_bonus": 2, "features": ["Ability Score Improvement"], "bardic_die": "d6", "cantrips": 3, "spells_prepared": 7},
+    {"level": 5, "proficiency_bonus": 3, "features": ["Font of Inspiration"], "bardic_die": "d8", "cantrips": 3, "spells_prepared": 8},
+    {"level": 6, "proficiency_bonus": 3, "features": ["Subclass Feature"], "bardic_die": "d8", "cantrips": 3, "spells_prepared": 9},
+    {"level": 7, "proficiency_bonus": 3, "features": ["Countercharm"], "bardic_die": "d8", "cantrips": 3, "spells_prepared": 10},
+    {"level": 8, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "bardic_die": "d8", "cantrips": 3, "spells_prepared": 11},
+    {"level": 9, "proficiency_bonus": 4, "features": ["Expertise"], "bardic_die": "d8", "cantrips": 3, "spells_prepared": 12},
+    {"level": 10, "proficiency_bonus": 4, "features": [], "bardic_die": "d10", "cantrips": 4, "spells_prepared": 14},
+    {"level": 11, "proficiency_bonus": 4, "features": [], "bardic_die": "d10", "cantrips": 4, "spells_prepared": 15},
+    {"level": 12, "proficiency_bonus": 4, "features": ["Ability Score Improvement"], "bardic_die": "d10", "cantrips": 4, "spells_prepared": 15},
+    {"level": 13, "proficiency_bonus": 5, "features": [], "bardic_die": "d10", "cantrips": 4, "spells_prepared": 16},
+    {"level": 14, "proficiency_bonus": 5, "features": ["Subclass Feature"], "bardic_die": "d10", "cantrips": 4, "spells_prepared": 16},
+    {"level": 15, "proficiency_bonus": 5, "features": [], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 17},
+    {"level": 16, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 17},
+    {"level": 17, "proficiency_bonus": 6, "features": [], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 18},
+    {"level": 18, "proficiency_bonus": 6, "features": ["Superior Inspiration"], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 18},
+    {"level": 19, "proficiency_bonus": 6, "features": ["Epic Boon"], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 19},
+    {"level": 20, "proficiency_bonus": 6, "features": ["Words of Creation"], "bardic_die": "d12", "cantrips": 4, "spells_prepared": 20}
+  ]
+}

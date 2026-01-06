@@ -1,0 +1,83 @@
+{
+  "conditions": [
+    {
+      "id": "sapped",
+      "name": "Sapped",
+      "description": "The creature is rattled and has disadvantage on its next attack roll. This condition ends after the creature makes an attack.",
+      "effects": {
+        "attack_disadvantage": true,
+        "duration": "next_attack"
+      },
+      "icon": "sapped.png"
+    },
+    {
+      "id": "slowed",
+      "name": "Slowed",
+      "description": "The creature's speed is reduced by 10 feet until the start of your next turn.",
+      "effects": {
+        "speed_reduction": 10,
+        "duration": "start_of_next_turn"
+      },
+      "icon": "slowed.png"
+    },
+    {
+      "id": "prone",
+      "name": "Prone",
+      "description": "A prone creature's only movement option is to crawl. The creature has disadvantage on attack rolls. Melee attacks against the creature have advantage, while ranged attacks have disadvantage.",
+      "effects": {
+        "movement": "crawl_only",
+        "attack_disadvantage": true,
+        "melee_attacks_against_advantage": true,
+        "ranged_attacks_against_disadvantage": true,
+        "standing_cost": "half_movement"
+      },
+      "icon": "prone.png"
+    },
+    {
+      "id": "stunned",
+      "name": "Stunned",
+      "description": "A stunned creature is incapacitated, can't move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage.",
+      "effects": {
+        "incapacitated": true,
+        "speed_zero": true,
+        "auto_fail_saves": ["strength", "dexterity"],
+        "attacks_against_advantage": true
+      },
+      "icon": "stunned.png"
+    },
+    {
+      "id": "poisoned",
+      "name": "Poisoned",
+      "description": "A poisoned creature has disadvantage on attack rolls and ability checks.",
+      "effects": {
+        "attack_disadvantage": true,
+        "ability_check_disadvantage": true
+      },
+      "icon": "poisoned.png"
+    },
+    {
+      "id": "frightened",
+      "name": "Frightened",
+      "description": "A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can't willingly move closer to the source of its fear.",
+      "effects": {
+        "attack_disadvantage": true,
+        "ability_check_disadvantage": true,
+        "cannot_approach_source": true,
+        "requires_line_of_sight_to_source": true
+      },
+      "icon": "frightened.png"
+    },
+    {
+      "id": "restrained",
+      "name": "Restrained",
+      "description": "A restrained creature's speed becomes 0. Attack rolls against the creature have advantage, and the creature's attack rolls have disadvantage. The creature has disadvantage on Dexterity saving throws.",
+      "effects": {
+        "speed_zero": true,
+        "attack_disadvantage": true,
+        "attacks_against_advantage": true,
+        "save_disadvantage": ["dexterity"]
+      },
+      "icon": "restrained.png"
+    }
+  ]
+}

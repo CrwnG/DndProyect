@@ -1,0 +1,29 @@
+{
+  "id": "hermit",
+  "name": "Hermit",
+  "source": "2024 Player's Handbook",
+  "description": "You lived for a time in solitude—in a hut far from a village, in a monastery, or in the wilderness—contemplating the mysteries of the world.",
+  "ability_score_increases": {
+    "options": [
+      {"constitution": 2, "wisdom": 1},
+      {"constitution": 1, "wisdom": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["medicine", "religion"],
+  "tool_proficiency": "Herbalism Kit",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["herbalism_kit", "bedroll", "book_philosophy", "lamp", "oil_3_flasks", "pouch", "travelers_clothes"],
+    "gold": 16
+  },
+  "origin_feat": "Healer",
+  "feature": {
+    "id": "discovery",
+    "name": "Discovery",
+    "description": "During your time in seclusion, you made a unique and powerful discovery. The nature of this discovery depends on the reason for your seclusion. It might be a great truth about the cosmos, the deities, the powerful beings of the outer planes, or the forces of nature. It could be a site that no one else has seen. You might have uncovered a fact that others have overlooked."
+  }
+}

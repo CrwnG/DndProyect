@@ -1,0 +1,388 @@
+{
+  "description": "D&D 5e Treasure Tables based on DMG Chapter 7",
+  "individual_treasure": {
+    "cr_0_4": {
+      "coins": [
+        {"weight": 30, "dice": "5d6", "coin": "cp"},
+        {"weight": 60, "dice": "4d6", "coin": "sp"},
+        {"weight": 70, "dice": "3d6", "coin": "ep"},
+        {"weight": 95, "dice": "3d6", "coin": "gp"},
+        {"weight": 100, "dice": "1d6", "coin": "pp"}
+      ]
+    },
+    "cr_5_10": {
+      "coins": [
+        {"weight": 30, "dice": "4d6x100", "coin": "cp"},
+        {"weight": 60, "dice": "6d6x10", "coin": "sp"},
+        {"weight": 70, "dice": "3d6x10", "coin": "ep"},
+        {"weight": 95, "dice": "4d6x10", "coin": "gp"},
+        {"weight": 100, "dice": "2d6x10", "coin": "pp"}
+      ]
+    },
+    "cr_11_16": {
+      "coins": [
+        {"weight": 20, "dice": "4d6x100", "coin": "sp"},
+        {"weight": 35, "dice": "1d6x100", "coin": "ep"},
+        {"weight": 75, "dice": "2d6x100", "coin": "gp"},
+        {"weight": 100, "dice": "2d6x10", "coin": "pp"}
+      ]
+    },
+    "cr_17_plus": {
+      "coins": [
+        {"weight": 15, "dice": "2d6x1000", "coin": "ep"},
+        {"weight": 55, "dice": "8d6x100", "coin": "gp"},
+        {"weight": 100, "dice": "3d6x100", "coin": "pp"}
+      ]
+    }
+  },
+  "hoard_treasure": {
+    "cr_0_4": {
+      "coins": {
+        "cp": "6d6x100",
+        "sp": "3d6x100",
+        "gp": "2d6x10"
+      },
+      "gems_art": [
+        {"weight": 6, "type": null},
+        {"weight": 16, "dice": "2d6", "table": "gems_10gp"},
+        {"weight": 26, "dice": "2d4", "table": "art_25gp"},
+        {"weight": 36, "dice": "2d6", "table": "gems_50gp"},
+        {"weight": 44, "dice": "2d6", "table": "gems_10gp", "magic_table": "A"},
+        {"weight": 52, "dice": "2d4", "table": "art_25gp", "magic_table": "A"},
+        {"weight": 60, "dice": "2d6", "table": "gems_50gp", "magic_table": "A"},
+        {"weight": 65, "dice": "2d6", "table": "gems_10gp", "magic_table": "B"},
+        {"weight": 70, "dice": "2d4", "table": "art_25gp", "magic_table": "B"},
+        {"weight": 75, "dice": "2d6", "table": "gems_50gp", "magic_table": "B"},
+        {"weight": 78, "dice": "2d6", "table": "gems_10gp", "magic_table": "C"},
+        {"weight": 80, "dice": "2d4", "table": "art_25gp", "magic_table": "C"},
+        {"weight": 85, "dice": "2d6", "table": "gems_50gp", "magic_table": "C"},
+        {"weight": 92, "dice": "2d4", "table": "art_25gp", "magic_table": "F"},
+        {"weight": 97, "dice": "2d6", "table": "gems_50gp", "magic_table": "F"},
+        {"weight": 99, "dice": "2d4", "table": "art_25gp", "magic_table": "G"},
+        {"weight": 100, "dice": "2d6", "table": "gems_50gp", "magic_table": "G"}
+      ]
+    },
+    "cr_5_10": {
+      "coins": {
+        "cp": "2d6x100",
+        "sp": "2d6x1000",
+        "gp": "6d6x100",
+        "pp": "3d6x10"
+      },
+      "gems_art": [
+        {"weight": 4, "type": null},
+        {"weight": 10, "dice": "2d4", "table": "art_25gp"},
+        {"weight": 16, "dice": "3d6", "table": "gems_50gp"},
+        {"weight": 22, "dice": "3d6", "table": "gems_100gp"},
+        {"weight": 28, "dice": "2d4", "table": "art_250gp"},
+        {"weight": 32, "dice": "2d4", "table": "art_25gp", "magic_table": "A"},
+        {"weight": 36, "dice": "3d6", "table": "gems_50gp", "magic_table": "A"},
+        {"weight": 40, "dice": "3d6", "table": "gems_100gp", "magic_table": "A"},
+        {"weight": 44, "dice": "2d4", "table": "art_250gp", "magic_table": "A"},
+        {"weight": 49, "dice": "2d4", "table": "art_25gp", "magic_table": "B"},
+        {"weight": 54, "dice": "3d6", "table": "gems_50gp", "magic_table": "B"},
+        {"weight": 59, "dice": "3d6", "table": "gems_100gp", "magic_table": "B"},
+        {"weight": 63, "dice": "2d4", "table": "art_250gp", "magic_table": "B"},
+        {"weight": 66, "dice": "2d4", "table": "art_25gp", "magic_table": "C"},
+        {"weight": 69, "dice": "3d6", "table": "gems_50gp", "magic_table": "C"},
+        {"weight": 72, "dice": "3d6", "table": "gems_100gp", "magic_table": "C"},
+        {"weight": 74, "dice": "2d4", "table": "art_250gp", "magic_table": "C"},
+        {"weight": 76, "dice": "2d4", "table": "art_25gp", "magic_table": "D"},
+        {"weight": 78, "dice": "3d6", "table": "gems_50gp", "magic_table": "D"},
+        {"weight": 79, "dice": "3d6", "table": "gems_100gp", "magic_table": "D"},
+        {"weight": 80, "dice": "2d4", "table": "art_250gp", "magic_table": "D"},
+        {"weight": 84, "dice": "2d4", "table": "art_25gp", "magic_table": "F"},
+        {"weight": 88, "dice": "3d6", "table": "gems_50gp", "magic_table": "F"},
+        {"weight": 91, "dice": "3d6", "table": "gems_100gp", "magic_table": "F"},
+        {"weight": 94, "dice": "2d4", "table": "art_250gp", "magic_table": "F"},
+        {"weight": 96, "dice": "3d6", "table": "gems_100gp", "magic_table": "G"},
+        {"weight": 98, "dice": "2d4", "table": "art_250gp", "magic_table": "G"},
+        {"weight": 99, "dice": "3d6", "table": "gems_100gp", "magic_table": "H"},
+        {"weight": 100, "dice": "2d4", "table": "art_250gp", "magic_table": "H"}
+      ]
+    },
+    "cr_11_16": {
+      "coins": {
+        "gp": "4d6x1000",
+        "pp": "5d6x100"
+      },
+      "gems_art": [
+        {"weight": 3, "type": null},
+        {"weight": 6, "dice": "2d4", "table": "art_250gp"},
+        {"weight": 9, "dice": "2d4", "table": "art_750gp"},
+        {"weight": 12, "dice": "3d6", "table": "gems_500gp"},
+        {"weight": 15, "dice": "3d6", "table": "gems_1000gp"},
+        {"weight": 19, "dice": "2d4", "table": "art_250gp", "magic_table": "A", "magic_count": "1d4"},
+        {"weight": 23, "dice": "2d4", "table": "art_750gp", "magic_table": "A", "magic_count": "1d4"},
+        {"weight": 26, "dice": "3d6", "table": "gems_500gp", "magic_table": "A", "magic_count": "1d4"},
+        {"weight": 29, "dice": "3d6", "table": "gems_1000gp", "magic_table": "A", "magic_count": "1d4"},
+        {"weight": 35, "dice": "2d4", "table": "art_250gp", "magic_table": "B", "magic_count": "1d6"},
+        {"weight": 40, "dice": "2d4", "table": "art_750gp", "magic_table": "B", "magic_count": "1d6"},
+        {"weight": 45, "dice": "3d6", "table": "gems_500gp", "magic_table": "B", "magic_count": "1d6"},
+        {"weight": 50, "dice": "3d6", "table": "gems_1000gp", "magic_table": "B", "magic_count": "1d6"},
+        {"weight": 54, "dice": "2d4", "table": "art_250gp", "magic_table": "C", "magic_count": "1d4"},
+        {"weight": 58, "dice": "2d4", "table": "art_750gp", "magic_table": "C", "magic_count": "1d4"},
+        {"weight": 62, "dice": "3d6", "table": "gems_500gp", "magic_table": "C", "magic_count": "1d4"},
+        {"weight": 66, "dice": "3d6", "table": "gems_1000gp", "magic_table": "C", "magic_count": "1d4"},
+        {"weight": 68, "dice": "2d4", "table": "art_250gp", "magic_table": "D"},
+        {"weight": 70, "dice": "2d4", "table": "art_750gp", "magic_table": "D"},
+        {"weight": 72, "dice": "3d6", "table": "gems_500gp", "magic_table": "D"},
+        {"weight": 74, "dice": "3d6", "table": "gems_1000gp", "magic_table": "D"},
+        {"weight": 76, "dice": "2d4", "table": "art_250gp", "magic_table": "E"},
+        {"weight": 78, "dice": "2d4", "table": "art_750gp", "magic_table": "E"},
+        {"weight": 80, "dice": "3d6", "table": "gems_500gp", "magic_table": "E"},
+        {"weight": 82, "dice": "3d6", "table": "gems_1000gp", "magic_table": "E"},
+        {"weight": 85, "dice": "2d4", "table": "art_250gp", "magic_table": "F"},
+        {"weight": 88, "dice": "2d4", "table": "art_750gp", "magic_table": "F"},
+        {"weight": 90, "dice": "3d6", "table": "gems_500gp", "magic_table": "F"},
+        {"weight": 92, "dice": "3d6", "table": "gems_1000gp", "magic_table": "F"},
+        {"weight": 94, "dice": "2d4", "table": "art_250gp", "magic_table": "G"},
+        {"weight": 96, "dice": "2d4", "table": "art_750gp", "magic_table": "G"},
+        {"weight": 98, "dice": "3d6", "table": "gems_500gp", "magic_table": "H"},
+        {"weight": 99, "dice": "3d6", "table": "gems_1000gp", "magic_table": "H"},
+        {"weight": 100, "dice": "2d4", "table": "art_750gp", "magic_table": "I"}
+      ]
+    },
+    "cr_17_plus": {
+      "coins": {
+        "gp": "12d6x1000",
+        "pp": "8d6x1000"
+      },
+      "gems_art": [
+        {"weight": 2, "type": null},
+        {"weight": 5, "dice": "3d6", "table": "gems_1000gp", "magic_table": "C", "magic_count": "1d8"},
+        {"weight": 8, "dice": "1d10", "table": "art_2500gp", "magic_table": "C", "magic_count": "1d8"},
+        {"weight": 11, "dice": "1d4", "table": "art_7500gp", "magic_table": "C", "magic_count": "1d8"},
+        {"weight": 14, "dice": "1d8", "table": "gems_5000gp", "magic_table": "C", "magic_count": "1d8"},
+        {"weight": 22, "dice": "3d6", "table": "gems_1000gp", "magic_table": "D", "magic_count": "1d6"},
+        {"weight": 30, "dice": "1d10", "table": "art_2500gp", "magic_table": "D", "magic_count": "1d6"},
+        {"weight": 38, "dice": "1d4", "table": "art_7500gp", "magic_table": "D", "magic_count": "1d6"},
+        {"weight": 46, "dice": "1d8", "table": "gems_5000gp", "magic_table": "D", "magic_count": "1d6"},
+        {"weight": 52, "dice": "3d6", "table": "gems_1000gp", "magic_table": "E", "magic_count": "1d6"},
+        {"weight": 58, "dice": "1d10", "table": "art_2500gp", "magic_table": "E", "magic_count": "1d6"},
+        {"weight": 63, "dice": "1d4", "table": "art_7500gp", "magic_table": "E", "magic_count": "1d6"},
+        {"weight": 68, "dice": "1d8", "table": "gems_5000gp", "magic_table": "E", "magic_count": "1d6"},
+        {"weight": 70, "dice": "3d6", "table": "gems_1000gp", "magic_table": "G", "magic_count": "1d4"},
+        {"weight": 72, "dice": "1d10", "table": "art_2500gp", "magic_table": "G", "magic_count": "1d4"},
+        {"weight": 74, "dice": "1d4", "table": "art_7500gp", "magic_table": "G", "magic_count": "1d4"},
+        {"weight": 76, "dice": "1d8", "table": "gems_5000gp", "magic_table": "G", "magic_count": "1d4"},
+        {"weight": 78, "dice": "3d6", "table": "gems_1000gp", "magic_table": "H", "magic_count": "1d4"},
+        {"weight": 80, "dice": "1d10", "table": "art_2500gp", "magic_table": "H", "magic_count": "1d4"},
+        {"weight": 82, "dice": "1d4", "table": "art_7500gp", "magic_table": "H", "magic_count": "1d4"},
+        {"weight": 85, "dice": "1d8", "table": "gems_5000gp", "magic_table": "H", "magic_count": "1d4"},
+        {"weight": 89, "dice": "3d6", "table": "gems_1000gp", "magic_table": "I", "magic_count": "1d4"},
+        {"weight": 92, "dice": "1d10", "table": "art_2500gp", "magic_table": "I", "magic_count": "1d4"},
+        {"weight": 95, "dice": "1d4", "table": "art_7500gp", "magic_table": "I", "magic_count": "1d4"},
+        {"weight": 98, "dice": "1d8", "table": "gems_5000gp", "magic_table": "I", "magic_count": "1d4"},
+        {"weight": 100, "dice": "3d6", "table": "gems_1000gp", "magic_dice": "1d4", "magic_table_2": "I"}
+      ]
+    }
+  },
+  "magic_item_tables": {
+    "A": {
+      "rarity": "common",
+      "items": [
+        {"weight": 50, "item": "potion_of_healing"},
+        {"weight": 60, "item": "spell_scroll_cantrip"},
+        {"weight": 70, "item": "potion_of_climbing"},
+        {"weight": 90, "item": "spell_scroll_1st"},
+        {"weight": 94, "item": "spell_scroll_2nd"},
+        {"weight": 98, "item": "potion_of_healing_greater"},
+        {"weight": 100, "item": "bag_of_holding"}
+      ]
+    },
+    "B": {
+      "rarity": "uncommon",
+      "items": [
+        {"weight": 15, "item": "potion_of_healing_greater"},
+        {"weight": 22, "item": "potion_of_fire_breath"},
+        {"weight": 29, "item": "potion_of_resistance"},
+        {"weight": 34, "item": "ammunition_plus_1"},
+        {"weight": 39, "item": "potion_of_animal_friendship"},
+        {"weight": 44, "item": "potion_of_hill_giant_strength"},
+        {"weight": 49, "item": "potion_of_growth"},
+        {"weight": 54, "item": "potion_of_water_breathing"},
+        {"weight": 59, "item": "spell_scroll_2nd"},
+        {"weight": 64, "item": "spell_scroll_3rd"},
+        {"weight": 67, "item": "bag_of_holding"},
+        {"weight": 70, "item": "keoghtoms_ointment"},
+        {"weight": 73, "item": "oil_of_slipperiness"},
+        {"weight": 75, "item": "dust_of_disappearance"},
+        {"weight": 77, "item": "dust_of_dryness"},
+        {"weight": 79, "item": "dust_of_sneezing_choking"},
+        {"weight": 81, "item": "elemental_gem"},
+        {"weight": 83, "item": "philter_of_love"},
+        {"weight": 90, "item": "alchemy_jug"},
+        {"weight": 93, "item": "cap_of_water_breathing"},
+        {"weight": 96, "item": "cloak_of_the_manta_ray"},
+        {"weight": 98, "item": "driftglobe"},
+        {"weight": 100, "item": "goggles_of_night"}
+      ]
+    },
+    "C": {
+      "rarity": "rare",
+      "items": [
+        {"weight": 15, "item": "potion_of_superior_healing"},
+        {"weight": 22, "item": "spell_scroll_4th"},
+        {"weight": 27, "item": "ammunition_plus_2"},
+        {"weight": 32, "item": "potion_of_clairvoyance"},
+        {"weight": 37, "item": "potion_of_diminution"},
+        {"weight": 42, "item": "potion_of_gaseous_form"},
+        {"weight": 47, "item": "potion_of_frost_giant_strength"},
+        {"weight": 52, "item": "potion_of_stone_giant_strength"},
+        {"weight": 57, "item": "potion_of_heroism"},
+        {"weight": 62, "item": "potion_of_invulnerability"},
+        {"weight": 67, "item": "potion_of_mind_reading"},
+        {"weight": 72, "item": "spell_scroll_5th"},
+        {"weight": 75, "item": "elixir_of_health"},
+        {"weight": 78, "item": "oil_of_etherealness"},
+        {"weight": 81, "item": "potion_of_fire_giant_strength"},
+        {"weight": 84, "item": "quaals_feather_token"},
+        {"weight": 87, "item": "scroll_of_protection"},
+        {"weight": 89, "item": "bag_of_beans"},
+        {"weight": 91, "item": "bead_of_force"},
+        {"weight": 96, "item": "chime_of_opening"},
+        {"weight": 98, "item": "decanter_of_endless_water"},
+        {"weight": 100, "item": "eyes_of_minute_seeing"}
+      ]
+    },
+    "D": {
+      "rarity": "rare",
+      "items": [
+        {"weight": 20, "item": "potion_of_supreme_healing"},
+        {"weight": 30, "item": "potion_of_invisibility"},
+        {"weight": 40, "item": "potion_of_speed"},
+        {"weight": 50, "item": "spell_scroll_6th"},
+        {"weight": 57, "item": "spell_scroll_7th"},
+        {"weight": 62, "item": "ammunition_plus_3"},
+        {"weight": 67, "item": "oil_of_sharpness"},
+        {"weight": 72, "item": "potion_of_flying"},
+        {"weight": 77, "item": "potion_of_cloud_giant_strength"},
+        {"weight": 82, "item": "potion_of_longevity"},
+        {"weight": 87, "item": "potion_of_vitality"},
+        {"weight": 92, "item": "spell_scroll_8th"},
+        {"weight": 95, "item": "horseshoes_of_a_zephyr"},
+        {"weight": 98, "item": "nolzurs_marvelous_pigments"},
+        {"weight": 100, "item": "bag_of_devouring"}
+      ]
+    },
+    "F": {
+      "rarity": "uncommon_magic_weapon",
+      "items": [
+        {"weight": 15, "item": "weapon_plus_1"},
+        {"weight": 18, "item": "shield_plus_1"},
+        {"weight": 21, "item": "sentinel_shield"},
+        {"weight": 23, "item": "amulet_of_proof_against_detection"},
+        {"weight": 25, "item": "boots_of_elvenkind"},
+        {"weight": 27, "item": "boots_of_striding_and_springing"},
+        {"weight": 29, "item": "bracers_of_archery"},
+        {"weight": 31, "item": "brooch_of_shielding"},
+        {"weight": 33, "item": "broom_of_flying"},
+        {"weight": 35, "item": "cloak_of_elvenkind"},
+        {"weight": 37, "item": "cloak_of_protection"},
+        {"weight": 39, "item": "gauntlets_of_ogre_power"},
+        {"weight": 41, "item": "hat_of_disguise"},
+        {"weight": 43, "item": "javelin_of_lightning"},
+        {"weight": 45, "item": "pearl_of_power"},
+        {"weight": 47, "item": "plus_1_rod_of_the_pact_keeper"},
+        {"weight": 49, "item": "slippers_of_spider_climbing"},
+        {"weight": 51, "item": "staff_of_the_adder"},
+        {"weight": 53, "item": "staff_of_the_python"},
+        {"weight": 55, "item": "sword_of_vengeance"},
+        {"weight": 57, "item": "trident_of_fish_command"},
+        {"weight": 59, "item": "wand_of_magic_missiles"},
+        {"weight": 61, "item": "plus_1_wand_of_the_war_mage"},
+        {"weight": 63, "item": "wand_of_web"},
+        {"weight": 65, "item": "weapon_of_warning"},
+        {"weight": 67, "item": "adamantine_armor"},
+        {"weight": 69, "item": "mithral_armor"},
+        {"weight": 100, "item": "random_uncommon_permanent"}
+      ]
+    },
+    "G": {
+      "rarity": "rare_magic_weapon",
+      "items": [
+        {"weight": 11, "item": "weapon_plus_2"},
+        {"weight": 14, "item": "figurine_of_wondrous_power"},
+        {"weight": 15, "item": "adamantine_armor"},
+        {"weight": 16, "item": "amulet_of_health"},
+        {"weight": 17, "item": "armor_of_vulnerability"},
+        {"weight": 18, "item": "arrow_catching_shield"},
+        {"weight": 19, "item": "belt_of_dwarvenkind"},
+        {"weight": 20, "item": "belt_of_hill_giant_strength"},
+        {"weight": 21, "item": "berserker_axe"},
+        {"weight": 22, "item": "boots_of_levitation"},
+        {"weight": 23, "item": "boots_of_speed"},
+        {"weight": 24, "item": "bowl_of_commanding_water_elementals"},
+        {"weight": 25, "item": "bracers_of_defense"},
+        {"weight": 26, "item": "brazier_of_commanding_fire_elementals"},
+        {"weight": 27, "item": "cape_of_the_mountebank"},
+        {"weight": 28, "item": "censer_of_controlling_air_elementals"},
+        {"weight": 29, "item": "armor_plus_1"},
+        {"weight": 30, "item": "shield_plus_2"},
+        {"weight": 50, "item": "random_rare_permanent"},
+        {"weight": 100, "item": "random_rare_weapon"}
+      ]
+    },
+    "H": {
+      "rarity": "very_rare_magic_weapon",
+      "items": [
+        {"weight": 10, "item": "weapon_plus_3"},
+        {"weight": 12, "item": "amulet_of_the_planes"},
+        {"weight": 14, "item": "armor_plus_2"},
+        {"weight": 16, "item": "carpet_of_flying"},
+        {"weight": 18, "item": "crystal_ball"},
+        {"weight": 20, "item": "ring_of_regeneration"},
+        {"weight": 22, "item": "ring_of_shooting_stars"},
+        {"weight": 24, "item": "ring_of_telekinesis"},
+        {"weight": 26, "item": "robe_of_scintillating_colors"},
+        {"weight": 28, "item": "robe_of_stars"},
+        {"weight": 30, "item": "rod_of_absorption"},
+        {"weight": 32, "item": "rod_of_alertness"},
+        {"weight": 34, "item": "rod_of_security"},
+        {"weight": 36, "item": "plus_3_rod_of_the_pact_keeper"},
+        {"weight": 38, "item": "scimitar_of_speed"},
+        {"weight": 40, "item": "shield_plus_3"},
+        {"weight": 42, "item": "staff_of_fire"},
+        {"weight": 44, "item": "staff_of_frost"},
+        {"weight": 46, "item": "staff_of_power"},
+        {"weight": 48, "item": "staff_of_striking"},
+        {"weight": 50, "item": "staff_of_thunder_and_lightning"},
+        {"weight": 75, "item": "random_very_rare_permanent"},
+        {"weight": 100, "item": "random_very_rare_weapon"}
+      ]
+    },
+    "I": {
+      "rarity": "legendary",
+      "items": [
+        {"weight": 5, "item": "defender"},
+        {"weight": 10, "item": "hammer_of_thunderbolts"},
+        {"weight": 15, "item": "luck_blade"},
+        {"weight": 20, "item": "sword_of_answering"},
+        {"weight": 23, "item": "holy_avenger"},
+        {"weight": 26, "item": "ring_of_djinni_summoning"},
+        {"weight": 29, "item": "ring_of_invisibility"},
+        {"weight": 32, "item": "ring_of_spell_turning"},
+        {"weight": 35, "item": "rod_of_lordly_might"},
+        {"weight": 38, "item": "staff_of_the_magi"},
+        {"weight": 41, "item": "vorpal_sword"},
+        {"weight": 43, "item": "belt_of_cloud_giant_strength"},
+        {"weight": 45, "item": "armor_plus_3"},
+        {"weight": 47, "item": "belt_of_storm_giant_strength"},
+        {"weight": 49, "item": "cloak_of_invisibility"},
+        {"weight": 51, "item": "crystal_ball_of_true_seeing"},
+        {"weight": 53, "item": "armor_of_invulnerability"},
+        {"weight": 55, "item": "belt_of_fire_giant_strength"},
+        {"weight": 57, "item": "belt_of_frost_giant_strength"},
+        {"weight": 59, "item": "iron_horn_of_valhalla"},
+        {"weight": 61, "item": "ioun_stone_greater_absorption"},
+        {"weight": 63, "item": "ioun_stone_mastery"},
+        {"weight": 65, "item": "ioun_stone_regeneration"},
+        {"weight": 67, "item": "efreeti_bottle"},
+        {"weight": 69, "item": "cubic_gate"},
+        {"weight": 71, "item": "deck_of_many_things"},
+        {"weight": 100, "item": "random_legendary_permanent"}
+      ]
+    }
+  }
+}

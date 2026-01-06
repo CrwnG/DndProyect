@@ -1,0 +1,61 @@
+{
+  "id": "aasimar",
+  "name": "Aasimar",
+  "source": "2024 Player's Handbook",
+  "description": "Aasimar are mortals touched by celestial power, either through direct heritage or through a blessing. This celestial connection gives them a divine spark that can manifest in powerful ways.",
+  "creature_type": "Humanoid",
+  "size": "Medium or Small (chosen at character creation)",
+  "speed": 30,
+  "languages": ["Common"],
+  "language_choices": {
+    "choose": 2,
+    "from": "any"
+  },
+  "traits": [
+    {
+      "id": "celestial_resistance",
+      "name": "Celestial Resistance",
+      "description": "You have Resistance to Necrotic damage and Radiant damage."
+    },
+    {
+      "id": "darkvision_aasimar",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 60 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "healing_hands",
+      "name": "Healing Hands",
+      "description": "As a Magic action, you touch a creature and roll a number of d4s equal to your proficiency bonus. The creature regains a number of Hit Points equal to the total rolled. Once you use this trait, you can't use it again until you finish a Long Rest."
+    },
+    {
+      "id": "light_bearer",
+      "name": "Light Bearer",
+      "description": "You know the Light cantrip. Charisma is your spellcasting ability for it."
+    },
+    {
+      "id": "celestial_revelation",
+      "name": "Celestial Revelation",
+      "description": "When you reach 3rd level, choose one of the revelation forms below. You can transform using your chosen form once, and you regain the ability to do so when you finish a Long Rest. Starting at 5th level, you can use your Celestial Revelation twice between Long Rests.",
+      "forms": [
+        {
+          "id": "heavenly_wings",
+          "name": "Heavenly Wings",
+          "description": "As a Bonus Action, you sprout spectral wings for 1 minute. For the duration, you have a Fly Speed equal to your Speed."
+        },
+        {
+          "id": "inner_radiance",
+          "name": "Inner Radiance",
+          "description": "As a Bonus Action, you emit bright light in a 10-foot radius and dim light for an additional 10 feet for 1 minute. Until the transformation ends, once on each of your turns you can deal extra Radiant damage to one target when you deal damage to it with an attack or a spell. The extra damage equals your proficiency bonus."
+        },
+        {
+          "id": "necrotic_shroud",
+          "name": "Necrotic Shroud",
+          "description": "As a Bonus Action, your eyes turn into pools of darkness for 1 minute. When you transform, each creature within 10 feet of you must succeed on a Charisma saving throw (DC 8 + your Charisma modifier + your proficiency bonus) or have the Frightened condition until the end of your next turn. Until the transformation ends, once on each of your turns you can deal extra Necrotic damage to one target when you deal damage to it with an attack or a spell. The extra damage equals your proficiency bonus."
+        }
+      ]
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

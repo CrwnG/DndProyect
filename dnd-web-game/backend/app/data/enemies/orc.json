@@ -1,0 +1,70 @@
+{
+  "id": "orc",
+  "name": "Orc",
+  "size": "medium",
+  "type": "humanoid",
+  "alignment": "chaotic evil",
+  "armor_class": 13,
+  "hit_dice": "2d8+6",
+  "hit_points_average": 15,
+  "speed": 30,
+  "abilities": {
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 16,
+    "intelligence": 7,
+    "wisdom": 11,
+    "charisma": 10
+  },
+  "skills": {
+    "intimidation": 2
+  },
+  "senses": {
+    "darkvision": 60,
+    "passive_perception": 10
+  },
+  "languages": ["common", "orc"],
+  "challenge_rating": 0.5,
+  "xp": 100,
+  "traits": [
+    {
+      "id": "aggressive",
+      "name": "Aggressive",
+      "description": "As a bonus action, the orc can move up to its speed toward a hostile creature it can see.",
+      "effect": {
+        "type": "bonus_action",
+        "action": "move_toward_enemy"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "greataxe",
+      "name": "Greataxe",
+      "type": "melee_weapon",
+      "attack_bonus": 5,
+      "reach": 5,
+      "damage": "1d12+3",
+      "damage_type": "slashing"
+    },
+    {
+      "id": "javelin",
+      "name": "Javelin",
+      "type": "ranged_weapon",
+      "attack_bonus": 5,
+      "range": 30,
+      "long_range": 120,
+      "damage": "1d6+3",
+      "damage_type": "piercing"
+    }
+  ],
+  "ai_behavior": {
+    "preferred_range": "melee",
+    "flee_threshold": 0.15,
+    "uses_cover": false,
+    "aggressive": true,
+    "target_priority": ["highest_damage_dealt", "spellcaster", "nearest"],
+    "tactics": "Orcs charge into melee aggressively, using their Aggressive trait to close distance quickly. They target whoever has hurt them most."
+  },
+  "sprite": "orc.png"
+}

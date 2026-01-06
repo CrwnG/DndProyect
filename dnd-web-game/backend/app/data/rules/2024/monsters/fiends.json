@@ -1,0 +1,1472 @@
+{
+  "creature_type": "Fiend",
+  "source": "2024 Monster Manual",
+  "description": "Fiends are creatures of wickedness that are native to the Lower Planes. A few are combative servants of good, but most are agents of evil. They include demons and devils, as well as other creatures like nightmares and rakshasas.",
+  "categories": {
+    "demons": "Chaotic evil fiends from the Abyss. They seek only destruction and chaos.",
+    "devils": "Lawful evil fiends from the Nine Hells. They seek souls and the spread of tyranny."
+  },
+  "monsters": [
+    {
+      "id": "balor",
+      "name": "Balor",
+      "size": "Huge",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 262,
+      "hit_dice": "21d12+126",
+      "speed": { "walk": 40, "fly": 80 },
+      "ability_scores": { "STR": 26, "DEX": 15, "CON": 22, "INT": 20, "WIS": 16, "CHA": 22 },
+      "saving_throws": { "STR": 14, "CON": 12, "WIS": 9, "CHA": 12 },
+      "damage_resistances": ["cold", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 13 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "19",
+      "xp": 22000,
+      "traits": [
+        {
+          "name": "Death Throes",
+          "description": "When the balor dies, it explodes, and each creature within 30 feet of it must make a DC 20 Dexterity saving throw, taking 70 (20d6) fire damage on a failed save, or half as much damage on a successful one. The explosion ignites flammable objects in that area that aren't being worn or carried, and it destroys the balor's weapons."
+        },
+        {
+          "name": "Fire Aura",
+          "description": "At the start of each of the balor's turns, each creature within 5 feet of it takes 10 (3d6) fire damage, and flammable objects in the aura that aren't being worn or carried ignite. A creature that touches the balor or hits it with a melee attack while within 5 feet of it takes 10 (3d6) fire damage."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The balor has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The balor's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The balor makes two attacks: one with its longsword and one with its whip."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 21 (3d8+8) slashing damage plus 13 (3d8) lightning damage. If the balor scores a critical hit, it rolls damage dice three times, instead of twice."
+        },
+        {
+          "name": "Whip",
+          "description": "Melee Weapon Attack: +14 to hit, reach 30 ft., one target. Hit: 15 (2d6+8) slashing damage plus 10 (3d6) fire damage, and the target must succeed on a DC 20 Strength saving throw or be pulled up to 25 feet toward the balor."
+        },
+        {
+          "name": "Teleport",
+          "description": "The balor magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."
+        }
+      ]
+    },
+    {
+      "id": "dretch",
+      "name": "Dretch",
+      "size": "Small",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 11,
+      "armor_type": "natural armor",
+      "hit_points": 18,
+      "hit_dice": "4d6+4",
+      "speed": { "walk": 20 },
+      "ability_scores": { "STR": 11, "DEX": 11, "CON": 12, "INT": 5, "WIS": 8, "CHA": 3 },
+      "damage_resistances": ["cold", "fire", "lightning"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 9 },
+      "languages": ["Abyssal", "telepathy 60 ft."],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The dretch makes two attacks: one with its bite and one with its claws."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 3 (1d6) piercing damage."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 5 (2d4) slashing damage."
+        },
+        {
+          "name": "Fetid Cloud (1/Day)",
+          "description": "A 10-foot radius of disgusting green gas extends out from the dretch. The gas spreads around corners, and its area is lightly obscured. It lasts for 1 minute or until a strong wind disperses it. Any creature that starts its turn in that area must succeed on a DC 11 Constitution saving throw or be poisoned until the start of its next turn. While poisoned in this way, the target can take either an action or a bonus action on its turn, not both, and can't take reactions."
+        }
+      ]
+    },
+    {
+      "id": "glabrezu",
+      "name": "Glabrezu",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 157,
+      "hit_dice": "15d10+75",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 20, "DEX": 15, "CON": 21, "INT": 19, "WIS": 17, "CHA": 16 },
+      "saving_throws": { "STR": 9, "CON": 9, "WIS": 7, "CHA": 7 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 13 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Innate Spellcasting",
+          "description": "The glabrezu's spellcasting ability is Intelligence (spell save DC 16). The glabrezu can innately cast the following spells, requiring no material components: At will: Darkness, Detect Magic, Dispel Magic. 1/day each: Confusion, Fly, Power Word Stun."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The glabrezu has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The glabrezu makes four attacks: two with its pincers and two with its fists. Alternatively, it makes two attacks with its pincers and casts one spell."
+        },
+        {
+          "name": "Pincer",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 16 (2d10+5) bludgeoning damage. If the target is a Medium or smaller creature, it is grappled (escape DC 15). The glabrezu has two pincers, each of which can grapple only one target."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "hezrou",
+      "name": "Hezrou",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 136,
+      "hit_dice": "13d10+65",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 19, "DEX": 17, "CON": 20, "INT": 5, "WIS": 12, "CHA": 13 },
+      "saving_throws": { "STR": 7, "CON": 8, "WIS": 4 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The hezrou has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Stench",
+          "description": "Any creature that starts its turn within 10 feet of the hezrou must succeed on a DC 14 Constitution saving throw or be poisoned until the start of its next turn. On a successful saving throw, the creature is immune to the hezrou's stench for 24 hours."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The hezrou makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 15 (2d10+4) piercing damage."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6+4) slashing damage."
+        }
+      ]
+    },
+    {
+      "id": "marilith",
+      "name": "Marilith",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 189,
+      "hit_dice": "18d10+90",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 18, "DEX": 20, "CON": 20, "INT": 18, "WIS": 16, "CHA": 20 },
+      "saving_throws": { "STR": 9, "CON": 10, "WIS": 8, "CHA": 10 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 13 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "16",
+      "xp": 15000,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The marilith has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The marilith's weapon attacks are magical."
+        },
+        {
+          "name": "Reactive",
+          "description": "The marilith can take one reaction on every turn in a combat."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The marilith makes seven attacks: six with its longswords and one with its tail."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) slashing damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one creature. Hit: 15 (2d10+4) bludgeoning damage. If the target is Medium or smaller, it is grappled (escape DC 19). Until this grapple ends, the target is restrained, the marilith can automatically hit the target with its tail, and the marilith can't make tail attacks against other targets."
+        },
+        {
+          "name": "Teleport",
+          "description": "The marilith magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The marilith adds 5 to its AC against one melee attack that would hit it. To do so, the marilith must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "quasit",
+      "name": "Quasit",
+      "size": "Tiny",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 13,
+      "hit_points": 7,
+      "hit_dice": "3d4",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 5, "DEX": 17, "CON": 10, "INT": 7, "WIS": 10, "CHA": 10 },
+      "skills": { "stealth": 5 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 10 },
+      "languages": ["Abyssal", "Common"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Shapechanger",
+          "description": "The quasit can use its action to polymorph into a beast form that resembles a bat (speed 10 ft., fly 40 ft.), a centipede (40 ft., climb 40 ft.), or a toad (40 ft., swim 40 ft.), or back into its true form. Its statistics are the same in each form, except for the speed changes noted. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The quasit has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws (Bite in Beast Form)",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d4+3) piercing damage, and the target must succeed on a DC 10 Constitution saving throw or take 5 (2d4) poison damage and become poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Scare (1/Day)",
+          "description": "One creature of the quasit's choice within 20 feet of it must succeed on a DC 10 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, with disadvantage if the quasit is within line of sight, ending the effect on itself on a success."
+        },
+        {
+          "name": "Invisibility",
+          "description": "The quasit magically turns invisible until it attacks or uses Scare, or until its concentration ends (as if concentrating on a spell). Any equipment the quasit wears or carries is invisible with it."
+        }
+      ]
+    },
+    {
+      "id": "shadow_demon",
+      "name": "Shadow Demon",
+      "size": "Medium",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 13,
+      "hit_points": 66,
+      "hit_dice": "12d8+12",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 1, "DEX": 17, "CON": 12, "INT": 14, "WIS": 13, "CHA": 14 },
+      "saving_throws": { "DEX": 5, "CHA": 4 },
+      "skills": { "stealth": 7 },
+      "damage_vulnerabilities": ["radiant"],
+      "damage_resistances": ["acid", "fire", "necrotic", "thunder", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["cold", "lightning", "poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained"],
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Incorporeal Movement",
+          "description": "The demon can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object."
+        },
+        {
+          "name": "Light Sensitivity",
+          "description": "While in bright light, the demon has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        },
+        {
+          "name": "Shadow Stealth",
+          "description": "While in dim light or darkness, the demon can take the Hide action as a bonus action."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 10 (2d6+3) psychic damage or, if the demon had advantage on the attack roll, 17 (4d6+3) psychic damage."
+        }
+      ]
+    },
+    {
+      "id": "vrock",
+      "name": "Vrock",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 104,
+      "hit_dice": "11d10+44",
+      "speed": { "walk": 40, "fly": 60 },
+      "ability_scores": { "STR": 17, "DEX": 15, "CON": 18, "INT": 8, "WIS": 13, "CHA": 8 },
+      "saving_throws": { "DEX": 5, "WIS": 4, "CHA": 2 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The vrock has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The vrock makes two attacks: one with its beak and one with its talons."
+        },
+        {
+          "name": "Beak",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6+3) piercing damage."
+        },
+        {
+          "name": "Talons",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 14 (2d10+3) slashing damage."
+        },
+        {
+          "name": "Spores (Recharge 6)",
+          "description": "A 15-foot-radius cloud of toxic spores extends out from the vrock. The spores spread around corners. Each creature in that area must succeed on a DC 14 Constitution saving throw or become poisoned. While poisoned in this way, a target takes 5 (1d10) poison damage at the start of each of its turns. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Emptying a vial of holy water on the target also ends the effect on it."
+        },
+        {
+          "name": "Stunning Screech (1/Day)",
+          "description": "The vrock emits a horrific screech. Each creature within 20 feet of it that can hear it and that isn't a demon must succeed on a DC 14 Constitution saving throw or be stunned until the end of the vrock's next turn."
+        }
+      ]
+    },
+    {
+      "id": "barbed_devil",
+      "name": "Barbed Devil",
+      "size": "Medium",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 110,
+      "hit_dice": "13d8+52",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 17, "CON": 18, "INT": 12, "WIS": 14, "CHA": 14 },
+      "saving_throws": { "STR": 6, "CON": 7, "WIS": 5, "CHA": 5 },
+      "skills": { "deception": 5, "insight": 5, "perception": 8 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 18 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Barbed Hide",
+          "description": "At the start of each of its turns, the barbed devil deals 5 (1d10) piercing damage to any creature grappling it."
+        },
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes three melee attacks: one with its tail and two with its claws. Alternatively, it can use Hurl Flame twice."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) piercing damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6+3) piercing damage."
+        },
+        {
+          "name": "Hurl Flame",
+          "description": "Ranged Spell Attack: +5 to hit, range 150 ft., one target. Hit: 10 (3d6) fire damage. If the target is a flammable object that isn't being worn or carried, it also catches fire."
+        }
+      ]
+    },
+    {
+      "id": "bearded_devil",
+      "name": "Bearded Devil",
+      "size": "Medium",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 52,
+      "hit_dice": "8d8+16",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 15, "CON": 15, "INT": 9, "WIS": 11, "CHA": 11 },
+      "saving_throws": { "STR": 5, "CON": 4, "WIS": 2 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 10 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Steadfast",
+          "description": "The devil can't be frightened while it can see an allied creature within 30 feet of it."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes two attacks: one with its beard and one with its glaive."
+        },
+        {
+          "name": "Beard",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 6 (1d8+2) piercing damage, and the target must succeed on a DC 12 Constitution saving throw or be poisoned for 1 minute. While poisoned in this way, the target can't regain hit points. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Glaive",
+          "description": "Melee Weapon Attack: +5 to hit, reach 10 ft., one target. Hit: 8 (1d10+3) slashing damage. If the target is a creature other than an undead or a construct, it must succeed on a DC 12 Constitution saving throw or lose 5 (1d10) hit points at the start of each of its turns due to an infernal wound. Each time the devil hits the wounded target with this attack, the damage dealt by the wound increases by 5 (1d10). Any creature can take an action to stanch the wound with a successful DC 12 Wisdom (Medicine) check. The wound also closes if the target receives magical healing."
+        }
+      ]
+    },
+    {
+      "id": "bone_devil",
+      "name": "Bone Devil",
+      "size": "Large",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 142,
+      "hit_dice": "15d10+60",
+      "speed": { "walk": 40, "fly": 40 },
+      "ability_scores": { "STR": 18, "DEX": 16, "CON": 18, "INT": 13, "WIS": 14, "CHA": 16 },
+      "saving_throws": { "INT": 5, "WIS": 6, "CHA": 7 },
+      "skills": { "deception": 7, "insight": 6 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 12 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes three attacks: two with its claws and one with its sting."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 8 (1d8+4) slashing damage."
+        },
+        {
+          "name": "Sting",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 13 (2d8+4) piercing damage plus 17 (5d6) poison damage, and the target must succeed on a DC 14 Constitution saving throw or become poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "chain_devil",
+      "name": "Chain Devil",
+      "size": "Medium",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 85,
+      "hit_dice": "10d8+40",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 18, "DEX": 15, "CON": 18, "INT": 11, "WIS": 12, "CHA": 14 },
+      "saving_throws": { "CON": 7, "WIS": 4, "CHA": 5 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes two attacks with its chains."
+        },
+        {
+          "name": "Chain",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 11 (2d6+4) slashing damage. The target is grappled (escape DC 14) if the devil isn't already grappling a creature. Until this grapple ends, the target is restrained and takes 7 (2d6) piercing damage at the start of each of its turns."
+        },
+        {
+          "name": "Animate Chains (Recharges after a Short or Long Rest)",
+          "description": "Up to four chains the devil can see within 60 feet of it magically sprout razor-edged barbs and animate under the devil's control, provided that the chains aren't being worn or carried. Each animated chain is an object with AC 20, 20 hit points, resistance to piercing damage, and immunity to psychic and thunder damage. When the devil uses Multiattack on its turn, it can use each animated chain to make one additional chain attack. An animated chain can grapple one creature of its own but can't make attacks while grappling. An animated chain reverts to its inanimate state if reduced to 0 hit points or if the devil is incapacitated or dies."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Unnerving Mask",
+          "description": "When a creature the devil can see starts its turn within 30 feet of the devil, the devil can create the illusion that it looks like one of the creature's departed loved ones or bitter enemies. If the creature can see the devil, it must succeed on a DC 14 Wisdom saving throw or be frightened until the end of its turn."
+        }
+      ]
+    },
+    {
+      "id": "erinyes",
+      "name": "Erinyes",
+      "size": "Medium",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "plate",
+      "hit_points": 153,
+      "hit_dice": "18d8+72",
+      "speed": { "walk": 30, "fly": 60 },
+      "ability_scores": { "STR": 18, "DEX": 16, "CON": 18, "INT": 14, "WIS": 14, "CHA": 18 },
+      "saving_throws": { "DEX": 7, "CON": 8, "WIS": 6, "CHA": 8 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 12 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Hellish Weapons",
+          "description": "The erinyes's weapon attacks are magical and deal an extra 13 (3d8) poison damage on a hit (included in the attacks)."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The erinyes has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The erinyes makes three attacks."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 8 (1d8+4) slashing damage, or 9 (1d10+4) slashing damage if used with two hands, plus 13 (3d8) poison damage."
+        },
+        {
+          "name": "Longbow",
+          "description": "Ranged Weapon Attack: +7 to hit, range 150/600 ft., one target. Hit: 7 (1d8+3) piercing damage plus 13 (3d8) poison damage, and the target must succeed on a DC 14 Constitution saving throw or be poisoned. The poison lasts until it is removed by the lesser restoration spell or similar magic."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The erinyes adds 4 to its AC against one melee attack that would hit it. To do so, the erinyes must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "horned_devil",
+      "name": "Horned Devil",
+      "size": "Large",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 178,
+      "hit_dice": "17d10+85",
+      "speed": { "walk": 20, "fly": 60 },
+      "ability_scores": { "STR": 22, "DEX": 17, "CON": 21, "INT": 12, "WIS": 16, "CHA": 17 },
+      "saving_throws": { "STR": 10, "DEX": 7, "WIS": 7, "CHA": 7 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 13 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "11",
+      "xp": 7200,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes three melee attacks: two with its fork and one with its tail. It can use Hurl Flame in place of any melee attack."
+        },
+        {
+          "name": "Fork",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 15 (2d8+6) piercing damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 10 (1d8+6) piercing damage. If the target is a creature other than an undead or a construct, it must succeed on a DC 17 Constitution saving throw or lose 10 (3d6) hit points at the start of each of its turns due to an infernal wound. Each time the devil hits the wounded target with this attack, the damage dealt by the wound increases by 10 (3d6). Any creature can take an action to stanch the wound with a successful DC 12 Wisdom (Medicine) check. The wound also closes if the target receives magical healing."
+        },
+        {
+          "name": "Hurl Flame",
+          "description": "Ranged Spell Attack: +7 to hit, range 150 ft., one target. Hit: 14 (4d6) fire damage. If the target is a flammable object that isn't being worn or carried, it also catches fire."
+        }
+      ]
+    },
+    {
+      "id": "ice_devil",
+      "name": "Ice Devil",
+      "size": "Large",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 180,
+      "hit_dice": "19d10+76",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 21, "DEX": 14, "CON": 18, "INT": 18, "WIS": 15, "CHA": 18 },
+      "saving_throws": { "DEX": 7, "CON": 9, "WIS": 7, "CHA": 9 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["cold", "fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "blindsight": 60, "darkvision": 120, "passive_perception": 12 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "14",
+      "xp": 11500,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes three attacks: one with its bite, one with its claws, and one with its tail."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 12 (2d6+5) piercing damage plus 10 (3d6) cold damage."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 10 (2d4+5) slashing damage plus 10 (3d6) cold damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 12 (2d6+5) bludgeoning damage plus 10 (3d6) cold damage."
+        },
+        {
+          "name": "Wall of Ice (Recharge 6)",
+          "description": "The devil magically forms an opaque wall of ice on a solid surface it can see within 60 feet of it. The wall is 1 foot thick and up to 30 feet long and 10 feet high, or it's a hemispherical dome up to 20 feet in diameter. When the wall appears, each creature in its space is pushed out of it by the shortest route. The creature chooses which side of the wall to end up on, unless the creature is incapacitated. The creature then makes a DC 17 Dexterity saving throw, taking 35 (10d6) cold damage on a failed save, or half as much damage on a successful one. The wall lasts for 1 minute or until the devil is incapacitated or dies. The wall can be damaged and breached; each 10-foot section has AC 5, 30 hit points, vulnerability to fire damage, and immunity to acid, cold, necrotic, poison, and psychic damage. If a section is destroyed, it leaves behind a sheet of frigid air in the space the wall occupied. Whenever a creature finishes moving through the frigid air on a turn, willingly or otherwise, the creature must make a DC 17 Constitution saving throw, taking 17 (5d6) cold damage on a failed save, or half as much damage on a successful one. The frigid air dissipates when the rest of the wall vanishes."
+        }
+      ]
+    },
+    {
+      "id": "imp",
+      "name": "Imp",
+      "size": "Tiny",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 13,
+      "hit_points": 10,
+      "hit_dice": "3d4+3",
+      "speed": { "walk": 20, "fly": 40 },
+      "ability_scores": { "STR": 6, "DEX": 17, "CON": 13, "INT": 11, "WIS": 12, "CHA": 14 },
+      "skills": { "deception": 4, "insight": 3, "persuasion": 4, "stealth": 5 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Infernal", "Common"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Shapechanger",
+          "description": "The imp can use its action to polymorph into a beast form that resembles a rat (speed 20 ft.), a raven (20 ft., fly 60 ft.), or a spider (20 ft., climb 20 ft.), or back into its true form. Its statistics are the same in each form, except for the speed changes noted. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+        },
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the imp's darkvision."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The imp has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Sting (Bite in Beast Form)",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4+3) piercing damage, and the target must make a DC 11 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "Invisibility",
+          "description": "The imp magically turns invisible until it attacks or until its concentration ends (as if concentrating on a spell). Any equipment the imp wears or carries is invisible with it."
+        }
+      ]
+    },
+    {
+      "id": "lemure",
+      "name": "Lemure",
+      "size": "Medium",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 7,
+      "hit_points": 13,
+      "hit_dice": "3d8",
+      "speed": { "walk": 15 },
+      "ability_scores": { "STR": 10, "DEX": 5, "CON": 11, "INT": 1, "WIS": 11, "CHA": 3 },
+      "damage_resistances": ["cold"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["charmed", "frightened", "poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 10 },
+      "languages": ["understands Infernal but can't speak"],
+      "challenge_rating": "0",
+      "xp": 10,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the lemure's darkvision."
+        },
+        {
+          "name": "Hellish Rejuvenation",
+          "description": "A lemure that dies in the Nine Hells comes back to life with all its hit points in 1d10 days unless it is killed by a good-aligned creature with a bless spell cast on that creature or its remains are sprinkled with holy water."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "pit_fiend",
+      "name": "Pit Fiend",
+      "size": "Large",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 300,
+      "hit_dice": "24d10+168",
+      "speed": { "walk": 30, "fly": 60 },
+      "ability_scores": { "STR": 26, "DEX": 14, "CON": 24, "INT": 22, "WIS": 18, "CHA": 24 },
+      "saving_throws": { "DEX": 8, "CON": 13, "WIS": 10 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 14 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "20",
+      "xp": 25000,
+      "traits": [
+        {
+          "name": "Fear Aura",
+          "description": "Any creature hostile to the pit fiend that starts its turn within 20 feet of the pit fiend must make a DC 21 Wisdom saving throw, unless the pit fiend is incapacitated. On a failed save, the creature is frightened until the start of its next turn. If a creature's saving throw is successful, the creature is immune to the pit fiend's Fear Aura for the next 24 hours."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The pit fiend has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The pit fiend's weapon attacks are magical."
+        },
+        {
+          "name": "Innate Spellcasting",
+          "description": "The pit fiend's spellcasting ability is Charisma (spell save DC 21). The pit fiend can innately cast the following spells, requiring no material components: At will: Detect Magic, Fireball. 3/day each: Hold Monster, Wall of Fire."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The pit fiend makes four attacks: one with its bite, one with its claw, one with its mace, and one with its tail."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +14 to hit, reach 5 ft., one target. Hit: 22 (4d6+8) piercing damage. The target must succeed on a DC 21 Constitution saving throw or become poisoned. While poisoned in this way, the target can't regain hit points, and it takes 21 (6d6) poison damage at the start of each of its turns. The poisoned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 17 (2d8+8) slashing damage."
+        },
+        {
+          "name": "Mace",
+          "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 15 (2d6+8) bludgeoning damage plus 21 (6d6) fire damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 24 (3d10+8) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "hell_hound",
+      "name": "Hell Hound",
+      "size": "Medium",
+      "type": "Fiend",
+      "alignment": "Lawful Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 45,
+      "hit_dice": "7d8+14",
+      "speed": { "walk": 50 },
+      "ability_scores": { "STR": 17, "DEX": 12, "CON": 14, "INT": 6, "WIS": 13, "CHA": 6 },
+      "skills": { "perception": 5 },
+      "damage_immunities": ["fire"],
+      "senses": { "darkvision": 60, "passive_perception": 15 },
+      "languages": ["understands Infernal but can't speak"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Keen Hearing and Smell",
+          "description": "The hound has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+        },
+        {
+          "name": "Pack Tactics",
+          "description": "The hound has advantage on an attack roll against a creature if at least one of the hound's allies is within 5 feet of the creature and the ally isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) piercing damage plus 7 (2d6) fire damage."
+        },
+        {
+          "name": "Fire Breath (Recharge 5-6)",
+          "description": "The hound exhales fire in a 15-foot cone. Each creature in that area must make a DC 12 Dexterity saving throw, taking 21 (6d6) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "nightmare",
+      "name": "Nightmare",
+      "size": "Large",
+      "type": "Fiend",
+      "alignment": "Neutral Evil",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 68,
+      "hit_dice": "8d10+24",
+      "speed": { "walk": 60, "fly": 90 },
+      "ability_scores": { "STR": 18, "DEX": 15, "CON": 16, "INT": 10, "WIS": 13, "CHA": 15 },
+      "damage_immunities": ["fire"],
+      "senses": { "passive_perception": 11 },
+      "languages": ["understands Abyssal, Common, and Infernal but can't speak"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Confer Fire Resistance",
+          "description": "The nightmare can grant resistance to fire damage to anyone riding it."
+        },
+        {
+          "name": "Illumination",
+          "description": "The nightmare sheds bright light in a 10-foot radius and dim light for an additional 10 feet."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Hooves",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) bludgeoning damage plus 7 (2d6) fire damage."
+        },
+        {
+          "name": "Ethereal Stride",
+          "description": "The nightmare and up to three willing creatures within 5 feet of it magically enter the Ethereal Plane from the Material Plane, or vice versa."
+        }
+      ]
+    },
+    {
+      "id": "succubus_incubus",
+      "name": "Succubus/Incubus",
+      "size": "Medium",
+      "type": "Fiend (shapechanger)",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 66,
+      "hit_dice": "12d8+12",
+      "speed": { "walk": 30, "fly": 60 },
+      "ability_scores": { "STR": 8, "DEX": 17, "CON": 13, "INT": 15, "WIS": 12, "CHA": 20 },
+      "skills": { "deception": 9, "insight": 5, "perception": 5, "persuasion": 9, "stealth": 7 },
+      "damage_resistances": ["cold", "fire", "lightning", "poison", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "senses": { "darkvision": 60, "passive_perception": 15 },
+      "languages": ["Abyssal", "Common", "Infernal", "telepathy 60 ft."],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Telepathic Bond",
+          "description": "The fiend ignores the range restriction on its telepathy when communicating with a creature it has charmed. The two don't even need to be on the same plane of existence."
+        },
+        {
+          "name": "Shapechanger",
+          "description": "The fiend can use its action to polymorph into a Small or Medium humanoid, or back into its true form. Without wings, the fiend loses its flying speed. Other than its size and speed, its statistics are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claw (Fiend Form Only)",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) slashing damage."
+        },
+        {
+          "name": "Charm",
+          "description": "One humanoid the fiend can see within 30 feet of it must succeed on a DC 15 Wisdom saving throw or be magically charmed for 1 day. The charmed target obeys the fiend's verbal or telepathic commands. If the target suffers any harm or receives a suicidal command, it can repeat the saving throw, ending the effect on a success. If the target successfully saves against the effect, or if the effect on it ends, the target is immune to this fiend's Charm for the next 24 hours. The fiend can have only one target charmed at a time. If it charms another, the effect on the previous target ends."
+        },
+        {
+          "name": "Draining Kiss",
+          "description": "The fiend kisses a creature charmed by it or a willing creature. The target must make a DC 15 Constitution saving throw against this magic, taking 32 (5d10+5) psychic damage on a failed save, or half as much damage on a successful one. The target's hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0."
+        },
+        {
+          "name": "Etherealness",
+          "description": "The fiend magically enters the Ethereal Plane from the Material Plane, or vice versa."
+        }
+      ]
+    },
+    {
+      "id": "spined_devil",
+      "name": "Spined Devil",
+      "size": "Small",
+      "type": "Fiend (devil)",
+      "alignment": "Lawful Evil",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 22,
+      "hit_dice": "5d6+5",
+      "speed": { "walk": 20, "fly": 40 },
+      "ability_scores": { "STR": 10, "DEX": 15, "CON": 12, "INT": 11, "WIS": 14, "CHA": 8 },
+      "damage_resistances": ["cold", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't silvered"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 12 },
+      "languages": ["Infernal", "telepathy 120 ft."],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Devil's Sight",
+          "description": "Magical darkness doesn't impede the devil's darkvision."
+        },
+        {
+          "name": "Flyby",
+          "description": "The devil doesn't provoke an opportunity attack when it flies out of an enemy's reach."
+        },
+        {
+          "name": "Limited Spines",
+          "description": "The devil has twelve tail spines. Used spines regrow by the time the devil finishes a long rest."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The devil has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The devil makes two attacks: one with its bite and one with its fork or two with its tail spines."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 5 (2d4) slashing damage."
+        },
+        {
+          "name": "Fork",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 3 (1d6) piercing damage."
+        },
+        {
+          "name": "Tail Spine",
+          "description": "Ranged Weapon Attack: +4 to hit, range 20/80 ft., one target. Hit: 4 (1d4+2) piercing damage plus 3 (1d6) fire damage."
+        }
+      ]
+    },
+    {
+      "id": "nalfeshnee",
+      "name": "Nalfeshnee",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 184,
+      "hit_dice": "16d10+96",
+      "speed": { "walk": 20, "fly": 30 },
+      "ability_scores": { "STR": 21, "DEX": 10, "CON": 22, "INT": 19, "WIS": 12, "CHA": 15 },
+      "saving_throws": { "CON": 11, "INT": 9, "WIS": 6, "CHA": 7 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 11 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The nalfeshnee has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The nalfeshnee uses Horror Nimbus if it can. It then makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 32 (5d10+5) piercing damage."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 15 (3d6+5) slashing damage."
+        },
+        {
+          "name": "Horror Nimbus (Recharge 5-6)",
+          "description": "The nalfeshnee magically emits scintillating, multicolored light. Each creature within 15 feet of the nalfeshnee that can see the light must succeed on a DC 15 Wisdom saving throw or be frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the nalfeshnee's Horror Nimbus for the next 24 hours."
+        },
+        {
+          "name": "Teleport",
+          "description": "The nalfeshnee magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."
+        }
+      ]
+    },
+    {
+      "id": "barlgura",
+      "name": "Barlgura",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 68,
+      "hit_dice": "8d10+24",
+      "speed": { "walk": 40, "climb": 40 },
+      "ability_scores": { "STR": 18, "DEX": 15, "CON": 16, "INT": 7, "WIS": 14, "CHA": 9 },
+      "saving_throws": { "DEX": 5, "CON": 6 },
+      "skills": { "perception": 5, "stealth": 5 },
+      "damage_resistances": ["cold", "fire", "lightning"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "blindsight": 30, "darkvision": 120, "passive_perception": 15 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Innate Spellcasting",
+          "description": "The barlgura's spellcasting ability is Wisdom (spell save DC 13). The barlgura can innately cast the following spells, requiring no material components: 1/day each: Entangle, Phantasmal Force. 2/day each: Disguise Self, Invisibility (self only)."
+        },
+        {
+          "name": "Reckless",
+          "description": "At the start of its turn, the barlgura can gain advantage on all melee weapon attack rolls it makes during that turn, but attack rolls against it have advantage until the start of its next turn."
+        },
+        {
+          "name": "Running Leap",
+          "description": "The barlgura's long jump is up to 40 feet and its high jump is up to 20 feet when it has a running start."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The barlgura makes three attacks: one with its bite and two with its fists."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6+4) piercing damage."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (1d10+4) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "chasme",
+      "name": "Chasme",
+      "size": "Large",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 84,
+      "hit_dice": "13d10+13",
+      "speed": { "walk": 20, "fly": 60 },
+      "ability_scores": { "STR": 15, "DEX": 15, "CON": 12, "INT": 11, "WIS": 14, "CHA": 10 },
+      "saving_throws": { "DEX": 5, "WIS": 5 },
+      "skills": { "perception": 5 },
+      "damage_resistances": ["cold", "fire", "lightning"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "blindsight": 10, "darkvision": 120, "passive_perception": 15 },
+      "languages": ["Abyssal", "telepathy 120 ft."],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Drone",
+          "description": "The chasme produces a horrid droning sound to which demons are immune. Any other creature that starts its turn within 30 feet of the chasme must succeed on a DC 12 Constitution saving throw or fall unconscious for 10 minutes. A creature that can't hear the drone automatically succeeds on the save. The effect on the creature ends if it takes damage or if another creature takes an action to splash it with holy water. If a creature's saving throw is successful or the effect ends for it, it is immune to the drone for the next 24 hours."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The chasme has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Spider Climb",
+          "description": "The chasme can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Proboscis",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 16 (4d6+2) piercing damage plus 24 (7d6) necrotic damage, and the target's hit point maximum is reduced by an amount equal to the necrotic damage taken. If this effect reduces a creature's hit point maximum to 0, the creature dies. This reduction to a creature's hit point maximum lasts until the creature finishes a long rest or until it is affected by a spell like greater restoration."
+        }
+      ]
+    },
+    {
+      "id": "yochlol",
+      "name": "Yochlol",
+      "size": "Medium",
+      "type": "Fiend (demon)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 136,
+      "hit_dice": "16d8+64",
+      "speed": { "walk": 30, "climb": 30 },
+      "ability_scores": { "STR": 15, "DEX": 14, "CON": 18, "INT": 13, "WIS": 15, "CHA": 18 },
+      "saving_throws": { "DEX": 6, "INT": 5, "WIS": 6, "CHA": 8 },
+      "skills": { "deception": 10, "insight": 6 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 120, "passive_perception": 12 },
+      "languages": ["Abyssal", "Elvish", "Undercommon", "telepathy 60 ft."],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Shapechanger",
+          "description": "The yochlol can use its action to polymorph into a form that resembles a female drow or giant spider, or back into its true form. Its statistics are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The yochlol has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Spider Climb",
+          "description": "The yochlol can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+        },
+        {
+          "name": "Innate Spellcasting",
+          "description": "The yochlol's spellcasting ability is Charisma (spell save DC 16). The yochlol can innately cast the following spells, requiring no material components: At will: Detect Thoughts, Web. 1/day: Dominate Person."
+        },
+        {
+          "name": "Web Walker",
+          "description": "The yochlol ignores movement restrictions caused by webbing."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The yochlol makes two melee attacks."
+        },
+        {
+          "name": "Slam (Bite in Spider Form)",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft. (10 ft. in demon form), one target. Hit: 5 (1d6+2) bludgeoning damage plus 21 (6d6) poison damage."
+        },
+        {
+          "name": "Mist Form",
+          "description": "The yochlol transforms into toxic mist or reverts to its true form. Any equipment it is wearing or carrying is also transformed. It reverts to its true form if it dies. While in mist form, the yochlol is incapacitated and can't speak. It has a flying speed of 30 feet, can hover, and can pass through any space that isn't airtight. It has advantage on Strength, Dexterity, and Constitution saving throws, and it is immune to nonmagical damage. While in mist form, the yochlol can enter a creature's space and stop there. Each time that creature starts its turn with the yochlol in its space, the creature must succeed on a DC 14 Constitution saving throw or be poisoned until the start of its next turn. While poisoned in this way, the target is incapacitated."
+        }
+      ]
+    },
+    {
+      "id": "mezzoloth",
+      "name": "Mezzoloth",
+      "size": "Medium",
+      "type": "Fiend (yugoloth)",
+      "alignment": "Neutral Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 75,
+      "hit_dice": "10d8+30",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 18, "DEX": 11, "CON": 16, "INT": 7, "WIS": 10, "CHA": 11 },
+      "skills": { "perception": 3 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["acid", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "blindsight": 60, "darkvision": 60, "passive_perception": 13 },
+      "languages": ["Abyssal", "Infernal", "telepathy 60 ft."],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Innate Spellcasting",
+          "description": "The mezzoloth's innate spellcasting ability is Charisma (spell save DC 11). The mezzoloth can innately cast the following spells, requiring no material components: 2/day each: Darkness, Dispel Magic. 1/day: Cloudkill."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The mezzoloth has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The mezzoloth's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The mezzoloth makes two attacks: one with its claws and one with its trident."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (2d4+4) slashing damage."
+        },
+        {
+          "name": "Trident",
+          "description": "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 7 (1d6+4) piercing damage, or 8 (1d8+4) piercing damage when held with two claws and used to make a melee attack."
+        },
+        {
+          "name": "Teleport",
+          "description": "The mezzoloth magically teleports, along with any equipment it is wearing or carrying, up to 60 feet to an unoccupied space it can see."
+        }
+      ]
+    },
+    {
+      "id": "nycaloth",
+      "name": "Nycaloth",
+      "size": "Large",
+      "type": "Fiend (yugoloth)",
+      "alignment": "Neutral Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 123,
+      "hit_dice": "13d10+52",
+      "speed": { "walk": 40, "fly": 60 },
+      "ability_scores": { "STR": 20, "DEX": 11, "CON": 19, "INT": 12, "WIS": 10, "CHA": 15 },
+      "skills": { "intimidation": 6, "perception": 4, "stealth": 4 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["acid", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "blindsight": 60, "darkvision": 60, "passive_perception": 14 },
+      "languages": ["Abyssal", "Infernal", "telepathy 60 ft."],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Innate Spellcasting",
+          "description": "The nycaloth's innate spellcasting ability is Charisma (spell save DC 14). The nycaloth can innately cast the following spells, requiring no material components: At will: Darkness, Detect Magic, Dispel Magic, Invisibility (self only), Mirror Image."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The nycaloth has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The nycaloth's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The nycaloth makes two melee attacks, or it makes one melee attack and teleports before or after the attack."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 12 (2d6+5) slashing damage. If the target is a creature, it must succeed on a DC 16 Constitution saving throw or take 5 (2d4) slashing damage at the start of each of its turns due to a fiendish wound. Each time the nycaloth hits the wounded target with this attack, the damage dealt by the wound increases by 5 (2d4). Any creature can take an action to stanch the wound with a successful DC 13 Wisdom (Medicine) check. The wound also closes if the target receives magical healing."
+        },
+        {
+          "name": "Greataxe",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 18 (2d12+5) slashing damage."
+        },
+        {
+          "name": "Teleport",
+          "description": "The nycaloth magically teleports, along with any equipment it is wearing or carrying, up to 60 feet to an unoccupied space it can see."
+        }
+      ]
+    },
+    {
+      "id": "arcanaloth",
+      "name": "Arcanaloth",
+      "size": "Medium",
+      "type": "Fiend (yugoloth)",
+      "alignment": "Neutral Evil",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 104,
+      "hit_dice": "16d8+32",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 17, "DEX": 12, "CON": 14, "INT": 20, "WIS": 16, "CHA": 17 },
+      "saving_throws": { "DEX": 5, "INT": 9, "WIS": 7, "CHA": 7 },
+      "skills": { "arcana": 13, "deception": 11, "insight": 11, "perception": 7 },
+      "damage_resistances": ["cold", "fire", "lightning", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["acid", "poison"],
+      "condition_immunities": ["charmed", "poisoned"],
+      "senses": { "truesight": 120, "passive_perception": 17 },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Innate Spellcasting",
+          "description": "The arcanaloth's innate spellcasting ability is Charisma (spell save DC 15). The arcanaloth can innately cast the following spells, requiring no material components: At will: Alter Self, Darkness, Heat Metal, Invisibility (self only), Magic Missile."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The arcanaloth has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The arcanaloth's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (2d4+3) slashing damage. The target must make a DC 14 Constitution saving throw, taking 10 (3d6) poison damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "Teleport",
+          "description": "The arcanaloth magically teleports, along with any equipment it is wearing or carrying, up to 60 feet to an unoccupied space it can see."
+        }
+      ],
+      "spellcasting": {
+        "ability": "INT",
+        "save_dc": 17,
+        "attack_bonus": 9,
+        "caster_level": 16,
+        "spells": {
+          "cantrips": ["fire bolt", "mage hand", "minor illusion", "prestidigitation"],
+          "1st_level": ["detect magic", "identify", "shield", "Tenser's floating disk"],
+          "2nd_level": ["detect thoughts", "mirror image", "phantasmal force", "suggestion"],
+          "3rd_level": ["counterspell", "fear", "fireball"],
+          "4th_level": ["banishment", "dimension door"],
+          "5th_level": ["contact other plane", "hold monster"],
+          "6th_level": ["chain lightning"],
+          "7th_level": ["finger of death"],
+          "8th_level": ["mind blank"]
+        },
+        "slots": { "1st": 4, "2nd": 3, "3rd": 3, "4th": 3, "5th": 2, "6th": 1, "7th": 1, "8th": 1 }
+      }
+    },
+    {
+      "id": "rakshasa",
+      "name": "Rakshasa",
+      "size": "Medium",
+      "type": "Fiend",
+      "alignment": "Lawful Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 110,
+      "hit_dice": "13d8+52",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 14, "DEX": 17, "CON": 18, "INT": 13, "WIS": 16, "CHA": 20 },
+      "skills": { "deception": 10, "insight": 8 },
+      "damage_vulnerabilities": ["piercing from magic weapons wielded by good creatures"],
+      "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "senses": { "darkvision": 60, "passive_perception": 13 },
+      "languages": ["Common", "Infernal"],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Limited Magic Immunity",
+          "description": "The rakshasa can't be affected or detected by spells of 6th level or lower unless it wishes to be. It has advantage on saving throws against all other spells and magical effects."
+        },
+        {
+          "name": "Innate Spellcasting",
+          "description": "The rakshasa's innate spellcasting ability is Charisma (spell save DC 18, +10 to hit with spell attacks). The rakshasa can innately cast the following spells, requiring no material components: At will: Detect Thoughts, Disguise Self, Mage Hand, Minor Illusion. 3/day each: Charm Person, Detect Magic, Invisibility, Major Image, Suggestion. 1/day each: Dominate Person, Fly, Plane Shift, True Seeing."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The rakshasa makes two claw attacks."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (2d6+2) slashing damage, and the target is cursed if it is a creature. The magical curse takes effect whenever the target takes a short or long rest, filling the target's thoughts with horrible images and dreams. The cursed target gains no benefit from finishing a short or long rest. The curse lasts until it is lifted by a remove curse spell or similar magic."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,786 @@
+{
+  "creature_type": "Elemental",
+  "source": "2024 Monster Manual",
+  "description": "Elementals are creatures native to the elemental planes. Some creatures of this type are little more than animate masses of their respective elements. Others have biological forms infused with elemental energy.",
+  "monsters": [
+    {
+      "id": "air_elemental",
+      "name": "Air Elemental",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 15,
+      "hit_points": 90,
+      "hit_dice": "12d10+24",
+      "speed": { "walk": 0, "fly": 90, "hover": true },
+      "ability_scores": { "STR": 14, "DEX": 20, "CON": 14, "INT": 6, "WIS": 10, "CHA": 6 },
+      "damage_resistances": ["lightning", "thunder", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained", "unconscious"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Auran"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Air Form",
+          "description": "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The elemental makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 14 (2d8+5) bludgeoning damage."
+        },
+        {
+          "name": "Whirlwind (Recharge 4-6)",
+          "description": "Each creature in the elemental's space must make a DC 13 Strength saving throw. On a failure, a target takes 15 (3d8+2) bludgeoning damage and is flung up 20 feet away from the elemental in a random direction and knocked prone. If a thrown target strikes an object, such as a wall or floor, the target takes 3 (1d6) bludgeoning damage for every 10 feet it was thrown. If the target is thrown at another creature, that creature must succeed on a DC 13 Dexterity saving throw or take the same damage and be knocked prone. If the saving throw is successful, the target takes half the bludgeoning damage and isn't flung away or knocked prone."
+        }
+      ]
+    },
+    {
+      "id": "earth_elemental",
+      "name": "Earth Elemental",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 126,
+      "hit_dice": "12d10+60",
+      "speed": { "walk": 30, "burrow": 30 },
+      "ability_scores": { "STR": 20, "DEX": 8, "CON": 20, "INT": 5, "WIS": 10, "CHA": 5 },
+      "damage_vulnerabilities": ["thunder"],
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "paralyzed", "petrified", "poisoned", "unconscious"],
+      "senses": { "darkvision": 60, "tremorsense": 60, "passive_perception": 10 },
+      "languages": ["Terran"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Earth Glide",
+          "description": "The elemental can burrow through nonmagical, unworked earth and stone. While doing so, the elemental doesn't disturb the material it moves through."
+        },
+        {
+          "name": "Siege Monster",
+          "description": "The elemental deals double damage to objects and structures."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The elemental makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 14 (2d8+5) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "fire_elemental",
+      "name": "Fire Elemental",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 13,
+      "hit_points": 102,
+      "hit_dice": "12d10+36",
+      "speed": { "walk": 50 },
+      "ability_scores": { "STR": 10, "DEX": 17, "CON": 16, "INT": 6, "WIS": 10, "CHA": 7 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained", "unconscious"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Ignan"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Fire Form",
+          "description": "The elemental can move through a space as narrow as 1 inch wide without squeezing. A creature that touches the elemental or hits it with a melee attack while within 5 feet of it takes 5 (1d10) fire damage. In addition, the elemental can enter a hostile creature's space and stop there. The first time it enters a creature's space on a turn, that creature takes 5 (1d10) fire damage and catches fire; until someone takes an action to douse the fire, the creature takes 5 (1d10) fire damage at the start of each of its turns."
+        },
+        {
+          "name": "Illumination",
+          "description": "The elemental sheds bright light in a 30-foot radius and dim light in an additional 30 feet."
+        },
+        {
+          "name": "Water Susceptibility",
+          "description": "For every 5 feet the elemental moves in water, or for every gallon of water splashed on it, it takes 1 cold damage."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The elemental makes two touch attacks."
+        },
+        {
+          "name": "Touch",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6+3) fire damage. If the target is a creature or a flammable object, it ignites. Until a creature takes an action to douse the fire, the target takes 5 (1d10) fire damage at the start of each of its turns."
+        }
+      ]
+    },
+    {
+      "id": "water_elemental",
+      "name": "Water Elemental",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 114,
+      "hit_dice": "12d10+48",
+      "speed": { "walk": 30, "swim": 90 },
+      "ability_scores": { "STR": 18, "DEX": 14, "CON": 18, "INT": 5, "WIS": 10, "CHA": 8 },
+      "damage_resistances": ["acid", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained", "unconscious"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Aquan"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Water Form",
+          "description": "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing."
+        },
+        {
+          "name": "Freeze",
+          "description": "If the elemental takes cold damage, it partially freezes; its speed is reduced by 20 feet until the end of its next turn."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The elemental makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) bludgeoning damage."
+        },
+        {
+          "name": "Whelm (Recharge 4-6)",
+          "description": "Each creature in the elemental's space must make a DC 15 Strength saving throw. On a failure, a target takes 13 (2d8+4) bludgeoning damage. If it is Large or smaller, it is also grappled (escape DC 14). Until this grapple ends, the target is restrained and unable to breathe unless it can breathe water. If the saving throw is successful, the target is pushed out of the elemental's space. The elemental can grapple one Large creature or up to two Medium or smaller creatures at one time. At the start of each of the elemental's turns, each target grappled by it takes 13 (2d8+4) bludgeoning damage. A creature within 5 feet of the elemental can pull a creature or object out of it by taking an action to make a DC 14 Strength check and succeeding."
+        }
+      ]
+    },
+    {
+      "id": "dust_mephit",
+      "name": "Dust Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "hit_points": 17,
+      "hit_dice": "5d6",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 5, "DEX": 14, "CON": 10, "INT": 9, "WIS": 11, "CHA": 10 },
+      "skills": { "perception": 2, "stealth": 4 },
+      "damage_vulnerabilities": ["fire"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 12 },
+      "languages": ["Auran", "Terran"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it explodes in a burst of dust. Each creature within 5 feet of it must then succeed on a DC 10 Constitution saving throw or be blinded for 1 minute. A blinded creature can repeat the saving throw on each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Innate Spellcasting (1/Day)",
+          "description": "The mephit can innately cast sleep, requiring no material components. Its innate spellcasting ability is Charisma."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 4 (1d4+2) slashing damage."
+        },
+        {
+          "name": "Blinding Breath (Recharge 6)",
+          "description": "The mephit exhales a 15-foot cone of blinding dust. Each creature in that area must succeed on a DC 10 Dexterity saving throw or be blinded for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "ice_mephit",
+      "name": "Ice Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 11,
+      "hit_points": 21,
+      "hit_dice": "6d6",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 7, "DEX": 13, "CON": 10, "INT": 9, "WIS": 11, "CHA": 12 },
+      "skills": { "perception": 2, "stealth": 3 },
+      "damage_vulnerabilities": ["bludgeoning", "fire"],
+      "damage_immunities": ["cold", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 12 },
+      "languages": ["Aquan", "Auran"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it explodes in a burst of jagged ice. Each creature within 5 feet of it must make a DC 10 Dexterity saving throw, taking 4 (1d8) slashing damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the mephit remains motionless, it is indistinguishable from an ordinary shard of ice."
+        },
+        {
+          "name": "Innate Spellcasting (1/Day)",
+          "description": "The mephit can innately cast fog cloud, requiring no material components. Its innate spellcasting ability is Charisma."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 3 (1d4+1) slashing damage plus 2 (1d4) cold damage."
+        },
+        {
+          "name": "Frost Breath (Recharge 6)",
+          "description": "The mephit exhales a 15-foot cone of cold air. Each creature in that area must succeed on a DC 10 Dexterity saving throw, taking 5 (2d4) cold damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "magma_mephit",
+      "name": "Magma Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 11,
+      "hit_points": 22,
+      "hit_dice": "5d6+5",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 8, "DEX": 12, "CON": 12, "INT": 7, "WIS": 10, "CHA": 10 },
+      "skills": { "stealth": 3 },
+      "damage_vulnerabilities": ["cold"],
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Ignan", "Terran"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it explodes in a burst of lava. Each creature within 5 feet of it must make a DC 11 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the mephit remains motionless, it is indistinguishable from an ordinary mound of magma."
+        },
+        {
+          "name": "Innate Spellcasting (1/Day)",
+          "description": "The mephit can innately cast heat metal (spell save DC 10), requiring no material components. Its innate spellcasting ability is Charisma."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 3 (1d4+1) slashing damage plus 2 (1d4) fire damage."
+        },
+        {
+          "name": "Fire Breath (Recharge 6)",
+          "description": "The mephit exhales a 15-foot cone of fire. Each creature in that area must make a DC 11 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "steam_mephit",
+      "name": "Steam Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 10,
+      "hit_points": 21,
+      "hit_dice": "6d6",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 5, "DEX": 11, "CON": 10, "INT": 11, "WIS": 10, "CHA": 12 },
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Aquan", "Ignan"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it explodes in a cloud of steam. Each creature within 5 feet of the mephit must succeed on a DC 10 Dexterity saving throw or take 4 (1d8) fire damage."
+        },
+        {
+          "name": "Innate Spellcasting (1/Day)",
+          "description": "The mephit can innately cast blur, requiring no material components. Its innate spellcasting ability is Charisma."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: 2 (1d4) slashing damage plus 2 (1d4) fire damage."
+        },
+        {
+          "name": "Steam Breath (Recharge 6)",
+          "description": "The mephit exhales a 15-foot cone of scalding steam. Each creature in that area must succeed on a DC 10 Dexterity saving throw, taking 4 (1d8) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "gargoyle",
+      "name": "Gargoyle",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 52,
+      "hit_dice": "7d8+21",
+      "speed": { "walk": 30, "fly": 60 },
+      "ability_scores": { "STR": 15, "DEX": 11, "CON": 16, "INT": 6, "WIS": 11, "CHA": 7 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "petrified", "poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Terran"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the gargoyle remains motionless, it is indistinguishable from an inanimate statue."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The gargoyle makes two attacks: one with its bite and one with its claws."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) slashing damage."
+        }
+      ]
+    },
+    {
+      "id": "salamander",
+      "name": "Salamander",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 90,
+      "hit_dice": "12d10+24",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 18, "DEX": 14, "CON": 15, "INT": 11, "WIS": 10, "CHA": 12 },
+      "damage_vulnerabilities": ["cold"],
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["fire"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Ignan"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Heated Body",
+          "description": "A creature that touches the salamander or hits it with a melee attack while within 5 feet of it takes 7 (2d6) fire damage."
+        },
+        {
+          "name": "Heated Weapons",
+          "description": "Any metal melee weapon the salamander wields deals an extra 3 (1d6) fire damage on a hit (included in the attack)."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The salamander makes two attacks: one with its spear and one with its tail."
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 11 (2d6+4) piercing damage, or 13 (2d8+4) piercing damage if used with two hands to make a melee attack, plus 3 (1d6) fire damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 11 (2d6+4) bludgeoning damage plus 7 (2d6) fire damage, and the target is grappled (escape DC 14). Until this grapple ends, the target is restrained, the salamander can automatically hit the target with its tail, and the salamander can't make tail attacks against other targets."
+        }
+      ]
+    },
+    {
+      "id": "invisible_stalker",
+      "name": "Invisible Stalker",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 14,
+      "hit_points": 104,
+      "hit_dice": "16d8+32",
+      "speed": { "walk": 50, "fly": 50, "hover": true },
+      "ability_scores": { "STR": 16, "DEX": 19, "CON": 14, "INT": 10, "WIS": 15, "CHA": 11 },
+      "skills": { "perception": 8, "stealth": 10 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained", "unconscious"],
+      "senses": { "darkvision": 60, "passive_perception": 18 },
+      "languages": ["Auran", "understands Common but doesn't speak it"],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Invisibility",
+          "description": "The stalker is invisible."
+        },
+        {
+          "name": "Faultless Tracker",
+          "description": "The stalker is given a quarry by its summoner. The stalker knows the direction and distance to its quarry as long as the two of them are on the same plane of existence. The stalker also knows the location of its summoner."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The stalker makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6+3) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "galeb_duhr",
+      "name": "Galeb Duhr",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 85,
+      "hit_dice": "9d8+45",
+      "speed": { "walk": 15, "burrow": 15 },
+      "ability_scores": { "STR": 20, "DEX": 14, "CON": 20, "INT": 11, "WIS": 12, "CHA": 11 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "paralyzed", "petrified", "poisoned"],
+      "senses": { "darkvision": 60, "tremorsense": 60, "passive_perception": 11 },
+      "languages": ["Terran"],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the galeb duhr remains motionless, it is indistinguishable from a normal boulder."
+        },
+        {
+          "name": "Rolling Charge",
+          "description": "If the galeb duhr rolls at least 20 feet straight toward a target and then hits it with a slam attack on the same turn, the target takes an extra 7 (2d6) bludgeoning damage. If the target is a creature, it must succeed on a DC 16 Strength saving throw or be knocked prone."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 12 (2d6+5) bludgeoning damage."
+        },
+        {
+          "name": "Animate Boulders (1/Day)",
+          "description": "The galeb duhr magically animates up to two boulders it can see within 60 feet of it. A boulder has statistics like those of a galeb duhr, except it has Intelligence 1 and Charisma 1, it can't be charmed or frightened, and it lacks this action option. A boulder remains animated as long as the galeb duhr maintains concentration, up to 1 minute (as if concentrating on a spell)."
+        }
+      ]
+    },
+    {
+      "id": "magmin",
+      "name": "Magmin",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Chaotic Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 9,
+      "hit_dice": "2d6+2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 7, "DEX": 15, "CON": 12, "INT": 8, "WIS": 11, "CHA": 10 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["fire"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Ignan"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the magmin dies, it explodes in a burst of fire and magma. Each creature within 10 feet of it must make a DC 11 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one. Flammable objects that aren't being worn or carried in that area are ignited."
+        },
+        {
+          "name": "Ignited Illumination",
+          "description": "As a bonus action, the magmin can set itself ablaze or extinguish its flames. While ablaze, the magmin sheds bright light in a 10-foot radius and dim light for an additional 10 feet."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Touch",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d6) fire damage. If the target is a creature or a flammable object, it ignites. Until a creature takes an action to douse the fire, the target takes 3 (1d6) fire damage at the end of each of its turns."
+        }
+      ]
+    },
+    {
+      "id": "mud_mephit",
+      "name": "Mud Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 11,
+      "hit_points": 27,
+      "hit_dice": "6d6+6",
+      "speed": { "walk": 20, "fly": 20, "swim": 20 },
+      "ability_scores": { "STR": 8, "DEX": 12, "CON": 12, "INT": 9, "WIS": 11, "CHA": 7 },
+      "skills": { "stealth": 3 },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Aquan", "Terran"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it explodes in a burst of sticky mud. Each Medium or smaller creature within 5 feet of it must succeed on a DC 11 Dexterity saving throw or be restrained until the end of the creature's next turn."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the mephit remains motionless, it is indistinguishable from an ordinary mound of mud."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Fists",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 4 (1d6+1) bludgeoning damage."
+        },
+        {
+          "name": "Mud Breath (Recharge 6)",
+          "description": "The mephit belches viscid mud at one creature within 5 feet of it. If the target is Medium or smaller, it must succeed on a DC 11 Dexterity saving throw or be restrained for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "innate": true,
+        "spells": {
+          "1/day": ["earth tremor"]
+        }
+      }
+    },
+    {
+      "id": "smoke_mephit",
+      "name": "Smoke Mephit",
+      "size": "Small",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "hit_points": 22,
+      "hit_dice": "5d6+5",
+      "speed": { "walk": 30, "fly": 30 },
+      "ability_scores": { "STR": 6, "DEX": 14, "CON": 12, "INT": 10, "WIS": 10, "CHA": 11 },
+      "skills": { "perception": 2, "stealth": 4 },
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 12 },
+      "languages": ["Auran", "Ignan"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "When the mephit dies, it leaves behind a cloud of smoke that fills a 5-foot-radius sphere centered on its space. The sphere is heavily obscured. Wind disperses the cloud, which otherwise lasts for 1 minute."
+        },
+        {
+          "name": "Innate Spellcasting (1/Day)",
+          "description": "The mephit can innately cast dancing lights, requiring no material components. Its innate spellcasting ability is Charisma."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 4 (1d4+2) slashing damage."
+        },
+        {
+          "name": "Cinder Breath (Recharge 6)",
+          "description": "The mephit exhales a 15-foot cone of smoldering ash. Each creature in that area must succeed on a DC 10 Dexterity saving throw or be blinded until the end of the mephit's next turn."
+        }
+      ]
+    },
+    {
+      "id": "azer",
+      "name": "Azer",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Lawful Neutral",
+      "armor_class": 17,
+      "armor_type": "natural armor, shield",
+      "hit_points": 39,
+      "hit_dice": "6d8+12",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 17, "DEX": 12, "CON": 15, "INT": 12, "WIS": 13, "CHA": 10 },
+      "saving_throws": { "CON": 4 },
+      "damage_immunities": ["fire", "poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "passive_perception": 11 },
+      "languages": ["Ignan"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Heated Body",
+          "description": "A creature that touches the azer or hits it with a melee attack while within 5 feet of it takes 5 (1d10) fire damage."
+        },
+        {
+          "name": "Heated Weapons",
+          "description": "When the azer hits with a metal melee weapon, it deals an extra 3 (1d6) fire damage (included in the attack)."
+        },
+        {
+          "name": "Illumination",
+          "description": "The azer sheds bright light in a 10-foot radius and dim light for an additional 10 feet."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Warhammer",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) bludgeoning damage, or 8 (1d10+3) bludgeoning damage if used with two hands to make a melee attack, plus 3 (1d6) fire damage."
+        }
+      ]
+    },
+    {
+      "id": "fire_snake",
+      "name": "Fire Snake",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Neutral Evil",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 22,
+      "hit_dice": "5d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 12, "DEX": 14, "CON": 11, "INT": 7, "WIS": 10, "CHA": 8 },
+      "damage_vulnerabilities": ["cold"],
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["fire"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["understands Ignan but can't speak"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Heated Body",
+          "description": "A creature that touches the snake or hits it with a melee attack while within 5 feet of it takes 3 (1d6) fire damage."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The snake makes two attacks: one with its bite and one with its tail."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4+1) piercing damage plus 3 (1d6) fire damage."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4+1) bludgeoning damage plus 3 (1d6) fire damage."
+        }
+      ]
+    },
+    {
+      "id": "water_weird",
+      "name": "Water Weird",
+      "size": "Large",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 13,
+      "hit_points": 58,
+      "hit_dice": "9d10+9",
+      "speed": { "walk": 0, "swim": 60 },
+      "ability_scores": { "STR": 17, "DEX": 16, "CON": 13, "INT": 11, "WIS": 10, "CHA": 10 },
+      "damage_resistances": ["fire", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["exhaustion", "grappled", "paralyzed", "poisoned", "restrained", "prone", "unconscious"],
+      "senses": { "blindsight": 30, "passive_perception": 10 },
+      "languages": ["understands Aquan but doesn't speak"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Invisible in Water",
+          "description": "The water weird is invisible while fully immersed in water."
+        },
+        {
+          "name": "Water Bound",
+          "description": "The water weird dies if it leaves the water to which it is bound or if that water is destroyed."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Constrict",
+          "description": "Melee Weapon Attack: +5 to hit, reach 10 ft., one creature. Hit: 13 (3d6+3) bludgeoning damage. If the target is Medium or smaller, it is grappled (escape DC 13) and pulled 5 feet toward the water weird. Until this grapple ends, the target is restrained, the water weird tries to drown it, and the water weird can't constrict another target."
+        }
+      ]
+    },
+    {
+      "id": "xorn",
+      "name": "Xorn",
+      "size": "Medium",
+      "type": "Elemental",
+      "alignment": "Neutral",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 73,
+      "hit_dice": "7d8+42",
+      "speed": { "walk": 20, "burrow": 20 },
+      "ability_scores": { "STR": 17, "DEX": 10, "CON": 22, "INT": 11, "WIS": 10, "CHA": 11 },
+      "skills": { "perception": 6, "stealth": 3 },
+      "damage_resistances": ["piercing and slashing from nonmagical attacks that aren't adamantine"],
+      "senses": { "darkvision": 60, "tremorsense": 60, "passive_perception": 16 },
+      "languages": ["Terran"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Earth Glide",
+          "description": "The xorn can burrow through nonmagical, unworked earth and stone. While doing so, the xorn doesn't disturb the material it moves through."
+        },
+        {
+          "name": "Stone Camouflage",
+          "description": "The xorn has advantage on Dexterity (Stealth) checks made to hide in rocky terrain."
+        },
+        {
+          "name": "Treasure Sense",
+          "description": "The xorn can pinpoint, by scent, the location of precious metals and stones, such as coins and gems, within 60 feet of it."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The xorn makes three claw attacks and one bite attack."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) slashing damage."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (3d6+3) piercing damage."
+        }
+      ]
+    }
+  ]
+}

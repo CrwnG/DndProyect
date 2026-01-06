@@ -1,0 +1,721 @@
+/* D&D Combat Engine - Combat Grid Styles */
+
+/* Grid Canvas Container */
+.grid-container {
+    background: #0d1117;
+    border: 3px solid var(--border-color);
+}
+
+#combat-grid {
+    display: block;
+    cursor: pointer;
+}
+
+/* Cell Highlight Classes (for overlay elements if needed) */
+.cell-highlight {
+    position: absolute;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.cell-highlight.reachable {
+    background: rgba(46, 204, 113, 0.3);
+    border: 1px solid rgba(46, 204, 113, 0.6);
+}
+
+.cell-highlight.attack-range {
+    background: rgba(231, 76, 60, 0.3);
+    border: 1px solid rgba(231, 76, 60, 0.6);
+}
+
+.cell-highlight.selected {
+    background: rgba(212, 175, 55, 0.4);
+    border: 2px solid var(--accent-gold);
+}
+
+.cell-highlight.path {
+    background: rgba(52, 152, 219, 0.4);
+    border: 1px solid rgba(52, 152, 219, 0.7);
+}
+
+.cell-highlight.hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tooltip for grid cells */
+.grid-tooltip {
+    position: absolute;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    font-size: 0.85rem;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+    max-width: 200px;
+}
+
+.grid-tooltip .tooltip-title {
+    font-weight: 600;
+    color: var(--accent-gold);
+    margin-bottom: var(--spacing-xs);
+}
+
+.grid-tooltip .tooltip-info {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Entity tokens (rendered on canvas, but these are reference styles) */
+/*
+ * Player Token: Circle with gold border
+ * Enemy Token: Circle with red border
+ * Wall: Dark gray filled square
+ * Difficult Terrain: Hatched pattern
+ */
+
+/* Grid coordinates display */
+.grid-coords {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.grid-coords-left {
+    position: absolute;
+    top: 0;
+    left: -20px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Movement path indicator */
+.path-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.path-arrow.up {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid var(--accent-blue);
+}
+
+.path-arrow.down {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--accent-blue);
+}
+
+.path-arrow.left {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 12px solid var(--accent-blue);
+}
+
+.path-arrow.right {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 12px solid var(--accent-blue);
+}
+
+/* Targeting mode indicator */
+.targeting-active #combat-grid {
+    cursor: crosshair;
+}
+
+/* Movement mode indicator */
+.movement-active #combat-grid {
+    cursor: pointer;
+}
+
+/* Animation for damage numbers */
+@keyframes damage-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+.damage-number {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    animation: damage-float 1s ease-out forwards;
+}
+
+.damage-number.heal {
+    color: var(--accent-green);
+}
+
+.damage-number.crit {
+    color: var(--accent-gold);
+    font-size: 1.5rem;
+}
+
+/* Attack animation flash */
+@keyframes attack-flash {
+    0% { opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0; }
+}
+
+.attack-flash {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+    pointer-events: none;
+    animation: attack-flash 0.3s ease-out forwards;
+}
+
+/* Movement trail */
+@keyframes trail-fade {
+    0% { opacity: 0.4; }
+    100% { opacity: 0; }
+}
+
+.movement-trail {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(52, 152, 219, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: trail-fade 0.5s ease-out forwards;
+}
+
+/* Weapon Mastery Effect Indicators */
+.mastery-indicator {
+    position: absolute;
+    padding: 2px 6px;
+    background: var(--accent-purple);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    pointer-events: none;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
+}
+
+@keyframes mastery-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.mastery-indicator.active {
+    animation: mastery-pulse 0.5s ease-in-out 2;
+}
+
+/* Grid legend */
+.grid-legend {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.legend-color.player {
+    background: var(--accent-green);
+    border: 2px solid var(--accent-gold);
+}
+
+.legend-color.enemy {
+    background: var(--accent-red);
+}
+
+.legend-color.wall {
+    background: #444;
+}
+
+.legend-color.reachable {
+    background: rgba(46, 204, 113, 0.5);
+}
+
+.legend-color.attack {
+    background: rgba(231, 76, 60, 0.5);
+}
+
+/* Turn indicator glow for current combatant */
+@keyframes current-turn-glow {
+    0% { box-shadow: 0 0 5px var(--accent-gold); }
+    50% { box-shadow: 0 0 15px var(--accent-gold); }
+    100% { box-shadow: 0 0 5px var(--accent-gold); }
+}
+
+.current-turn-indicator {
+    animation: current-turn-glow 2s ease-in-out infinite;
+}
+
+/* Opportunity Attack Zone */
+.opportunity-zone {
+    position: absolute;
+    background: rgba(231, 76, 60, 0.15);
+    border: 1px dashed rgba(231, 76, 60, 0.5);
+    pointer-events: none;
+}
+
+/* Cover indicators */
+.cover-indicator {
+    position: absolute;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1px 4px;
+    border-radius: 2px;
+}
+
+.cover-indicator.half {
+    color: var(--accent-blue);
+}
+
+.cover-indicator.three-quarters {
+    color: var(--accent-purple);
+}
+
+.cover-indicator.full {
+    color: var(--accent-green);
+}
+
+/* ========================================
+   ATTACK ANIMATIONS
+   ======================================== */
+
+/* Attacker Glow - Wind-up effect */
+@keyframes attacker-glow-pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.attacker-glow {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 70%);
+    pointer-events: none;
+    animation: attacker-glow-pulse 0.4s ease-out forwards;
+}
+
+/* Impact Burst - Hit effect */
+@keyframes impact-burst {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+.impact-burst {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(231, 76, 60, 0.8) 0%, rgba(231, 76, 60, 0.4) 40%, transparent 70%);
+    pointer-events: none;
+    animation: impact-burst 0.4s ease-out forwards;
+}
+
+.impact-burst.critical {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 1) 0%, rgba(212, 175, 55, 0.6) 30%, rgba(231, 76, 60, 0.4) 60%, transparent 80%);
+    animation: impact-burst-critical 0.5s ease-out forwards;
+}
+
+@keyframes impact-burst-critical {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.8) rotate(180deg);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2.5) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Miss Swoosh */
+@keyframes miss-swoosh {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(-20deg);
+        opacity: 0;
+    }
+    30% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -80%) scale(0.8) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+.miss-swoosh {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #888;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    animation: miss-swoosh 0.8s ease-out forwards;
+}
+
+/* Enhanced Damage Number Animation */
+.damage-number {
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    text-shadow:
+        0 0 4px rgba(0, 0, 0, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    animation: damage-float 1s ease-out forwards;
+    z-index: 100;
+}
+
+.damage-number.crit {
+    color: var(--accent-gold);
+    font-size: 1.8rem;
+    text-shadow:
+        0 0 10px rgba(212, 175, 55, 0.8),
+        0 0 20px rgba(212, 175, 55, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.6);
+    animation: damage-float-crit 1.2s ease-out forwards;
+}
+
+.damage-number.heal {
+    color: var(--accent-green);
+}
+
+@keyframes damage-float {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1.2);
+    }
+    20% {
+        transform: translateY(-10px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.8);
+    }
+}
+
+@keyframes damage-float-crit {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1.5);
+    }
+    10% {
+        transform: translateY(-5px) scale(1.8);
+    }
+    30% {
+        transform: translateY(-15px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.8);
+    }
+}
+
+/* Attack Flash Enhancement */
+.attack-flash {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 40%, transparent 70%);
+    pointer-events: none;
+    animation: attack-flash 0.3s ease-out forwards;
+}
+
+/* ========================================
+   OPPORTUNITY ATTACK SLASH ANIMATION
+   ======================================== */
+
+/* Slash effect for opportunity attacks */
+@keyframes opportunity-slash {
+    0% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(0.3);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.opportunity-slash {
+    position: absolute;
+    width: 60px;
+    height: 8px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(231, 76, 60, 0.4) 20%,
+        rgba(231, 76, 60, 1) 50%,
+        rgba(231, 76, 60, 0.4) 80%,
+        transparent 100%);
+    border-radius: 4px;
+    pointer-events: none;
+    animation: opportunity-slash 0.4s ease-out forwards;
+    box-shadow:
+        0 0 10px rgba(231, 76, 60, 0.8),
+        0 0 20px rgba(231, 76, 60, 0.5),
+        0 0 30px rgba(231, 76, 60, 0.3);
+    z-index: 100;
+}
+
+/* Double slash for extra dramatic effect */
+.opportunity-slash::before,
+.opportunity-slash::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: inherit;
+    box-shadow: inherit;
+}
+
+.opportunity-slash::before {
+    transform: translateY(-6px);
+    opacity: 0.6;
+}
+
+.opportunity-slash::after {
+    transform: translateY(6px);
+    opacity: 0.6;
+}
+
+/* Opportunity attack warning flash on attacker */
+@keyframes oa-warning-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+        box-shadow: 0 0 0 20px rgba(231, 76, 60, 0);
+    }
+}
+
+.opportunity-warning {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--accent-red);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: oa-warning-pulse 0.5s ease-out forwards;
+}
+
+/* Opportunity attack label */
+@keyframes oa-label-appear {
+    0% {
+        transform: translate(-50%, 0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        transform: translate(-50%, 0) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -20px) scale(1);
+        opacity: 0;
+    }
+}
+
+.opportunity-label {
+    position: absolute;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    text-shadow:
+        0 0 5px rgba(0, 0, 0, 0.8),
+        0 0 10px rgba(231, 76, 60, 0.5);
+    white-space: nowrap;
+    pointer-events: none;
+    animation: oa-label-appear 1s ease-out forwards;
+    z-index: 101;
+}
+
+/* ========================================
+   DEATH / DEFEAT ANIMATIONS
+   ======================================== */
+
+/* Death flash effect */
+@keyframes death-flash-anim {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    20% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+.death-flash {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(231,76,60,0.6) 50%, transparent 70%);
+    pointer-events: none;
+    animation: death-flash-anim 0.3s ease-out forwards;
+    z-index: 100;
+}
+
+/* Skull rising animation */
+@keyframes death-skull-rise {
+    0% {
+        transform: translate(-50%, -50%) scale(0.3);
+        opacity: 0;
+    }
+    30% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 1;
+    }
+    60% {
+        transform: translate(-50%, -100%) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -150%) scale(1);
+        opacity: 0;
+    }
+}
+
+.death-skull {
+    position: absolute;
+    font-size: 2.5rem;
+    pointer-events: none;
+    animation: death-skull-rise 1.2s ease-out forwards;
+    filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.8));
+    z-index: 102;
+}
+
+/* Defeated text animation */
+@keyframes death-text-appear {
+    0% {
+        transform: translate(-50%, 0) scale(0.5);
+        opacity: 0;
+    }
+    30% {
+        transform: translate(-50%, 0) scale(1.2);
+        opacity: 1;
+    }
+    70% {
+        transform: translate(-50%, -10px) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -20px) scale(0.9);
+        opacity: 0;
+    }
+}
+
+.death-text {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    text-shadow:
+        0 0 10px rgba(231, 76, 60, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    animation: death-text-appear 1.5s ease-out forwards;
+    white-space: nowrap;
+    z-index: 101;
+}
+
+/* Death particles (blood/sparks) */
+@keyframes death-particle-burst {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(0);
+        opacity: 0;
+    }
+}
+
+.death-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-red);
+    pointer-events: none;
+    animation: death-particle-burst 0.6s ease-out forwards;
+    box-shadow: 0 0 6px rgba(231, 76, 60, 0.8);
+    z-index: 99;
+}

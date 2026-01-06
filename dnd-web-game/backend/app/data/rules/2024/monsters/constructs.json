@@ -1,0 +1,1236 @@
+{
+  "metadata": {
+    "version": "2024",
+    "source": "D&D 2024 Monster Manual",
+    "creature_type": "Construct",
+    "description": "Constructs are made, not born. They are crafted through magical means and animated to serve their creators."
+  },
+  "creatures": [
+    {
+      "id": "animated_armor",
+      "name": "Animated Armor",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 33,
+      "hit_dice": "6d8+6",
+      "speed": {
+        "walk": 25
+      },
+      "ability_scores": {
+        "STR": 14,
+        "DEX": 11,
+        "CON": 13,
+        "INT": 1,
+        "WIS": 3,
+        "CHA": 1
+      },
+      "damage_immunities": ["poison", "psychic"],
+      "condition_immunities": ["blinded", "charmed", "deafened", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 6
+      },
+      "languages": [],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Antimagic Susceptibility",
+          "description": "The armor is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the armor must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the armor remains motionless, it is indistinguishable from a normal suit of armor."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The armor makes two melee attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) bludgeoning damage.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "flying_sword",
+      "name": "Flying Sword",
+      "size": "Small",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 17,
+      "hit_dice": "5d6",
+      "speed": {
+        "walk": 0,
+        "fly": 50,
+        "hover": true
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 15,
+        "CON": 11,
+        "INT": 1,
+        "WIS": 5,
+        "CHA": 1
+      },
+      "saving_throws": {
+        "DEX": 4
+      },
+      "damage_immunities": ["poison", "psychic"],
+      "condition_immunities": ["blinded", "charmed", "deafened", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 7
+      },
+      "languages": [],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Antimagic Susceptibility",
+          "description": "The sword is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the sword must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the sword remains motionless and isn't flying, it is indistinguishable from a normal sword."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8 + 1) slashing damage.",
+          "attack_bonus": 3,
+          "damage": "1d8+1",
+          "damage_type": "slashing"
+        }
+      ]
+    },
+    {
+      "id": "rug_of_smothering",
+      "name": "Rug of Smothering",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 12,
+      "hit_points": 33,
+      "hit_dice": "6d10",
+      "speed": {
+        "walk": 10
+      },
+      "ability_scores": {
+        "STR": 17,
+        "DEX": 14,
+        "CON": 10,
+        "INT": 1,
+        "WIS": 3,
+        "CHA": 1
+      },
+      "damage_immunities": ["poison", "psychic"],
+      "condition_immunities": ["blinded", "charmed", "deafened", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 6
+      },
+      "languages": [],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Antimagic Susceptibility",
+          "description": "The rug is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the rug must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute."
+        },
+        {
+          "name": "Damage Transfer",
+          "description": "While it is grappling a creature, the rug takes only half the damage dealt to it, and the creature grappled by the rug takes the other half."
+        },
+        {
+          "name": "False Appearance",
+          "description": "While the rug remains motionless, it is indistinguishable from a normal rug."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Smother",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one Medium or smaller creature. Hit: The creature is grappled (escape DC 13). Until this grapple ends, the target is restrained, blinded, and at risk of suffocating, and the rug can't smother another target. In addition, at the start of each of the target's turns, the target takes 10 (2d6 + 3) bludgeoning damage.",
+          "attack_bonus": 5,
+          "damage": "2d6+3",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "homunculus",
+      "name": "Homunculus",
+      "size": "Tiny",
+      "type": "Construct",
+      "alignment": "Neutral",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 5,
+      "hit_dice": "2d4",
+      "speed": {
+        "walk": 20,
+        "fly": 40
+      },
+      "ability_scores": {
+        "STR": 4,
+        "DEX": 15,
+        "CON": 11,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 7
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "0",
+      "xp": 10,
+      "traits": [
+        {
+          "name": "Telepathic Bond",
+          "description": "While the homunculus is on the same plane of existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 1 piercing damage, and the target must succeed on a DC 10 Constitution saving throw or be poisoned for 1 minute. If the saving throw fails by 5 or more, the target is instead poisoned for 5 (1d10) minutes and unconscious while poisoned in this way.",
+          "attack_bonus": 4,
+          "damage": "1",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "scarecrow",
+      "name": "Scarecrow",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Chaotic Evil",
+      "armor_class": 11,
+      "hit_points": 36,
+      "hit_dice": "8d8",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 11,
+        "DEX": 13,
+        "CON": 11,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 13
+      },
+      "damage_vulnerabilities": ["fire"],
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned", "unconscious"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the scarecrow remains motionless, it is indistinguishable from an ordinary, inanimate scarecrow."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The scarecrow makes two claw attacks."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 6 (2d4 + 1) slashing damage. If the target is a creature, it must succeed on a DC 11 Wisdom saving throw or be frightened until the end of the scarecrow's next turn.",
+          "attack_bonus": 3,
+          "damage": "2d4+1",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Terrifying Glare",
+          "description": "The scarecrow targets one creature it can see within 30 feet of it. If the target can see the scarecrow, the target must succeed on a DC 11 Wisdom saving throw or be magically frightened until the end of the scarecrow's next turn. The frightened target is paralyzed."
+        }
+      ]
+    },
+    {
+      "id": "shield_guardian",
+      "name": "Shield Guardian",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 142,
+      "hit_dice": "15d10+60",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 8,
+        "CON": 18,
+        "INT": 7,
+        "WIS": 10,
+        "CHA": 3
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "poisoned"],
+      "senses": {
+        "blindsight": 10,
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands commands given in any language but can't speak"],
+      "challenge_rating": "7",
+      "xp": 2900,
+      "traits": [
+        {
+          "name": "Bound",
+          "description": "The shield guardian is magically bound to an amulet. As long as the guardian and its amulet are on the same plane of existence, the amulet's wearer can telepathically call the guardian to travel to it, and the guardian knows the distance and direction to the amulet. If the guardian is within 60 feet of the amulet's wearer, half of any damage the wearer takes (rounded up) is transferred to the guardian."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The shield guardian regains 10 hit points at the start of its turn if it has at least 1 hit point."
+        },
+        {
+          "name": "Spell Storing",
+          "description": "A spellcaster who wears the shield guardian's amulet can cause the guardian to store one spell of 4th level or lower. To do so, the wearer must cast the spell on the guardian. The spell has no effect but is stored within the guardian. When commanded to do so by the wearer or when a situation arises that was predefined by the spellcaster, the guardian casts the stored spell with any parameters set by the original caster, requiring no components. When the spell is cast or a new spell is stored, any previously stored spell is lost."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The guardian makes two fist attacks."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage.",
+          "attack_bonus": 7,
+          "damage": "2d6+4",
+          "damage_type": "bludgeoning"
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Shield",
+          "description": "When a creature makes an attack against the wearer of the guardian's amulet, the guardian grants a +2 bonus to the wearer's AC if the guardian is within 5 feet of the wearer."
+        }
+      ]
+    },
+    {
+      "id": "flesh_golem",
+      "name": "Flesh Golem",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Neutral",
+      "armor_class": 9,
+      "hit_points": 93,
+      "hit_dice": "11d8+44",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 19,
+        "DEX": 9,
+        "CON": 18,
+        "INT": 6,
+        "WIS": 10,
+        "CHA": 5
+      },
+      "damage_immunities": ["lightning", "poison", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Berserk",
+          "description": "Whenever the golem starts its turn with 40 hit points or fewer, roll a d6. On a 6, the golem goes berserk. On each of its turns while berserk, the golem attacks the nearest creature it can see. If no creature is near enough to move to and attack, the golem attacks an object, with preference for an object smaller than itself. Once the golem goes berserk, it continues to do so until it is destroyed or regains all its hit points.\n\nThe golem's creator, if within 60 feet of the berserk golem, can try to calm it by speaking firmly and persuasively. The golem must be able to hear its creator, who must take an action to make a DC 15 Charisma (Persuasion) check. If the check succeeds, the golem ceases being berserk. If it takes damage while still at 40 hit points or fewer, the golem might go berserk again."
+        },
+        {
+          "name": "Aversion of Fire",
+          "description": "If the golem takes fire damage, it has disadvantage on attack rolls and ability checks until the end of its next turn."
+        },
+        {
+          "name": "Immutable Form",
+          "description": "The golem is immune to any spell or effect that would alter its form."
+        },
+        {
+          "name": "Lightning Absorption",
+          "description": "Whenever the golem is subjected to lightning damage, it takes no damage and instead regains a number of hit points equal to the lightning damage dealt."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The golem has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The golem's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The golem makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage.",
+          "attack_bonus": 7,
+          "damage": "2d8+4",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "clay_golem",
+      "name": "Clay Golem",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 133,
+      "hit_dice": "14d10+56",
+      "speed": {
+        "walk": 20
+      },
+      "ability_scores": {
+        "STR": 20,
+        "DEX": 9,
+        "CON": 18,
+        "INT": 3,
+        "WIS": 8,
+        "CHA": 1
+      },
+      "damage_immunities": ["acid", "poison", "psychic", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 9
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Acid Absorption",
+          "description": "Whenever the golem is subjected to acid damage, it takes no damage and instead regains a number of hit points equal to the acid damage dealt."
+        },
+        {
+          "name": "Berserk",
+          "description": "Whenever the golem starts its turn with 60 hit points or fewer, roll a d6. On a 6, the golem goes berserk. On each of its turns while berserk, the golem attacks the nearest creature it can see. If no creature is near enough to move to and attack, the golem attacks an object, with preference for an object smaller than itself. Once the golem goes berserk, it continues to do so until it is destroyed or regains all its hit points."
+        },
+        {
+          "name": "Immutable Form",
+          "description": "The golem is immune to any spell or effect that would alter its form."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The golem has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The golem's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The golem makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 16 (2d10 + 5) bludgeoning damage. If the target is a creature, it must succeed on a DC 15 Constitution saving throw or have its hit point maximum reduced by an amount equal to the damage taken. The target dies if this attack reduces its hit point maximum to 0. The reduction lasts until removed by the greater restoration spell or other magic.",
+          "attack_bonus": 8,
+          "damage": "2d10+5",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Haste (Recharge 5-6)",
+          "description": "Until the end of its next turn, the golem magically gains a +2 bonus to its AC, has advantage on Dexterity saving throws, and can use its slam attack as a bonus action."
+        }
+      ]
+    },
+    {
+      "id": "stone_golem",
+      "name": "Stone Golem",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 178,
+      "hit_dice": "17d10+85",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 22,
+        "DEX": 9,
+        "CON": 20,
+        "INT": 3,
+        "WIS": 11,
+        "CHA": 1
+      },
+      "damage_immunities": ["poison", "psychic", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 10
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Immutable Form",
+          "description": "The golem is immune to any spell or effect that would alter its form."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The golem has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The golem's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The golem makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 19 (3d8 + 6) bludgeoning damage.",
+          "attack_bonus": 10,
+          "damage": "3d8+6",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Slow (Recharge 5-6)",
+          "description": "The golem targets one or more creatures it can see within 10 feet of it. Each target must make a DC 17 Wisdom saving throw against this magic. On a failed save, a target can't use reactions, its speed is halved, and it can't make more than one attack on its turn. In addition, the target can take either an action or a bonus action on its turn, not both. These effects last for 1 minute. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "iron_golem",
+      "name": "Iron Golem",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 20,
+      "armor_type": "natural armor",
+      "hit_points": 210,
+      "hit_dice": "20d10+100",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 24,
+        "DEX": 9,
+        "CON": 20,
+        "INT": 3,
+        "WIS": 11,
+        "CHA": 1
+      },
+      "damage_immunities": ["fire", "poison", "psychic", "bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 10
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "16",
+      "xp": 15000,
+      "traits": [
+        {
+          "name": "Fire Absorption",
+          "description": "Whenever the golem is subjected to fire damage, it takes no damage and instead regains a number of hit points equal to the fire damage dealt."
+        },
+        {
+          "name": "Immutable Form",
+          "description": "The golem is immune to any spell or effect that would alter its form."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The golem has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The golem's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The golem makes two melee attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +13 to hit, reach 5 ft., one target. Hit: 20 (3d8 + 7) bludgeoning damage.",
+          "attack_bonus": 13,
+          "damage": "3d8+7",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Sword",
+          "description": "Melee Weapon Attack: +13 to hit, reach 10 ft., one target. Hit: 23 (3d10 + 7) slashing damage.",
+          "attack_bonus": 13,
+          "damage": "3d10+7",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Poison Breath (Recharge 6)",
+          "description": "The golem exhales poisonous gas in a 15-foot cone. Each creature in that area must make a DC 19 Constitution saving throw, taking 45 (10d8) poison damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "helmed_horror",
+      "name": "Helmed Horror",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Neutral",
+      "armor_class": 20,
+      "armor_type": "plate, shield",
+      "hit_points": 60,
+      "hit_dice": "8d8+24",
+      "speed": {
+        "walk": 30,
+        "fly": 30
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 13,
+        "CON": 16,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 10
+      },
+      "skills": {
+        "perception": 4
+      },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks that aren't adamantine"],
+      "damage_immunities": ["force", "necrotic", "poison"],
+      "condition_immunities": ["blinded", "charmed", "deafened", "frightened", "paralyzed", "petrified", "poisoned", "stunned"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 14
+      },
+      "languages": ["understands the languages of its creator but can't speak"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The helmed horror has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Spell Immunity",
+          "description": "The helmed horror is immune to three spells chosen by its creator. Typical immunities include fireball, heat metal, and lightning bolt."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The helmed horror makes two longsword attacks."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) slashing damage, or 9 (1d10 + 4) slashing damage if used with two hands.",
+          "attack_bonus": 6,
+          "damage": "1d8+4",
+          "damage_type": "slashing"
+        }
+      ]
+    },
+    {
+      "id": "modron_monodrone",
+      "name": "Monodrone",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Lawful Neutral",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 5,
+      "hit_dice": "1d8+1",
+      "speed": {
+        "walk": 30,
+        "fly": 30
+      },
+      "ability_scores": {
+        "STR": 10,
+        "DEX": 13,
+        "CON": 12,
+        "INT": 4,
+        "WIS": 10,
+        "CHA": 5
+      },
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 10
+      },
+      "languages": ["Modron"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "Axiomatic Mind",
+          "description": "The monodrone can't be compelled to act in a manner contrary to its nature or its instructions."
+        },
+        {
+          "name": "Disintegration",
+          "description": "If the monodrone dies, its body disintegrates into dust, leaving behind its weapons and anything else it was carrying."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Dagger",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4 + 1) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "1d4+1",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +2 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 3 (1d6) piercing damage.",
+          "attack_bonus": 2,
+          "damage": "1d6",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "modron_duodrone",
+      "name": "Duodrone",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Lawful Neutral",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 11,
+        "DEX": 13,
+        "CON": 12,
+        "INT": 6,
+        "WIS": 10,
+        "CHA": 7
+      },
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 10
+      },
+      "languages": ["Modron"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Axiomatic Mind",
+          "description": "The duodrone can't be compelled to act in a manner contrary to its nature or its instructions."
+        },
+        {
+          "name": "Disintegration",
+          "description": "If the duodrone dies, its body disintegrates into dust, leaving behind its weapons and anything else it was carrying."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The duodrone makes two fist attacks or two javelin attacks."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage.",
+          "attack_bonus": 2,
+          "damage": "1d4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 4 (1d6 + 1) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "1d6+1",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "modron_quadrone",
+      "name": "Quadrone",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Lawful Neutral",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 22,
+      "hit_dice": "4d8+4",
+      "speed": {
+        "walk": 30,
+        "fly": 30
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 14,
+        "CON": 12,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 11
+      },
+      "skills": {
+        "perception": 2
+      },
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 12
+      },
+      "languages": ["Modron"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Axiomatic Mind",
+          "description": "The quadrone can't be compelled to act in a manner contrary to its nature or its instructions."
+        },
+        {
+          "name": "Disintegration",
+          "description": "If the quadrone dies, its body disintegrates into dust, leaving behind its weapons and anything else it was carrying."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The quadrone makes two fist attacks or four shortbow attacks."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4 + 1) bludgeoning damage.",
+          "attack_bonus": 3,
+          "damage": "1d4+1",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Shortbow",
+          "description": "Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 5 (1d6 + 2) piercing damage.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "modron_pentadrone",
+      "name": "Pentadrone",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Lawful Neutral",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 32,
+      "hit_dice": "5d10+5",
+      "speed": {
+        "walk": 40
+      },
+      "ability_scores": {
+        "STR": 15,
+        "DEX": 14,
+        "CON": 12,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 13
+      },
+      "skills": {
+        "perception": 4
+      },
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 14
+      },
+      "languages": ["Modron"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Axiomatic Mind",
+          "description": "The pentadrone can't be compelled to act in a manner contrary to its nature or its instructions."
+        },
+        {
+          "name": "Disintegration",
+          "description": "If the pentadrone dies, its body disintegrates into dust, leaving behind its weapons and anything else it was carrying."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The pentadrone makes five arm attacks."
+        },
+        {
+          "name": "Arm",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) bludgeoning damage.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Paralysis Gas (Recharge 5-6)",
+          "description": "The pentadrone exhales a 30-foot cone of gas. Each creature in that area must succeed on a DC 11 Constitution saving throw or be paralyzed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "nimblewright",
+      "name": "Nimblewright",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 45,
+      "hit_dice": "6d8+18",
+      "speed": {
+        "walk": 60
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 18,
+        "CON": 17,
+        "INT": 8,
+        "WIS": 10,
+        "CHA": 6
+      },
+      "saving_throws": {
+        "DEX": 6
+      },
+      "skills": {
+        "acrobatics": 8,
+        "perception": 2
+      },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 12
+      },
+      "languages": ["understands one language known to its creator but can't speak"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The nimblewright has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The nimblewright's weapon attacks are magical."
+        },
+        {
+          "name": "Repairable",
+          "description": "As long as it has at least 1 hit point remaining, the nimblewright regains 1 hit point when a mending spell is cast on it."
+        },
+        {
+          "name": "Sure-Footed",
+          "description": "The nimblewright has advantage on Strength and Dexterity saving throws made against effects that would knock it prone."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The nimblewright makes three attacks: two with its rapier and one with its dagger."
+        },
+        {
+          "name": "Rapier",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage.",
+          "attack_bonus": 6,
+          "damage": "1d8+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Dagger",
+          "description": "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 6 (1d4 + 4) piercing damage.",
+          "attack_bonus": 6,
+          "damage": "1d4+4",
+          "damage_type": "piercing"
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The nimblewright adds 2 to its AC against one melee attack that would hit it. To do so, the nimblewright must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "marut",
+      "name": "Marut",
+      "size": "Large",
+      "type": "Construct",
+      "alignment": "Lawful Neutral",
+      "armor_class": 22,
+      "armor_type": "natural armor",
+      "hit_points": 432,
+      "hit_dice": "32d10+256",
+      "speed": {
+        "walk": 40,
+        "fly": 30,
+        "hover": true
+      },
+      "ability_scores": {
+        "STR": 28,
+        "DEX": 12,
+        "CON": 26,
+        "INT": 19,
+        "WIS": 15,
+        "CHA": 18
+      },
+      "saving_throws": {
+        "INT": 12,
+        "WIS": 10,
+        "CHA": 12
+      },
+      "skills": {
+        "insight": 10,
+        "intimidation": 12,
+        "perception": 10
+      },
+      "damage_resistances": ["thunder", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "frightened", "paralyzed", "poisoned", "unconscious"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 20
+      },
+      "languages": ["all"],
+      "challenge_rating": "25",
+      "xp": 75000,
+      "traits": [
+        {
+          "name": "Immutable Form",
+          "description": "The marut is immune to any spell or effect that would alter its form."
+        },
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "description": "If the marut fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The marut has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The marut makes two Unerring Slam attacks."
+        },
+        {
+          "name": "Unerring Slam",
+          "description": "Melee Weapon Attack: automatic hit, reach 5 ft., one target. Hit: 60 force damage, and the target is pushed up to 5 feet away from the marut if it is Huge or smaller.",
+          "damage": "60",
+          "damage_type": "force"
+        },
+        {
+          "name": "Blazing Edict (Recharge 5-6)",
+          "description": "Arcane energy emanates from the marut's chest in a 60-foot cube. Every creature in that area takes 45 radiant damage. Each creature that takes any of this damage must succeed on a DC 20 Wisdom saving throw or be stunned until the end of the marut's next turn."
+        },
+        {
+          "name": "Plane Shift (3/Day)",
+          "description": "The marut casts plane shift (no spell components required), targeting only itself, and can bring up to 3 willing creatures with it. The marut's destination is always the Hall of Concordance in Sigil."
+        }
+      ]
+    },
+    {
+      "id": "clockwork_bronze_scout",
+      "name": "Clockwork Bronze Scout",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 13,
+      "hit_points": 18,
+      "hit_dice": "4d8",
+      "speed": {
+        "walk": 30,
+        "burrow": 30
+      },
+      "ability_scores": {
+        "STR": 10,
+        "DEX": 16,
+        "CON": 11,
+        "INT": 3,
+        "WIS": 14,
+        "CHA": 1
+      },
+      "skills": {
+        "perception": 6,
+        "stealth": 7
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 16
+      },
+      "languages": ["understands one language of its creator but can't speak"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Earth Armor",
+          "description": "The clockwork doesn't provoke opportunity attacks when it burrows."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The clockwork has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage plus 3 (1d6) lightning damage.",
+          "attack_bonus": 5,
+          "damage": "1d4+3",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Lightning Flare (Recharge 5-6)",
+          "description": "Each creature in contact with the ground within 15 feet of the clockwork must make a DC 13 Dexterity saving throw, taking 14 (4d6) lightning damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "clockwork_iron_cobra",
+      "name": "Clockwork Iron Cobra",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 13,
+      "hit_points": 45,
+      "hit_dice": "7d8+14",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 16,
+        "CON": 14,
+        "INT": 3,
+        "WIS": 10,
+        "CHA": 1
+      },
+      "skills": {
+        "stealth": 7
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands one language of its creator but can't speak"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The iron cobra has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) piercing damage. If the target is a creature, it must succeed on a DC 13 Constitution saving throw or take 13 (3d8) poison damage. If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points, and is paralyzed while poisoned in this way.",
+          "attack_bonus": 5,
+          "damage": "1d6+3",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "clockwork_oaken_bolter",
+      "name": "Clockwork Oaken Bolter",
+      "size": "Medium",
+      "type": "Construct",
+      "alignment": "Unaligned",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 58,
+      "hit_dice": "9d8+18",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 18,
+        "CON": 15,
+        "INT": 3,
+        "WIS": 10,
+        "CHA": 1
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "paralyzed", "petrified", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 10
+      },
+      "languages": ["understands one language of its creator but can't speak"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The oaken bolter has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The oaken bolter makes two Lancing Bolt attacks or one Lancing Bolt attack and one Harpoon attack."
+        },
+        {
+          "name": "Lancing Bolt",
+          "description": "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. or range 100/400 ft., one target. Hit: 15 (2d10 + 4) piercing damage.",
+          "attack_bonus": 7,
+          "damage": "2d10+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Harpoon",
+          "description": "Ranged Weapon Attack: +7 to hit, range 50/200 ft., one target. Hit: 9 (1d10 + 4) piercing damage, and the target is grappled (escape DC 12). While grappled in this way, a creature's speed isn't reduced, but it can move only in directions that bring it closer to the oaken bolter. A creature takes 5 (1d10) slashing damage if it escapes from the grapple or if it tries and fails. The oaken bolter can grapple only one creature at a time using its harpoon.",
+          "attack_bonus": 7,
+          "damage": "1d10+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Explosive Bolt (Recharge 5-6)",
+          "description": "The oaken bolter launches an explosive charge at a point within 120 feet. Each creature within 20 feet of that point must make a DC 15 Dexterity saving throw, taking 17 (5d6) fire damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    }
+  ]
+}

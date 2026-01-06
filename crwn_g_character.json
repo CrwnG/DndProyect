@@ -1,0 +1,291 @@
+{
+  "characterInfo": {
+    "name": "Crwn_G's Character",
+    "playerName": "Crwn_G",
+    "class": "Paladin",
+    "level": 2,
+    "species": "Human",
+    "background": "Soldier",
+    "experiencePoints": "Milestone",
+    "alignment": "Lawful Good",
+    "gender": "Male",
+    "age": 24,
+    "size": "Medium",
+    "height": "5'11\"",
+    "weight": 160,
+    "skin": "White",
+    "eyes": "Brown",
+    "hair": "Black"
+  },
+  "abilityScores": {
+    "strength": { "score": 13, "modifier": 1 },
+    "dexterity": { "score": 10, "modifier": 0 },
+    "constitution": { "score": 14, "modifier": 2 },
+    "intelligence": { "score": 14, "modifier": 2 },
+    "wisdom": { "score": 8, "modifier": -1 },
+    "charisma": { "score": 16, "modifier": 3 }
+  },
+  "combat": {
+    "armorClass": 16,
+    "initiative": 0,
+    "speed": "30 ft. (Walking)",
+    "hitPoints": {
+      "maximum": 20,
+      "current": 20,
+      "temporary": null
+    },
+    "hitDice": {
+      "total": "2d10",
+      "remaining": 2
+    },
+    "deathSaves": {
+      "successes": 0,
+      "failures": 0
+    },
+    "proficiencyBonus": 2
+  },
+  "savingThrows": {
+    "strength": { "modifier": 1, "proficient": false },
+    "dexterity": { "modifier": 0, "proficient": false },
+    "constitution": { "modifier": 2, "proficient": false },
+    "intelligence": { "modifier": 2, "proficient": false },
+    "wisdom": { "modifier": 1, "proficient": true },
+    "charisma": { "modifier": 5, "proficient": true }
+  },
+  "skills": {
+    "acrobatics": { "modifier": 0, "proficient": false, "ability": "DEX" },
+    "animalHandling": { "modifier": -1, "proficient": false, "ability": "WIS" },
+    "arcana": { "modifier": 2, "proficient": false, "ability": "INT" },
+    "athletics": { "modifier": 3, "proficient": true, "ability": "STR" },
+    "deception": { "modifier": 3, "proficient": false, "ability": "CHA" },
+    "history": { "modifier": 2, "proficient": false, "ability": "INT" },
+    "insight": { "modifier": 1, "proficient": true, "ability": "WIS" },
+    "intimidation": { "modifier": 5, "proficient": true, "ability": "CHA" },
+    "investigation": { "modifier": 2, "proficient": false, "ability": "INT" },
+    "medicine": { "modifier": -1, "proficient": false, "ability": "WIS" },
+    "nature": { "modifier": 2, "proficient": false, "ability": "INT" },
+    "perception": { "modifier": -1, "proficient": false, "ability": "WIS" },
+    "performance": { "modifier": 5, "proficient": true, "ability": "CHA" },
+    "persuasion": { "modifier": 5, "proficient": true, "ability": "CHA" },
+    "religion": { "modifier": 2, "proficient": false, "ability": "INT" },
+    "sleightOfHand": { "modifier": 0, "proficient": false, "ability": "DEX" },
+    "stealth": { "modifier": 0, "proficient": false, "ability": "DEX" },
+    "survival": { "modifier": -1, "proficient": false, "ability": "WIS" }
+  },
+  "passiveScores": {
+    "perception": 9,
+    "insight": 11,
+    "investigation": 12
+  },
+  "senses": ["Darkvision 60 ft."],
+  "proficiencies": {
+    "armor": ["Heavy Armor", "Light Armor", "Medium Armor", "Shields"],
+    "weapons": ["Martial Weapons", "Simple Weapons"],
+    "tools": ["Dragonchess Set", "Vehicles (Land)"],
+    "languages": ["Common"]
+  },
+  "weapons": [
+    {
+      "name": "Greataxe",
+      "attackBonus": 3,
+      "damage": "1d12+1",
+      "damageType": "Slashing",
+      "properties": ["Martial", "Heavy", "Two-Handed", "Cleave"]
+    },
+    {
+      "name": "Unarmed Strike",
+      "attackBonus": 3,
+      "damage": "2",
+      "damageType": "Bludgeoning",
+      "properties": []
+    }
+  ],
+  "equipment": [
+    { "name": "Goggles of Night", "quantity": 1, "weight": null },
+    { "name": "Potion of Healing (Greater)", "quantity": 1, "weight": 0.5 },
+    { "name": "Shield", "quantity": 1, "weight": 6 },
+    { "name": "Chain Mail", "quantity": 1, "weight": 55 },
+    { "name": "Longsword", "quantity": 1, "weight": 3 },
+    { "name": "Javelin", "quantity": 6, "weight": 12 },
+    { "name": "Greataxe", "quantity": 1, "weight": 7 },
+    { "name": "Clothes, Common", "quantity": 1, "weight": 3 },
+    { "name": "Backpack", "quantity": 1, "weight": 5 },
+    { "name": "Amulet", "quantity": 1, "weight": 1 },
+    { "name": "Blue Ring", "quantity": 2, "weight": null },
+    { "name": "Rations", "quantity": 7, "weight": 14 },
+    { "name": "Robe", "quantity": 1, "weight": 4 },
+    { "name": "Blanket", "quantity": 1, "weight": 3 },
+    { "name": "Tinderbox", "quantity": 1, "weight": 1 },
+    { "name": "Lamp", "quantity": 1, "weight": 1 },
+    { "name": "Holy Water", "quantity": 1, "weight": 1 }
+  ],
+  "currency": {
+    "copper": 0,
+    "silver": 0,
+    "electrum": 0,
+    "gold": 214,
+    "platinum": 0
+  },
+  "carryCapacity": {
+    "weightCarried": 116.5,
+    "encumberedAt": 195,
+    "pushDragLift": 390
+  },
+  "personality": {
+    "traits": [
+      "I'm always polite and respectful.",
+      "I have a crude sense of humor."
+    ],
+    "ideals": "Responsibility. I do what I must and obey just authority. (Lawful)",
+    "bonds": "I fight for those who cannot fight for themselves.",
+    "flaws": "I'd rather eat my armor than admit when I'm wrong."
+  },
+  "spellcasting": {
+    "class": "Paladin",
+    "ability": "CHA",
+    "spellSaveDC": 13,
+    "spellAttackBonus": 5,
+    "spellSlots": {
+      "1st": { "total": 2, "expended": 0 }
+    }
+  },
+  "spells": {
+    "cantrips": [
+      {
+        "name": "Mending",
+        "source": "Fighting Style",
+        "castingTime": "1 minute",
+        "range": "Touch",
+        "components": "V, S, M",
+        "duration": "Instantaneous",
+        "pageRef": "PHB-2024 297"
+      },
+      {
+        "name": "Sacred Flame",
+        "source": "Fighting Style",
+        "save": "DEX 13",
+        "castingTime": "1 Action",
+        "range": "60 ft.",
+        "components": "V, S",
+        "duration": "Instantaneous",
+        "pageRef": "PHB-2024 313"
+      }
+    ],
+    "1stLevel": [
+      {
+        "name": "Divine Smite",
+        "source": "Paladin",
+        "prepared": false,
+        "castingTime": "1 Bonus Action",
+        "range": "Self",
+        "components": "V",
+        "duration": "Instantaneous",
+        "pageRef": "PHB-2024 265"
+      },
+      {
+        "name": "Divine Smite",
+        "source": "Paladin's Smite (Always Prepared)",
+        "prepared": true,
+        "castingTime": "1 Bonus Action",
+        "range": "Self",
+        "components": "V",
+        "duration": "Instantaneous",
+        "notes": "1/Long Rest without spell slot",
+        "pageRef": "PHB-2024 265"
+      }
+    ]
+  },
+  "features": {
+    "classFeatures": [
+      {
+        "name": "Lay On Hands",
+        "source": "Core Paladin Traits (PHB-2024 109)",
+        "description": "Pool of 10 HP per Long Rest. Bonus Action to heal a creature. Can also expend 5 HP to cure Poisoned condition."
+      },
+      {
+        "name": "Spellcasting",
+        "source": "PHB-2024 110"
+      },
+      {
+        "name": "Weapon Mastery",
+        "source": "PHB-2024 110"
+      },
+      {
+        "name": "Fighting Style: Blessed Warrior",
+        "source": "PHB-2024 110",
+        "description": "Grants cantrips from the Fighting Style list."
+      },
+      {
+        "name": "Paladin's Smite",
+        "source": "PHB-2024 110",
+        "description": "Always have Divine Smite prepared. Can cast without expending a spell slot once per Long Rest."
+      }
+    ],
+    "speciesTraits": [
+      {
+        "name": "Creature Type",
+        "source": "PHB-2024 194",
+        "description": "Humanoid"
+      },
+      {
+        "name": "Size",
+        "source": "PHB-2024 194",
+        "description": "Medium or Small (chosen at character creation)"
+      },
+      {
+        "name": "Speed",
+        "source": "PHB-2024 194",
+        "description": "30 ft."
+      },
+      {
+        "name": "Resourceful",
+        "source": "PHB-2024 194",
+        "description": "Gain Heroic Inspiration when you finish a Long Rest."
+      },
+      {
+        "name": "Skillful",
+        "source": "PHB-2024 193",
+        "description": "Gain proficiency in one skill of your choice."
+      },
+      {
+        "name": "Versatile",
+        "source": "PHB-2024 194",
+        "description": "Gain an Origin feat of your choice."
+      },
+      {
+        "name": "Ability Score Increases",
+        "source": "PHB-2024",
+        "description": "Increase three scores by +1 each."
+      }
+    ],
+    "feats": [
+      {
+        "name": "Skilled",
+        "source": "PHB-2024 201",
+        "description": "Gain proficiency in any combination of three skills or tools. Repeatable."
+      },
+      {
+        "name": "Weapon Mastery: Greataxe (Cleave)",
+        "source": "PHB-2024 110",
+        "description": "Once per turn on a hit, make another attack against a second creature within 5 ft. The second attack deals Greataxe damage without ability modifier (unless negative)."
+      },
+      {
+        "name": "Weapon Mastery: Warhammer (Push)",
+        "source": "PHB-2024 110",
+        "description": "On hit, push the creature up to 10 ft. away if Large or smaller."
+      }
+    ]
+  },
+  "actions": {
+    "standard": [
+      "Attack", "Magic", "Dash", "Disengage", "Dodge", "Help",
+      "Hide", "Ready", "Search", "Utilize", "Opportunity Attack",
+      "Grapple", "Shove", "Improvise", "Two-Weapon Fighting",
+      "Interact with an Object", "Study", "Influence"
+    ],
+    "bonus": [
+      "Lay On Hands: Heal",
+      "Lay On Hands: Purify Poison"
+    ]
+  }
+}

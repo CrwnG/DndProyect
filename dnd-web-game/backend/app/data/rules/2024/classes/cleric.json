@@ -1,0 +1,348 @@
+{
+  "id": "cleric",
+  "name": "Cleric",
+  "source": "2024 Player's Handbook",
+  "description": "A priestly champion who wields divine magic in service of a higher power",
+  "hit_die": "d8",
+  "primary_ability": "wisdom",
+  "saving_throw_proficiencies": ["wisdom", "charisma"],
+  "armor_proficiencies": ["light", "medium", "shields"],
+  "weapon_proficiencies": ["simple"],
+  "tool_proficiencies": [],
+  "skill_choices": {
+    "count": 2,
+    "options": ["history", "insight", "medicine", "persuasion", "religion"]
+  },
+  "starting_equipment": {
+    "choices": [
+      {
+        "options": [
+          {"item": "mace", "quantity": 1},
+          {"item": "warhammer", "quantity": 1}
+        ]
+      },
+      {
+        "options": [
+          {"item": "scale_mail", "quantity": 1},
+          {"item": "leather_armor", "quantity": 1}
+        ]
+      },
+      {
+        "options": [
+          {"item": "light_crossbow", "quantity": 1, "with": {"item": "bolts", "quantity": 20}},
+          {"item": "simple_weapon", "quantity": 1}
+        ]
+      }
+    ],
+    "default": [
+      {"item": "shield", "quantity": 1},
+      {"item": "holy_symbol", "quantity": 1},
+      {"item": "priests_pack", "quantity": 1}
+    ]
+  },
+  "multiclass_requirements": {
+    "wisdom": 13
+  },
+  "multiclass_proficiencies": ["light_armor", "medium_armor", "shields"],
+  "spellcasting": {
+    "ability": "wisdom",
+    "ritual_casting": true,
+    "focus": "holy_symbol",
+    "spell_preparation": "prepared_caster",
+    "cantrips_known": {
+      "1": 3, "2": 3, "3": 3, "4": 4, "5": 4, "6": 4, "7": 4, "8": 4, "9": 4, "10": 5,
+      "11": 5, "12": 5, "13": 5, "14": 5, "15": 5, "16": 5, "17": 5, "18": 5, "19": 5, "20": 5
+    },
+    "spells_prepared_formula": "wisdom_modifier + cleric_level",
+    "spell_slots": {
+      "1":  {"1": 2, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "2":  {"1": 3, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "3":  {"1": 4, "2": 2, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "4":  {"1": 4, "2": 3, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "5":  {"1": 4, "2": 3, "3": 2, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "6":  {"1": 4, "2": 3, "3": 3, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "7":  {"1": 4, "2": 3, "3": 3, "4": 1, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "8":  {"1": 4, "2": 3, "3": 3, "4": 2, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0},
+      "9":  {"1": 4, "2": 3, "3": 3, "4": 3, "5": 1, "6": 0, "7": 0, "8": 0, "9": 0},
+      "10": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 0, "7": 0, "8": 0, "9": 0},
+      "11": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0},
+      "12": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0},
+      "13": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 0, "9": 0},
+      "14": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 0, "9": 0},
+      "15": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 0},
+      "16": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 0},
+      "17": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 1},
+      "18": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 1, "7": 1, "8": 1, "9": 1},
+      "19": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 1, "8": 1, "9": 1},
+      "20": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 2, "8": 1, "9": 1}
+    }
+  },
+  "class_features": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "level": 1,
+      "description": "You have learned to cast spells through prayer and devotion. The information below details how you use those rules with Cleric spells, which appear in the Cleric spell list later in the class's description."
+    },
+    {
+      "id": "divine_order",
+      "name": "Divine Order",
+      "level": 1,
+      "description": "You have dedicated yourself to one of the following sacred roles of your choice: Protector (Trained for battle, you gain proficiency with Martial weapons and training with Heavy armor), Thaumaturge (You know one extra cantrip from the Cleric spell list. In addition, your mystical connection to the divine gives you a bonus to your Intelligence (Religion) checks. The bonus equals your Wisdom modifier, minimum of +1)."
+    },
+    {
+      "id": "cleric_subclass",
+      "name": "Cleric Subclass",
+      "level": 3,
+      "description": "You gain a Cleric subclass of your choice. The Life Domain, Light Domain, Trickery Domain, and War Domain subclasses are detailed after this class's description. A subclass is a specialization that grants you features at certain Cleric levels. For the rest of your career, you gain each of your subclass's features that are of your Cleric level or lower."
+    },
+    {
+      "id": "channel_divinity",
+      "name": "Channel Divinity",
+      "level": 2,
+      "description": "You can channel divine energy directly from the Outer Planes to fuel magical effects. You start with two such effects: Divine Spark and Turn Undead, each of which is described below. Each time you use this class's Channel Divinity, you choose which Channel Divinity effect from this class to create. You gain additional effect options at higher levels in this class. Some Channel Divinity effects require saving throws. When you use such an effect, the DC equals your spell save DC. You can use Channel Divinity twice. You regain one expended use when you finish a Short Rest, and you regain all expended uses when you finish a Long Rest. You gain additional uses when you reach certain Cleric levels: three uses at level 6 and four uses at level 18."
+    },
+    {
+      "id": "divine_spark",
+      "name": "Divine Spark",
+      "level": 2,
+      "description": "As a Magic action, you point your Holy Symbol at another creature you can see within 30 feet of yourself and focus divine energy at it. Roll 1d8 and add your Wisdom modifier. You either restore Hit Points to the creature equal to that total or force the creature to make a Constitution saving throw. On a failed save, the creature takes Necrotic or Radiant damage (your choice) equal to that total. On a successful save, the creature takes half as much damage. You roll an additional d8 when you reach Cleric levels 7 (2d8), 13 (3d8), and 18 (4d8)."
+    },
+    {
+      "id": "turn_undead",
+      "name": "Turn Undead",
+      "level": 2,
+      "description": "As a Magic action, you present your Holy Symbol and censure Undead creatures. Each Undead of your choice within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it has the Frightened and Incapacitated conditions for 1 minute. For that duration, it tries to move as far from you as it can on its turns. This effect ends early on the creature if it takes any damage, if you have the Incapacitated condition, or if you die."
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify. You gain this feature again at Cleric levels 8, 12, and 16."
+    },
+    {
+      "id": "smite_undead",
+      "name": "Smite Undead",
+      "level": 5,
+      "description": "You can cause your Turn Undead feature to smite the undying; whenever you use Turn Undead, you can roll a number of d8s equal to your Wisdom modifier (minimum of 1d8) and add the rolls together. Each Undead that fails its saving throw against that use of Turn Undead takes Radiant damage equal to the roll's total. This damage doesn't end the turn effect."
+    },
+    {
+      "id": "blessed_strikes",
+      "name": "Blessed Strikes",
+      "level": 7,
+      "description": "Divine power infuses you in battle. You gain one of the following options of your choice. Divine Strike (Once on each of your turns when you hit a creature with an attack roll using a weapon, you can cause the target to take an extra 1d8 Necrotic or Radiant damage (your choice)), Potent Spellcasting (You add your Wisdom modifier to the damage you deal with any Cleric cantrip)."
+    },
+    {
+      "id": "commune",
+      "name": "Commune",
+      "level": 9,
+      "description": "In the past, you have reached the Outer Planes enough that you now always have the Commune spell prepared."
+    },
+    {
+      "id": "divine_intervention",
+      "name": "Divine Intervention",
+      "level": 10,
+      "description": "You can call on your deity or pantheon to intervene on your behalf. As a Magic action, choose any Cleric spell of level 5 or lower that doesn't require a Reaction to cast. As part of the same action, you cast that spell without expending a spell slot or needing Material components. You can't use this feature again until you finish a Long Rest."
+    },
+    {
+      "id": "improved_blessed_strikes",
+      "name": "Improved Blessed Strikes",
+      "level": 14,
+      "description": "The option you chose for Blessed Strikes grows more powerful. Divine Strike (The extra damage of your Divine Strike increases to 2d8), Potent Spellcasting (When you cast a Cleric cantrip and deal damage to a creature with it, you can give vitality to yourself or another creature within 60 feet of yourself, granting a number of Temporary Hit Points equal to twice your Wisdom modifier)."
+    },
+    {
+      "id": "greater_divine_intervention",
+      "name": "Greater Divine Intervention",
+      "level": 18,
+      "description": "You can call on even more powerful divine intervention. When you use your Divine Intervention feature, you can choose Wish when you select a spell. If you do so, you can't use Divine Intervention again until you finish 2d4 Long Rests."
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "level": 19,
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Fate is recommended."
+    },
+    {
+      "id": "greater_divine_intervention_20",
+      "name": "Greater Divine Intervention (Improved)",
+      "level": 20,
+      "description": "You can use Divine Intervention twice between Long Rests, but not more than once per turn."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "life_domain",
+      "name": "Life Domain",
+      "source": "2024 Player's Handbook",
+      "description": "The Life Domain focuses on the vibrant positive energy—one of the fundamental forces of the multiverse—that sustains all life. Clerics who tap into this domain are masters of healing, using that force of life to cure many hurts.",
+      "domain_spells": {
+        "3": ["bless", "cure_wounds"],
+        "5": ["aid", "lesser_restoration"],
+        "7": ["mass_healing_word", "revivify"],
+        "9": ["aura_of_life", "death_ward"]
+      },
+      "features": [
+        {
+          "id": "disciple_of_life",
+          "name": "Disciple of Life",
+          "level": 3,
+          "description": "Your healing spells are empowered by life itself. When a spell you cast with a spell slot restores Hit Points to a creature, that creature regains additional Hit Points on the turn you cast the spell. The additional Hit Points equal 2 plus the spell slot's level."
+        },
+        {
+          "id": "preserve_life",
+          "name": "Preserve Life",
+          "level": 3,
+          "description": "As a Magic action, you present your Holy Symbol and expend a use of your Channel Divinity to evoke healing energy that can restore a number of Hit Points equal to 5 times your Cleric level. Choose Bloodied creatures within 30 feet of yourself (which can include you), and divide those Hit Points among them. This feature can restore a creature to no more than half its Hit Point maximum."
+        },
+        {
+          "id": "blessed_healer",
+          "name": "Blessed Healer",
+          "level": 6,
+          "description": "The healing spells you cast on others heal you as well. Immediately after you cast a spell with a spell slot that restores Hit Points to one creature other than yourself, you regain Hit Points equal to 2 plus the spell slot's level."
+        },
+        {
+          "id": "divine_strike_life",
+          "name": "Divine Strike (Life)",
+          "level": 14,
+          "description": "You gain the Blessed Strikes feature's Divine Strike option, dealing Radiant damage. When you deal this damage, you can also cause one creature within 30 feet of yourself to regain Hit Points equal to the damage dealt."
+        }
+      ]
+    },
+    {
+      "id": "light_domain",
+      "name": "Light Domain",
+      "source": "2024 Player's Handbook",
+      "description": "The Light Domain emphasizes the divine power to bring about blazing fire and revelation. Clerics of the Light Domain can send searing beams of light and use the power of their god to illuminate dark places and to sear away lies.",
+      "domain_spells": {
+        "3": ["burning_hands", "faerie_fire"],
+        "5": ["flaming_sphere", "scorching_ray"],
+        "7": ["daylight", "fireball"],
+        "9": ["arcane_eye", "wall_of_fire"]
+      },
+      "features": [
+        {
+          "id": "warding_flare",
+          "name": "Warding Flare",
+          "level": 3,
+          "description": "When a creature that you can see within 30 feet of yourself makes an attack roll, you can take a Reaction to impose Disadvantage on the attack roll, causing light to flare before it hits or misses. You can use this feature a number of times equal to your Wisdom modifier (minimum of once). You regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "radiance_of_the_dawn",
+          "name": "Radiance of the Dawn",
+          "level": 3,
+          "description": "As a Magic action, you present your Holy Symbol and expend a use of your Channel Divinity to emit a flash of light in a 30-foot Emanation originating from yourself. Any magical Darkness—such as that created by the Darkness spell—in the Emanation is dispelled. Additionally, each creature of your choice in the Emanation must make a Constitution saving throw, taking Radiant damage equal to 2d10 plus your Cleric level on a failed save or half as much damage on a successful one."
+        },
+        {
+          "id": "improved_warding_flare",
+          "name": "Improved Warding Flare",
+          "level": 6,
+          "description": "When you use your Warding Flare feature, you can instead target the attacker, causing the attacker to have Disadvantage on all attack rolls against targets other than you until the end of its turn."
+        },
+        {
+          "id": "corona_of_light",
+          "name": "Corona of Light",
+          "level": 14,
+          "description": "As a Magic action, you cause yourself to emit an aura of sunlight that lasts for 1 minute or until you dismiss it (no action required). You emit Bright Light in a 60-foot radius and Dim Light for an additional 30 feet. Your enemies in the Bright Light have Disadvantage on saving throws against your Radiance of the Dawn and any spell that deals Fire or Radiant damage."
+        }
+      ]
+    },
+    {
+      "id": "trickery_domain",
+      "name": "Trickery Domain",
+      "source": "2024 Player's Handbook",
+      "description": "The Trickery Domain emphasizes stealth and manipulation. Clerics of this domain play pranks on people, infiltrate organizations to expose their corruption, and use deceptions to advance a cause. Some are mischief-makers, while others are agents of chaos or liberators of the downtrodden.",
+      "domain_spells": {
+        "3": ["charm_person", "disguise_self"],
+        "5": ["invisibility", "pass_without_trace"],
+        "7": ["hypnotic_pattern", "nondetection"],
+        "9": ["confusion", "dimension_door"]
+      },
+      "features": [
+        {
+          "id": "blessing_of_the_trickster",
+          "name": "Blessing of the Trickster",
+          "level": 3,
+          "description": "You can use an action to touch a willing creature other than yourself and bestow upon it the blessing of the Trickster. That creature has Advantage on Dexterity (Stealth) checks. This blessing lasts for 1 hour or until you use this feature again."
+        },
+        {
+          "id": "invoke_duplicity",
+          "name": "Invoke Duplicity",
+          "level": 3,
+          "description": "As a Bonus Action, you expend a use of your Channel Divinity to create an illusory duplicate of yourself. The illusion appears in an unoccupied space you can see within 30 feet of you. As a Bonus Action on your turn, you can move the illusion up to 30 feet to a space you can see, but it must remain within 120 feet of you. For the duration, you have Advantage on attack rolls against any creature within 5 feet of the illusion, and whenever you cast a spell that has a range of 5 feet or greater, you can cast it as if you were in the illusion's space. The illusion lasts for 1 minute, but it ends early if you have the Incapacitated condition or dismiss it (no action required)."
+        },
+        {
+          "id": "tricksters_transposition",
+          "name": "Trickster's Transposition",
+          "level": 6,
+          "description": "You can teleport, swapping places with your illusory duplicate created by your Invoke Duplicity. You can teleport in this way as a Bonus Action on your turn if the duplicate is within 30 feet of you. You can teleport in this way a number of times equal to your Wisdom modifier (minimum of once), and you regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "improved_duplicity",
+          "name": "Improved Duplicity",
+          "level": 14,
+          "description": "Your Invoke Duplicity now creates up to four duplicates when you use it, and you can move any number of them up to 30 feet each when you use a Bonus Action to command them. While you have at least one duplicate within 5 feet of a creature, you have Advantage on attack rolls against that creature and that creature has Disadvantage on saving throws against spells you cast."
+        }
+      ]
+    },
+    {
+      "id": "war_domain",
+      "name": "War Domain",
+      "source": "2024 Player's Handbook",
+      "description": "The War Domain channels the divine power of gods of war. Clerics of these gods excel in battle, inspiring others to fight the good fight or offering acts of violence as prayers. They bolster their allies with divine power and call down heavenly strikes upon their foes.",
+      "domain_spells": {
+        "3": ["divine_favor", "shield_of_faith"],
+        "5": ["magic_weapon", "spiritual_weapon"],
+        "7": ["crusaders_mantle", "spirit_guardians"],
+        "9": ["fire_shield", "freedom_of_movement"]
+      },
+      "features": [
+        {
+          "id": "war_priest",
+          "name": "War Priest",
+          "level": 3,
+          "description": "As a Bonus Action, you can make one attack with a weapon or an Unarmed Strike. You can use this Bonus Action a number of times equal to your Wisdom modifier (minimum of once). You regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "guided_strike",
+          "name": "Guided Strike",
+          "level": 3,
+          "description": "When you or a creature within 30 feet of you misses with an attack roll, you can expend one use of your Channel Divinity and grant a +10 bonus to the roll, potentially turning the miss into a hit."
+        },
+        {
+          "id": "war_gods_blessing",
+          "name": "War God's Blessing",
+          "level": 6,
+          "description": "War God's Blessing. Whenever a creature makes an attack roll against you, you can use your Reaction to grant a +10 bonus to any attack roll you make on your next turn."
+        },
+        {
+          "id": "avatar_of_battle",
+          "name": "Avatar of Battle",
+          "level": 14,
+          "description": "You gain Resistance to Bludgeoning, Piercing, and Slashing damage."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "proficiency_bonus": 2, "features": ["Spellcasting", "Divine Order"], "cantrips": 3, "channel_divinity_uses": 0},
+    {"level": 2, "proficiency_bonus": 2, "features": ["Channel Divinity"], "cantrips": 3, "channel_divinity_uses": 2},
+    {"level": 3, "proficiency_bonus": 2, "features": ["Cleric Subclass"], "cantrips": 3, "channel_divinity_uses": 2},
+    {"level": 4, "proficiency_bonus": 2, "features": ["Ability Score Improvement"], "cantrips": 4, "channel_divinity_uses": 2},
+    {"level": 5, "proficiency_bonus": 3, "features": ["Smite Undead"], "cantrips": 4, "channel_divinity_uses": 2},
+    {"level": 6, "proficiency_bonus": 3, "features": ["Subclass Feature"], "cantrips": 4, "channel_divinity_uses": 3},
+    {"level": 7, "proficiency_bonus": 3, "features": ["Blessed Strikes"], "cantrips": 4, "channel_divinity_uses": 3},
+    {"level": 8, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "cantrips": 4, "channel_divinity_uses": 3},
+    {"level": 9, "proficiency_bonus": 4, "features": ["Commune"], "cantrips": 4, "channel_divinity_uses": 3},
+    {"level": 10, "proficiency_bonus": 4, "features": ["Divine Intervention"], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 11, "proficiency_bonus": 4, "features": [], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 12, "proficiency_bonus": 4, "features": ["Ability Score Improvement"], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 13, "proficiency_bonus": 5, "features": [], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 14, "proficiency_bonus": 5, "features": ["Subclass Feature", "Improved Blessed Strikes"], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 15, "proficiency_bonus": 5, "features": [], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 16, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 17, "proficiency_bonus": 6, "features": [], "cantrips": 5, "channel_divinity_uses": 3},
+    {"level": 18, "proficiency_bonus": 6, "features": ["Greater Divine Intervention"], "cantrips": 5, "channel_divinity_uses": 4},
+    {"level": 19, "proficiency_bonus": 6, "features": ["Epic Boon"], "cantrips": 5, "channel_divinity_uses": 4},
+    {"level": 20, "proficiency_bonus": 6, "features": ["Greater Divine Intervention (Improved)"], "cantrips": 5, "channel_divinity_uses": 4}
+  ]
+}

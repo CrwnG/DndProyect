@@ -1,0 +1,94 @@
+{
+  "id": "rogue",
+  "name": "Rogue",
+  "hit_die": "d8",
+  "primary_ability": "dexterity",
+  "saving_throw_proficiencies": ["dexterity", "intelligence"],
+  "armor_proficiencies": ["light"],
+  "weapon_proficiencies": ["simple", "hand_crossbow", "longsword", "rapier", "shortsword"],
+  "starting_hp": 8,
+  "hp_per_level": 5,
+  "features": {
+    "1": [
+      {
+        "id": "sneak_attack",
+        "name": "Sneak Attack",
+        "description": "Once per turn, you can deal extra 1d6 damage to one creature you hit with an attack if you have advantage on the attack roll. The attack must use a finesse or a ranged weapon. You don't need advantage if another enemy of the target is within 5 feet of it.",
+        "effect": {
+          "type": "bonus_damage",
+          "dice": "1d6",
+          "scales_with_level": true,
+          "requirement": "advantage_or_ally_adjacent"
+        }
+      },
+      {
+        "id": "thieves_cant",
+        "name": "Thieves' Cant",
+        "description": "You have learned thieves' cant, a secret mix of dialect, jargon, and code."
+      }
+    ],
+    "2": [
+      {
+        "id": "cunning_action",
+        "name": "Cunning Action",
+        "description": "You can use a bonus action to take the Dash, Disengage, or Hide action.",
+        "action_type": "bonus_action",
+        "effect": {
+          "type": "bonus_action_options",
+          "options": ["dash", "disengage", "hide"]
+        }
+      }
+    ],
+    "3": [
+      {
+        "id": "roguish_archetype",
+        "name": "Roguish Archetype",
+        "description": "You choose an archetype: Thief."
+      },
+      {
+        "id": "fast_hands",
+        "name": "Fast Hands (Thief)",
+        "description": "You can use your Cunning Action to make a Dexterity (Sleight of Hand) check, use your thieves' tools to disarm a trap or open a lock, or take the Use an Object action."
+      }
+    ]
+  },
+  "sneak_attack_progression": {
+    "1": "1d6",
+    "3": "2d6",
+    "5": "3d6",
+    "7": "4d6",
+    "9": "5d6",
+    "11": "6d6",
+    "13": "7d6",
+    "15": "8d6",
+    "17": "9d6",
+    "19": "10d6"
+  },
+  "starting_equipment": [
+    {
+      "id": "shortsword",
+      "name": "Shortsword",
+      "type": "weapon",
+      "damage": "1d6",
+      "damage_type": "piercing",
+      "properties": ["finesse", "light"]
+    },
+    {
+      "id": "shortbow",
+      "name": "Shortbow",
+      "type": "weapon",
+      "damage": "1d6",
+      "damage_type": "piercing",
+      "properties": ["ranged", "two_handed"],
+      "range": 80,
+      "long_range": 320
+    },
+    {
+      "id": "leather_armor",
+      "name": "Leather Armor",
+      "type": "armor",
+      "base_ac": 11,
+      "max_dex_bonus": null
+    }
+  ]
+}

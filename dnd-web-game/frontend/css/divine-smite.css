@@ -1,0 +1,272 @@
+/* ========================================
+   D&D Divine Smite Modal Styles
+   BG3-inspired Paladin smite UI
+   ======================================== */
+
+/* Modal Base */
+.divine-smite-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1100; /* Above spell modal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divine-smite-modal.hidden {
+    display: none;
+}
+
+.smite-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 0;
+}
+
+/* Modal Content */
+.divine-smite-content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 400px;
+    background: linear-gradient(180deg, rgb(40, 30, 50) 0%, rgb(25, 20, 35) 100%);
+    border: 2px solid var(--accent-gold, #d4af37);
+    border-radius: 12px;
+    box-shadow:
+        0 0 60px rgba(155, 89, 182, 0.4),
+        0 0 30px rgba(212, 175, 55, 0.3),
+        0 10px 40px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    animation: smiteModalAppear 0.3s ease-out;
+}
+
+@keyframes smiteModalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Header */
+.smite-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: linear-gradient(90deg, rgba(155, 89, 182, 0.2) 0%, rgba(212, 175, 55, 0.2) 50%, rgba(155, 89, 182, 0.2) 100%);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.smite-icon {
+    font-size: 2rem;
+    color: var(--accent-gold, #d4af37);
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    animation: smiteIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes smiteIconPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+    }
+}
+
+.smite-header h2 {
+    margin: 0;
+    color: var(--accent-gold, #d4af37);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    letter-spacing: 0.05em;
+}
+
+/* Body */
+.smite-body {
+    padding: 1.25rem;
+}
+
+.smite-prompt {
+    text-align: center;
+    color: var(--text-primary, #eee);
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+}
+
+/* Target Info */
+.smite-target-info {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.target-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.target-name {
+    color: var(--accent-red, #e74c3c);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.base-damage {
+    color: var(--text-muted, #888);
+    font-size: 0.85rem;
+}
+
+.undead-bonus {
+    color: var(--accent-gold, #d4af37);
+    font-size: 0.85rem;
+    font-weight: 600;
+    animation: undeadBonusPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes undeadBonusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Slot Options */
+.smite-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.smite-slot-option {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-rows: auto auto;
+    gap: 0.25rem 1rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(100, 60, 130, 0.15) 100%);
+    border: 1px solid rgba(155, 89, 182, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.smite-slot-option:hover {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.3) 0%, rgba(100, 60, 130, 0.3) 100%);
+    border-color: rgba(155, 89, 182, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+
+.smite-slot-option.selected {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(155, 89, 182, 0.3) 100%);
+    border-color: var(--accent-gold, #d4af37);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.slot-level {
+    grid-row: 1;
+    grid-column: 1;
+    color: var(--text-primary, #eee);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.slot-damage {
+    grid-row: 1;
+    grid-column: 2;
+    color: var(--accent-purple, #9b59b6);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.slot-avg {
+    grid-row: 1;
+    grid-column: 3;
+    color: var(--text-muted, #888);
+    font-size: 0.8rem;
+}
+
+.slot-count {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    color: var(--text-secondary, #aaa);
+    font-size: 0.75rem;
+}
+
+.no-slots {
+    text-align: center;
+    color: var(--text-muted, #888);
+    font-style: italic;
+    padding: 1rem;
+}
+
+/* Damage Preview (optional) */
+.smite-damage-preview {
+    margin-top: 1rem;
+    text-align: center;
+    min-height: 1.5rem;
+}
+
+/* Footer */
+.smite-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+}
+
+.btn-smite-skip {
+    padding: 0.6rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: var(--text-secondary, #aaa);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-smite-skip:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-primary, #eee);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .divine-smite-content {
+        max-width: 95%;
+    }
+
+    .smite-slot-option {
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto auto;
+    }
+
+    .slot-avg {
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .slot-count {
+        grid-row: 3;
+    }
+}

@@ -1,0 +1,255 @@
+{
+  "campaign": {
+    "id": "tutorial-campaign",
+    "name": "The Goblin Caves",
+    "description": "A short tutorial campaign to learn the combat system. Explore a cave system and defeat the goblin threat!",
+    "author": "D&D Web Game",
+    "version": "1.0.0",
+    "settings": {
+      "difficulty": "normal",
+      "allow_ai_dm": true,
+      "ai_creativity_level": 0.5,
+      "ruleset": "5e_2024",
+      "dm_mode": "ai",
+      "max_party_size": 4,
+      "allow_permadeath": false
+    }
+  },
+  "chapters": [
+    {
+      "id": "chapter-1",
+      "title": "Into the Darkness",
+      "description": "The local village has been plagued by goblin raids. Your party ventures into the caves to end the threat.",
+      "encounters": ["intro", "cave-approach", "goblin-scouts", "rest-point", "goblin-boss"]
+    }
+  ],
+  "encounters": {
+    "intro": {
+      "id": "intro",
+      "type": "cutscene",
+      "name": "The Village Elder's Request",
+      "story": {
+        "intro_text": "The old village elder grips your arm with surprising strength. 'Please,' he whispers, 'you must help us. Every night they come - small, wicked creatures with yellow eyes. They've taken our food, our livestock... and last week, they took young Mira.'\n\nHe points to the dark mouth of a cave at the edge of the forest. 'That's where they nest. If you can end this threat, the village will reward you handsomely. But be warned - there's talk of a larger beast that leads them.'\n\nYou ready your weapons and approach the cave entrance. The smell of decay wafts from within, and you can hear distant cackling echoing off the stone walls.",
+        "intro_prompts": ["foreboding atmosphere", "heroic call to action", "danger ahead"],
+        "ambiance": "cave_entrance"
+      },
+      "transitions": {
+        "on_victory": "cave-approach",
+        "on_defeat": "game_over"
+      }
+    },
+    "cave-approach": {
+      "id": "cave-approach",
+      "type": "choice",
+      "name": "The Cave Entrance",
+      "story": {
+        "intro_text": "The cave mouth looms before you, dark and foreboding. As you peer inside, you can make out flickering torchlight further in and hear the unmistakable chatter of goblin voices. They haven't noticed you yet.\n\nYou have a moment to decide your approach. The shadows along the cave walls might provide cover for a stealthy approach. Alternatively, you could try to intimidate them into fleeing, or simply charge in weapons ready.",
+        "intro_prompts": ["tactical decision", "multiple approaches", "tension building"],
+        "outcome_victory": null,
+        "outcome_defeat": null,
+        "ambiance": "cave_entrance"
+      },
+      "choices": {
+        "choices": [
+          {
+            "id": "sneak",
+            "text": "Sneak through the shadows",
+            "description": "Everyone must move quietly - if half the party fails, you're spotted!",
+            "skill_check": {
+              "skill": "stealth",
+              "dc": 12,
+              "check_type": "group"
+            },
+            "on_success": "ambush-success",
+            "on_failure": "goblin-scouts",
+            "success_text": "Your party moves like shadows through the darkness, footsteps silent on the stone floor. The goblins remain oblivious to your presence...",
+            "failure_text": "Too many loose rocks clatter beneath your feet. The goblins' ears prick up and they spin around, weapons raised! So much for stealth..."
+          },
+          {
+            "id": "intimidate",
+            "text": "Roar and charge to intimidate them",
+            "description": "Choose who will attempt to frighten the goblins",
+            "skill_check": {
+              "skill": "intimidation",
+              "dc": 15,
+              "check_type": "player_choice"
+            },
+            "on_success": "scouts-flee",
+            "on_failure": "goblin-scouts",
+            "success_text": "A terrifying battle cry echoes through the cave! The goblins shriek in terror and scatter into the darkness, abandoning their post!",
+            "failure_text": "The attempt to intimidate falls flat. The goblins laugh at the display and draw their weapons, emboldened by the bluster!"
+          },
+          {
+            "id": "charge",
+            "text": "Attack head-on",
+            "description": "No tricks, just cold steel",
+            "skill_check": null,
+            "on_select": "goblin-scouts"
+          }
+        ],
+        "who_checks": "party_leader"
+      },
+      "transitions": {
+        "on_victory": "goblin-scouts",
+        "on_defeat": "game_over"
+      }
+    },
+    "ambush-success": {
+      "id": "ambush-success",
+      "type": "combat",
+      "name": "Surprise Attack!",
+      "story": {
+        "intro_text": "Your stealth pays off! You've managed to get close to the goblins without being detected. They continue their argument over the shiny trinket, completely unaware of the danger behind them.\n\nYou have the element of surprise - strike now!",
+        "intro_prompts": ["surprise round", "tactical advantage", "ambush"],
+        "outcome_victory": "The last goblin falls without ever knowing what hit them. Your stealthy approach saved you from a fair fight. Among the stolen goods, you find a few coins and a crude map.",
+        "outcome_defeat": "Despite your advantage, the goblins overwhelm you...",
+        "ambiance": "cave_combat"
+      },
+      "combat": {
+        "enemies": [
+          {"template": "goblin", "count": 2}
+        ],
+        "environment": {
+          "width": 8,
+          "height": 8,
+          "obstacles": [[0, 0], [1, 0], [7, 0], [0, 7], [7, 7]],
+          "difficult_terrain": [[3, 3], [3, 4], [4, 3], [4, 4]],
+          "player_spawns": [[4, 4], [5, 4], [4, 5], [5, 5]],
+          "enemy_spawns": [[5, 1], [6, 1]]
+        },
+        "ai_tactics": "defensive"
+      },
+      "rewards": {
+        "xp": 50,
+        "gold": 15,
+        "items": [],
+        "story_flags": ["ambushed_scouts", "defeated_scouts"]
+      },
+      "transitions": {
+        "on_victory": "rest-point",
+        "on_defeat": "game_over"
+      }
+    },
+    "scouts-flee": {
+      "id": "scouts-flee",
+      "type": "cutscene",
+      "name": "Terror in the Caves",
+      "story": {
+        "intro_text": "The goblins scatter like leaves in a storm! Your terrifying presence sends them fleeing deeper into the caves, abandoning their stolen goods.\n\nYou collect a few coins and a crude map from the abandoned pile. While you avoided a fight, you can't help but wonder if those fleeing goblins will warn others of your approach...",
+        "intro_prompts": ["successful intimidation", "pyrrhic victory", "warning sent"],
+        "ambiance": "cave_quiet"
+      },
+      "rewards": {
+        "xp": 25,
+        "gold": 10,
+        "items": [],
+        "story_flags": ["scouts_fled", "goblins_warned"]
+      },
+      "transitions": {
+        "on_victory": "rest-point",
+        "on_defeat": "game_over"
+      }
+    },
+    "goblin-scouts": {
+      "id": "goblin-scouts",
+      "type": "combat",
+      "name": "Goblin Scouts",
+      "story": {
+        "intro_text": "As you venture deeper into the cave, the passage opens into a small chamber. Firelight flickers from crude torches mounted on the walls. Three goblins crouch around a pile of stolen goods, their high-pitched voices arguing over a shiny trinket.\n\nOne of them spots you and shrieks an alarm! They grab their weapons and prepare to defend their territory.",
+        "intro_prompts": ["surprise encounter", "cave combat", "goblin ambush"],
+        "outcome_victory": "The last goblin falls with a gurgled cry. As the echoes of battle fade, you notice a narrow passage continuing deeper into the caves. Among the stolen goods, you find a few coins and a crude map scratched onto leather - it seems to show more chambers ahead.",
+        "outcome_defeat": "The goblins overwhelm you. As darkness claims your vision, you hear their cackling laughter...",
+        "ambiance": "cave_combat"
+      },
+      "combat": {
+        "enemies": [
+          {"template": "goblin", "count": 3}
+        ],
+        "environment": {
+          "width": 8,
+          "height": 8,
+          "obstacles": [[0, 0], [1, 0], [7, 0], [0, 7], [7, 7]],
+          "difficult_terrain": [[3, 3], [3, 4], [4, 3], [4, 4]],
+          "player_spawns": [[1, 6], [2, 6], [1, 5], [2, 5]],
+          "enemy_spawns": [[5, 1], [6, 1], [6, 2]]
+        },
+        "ai_tactics": "aggressive"
+      },
+      "rewards": {
+        "xp": 75,
+        "gold": 15,
+        "items": [],
+        "story_flags": ["defeated_scouts"]
+      },
+      "transitions": {
+        "on_victory": "rest-point",
+        "on_defeat": "game_over"
+      }
+    },
+    "rest-point": {
+      "id": "rest-point",
+      "type": "rest",
+      "name": "A Moment's Respite",
+      "rest_type": "short",
+      "story": {
+        "intro_text": "Beyond the scout chamber, you discover a small alcove with a natural spring. Fresh water trickles down the cave wall, and the air here is cleaner than the rest of the cave.\n\nThis seems like a safe place to catch your breath before pressing on. You can hear distant sounds deeper in the cave - the goblin leader must be near.",
+        "intro_prompts": ["brief safety", "calm before storm", "natural beauty in darkness"],
+        "outcome_victory": "Feeling refreshed, you steel yourselves for what lies ahead. The narrow passage continues, sloping downward into the heart of the caves."
+      },
+      "transitions": {
+        "on_victory": "goblin-boss",
+        "on_defeat": "goblin-boss"
+      }
+    },
+    "goblin-boss": {
+      "id": "goblin-boss",
+      "type": "combat",
+      "name": "The Goblin Chieftain",
+      "story": {
+        "intro_text": "The passage opens into a vast cavern. Crude totems and bones decorate the walls, and a makeshift throne sits at the far end. Upon it lounges a massive orc, twice the size of the goblins you've fought.\n\nBeside the throne, you see a small cage - and within it, the missing village girl, Mira!\n\nThe orc rises, hefting a brutal greataxe. 'Fresh meat!' he bellows, and the remaining goblins in the chamber scramble to defend their master.",
+        "intro_prompts": ["boss encounter", "rescue mission", "dramatic confrontation"],
+        "outcome_victory": "With a final blow, the orc chieftain falls! The goblins scatter in terror, disappearing into side tunnels. You quickly free young Mira from her cage - frightened but unharmed.\n\n'Thank you,' she whispers. 'I knew someone would come.'\n\nYou've ended the goblin threat and saved the village. The grateful elder rewards you with gold and a feast in your honor. But something nags at your mind - the orc mentioned 'others coming.' Perhaps this was just the beginning...",
+        "outcome_defeat": "The orc's axe crashes down. Your quest ends here, in the darkness of the caves...",
+        "ambiance": "boss_fight"
+      },
+      "combat": {
+        "enemies": [
+          {"template": "orc", "count": 1, "name_override": "Grakk the Chieftain"},
+          {"template": "goblin", "count": 2}
+        ],
+        "environment": {
+          "width": 10,
+          "height": 8,
+          "obstacles": [[0, 0], [1, 0], [9, 0], [0, 7], [9, 7], [4, 3], [5, 3]],
+          "difficult_terrain": [[2, 2], [2, 3], [7, 2], [7, 3]],
+          "cover_positions": [
+            {"position": [3, 5], "type": "half"},
+            {"position": [6, 5], "type": "half"}
+          ],
+          "player_spawns": [[1, 6], [2, 6], [3, 6], [1, 5]],
+          "enemy_spawns": [[7, 1], [8, 2], [8, 1]]
+        },
+        "ai_tactics": "mixed",
+        "reinforcements": [
+          {
+            "trigger": "round_3",
+            "enemies": [{"template": "goblin", "count": 1}]
+          }
+        ]
+      },
+      "rewards": {
+        "xp": 150,
+        "gold": 50,
+        "items": ["potion_of_healing"],
+        "story_flags": ["defeated_chieftain", "rescued_mira", "campaign_complete"]
+      },
+      "transitions": {
+        "on_victory": null,
+        "on_defeat": "game_over"
+      }
+    }
+  },
+  "starting_encounter": "intro",
+  "starting_level": 1,
+  "starting_gold": 10
+}

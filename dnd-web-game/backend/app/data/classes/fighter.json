@@ -1,0 +1,85 @@
+{
+  "id": "fighter",
+  "name": "Fighter",
+  "hit_die": "d10",
+  "primary_ability": "strength",
+  "saving_throw_proficiencies": ["strength", "constitution"],
+  "armor_proficiencies": ["light", "medium", "heavy", "shields"],
+  "weapon_proficiencies": ["simple", "martial"],
+  "starting_hp": 10,
+  "hp_per_level": 6,
+  "features": {
+    "1": [
+      {
+        "id": "fighting_style",
+        "name": "Fighting Style",
+        "description": "You adopt a particular style of fighting as your specialty."
+      },
+      {
+        "id": "second_wind",
+        "name": "Second Wind",
+        "description": "You have a limited well of stamina. On your turn, you can use a bonus action to regain HP equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.",
+        "uses_per_rest": 1,
+        "action_type": "bonus_action",
+        "effect": {
+          "type": "healing",
+          "dice": "1d10",
+          "modifier": "level"
+        }
+      }
+    ],
+    "2": [
+      {
+        "id": "action_surge",
+        "name": "Action Surge",
+        "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a short or long rest before you can use it again.",
+        "uses_per_rest": 1,
+        "action_type": "free",
+        "effect": {
+          "type": "extra_action"
+        }
+      }
+    ],
+    "3": [
+      {
+        "id": "martial_archetype",
+        "name": "Martial Archetype",
+        "description": "You choose an archetype that you strive to emulate in your combat styles and techniques: Champion."
+      },
+      {
+        "id": "improved_critical",
+        "name": "Improved Critical (Champion)",
+        "description": "Your weapon attacks score a critical hit on a roll of 19 or 20.",
+        "effect": {
+          "type": "critical_range",
+          "value": 19
+        }
+      }
+    ]
+  },
+  "starting_equipment": [
+    {
+      "id": "longsword",
+      "name": "Longsword",
+      "type": "weapon",
+      "damage": "1d8",
+      "damage_type": "slashing",
+      "properties": ["versatile"],
+      "versatile_damage": "1d10"
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "type": "armor",
+      "ac_bonus": 2
+    },
+    {
+      "id": "chain_mail",
+      "name": "Chain Mail",
+      "type": "armor",
+      "base_ac": 16,
+      "max_dex_bonus": 0,
+      "stealth_disadvantage": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "orc",
+  "name": "Orc",
+  "source": "2024 Player's Handbook",
+  "description": "Orcs trace their creation to the one-eyed god Gruumsh, an unstoppable warrior and powerful leader. The divine qualities of Gruumsh—and the orcs' own ambitions—have made them a formidable presence throughout the multiverse.",
+  "creature_type": "Humanoid",
+  "size": "Medium (about 6-7 feet tall)",
+  "speed": 30,
+  "languages": ["Common", "Orc"],
+  "traits": [
+    {
+      "id": "adrenaline_rush",
+      "name": "Adrenaline Rush",
+      "description": "You can take the Dash action as a Bonus Action. When you do so, you gain a number of Temporary Hit Points equal to your proficiency bonus. You can use this trait a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a Short or Long Rest."
+    },
+    {
+      "id": "darkvision_orc",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 120 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "relentless_endurance",
+      "name": "Relentless Endurance",
+      "description": "When you are reduced to 0 Hit Points but not killed outright, you can drop to 1 Hit Point instead. Once you use this trait, you can't do so again until you finish a Long Rest."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

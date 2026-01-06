@@ -1,0 +1,273 @@
+{
+  "spells": [
+    {
+      "id": "fire_bolt",
+      "name": "Fire Bolt",
+      "level": 0,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 120,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["wizard"],
+      "attack_type": "ranged_spell",
+      "damage": "1d10",
+      "damage_type": "fire",
+      "description": "You hurl a mote of fire at a creature or object within range. Make a ranged spell attack. On a hit, the target takes 1d10 fire damage.",
+      "higher_levels": "Damage increases by 1d10 at 5th level (2d10), 11th level (3d10), and 17th level (4d10)."
+    },
+    {
+      "id": "sacred_flame",
+      "name": "Sacred Flame",
+      "level": 0,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 60,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["cleric"],
+      "save_type": "dexterity",
+      "save_effect": "no_damage",
+      "damage": "1d8",
+      "damage_type": "radiant",
+      "description": "Flame-like radiance descends on a creature. The target must succeed on a Dexterity saving throw or take 1d8 radiant damage. The target gains no benefit from cover.",
+      "special": ["ignores_cover"]
+    },
+    {
+      "id": "magic_missile",
+      "name": "Magic Missile",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 120,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["wizard"],
+      "auto_hit": true,
+      "damage": "1d4+1",
+      "damage_type": "force",
+      "missiles": 3,
+      "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice and deals 1d4+1 force damage. The darts all strike simultaneously.",
+      "higher_levels": "One additional dart for each slot level above 1st."
+    },
+    {
+      "id": "cure_wounds",
+      "name": "Cure Wounds",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 5,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["cleric"],
+      "healing": "1d8",
+      "healing_modifier": "spellcasting_ability",
+      "description": "A creature you touch regains hit points equal to 1d8 + your spellcasting ability modifier.",
+      "higher_levels": "Healing increases by 1d8 for each slot level above 1st."
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "level": 1,
+      "school": "abjuration",
+      "casting_time": "1 reaction",
+      "trigger": "when_hit_by_attack_or_targeted_by_magic_missile",
+      "range": 0,
+      "components": ["V", "S"],
+      "duration": "1 round",
+      "classes": ["wizard"],
+      "effect": {
+        "type": "ac_bonus",
+        "value": 5,
+        "blocks_magic_missile": true
+      },
+      "description": "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC. You also take no damage from magic missile."
+    },
+    {
+      "id": "shield_of_faith",
+      "name": "Shield of Faith",
+      "level": 1,
+      "school": "abjuration",
+      "casting_time": "1 bonus action",
+      "range": 60,
+      "components": ["V", "S", "M"],
+      "duration": "10 minutes",
+      "concentration": true,
+      "classes": ["cleric"],
+      "effect": {
+        "type": "ac_bonus",
+        "value": 2
+      },
+      "description": "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration."
+    },
+    {
+      "id": "guiding_bolt",
+      "name": "Guiding Bolt",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 120,
+      "components": ["V", "S"],
+      "duration": "1 round",
+      "classes": ["cleric"],
+      "attack_type": "ranged_spell",
+      "damage": "4d6",
+      "damage_type": "radiant",
+      "effect": {
+        "type": "grants_advantage",
+        "duration": "next_attack"
+      },
+      "description": "A flash of light streaks toward a creature. Make a ranged spell attack. On hit, 4d6 radiant damage and the next attack roll against the target has advantage.",
+      "higher_levels": "Damage increases by 1d6 for each slot level above 1st."
+    },
+    {
+      "id": "burning_hands",
+      "name": "Burning Hands",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 0,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["wizard"],
+      "save_type": "dexterity",
+      "save_effect": "half_damage",
+      "damage": "3d6",
+      "damage_type": "fire",
+      "area": {
+        "type": "cone",
+        "size": 15
+      },
+      "description": "You hold your hands with thumbs touching and fingers spread. A thin sheet of flames shoots forth in a 15-foot cone. DEX save for half damage.",
+      "higher_levels": "Damage increases by 1d6 for each slot level above 1st."
+    },
+    {
+      "id": "sleep",
+      "name": "Sleep",
+      "level": 1,
+      "school": "enchantment",
+      "casting_time": "1 action",
+      "range": 90,
+      "components": ["V", "S", "M"],
+      "duration": "1 minute",
+      "classes": ["wizard"],
+      "effect_hp": "5d8",
+      "area": {
+        "type": "sphere",
+        "radius": 20
+      },
+      "description": "You roll 5d8; the total is how many hit points of creatures this spell can affect. Creatures are affected in order of their current HP (ascending). Unconscious creatures are put to sleep.",
+      "higher_levels": "Add 2d8 for each slot level above 1st.",
+      "special": ["affects_lowest_hp_first", "undead_immune", "charm_immune_immune"]
+    },
+    {
+      "id": "thunderwave",
+      "name": "Thunderwave",
+      "level": 1,
+      "school": "evocation",
+      "casting_time": "1 action",
+      "range": 0,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["wizard"],
+      "save_type": "constitution",
+      "save_effect": "half_damage_no_push",
+      "damage": "2d8",
+      "damage_type": "thunder",
+      "area": {
+        "type": "cube",
+        "size": 15,
+        "origin": "self"
+      },
+      "push": 10,
+      "description": "A wave of thunderous force sweeps out from you. Each creature in the area must make a CON save. On failure, 2d8 thunder damage and pushed 10 feet. On success, half damage and not pushed.",
+      "higher_levels": "Damage increases by 1d8 for each slot level above 1st."
+    },
+    {
+      "id": "bless",
+      "name": "Bless",
+      "level": 1,
+      "school": "enchantment",
+      "casting_time": "1 action",
+      "range": 30,
+      "components": ["V", "S", "M"],
+      "duration": "1 minute",
+      "concentration": true,
+      "classes": ["cleric"],
+      "targets": 3,
+      "effect": {
+        "type": "bonus",
+        "attack_bonus": "1d4",
+        "saving_throw_bonus": "1d4"
+      },
+      "description": "You bless up to three creatures. Whenever a target makes an attack roll or saving throw, it can roll a d4 and add the number to the result.",
+      "higher_levels": "One additional creature for each slot level above 1st."
+    },
+    {
+      "id": "inflict_wounds",
+      "name": "Inflict Wounds",
+      "level": 1,
+      "school": "necromancy",
+      "casting_time": "1 action",
+      "range": 5,
+      "components": ["V", "S"],
+      "duration": "instantaneous",
+      "classes": ["cleric"],
+      "attack_type": "melee_spell",
+      "damage": "3d10",
+      "damage_type": "necrotic",
+      "description": "Make a melee spell attack against a creature you can reach. On a hit, the target takes 3d10 necrotic damage.",
+      "higher_levels": "Damage increases by 1d10 for each slot level above 1st."
+    },
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "level": 0,
+      "school": "martial",
+      "casting_time": "1 bonus action",
+      "range": 0,
+      "components": [],
+      "duration": "instantaneous",
+      "classes": ["fighter"],
+      "healing": "1d10",
+      "healing_modifier": "fighter_level",
+      "uses_per_rest": 1,
+      "description": "You have a limited well of stamina. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level.",
+      "special": ["class_feature"]
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "level": 0,
+      "school": "martial",
+      "casting_time": "free",
+      "range": 0,
+      "components": [],
+      "duration": "instantaneous",
+      "classes": ["fighter"],
+      "effect": {
+        "type": "extra_action"
+      },
+      "uses_per_rest": 1,
+      "description": "You can push yourself beyond your normal limits. On your turn, you can take one additional action.",
+      "special": ["class_feature"]
+    },
+    {
+      "id": "cunning_action",
+      "name": "Cunning Action",
+      "level": 0,
+      "school": "martial",
+      "casting_time": "1 bonus action",
+      "range": 0,
+      "components": [],
+      "duration": "instantaneous",
+      "classes": ["rogue"],
+      "effect": {
+        "type": "bonus_action_options",
+        "options": ["dash", "disengage", "hide"]
+      },
+      "description": "Your quick thinking and agility allow you to move and act quickly. You can take the Dash, Disengage, or Hide action as a bonus action.",
+      "special": ["class_feature"]
+    }
+  ]
+}

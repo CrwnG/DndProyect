@@ -1,0 +1,1132 @@
+{
+  "metadata": {
+    "version": "2024",
+    "source": "D&D 2024 Monster Manual",
+    "creature_type": "Plant",
+    "description": "Plant creatures are vegetable creatures, not ordinary flora. Most are ambulatory, and some are carnivorous."
+  },
+  "creatures": [
+    {
+      "id": "awakened_shrub",
+      "name": "Awakened Shrub",
+      "size": "Small",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 9,
+      "hit_points": 10,
+      "hit_dice": "3d6",
+      "speed": {
+        "walk": 20
+      },
+      "ability_scores": {
+        "STR": 3,
+        "DEX": 8,
+        "CON": 11,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 6
+      },
+      "damage_vulnerabilities": ["fire"],
+      "damage_resistances": ["piercing"],
+      "senses": {
+        "passive_perception": 10
+      },
+      "languages": ["one language known by its creator"],
+      "challenge_rating": "0",
+      "xp": 10,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the shrub remains motionless, it is indistinguishable from a normal shrub."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Rake",
+          "description": "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) slashing damage.",
+          "attack_bonus": 1,
+          "damage": "1d4-1",
+          "damage_type": "slashing"
+        }
+      ]
+    },
+    {
+      "id": "awakened_tree",
+      "name": "Awakened Tree",
+      "size": "Huge",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 59,
+      "hit_dice": "7d12+14",
+      "speed": {
+        "walk": 20
+      },
+      "ability_scores": {
+        "STR": 19,
+        "DEX": 6,
+        "CON": 15,
+        "INT": 10,
+        "WIS": 10,
+        "CHA": 7
+      },
+      "damage_vulnerabilities": ["fire"],
+      "damage_resistances": ["bludgeoning", "piercing"],
+      "senses": {
+        "passive_perception": 10
+      },
+      "languages": ["one language known by its creator"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the tree remains motionless, it is indistinguishable from a normal tree."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 14 (3d6 + 4) bludgeoning damage.",
+          "attack_bonus": 6,
+          "damage": "3d6+4",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "twig_blight",
+      "name": "Twig Blight",
+      "size": "Small",
+      "type": "Plant",
+      "alignment": "Neutral Evil",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 4,
+      "hit_dice": "1d6+1",
+      "speed": {
+        "walk": 20
+      },
+      "ability_scores": {
+        "STR": 6,
+        "DEX": 13,
+        "CON": 12,
+        "INT": 4,
+        "WIS": 8,
+        "CHA": 3
+      },
+      "skills": {
+        "stealth": 3
+      },
+      "damage_vulnerabilities": ["fire"],
+      "condition_immunities": ["blinded", "deafened"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 9
+      },
+      "languages": ["understands Common but can't speak"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the blight remains motionless, it is indistinguishable from a dead shrub."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4 + 1) slashing damage.",
+          "attack_bonus": 3,
+          "damage": "1d4+1",
+          "damage_type": "slashing"
+        }
+      ]
+    },
+    {
+      "id": "needle_blight",
+      "name": "Needle Blight",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "armor_type": "natural armor",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 12,
+        "CON": 13,
+        "INT": 4,
+        "WIS": 8,
+        "CHA": 3
+      },
+      "condition_immunities": ["blinded", "deafened"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 9
+      },
+      "languages": ["understands Common but can't speak"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 6 (2d4 + 1) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "2d4+1",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Needles",
+          "description": "Ranged Weapon Attack: +3 to hit, range 30/60 ft., one target. Hit: 8 (2d6 + 1) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "2d6+1",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "vine_blight",
+      "name": "Vine Blight",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "armor_type": "natural armor",
+      "hit_points": 26,
+      "hit_dice": "4d8+8",
+      "speed": {
+        "walk": 10
+      },
+      "ability_scores": {
+        "STR": 15,
+        "DEX": 8,
+        "CON": 14,
+        "INT": 5,
+        "WIS": 10,
+        "CHA": 3
+      },
+      "skills": {
+        "stealth": 1
+      },
+      "condition_immunities": ["blinded", "deafened"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 10
+      },
+      "languages": ["Common"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the blight remains motionless, it is indistinguishable from a tangle of vines."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Constrict",
+          "description": "Melee Weapon Attack: +4 to hit, reach 10 ft., one target. Hit: 9 (2d6 + 2) bludgeoning damage, and a Large or smaller target is grappled (escape DC 12). Until this grapple ends, the target is restrained, and the blight can't constrict another target.",
+          "attack_bonus": 4,
+          "damage": "2d6+2",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Entangling Plants (Recharge 5-6)",
+          "description": "Grasping roots and vines sprout in a 15-foot radius centered on the blight, withering away after 1 minute. For the duration, that area is difficult terrain for nonplant creatures. In addition, each creature of the blight's choice in that area when the plants appear must succeed on a DC 12 Strength saving throw or become restrained. A creature can use its action to make a DC 12 Strength check, freeing itself or another entangled creature within reach on a success."
+        }
+      ]
+    },
+    {
+      "id": "shambling_mound",
+      "name": "Shambling Mound",
+      "size": "Large",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 136,
+      "hit_dice": "16d10+48",
+      "speed": {
+        "walk": 20,
+        "swim": 20
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 8,
+        "CON": 16,
+        "INT": 5,
+        "WIS": 10,
+        "CHA": 5
+      },
+      "skills": {
+        "stealth": 2
+      },
+      "damage_resistances": ["cold", "fire"],
+      "damage_immunities": ["lightning"],
+      "condition_immunities": ["blinded", "deafened", "exhaustion"],
+      "senses": {
+        "blindsight": 60,
+        "passive_perception": 10
+      },
+      "languages": [],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Lightning Absorption",
+          "description": "Whenever the shambling mound is subjected to lightning damage, it takes no damage and regains a number of hit points equal to the lightning damage dealt."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The shambling mound makes two slam attacks. If both attacks hit a Medium or smaller target, the target is grappled (escape DC 14), and the shambling mound uses its Engulf on it."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage.",
+          "attack_bonus": 7,
+          "damage": "2d8+4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Engulf",
+          "description": "The shambling mound engulfs a Medium or smaller creature grappled by it. The engulfed target is blinded, restrained, and unable to breathe, and it must succeed on a DC 14 Constitution saving throw at the start of each of the mound's turns or take 13 (2d8 + 4) bludgeoning damage. If the mound moves, the engulfed target moves with it. The mound can have only one creature engulfed at a time."
+        }
+      ]
+    },
+    {
+      "id": "treant",
+      "name": "Treant",
+      "size": "Huge",
+      "type": "Plant",
+      "alignment": "Chaotic Good",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 138,
+      "hit_dice": "12d12+60",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 23,
+        "DEX": 8,
+        "CON": 21,
+        "INT": 12,
+        "WIS": 16,
+        "CHA": 12
+      },
+      "damage_vulnerabilities": ["fire"],
+      "damage_resistances": ["bludgeoning", "piercing"],
+      "senses": {
+        "passive_perception": 13
+      },
+      "languages": ["Common", "Druidic", "Elvish", "Sylvan"],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the treant remains motionless, it is indistinguishable from a normal tree."
+        },
+        {
+          "name": "Siege Monster",
+          "description": "The treant deals double damage to objects and structures."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The treant makes two slam attacks."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 16 (3d6 + 6) bludgeoning damage.",
+          "attack_bonus": 10,
+          "damage": "3d6+6",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +10 to hit, range 60/180 ft., one target. Hit: 28 (4d10 + 6) bludgeoning damage.",
+          "attack_bonus": 10,
+          "damage": "4d10+6",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Animate Trees (1/Day)",
+          "description": "The treant magically animates one or two trees it can see within 60 feet of it. These trees have the same statistics as a treant, except they have Intelligence and Charisma scores of 1, they can't speak, and they have only the Slam action option. An animated tree acts as an ally of the treant. The tree remains animate for 1 day or until it dies; until the treant dies or is more than 120 feet from the tree; or until the treant takes a bonus action to turn it back into an inanimate tree. The tree then takes root if possible."
+        }
+      ]
+    },
+    {
+      "id": "myconid_sprout",
+      "name": "Myconid Sprout",
+      "size": "Small",
+      "type": "Plant",
+      "alignment": "Lawful Neutral",
+      "armor_class": 10,
+      "hit_points": 7,
+      "hit_dice": "2d6",
+      "speed": {
+        "walk": 10
+      },
+      "ability_scores": {
+        "STR": 8,
+        "DEX": 10,
+        "CON": 10,
+        "INT": 8,
+        "WIS": 11,
+        "CHA": 5
+      },
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 10
+      },
+      "languages": [],
+      "challenge_rating": "0",
+      "xp": 10,
+      "traits": [
+        {
+          "name": "Distress Spores",
+          "description": "When the myconid takes damage, all other myconids within 240 feet of it can sense its pain."
+        },
+        {
+          "name": "Sun Sickness",
+          "description": "While in sunlight, the myconid has disadvantage on ability checks, attack rolls, and saving throws. The myconid dies if it spends more than 1 hour in direct sunlight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 1 (1d4 - 1) bludgeoning damage plus 2 (1d4) poison damage.",
+          "attack_bonus": 1,
+          "damage": "1d4-1",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Rapport Spores (3/Day)",
+          "description": "A 10-foot radius of spores extends from the myconid. These spores can go around corners and affect only creatures with an Intelligence of 2 or higher that aren't undead, constructs, or elementals. Affected creatures can communicate telepathically with one another while they are within 30 feet of each other. The effect lasts for 1 hour."
+        }
+      ]
+    },
+    {
+      "id": "myconid_adult",
+      "name": "Myconid Adult",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Lawful Neutral",
+      "armor_class": 12,
+      "armor_type": "natural armor",
+      "hit_points": 22,
+      "hit_dice": "4d8+4",
+      "speed": {
+        "walk": 20
+      },
+      "ability_scores": {
+        "STR": 10,
+        "DEX": 10,
+        "CON": 12,
+        "INT": 10,
+        "WIS": 13,
+        "CHA": 7
+      },
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 11
+      },
+      "languages": [],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Distress Spores",
+          "description": "When the myconid takes damage, all other myconids within 240 feet of it can sense its pain."
+        },
+        {
+          "name": "Sun Sickness",
+          "description": "While in sunlight, the myconid has disadvantage on ability checks, attack rolls, and saving throws. The myconid dies if it spends more than 1 hour in direct sunlight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 5 (2d4) bludgeoning damage plus 5 (2d4) poison damage.",
+          "attack_bonus": 2,
+          "damage": "2d4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Pacifying Spores (3/Day)",
+          "description": "The myconid ejects spores at one creature it can see within 5 feet of it. The target must succeed on a DC 11 Constitution saving throw or be stunned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Rapport Spores",
+          "description": "A 20-foot radius of spores extends from the myconid. These spores can go around corners and affect only creatures with an Intelligence of 2 or higher that aren't undead, constructs, or elementals. Affected creatures can communicate telepathically with one another while they are within 30 feet of each other. The effect lasts for 1 hour."
+        }
+      ]
+    },
+    {
+      "id": "myconid_sovereign",
+      "name": "Myconid Sovereign",
+      "size": "Large",
+      "type": "Plant",
+      "alignment": "Lawful Neutral",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 60,
+      "hit_dice": "8d10+16",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 10,
+        "CON": 14,
+        "INT": 13,
+        "WIS": 15,
+        "CHA": 10
+      },
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 12
+      },
+      "languages": [],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Distress Spores",
+          "description": "When the myconid takes damage, all other myconids within 240 feet of it can sense its pain."
+        },
+        {
+          "name": "Sun Sickness",
+          "description": "While in sunlight, the myconid has disadvantage on ability checks, attack rolls, and saving throws. The myconid dies if it spends more than 1 hour in direct sunlight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The myconid uses either its Hallucination Spores or its Pacifying Spores, then makes a fist attack."
+        },
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 8 (3d4 + 1) bludgeoning damage plus 7 (3d4) poison damage.",
+          "attack_bonus": 3,
+          "damage": "3d4+1",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Animating Spores (3/Day)",
+          "description": "The myconid targets one corpse of a humanoid or a Large or smaller beast within 5 feet of it and releases spores at the corpse. In 24 hours, the corpse rises as a spore servant. The corpse stays animated for 1d4 + 1 weeks or until destroyed, and it can't be animated again in this way."
+        },
+        {
+          "name": "Hallucination Spores",
+          "description": "The myconid ejects spores at one creature it can see within 5 feet of it. The target must succeed on a DC 12 Constitution saving throw or be poisoned for 1 minute. The poisoned target is incapacitated while it hallucinates. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Pacifying Spores",
+          "description": "The myconid ejects spores at one creature it can see within 5 feet of it. The target must succeed on a DC 12 Constitution saving throw or be stunned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Rapport Spores",
+          "description": "A 30-foot radius of spores extends from the myconid. These spores can go around corners and affect only creatures with an Intelligence of 2 or higher that aren't undead, constructs, or elementals. Affected creatures can communicate telepathically with one another while they are within 30 feet of each other. The effect lasts for 1 hour."
+        }
+      ]
+    },
+    {
+      "id": "vegepygmy",
+      "name": "Vegepygmy",
+      "size": "Small",
+      "type": "Plant",
+      "alignment": "Neutral",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 9,
+      "hit_dice": "2d6+2",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 7,
+        "DEX": 14,
+        "CON": 13,
+        "INT": 6,
+        "WIS": 11,
+        "CHA": 7
+      },
+      "skills": {
+        "perception": 2,
+        "stealth": 4
+      },
+      "damage_resistances": ["lightning", "piercing"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 12
+      },
+      "languages": ["Vegepygmy"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Plant Camouflage",
+          "description": "The vegepygmy has advantage on Dexterity (Stealth) checks it makes in any terrain with ample obscuring plant life."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The vegepygmy regains 3 hit points at the start of its turn. If it takes cold, fire, or necrotic damage, this trait doesn't function at the start of the vegepygmy's next turn. The vegepygmy dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Sling",
+          "description": "Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 4 (1d4 + 2) bludgeoning damage.",
+          "attack_bonus": 4,
+          "damage": "1d4+2",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "vegepygmy_chief",
+      "name": "Vegepygmy Chief",
+      "size": "Small",
+      "type": "Plant",
+      "alignment": "Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 33,
+      "hit_dice": "6d6+12",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 14,
+        "DEX": 14,
+        "CON": 14,
+        "INT": 7,
+        "WIS": 12,
+        "CHA": 9
+      },
+      "skills": {
+        "perception": 3,
+        "stealth": 4
+      },
+      "damage_resistances": ["lightning", "piercing"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 13
+      },
+      "languages": ["Vegepygmy"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Plant Camouflage",
+          "description": "The vegepygmy has advantage on Dexterity (Stealth) checks it makes in any terrain with ample obscuring plant life."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The vegepygmy regains 5 hit points at the start of its turn. If it takes cold, fire, or necrotic damage, this trait doesn't function at the start of the vegepygmy's next turn. The vegepygmy dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The vegepygmy makes two attacks with its claws or two attacks with its spear."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 5 (1d6 + 2) piercing damage, or 6 (1d8 + 2) piercing damage if used with two hands to make a melee attack.",
+          "attack_bonus": 4,
+          "damage": "1d6+2",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Spores (1/Day)",
+          "description": "A 15-foot-radius cloud of toxic spores extends out from the vegepygmy. The spores spread around corners. Each creature in that area that isn't a plant must succeed on a DC 12 Constitution saving throw or be poisoned. While poisoned in this way, a target takes 9 (2d8) poison damage at the start of each of its turns. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "thorny",
+      "name": "Thorny",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 27,
+      "hit_dice": "5d8+5",
+      "speed": {
+        "walk": 30
+      },
+      "ability_scores": {
+        "STR": 13,
+        "DEX": 12,
+        "CON": 13,
+        "INT": 2,
+        "WIS": 10,
+        "CHA": 6
+      },
+      "skills": {
+        "perception": 4,
+        "stealth": 3
+      },
+      "damage_resistances": ["lightning", "piercing"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 14
+      },
+      "languages": [],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Plant Camouflage",
+          "description": "The thorny has advantage on Dexterity (Stealth) checks it makes in any terrain with ample obscuring plant life."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The thorny regains 5 hit points at the start of its turn. If it takes cold, fire, or necrotic damage, this trait doesn't function at the start of the thorny's next turn. The thorny dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        },
+        {
+          "name": "Thorny Body",
+          "description": "At the start of its turn, the thorny deals 2 (1d4) piercing damage to any creature grappling it."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 8 (2d6 + 1) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "2d6+1",
+          "damage_type": "piercing"
+        }
+      ]
+    },
+    {
+      "id": "corpse_flower",
+      "name": "Corpse Flower",
+      "size": "Large",
+      "type": "Plant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 12,
+      "hit_points": 127,
+      "hit_dice": "15d10+45",
+      "speed": {
+        "walk": 20,
+        "climb": 20
+      },
+      "ability_scores": {
+        "STR": 14,
+        "DEX": 14,
+        "CON": 16,
+        "INT": 7,
+        "WIS": 15,
+        "CHA": 3
+      },
+      "condition_immunities": ["blinded", "deafened", "poisoned"],
+      "senses": {
+        "blindsight": 120,
+        "passive_perception": 12
+      },
+      "languages": [],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Corpses",
+          "description": "When first encountered, a corpse flower contains the corpses of 1d6 + 3 humanoids. A corpse flower can hold the remains of up to nine dead humanoids. These remains have total cover against attacks and other effects outside the corpse flower. If the corpse flower dies, the corpses within it can be pulled free."
+        },
+        {
+          "name": "Spider Climb",
+          "description": "The corpse flower can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+        },
+        {
+          "name": "Stench of Death",
+          "description": "Each creature that starts its turn within 10 feet of the corpse flower or one of its zombies must make a DC 14 Constitution saving throw, unless the creature is a construct or undead. On a failed save, the creature is incapacitated until the start of its next turn. On a successful save, the creature is immune to the stench of all corpse flowers for 24 hours."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The corpse flower makes three tentacle attacks."
+        },
+        {
+          "name": "Tentacle",
+          "description": "Melee Weapon Attack: +5 to hit, reach 10 ft., one target. Hit: 9 (2d6 + 2) bludgeoning damage plus 10 (3d6) poison damage.",
+          "attack_bonus": 5,
+          "damage": "2d6+2",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Harvest the Dead",
+          "description": "The corpse flower grabs one unsecured dead humanoid within 10 feet of it and stuffs the corpse into itself, along with any equipment the corpse is wearing or carrying. The corpse flower can then use a bonus action to do one of the following:\n\nDigest. The corpse flower digests one humanoid corpse in its body and instantly regains 11 (2d10) hit points. Nothing of the digested body remains. Any equipment on the corpse is expelled from the corpse flower in its space.\n\nAnimate. The corpse flower animates one dead humanoid in its body, turning it into a zombie. The zombie appears in an unoccupied space within 5 feet of the corpse flower and acts immediately after it in the initiative order. The zombie acts as an ally of the corpse flower but isn't under its control."
+        }
+      ],
+      "bonus_actions": [
+        {
+          "name": "Digest",
+          "description": "The corpse flower digests one humanoid corpse in its body and instantly regains 11 (2d10) hit points."
+        },
+        {
+          "name": "Animate",
+          "description": "The corpse flower animates one dead humanoid in its body, turning it into a zombie."
+        }
+      ]
+    },
+    {
+      "id": "wood_woad",
+      "name": "Wood Woad",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Lawful Neutral",
+      "armor_class": 18,
+      "armor_type": "natural armor, shield",
+      "hit_points": 75,
+      "hit_dice": "10d8+30",
+      "speed": {
+        "walk": 30,
+        "climb": 30
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 12,
+        "CON": 16,
+        "INT": 10,
+        "WIS": 13,
+        "CHA": 8
+      },
+      "skills": {
+        "athletics": 7,
+        "perception": 4,
+        "stealth": 4
+      },
+      "damage_vulnerabilities": ["fire"],
+      "damage_resistances": ["bludgeoning", "piercing"],
+      "condition_immunities": ["charmed", "frightened"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 14
+      },
+      "languages": ["Sylvan"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Magic Club",
+          "description": "In the wood woad's hands, its club is magical and deals 7 (3d4) extra damage (included in the attack)."
+        },
+        {
+          "name": "Plant Camouflage",
+          "description": "The wood woad has advantage on Dexterity (Stealth) checks it makes in any terrain with ample obscuring plant life."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The wood woad regains 10 hit points at the start of its turn if it is in contact with the ground. If the wood woad takes fire damage, this trait doesn't function at the start of the wood woad's next turn. The wood woad dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        },
+        {
+          "name": "Tree Stride",
+          "description": "Once on each of its turns, the wood woad can use 10 feet of its movement to step magically into one living tree within 5 feet of it and emerge from a second living tree within 60 feet of the first tree, appearing in an unoccupied space within 5 feet of the second tree. Both trees must be Large or bigger."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The wood woad makes two club attacks."
+        },
+        {
+          "name": "Club",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 14 (4d4 + 4) bludgeoning damage.",
+          "attack_bonus": 7,
+          "damage": "4d4+4",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "assassin_vine",
+      "name": "Assassin Vine",
+      "size": "Large",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 85,
+      "hit_dice": "10d10+30",
+      "speed": {
+        "walk": 5,
+        "climb": 5
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 10,
+        "CON": 16,
+        "INT": 1,
+        "WIS": 10,
+        "CHA": 1
+      },
+      "damage_resistances": ["cold", "fire"],
+      "condition_immunities": ["blinded", "deafened", "exhaustion", "prone"],
+      "senses": {
+        "blindsight": 30,
+        "passive_perception": 10
+      },
+      "languages": [],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the assassin vine remains motionless, it is indistinguishable from a normal vine."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Constrict",
+          "description": "Melee Weapon Attack: +6 to hit, reach 20 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage, and a Large or smaller target is grappled (escape DC 14). Until this grapple ends, the target is restrained, and it takes 21 (6d6) poison damage at the start of each of its turns. The vine can constrict only one target at a time.",
+          "attack_bonus": 6,
+          "damage": "2d6+4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Entangling Vines",
+          "description": "The assassin vine targets one creature it can sense within 30 feet of it. The target must succeed on a DC 13 Strength saving throw or be restrained by the vine. A restrained target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "gas_spore",
+      "name": "Gas Spore",
+      "size": "Large",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 5,
+      "hit_points": 1,
+      "hit_dice": "1d10-4",
+      "speed": {
+        "walk": 0,
+        "fly": 10,
+        "hover": true
+      },
+      "ability_scores": {
+        "STR": 5,
+        "DEX": 1,
+        "CON": 3,
+        "INT": 1,
+        "WIS": 1,
+        "CHA": 1
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["blinded", "deafened", "exhaustion", "frightened", "paralyzed", "poisoned", "prone"],
+      "senses": {
+        "blindsight": 30,
+        "passive_perception": 5
+      },
+      "languages": [],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Death Burst",
+          "description": "The gas spore explodes when it drops to 0 hit points. Each creature within 20 feet of it must succeed on a DC 15 Constitution saving throw or take 10 (3d6) poison damage and become infected with a disease on a failed save. Creatures immune to the poisoned condition are immune to this disease.\n\nSpores invade an infected creature's system, killing the creature in a number of hours equal to 1d12 + the creature's Constitution score, unless the disease is removed. In half that time, the creature becomes poisoned for the rest of the duration. After the creature dies, it sprouts 2d4 Tiny gas spores that grow to full size in 7 days."
+        },
+        {
+          "name": "Eerie Resemblance",
+          "description": "The gas spore resembles a beholder. A creature that can see the gas spore can discern its true nature with a successful DC 15 Intelligence (Nature) check."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Touch",
+          "description": "Melee Weapon Attack: +0 to hit, reach 5 ft., one creature. Hit: 1 poison damage, and the creature must succeed on a DC 10 Constitution saving throw or become infected with the disease described in the Death Burst trait.",
+          "attack_bonus": 0,
+          "damage": "1",
+          "damage_type": "poison"
+        }
+      ]
+    },
+    {
+      "id": "violet_fungus",
+      "name": "Violet Fungus",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 5,
+      "hit_points": 18,
+      "hit_dice": "4d8",
+      "speed": {
+        "walk": 5
+      },
+      "ability_scores": {
+        "STR": 3,
+        "DEX": 1,
+        "CON": 10,
+        "INT": 1,
+        "WIS": 3,
+        "CHA": 1
+      },
+      "condition_immunities": ["blinded", "deafened", "frightened"],
+      "senses": {
+        "blindsight": 30,
+        "passive_perception": 6
+      },
+      "languages": [],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the violet fungus remains motionless, it is indistinguishable from an ordinary fungus."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The violet fungus makes 1d4 Rotting Touch attacks."
+        },
+        {
+          "name": "Rotting Touch",
+          "description": "Melee Weapon Attack: +2 to hit, reach 10 ft., one creature. Hit: 4 (1d8) necrotic damage.",
+          "attack_bonus": 2,
+          "damage": "1d8",
+          "damage_type": "necrotic"
+        }
+      ]
+    },
+    {
+      "id": "yellow_musk_creeper",
+      "name": "Yellow Musk Creeper",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 6,
+      "hit_points": 60,
+      "hit_dice": "8d8+24",
+      "speed": {
+        "walk": 5,
+        "climb": 5
+      },
+      "ability_scores": {
+        "STR": 12,
+        "DEX": 3,
+        "CON": 16,
+        "INT": 1,
+        "WIS": 10,
+        "CHA": 3
+      },
+      "condition_immunities": ["blinded", "deafened", "exhaustion", "prone"],
+      "senses": {
+        "blindsight": 30,
+        "passive_perception": 10
+      },
+      "languages": [],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the yellow musk creeper remains motionless, it is indistinguishable from an ordinary flowering vine."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The yellow musk creeper regains 10 hit points at the start of its turn. If it takes fire, necrotic, or radiant damage, this trait doesn't function at the start of the creeper's next turn. The creeper dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Touch",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 6 (1d10 + 1) bludgeoning damage.",
+          "attack_bonus": 3,
+          "damage": "1d10+1",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Yellow Musk (Recharge 5-6)",
+          "description": "The creeper's flowers release pollen at one humanoid the creeper can sense within 30 feet of it. The target must succeed on a DC 13 Constitution saving throw or be charmed for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.\n\nWhile charmed, the target is incapacitated and moves toward the creeper by the most direct route, trying to get within 5 feet of the creeper. The charmed target doesn't avoid opportunity attacks, but before moving into damaging terrain it can repeat the saving throw. A charmed target that is within 5 feet of the creeper is implanted with a yellow musk seed."
+        },
+        {
+          "name": "Musk Zombie Creation",
+          "description": "If a humanoid implanted with a yellow musk seed is reduced to 0 hit points (or was already dead when implanted), the seed germinates and the humanoid becomes a yellow musk zombie after 1 hour. The zombie is loyal to the yellow musk creeper."
+        }
+      ]
+    },
+    {
+      "id": "tri_flower_frond",
+      "name": "Tri-flower Frond",
+      "size": "Medium",
+      "type": "Plant",
+      "alignment": "Unaligned",
+      "armor_class": 10,
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": {
+        "walk": 5
+      },
+      "ability_scores": {
+        "STR": 1,
+        "DEX": 10,
+        "CON": 12,
+        "INT": 1,
+        "WIS": 3,
+        "CHA": 1
+      },
+      "condition_immunities": ["blinded", "deafened", "exhaustion", "prone"],
+      "senses": {
+        "blindsight": 30,
+        "passive_perception": 6
+      },
+      "languages": [],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "False Appearance",
+          "description": "While the tri-flower frond remains motionless, it is indistinguishable from a normal tropical plant."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The tri-flower frond uses its orange blossom, then its yellow blossom, then its red blossom."
+        },
+        {
+          "name": "Orange Blossom",
+          "description": "The tri-flower frond chooses one creature within 5 feet of it. The target must succeed on a DC 11 Constitution saving throw or be poisoned for 1 hour. While poisoned in this way, the target is unconscious. At the end of each of its turns, the target can repeat the saving throw, ending the effect on itself on a success."
+        },
+        {
+          "name": "Yellow Blossom",
+          "description": "The tri-flower frond chooses one creature within 5 feet of it. The target must succeed on a DC 11 Dexterity saving throw or be restrained by sticky tendrils until the start of the tri-flower frond's next turn."
+        },
+        {
+          "name": "Red Blossom",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target that is unconscious, incapacitated, or restrained. Hit: 9 (2d8) necrotic damage. The tri-flower frond regains hit points equal to the necrotic damage dealt.",
+          "attack_bonus": 2,
+          "damage": "2d8",
+          "damage_type": "necrotic"
+        }
+      ]
+    }
+  ]
+}

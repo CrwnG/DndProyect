@@ -1,0 +1,29 @@
+{
+  "id": "merchant",
+  "name": "Merchant",
+  "source": "2024 Player's Handbook",
+  "description": "You earned a living buying and selling goods. You traveled from town to town, or perhaps you owned a shop in a city. You know how to strike a bargain and turn a profit.",
+  "ability_score_increases": {
+    "options": [
+      {"constitution": 2, "charisma": 1},
+      {"constitution": 1, "charisma": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["animal_handling", "persuasion"],
+  "tool_proficiency": "Navigator's Tools",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["navigators_tools", "mule", "pouch", "travelers_clothes"],
+    "gold": 22
+  },
+  "origin_feat": "Lucky",
+  "feature": {
+    "id": "supply_chain",
+    "name": "Supply Chain",
+    "description": "From your time as a merchant, you retain connections with wholesalers, suppliers, and other merchants. You can often find or obtain rare or exotic goods from these connections. You can usually locate where to buy common items at a 10 percent discount."
+  }
+}

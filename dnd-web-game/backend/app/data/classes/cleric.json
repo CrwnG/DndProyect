@@ -1,0 +1,110 @@
+{
+  "id": "cleric",
+  "name": "Cleric",
+  "hit_die": "d8",
+  "primary_ability": "wisdom",
+  "spellcasting_ability": "wisdom",
+  "saving_throw_proficiencies": ["wisdom", "charisma"],
+  "armor_proficiencies": ["light", "medium", "shields"],
+  "weapon_proficiencies": ["simple"],
+  "starting_hp": 8,
+  "hp_per_level": 5,
+  "features": {
+    "1": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "description": "You can cast cleric spells, drawing on divine power."
+      },
+      {
+        "id": "divine_domain",
+        "name": "Divine Domain",
+        "description": "You choose a divine domain: Life Domain."
+      },
+      {
+        "id": "bonus_proficiency_life",
+        "name": "Bonus Proficiency (Life)",
+        "description": "You gain proficiency with heavy armor."
+      },
+      {
+        "id": "disciple_of_life",
+        "name": "Disciple of Life",
+        "description": "When you cast a healing spell of 1st level or higher, the creature regains additional HP equal to 2 + the spell's level.",
+        "effect": {
+          "type": "healing_bonus",
+          "formula": "2 + spell_level"
+        }
+      }
+    ],
+    "2": [
+      {
+        "id": "channel_divinity",
+        "name": "Channel Divinity",
+        "description": "You gain the ability to channel divine energy directly from your deity.",
+        "uses_per_rest": 1
+      },
+      {
+        "id": "turn_undead",
+        "name": "Turn Undead",
+        "description": "Each undead within 30 feet must make a Wisdom saving throw. On failure, it is turned for 1 minute.",
+        "action_type": "action",
+        "effect": {
+          "type": "turn_undead",
+          "range": 30,
+          "save": "wisdom",
+          "duration": 10
+        }
+      },
+      {
+        "id": "preserve_life",
+        "name": "Preserve Life (Life Domain)",
+        "description": "You can use your Channel Divinity to heal. As an action, restore HP equal to 5 times your cleric level, divided among creatures within 30 feet.",
+        "action_type": "action",
+        "effect": {
+          "type": "mass_healing",
+          "healing": "5 * level",
+          "range": 30
+        }
+      }
+    ]
+  },
+  "spell_slots": {
+    "1": {"cantrips": 3, "1st": 2},
+    "2": {"cantrips": 3, "1st": 3},
+    "3": {"cantrips": 3, "1st": 4, "2nd": 2}
+  },
+  "domain_spells": {
+    "life": {
+      "1": ["bless", "cure_wounds"],
+      "3": ["lesser_restoration", "spiritual_weapon"]
+    }
+  },
+  "starting_equipment": [
+    {
+      "id": "mace",
+      "name": "Mace",
+      "type": "weapon",
+      "damage": "1d6",
+      "damage_type": "bludgeoning"
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "type": "armor",
+      "ac_bonus": 2
+    },
+    {
+      "id": "scale_mail",
+      "name": "Scale Mail",
+      "type": "armor",
+      "base_ac": 14,
+      "max_dex_bonus": 2,
+      "stealth_disadvantage": true
+    },
+    {
+      "id": "holy_symbol",
+      "name": "Holy Symbol",
+      "type": "focus"
+    }
+  ]
+}

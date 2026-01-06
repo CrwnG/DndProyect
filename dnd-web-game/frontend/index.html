@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Combat Engine</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/combat-grid.css">
+    <link rel="stylesheet" href="css/spell-modal.css">
+    <link rel="stylesheet" href="css/divine-smite.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="css/character-creation.css">
+    <link rel="stylesheet" href="css/wild-shape.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="game-header">
+            <h1 class="game-title">D&D Combat Engine</h1>
+            <div class="combat-info">
+                <span id="round-counter">Round 1</span>
+                <span id="current-turn">-</span>
+            </div>
+            <div class="header-actions">
+                <button id="btn-create-character" class="header-btn" title="Create Character" aria-label="Create a new character">
+                    <span class="btn-icon" aria-hidden="true">✨</span>
+                    <span class="btn-text">Create</span>
+                </button>
+                <button id="btn-inventory" class="header-btn" title="Inventory (I)" aria-label="Open inventory, keyboard shortcut I">
+                    <span class="btn-icon" aria-hidden="true">🎒</span>
+                    <span class="btn-text">Inventory</span>
+                </button>
+                <button id="btn-import-character" class="header-btn" title="Import Character" aria-label="Import a character from file">
+                    <span class="btn-icon" aria-hidden="true">📄</span>
+                    <span class="btn-text">Import</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <main class="game-container">
+            <!-- Left Panel: Initiative Tracker -->
+            <aside class="panel panel-left" id="initiative-panel">
+                <h2 class="panel-title">Initiative</h2>
+                <ul id="initiative-list" class="initiative-list">
+                    <!-- Populated by JS -->
+                </ul>
+
+                <!-- Legendary Actions Panel (hidden by default) -->
+                <div id="legendary-actions-panel" class="legendary-actions-panel" style="display: none;">
+                    <!-- Populated by JS when legendary creatures are in combat -->
+                </div>
+            </aside>
+
+            <!-- Center: Combat Grid -->
+            <section class="combat-area">
+                <div class="grid-container">
+                    <canvas id="combat-grid" width="480" height="480"
+                            aria-label="Combat grid showing tactical positions of all combatants"
+                            role="img"></canvas>
+                    <div id="grid-overlay" class="grid-overlay" aria-hidden="true"></div>
+                </div>
+
+                <!-- Combat Log -->
+                <div id="combat-log" class="combat-log">
+                    <div class="log-header">Combat Log</div>
+                    <div id="log-content" class="log-content">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Character Stats -->
+            <aside class="panel panel-right" id="character-panel">
+                <h2 class="panel-title">Character</h2>
+
+                <div id="character-info" class="character-info">
+                    <div class="character-name" id="char-name">-</div>
+                    <div class="character-class" id="char-class">-</div>
+                </div>
+
+                <!-- HP Bar -->
+                <div class="stat-block">
+                    <div class="stat-label">Hit Points</div>
+                    <div class="hp-bar-container">
+                        <div id="hp-bar" class="hp-bar" style="width: 100%"></div>
+                        <span id="hp-text" class="hp-text">- / -</span>
+                    </div>
+                </div>
+
+                <!-- AC -->
+                <div class="stat-block">
+                    <div class="stat-row">
+                        <span class="stat-label">AC</span>
+                        <span id="char-ac" class="stat-value">-</span>
+                    </div>
+                </div>
+
+                <!-- Movement -->
+                <div class="stat-block">
+                    <div class="stat-row">
+                        <span class="stat-label">Movement</span>
+                        <span id="movement-remaining" class="stat-value">30 ft</span>
+                    </div>
+                </div>
+
+                <!-- Weapon -->
+                <div class="stat-block">
+                    <div class="stat-label">Weapon</div>
+                    <div id="weapon-info" class="weapon-info">
+                        <span id="weapon-name" class="weapon-name">-</span>
+                        <span id="weapon-mastery" class="weapon-mastery"></span>
+                    </div>
+                </div>
+
+                <!-- Conditions -->
+                <div class="stat-block">
+                    <div class="stat-label">Conditions</div>
+                    <div id="conditions-list" class="conditions-list">
+                        <span class="no-conditions">None</span>
+                    </div>
+                </div>
+
+                <!-- Death Saves (hidden by default, shown at 0 HP) -->
+                <div class="stat-block death-saves-block" id="death-saves-block" style="display: none;">
+                    <div class="stat-label">Death Saves</div>
+                    <div class="death-saves-container">
+                        <div class="death-saves-row">
+                            <span class="death-save-label">Successes</span>
+                            <div class="death-save-icons" id="death-save-successes">
+                                <span class="death-save-icon success" data-index="0">&#9825;</span>
+                                <span class="death-save-icon success" data-index="1">&#9825;</span>
+                                <span class="death-save-icon success" data-index="2">&#9825;</span>
+                            </div>
+                        </div>
+                        <div class="death-saves-row">
+                            <span class="death-save-label">Failures</span>
+                            <div class="death-save-icons" id="death-save-failures">
+                                <span class="death-save-icon failure" data-index="0">&#9760;</span>
+                                <span class="death-save-icon failure" data-index="1">&#9760;</span>
+                                <span class="death-save-icon failure" data-index="2">&#9760;</span>
+                            </div>
+                        </div>
+                        <button class="btn-death-save" id="btn-roll-death-save" disabled>
+                            <span class="btn-icon">&#127922;</span>
+                            <span class="btn-text">Roll Death Save</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Enemy List -->
+                <div class="stat-block">
+                    <div class="stat-label">Enemies</div>
+                    <ul id="enemy-list" class="enemy-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Bottom: Action Bar -->
+        <footer class="action-bar" id="action-bar">
+            <!-- Action Economy Status Bar -->
+            <div class="action-economy-bar" id="action-economy-bar">
+                <span class="resource available" id="resource-action">Action</span>
+                <span class="resource available" id="resource-bonus">Bonus</span>
+                <span class="resource available" id="resource-reaction">Reaction</span>
+                <span class="resource movement" id="resource-movement">30 ft</span>
+                <span class="resource-interaction available" id="resource-interaction">Object</span>
+            </div>
+
+            <div class="action-group">
+                <span class="action-group-label">Actions</span>
+                <button class="action-btn" id="btn-attack" data-action="attack"
+                        data-tooltip="Make one melee or ranged attack against an enemy"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Attack - Make one melee or ranged attack">
+                    <span class="action-icon" aria-hidden="true">&#9876;</span>
+                    <span class="action-label">Attack</span>
+                </button>
+                <button class="action-btn" id="btn-spell" data-action="spell" disabled
+                        data-tooltip="Cast a spell (no spells available)"
+                        data-tooltip-disabled="No spells available"
+                        aria-label="Cast Spell">
+                    <span class="action-icon" aria-hidden="true">&#10022;</span>
+                    <span class="action-label">Cast Spell</span>
+                </button>
+                <button class="action-btn" id="btn-dash" data-action="dash"
+                        data-tooltip="Double your movement speed this turn"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Dash - Double your movement speed">
+                    <span class="action-icon" aria-hidden="true">&#10148;</span>
+                    <span class="action-label">Dash</span>
+                </button>
+                <button class="action-btn" id="btn-dodge" data-action="dodge"
+                        data-tooltip="Until your next turn, attacks against you have disadvantage and you have advantage on DEX saves"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Dodge - Attacks against you have disadvantage">
+                    <span class="action-icon" aria-hidden="true">&#9711;</span>
+                    <span class="action-label">Dodge</span>
+                </button>
+                <button class="action-btn" id="btn-disengage" data-action="disengage"
+                        data-tooltip="Your movement doesn't provoke opportunity attacks this turn"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Disengage - Avoid opportunity attacks">
+                    <span class="action-icon" aria-hidden="true">&#8617;</span>
+                    <span class="action-label">Disengage</span>
+                </button>
+                <button class="action-btn" id="btn-ready" data-action="ready"
+                        data-tooltip="Prepare an action to trigger when a specific condition is met"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Ready - Prepare an action for later">
+                    <span class="action-icon" aria-hidden="true">&#8987;</span>
+                    <span class="action-label">Ready</span>
+                </button>
+                <button class="action-btn" id="btn-help" data-action="help"
+                        data-tooltip="Give an ally advantage on their next attack roll or ability check"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Help - Give an ally advantage">
+                    <span class="action-icon" aria-hidden="true">&#129309;</span>
+                    <span class="action-label">Help</span>
+                </button>
+                <button class="action-btn" id="btn-hide" data-action="hide"
+                        data-tooltip="Make a Stealth check to become hidden from enemies"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Hide - Attempt to hide from enemies">
+                    <span class="action-icon" aria-hidden="true">&#128065;&#8205;&#128488;&#65039;</span>
+                    <span class="action-label">Hide</span>
+                </button>
+                <button class="action-btn" id="btn-grapple" data-action="grapple"
+                        data-tooltip="Contest to grab a creature (replaces one attack)"
+                        data-tooltip-disabled="Must have a free hand"
+                        aria-label="Grapple - Grab and restrain a creature">
+                    <span class="action-icon" aria-hidden="true">&#9994;</span>
+                    <span class="action-label">Grapple</span>
+                </button>
+                <button class="action-btn" id="btn-shove" data-action="shove"
+                        data-tooltip="Contest to push a creature 5ft or knock them prone (replaces one attack)"
+                        data-tooltip-disabled="Action already used this turn"
+                        aria-label="Shove - Push or knock prone a creature">
+                    <span class="action-icon" aria-hidden="true">&#128400;</span>
+                    <span class="action-label">Shove</span>
+                </button>
+            </div>
+
+            <div class="action-group">
+                <span class="action-group-label">Bonus</span>
+                <button class="action-btn bonus-btn" id="btn-use-item" data-action="use_item"
+                        data-tooltip="Use a consumable item (potion, scroll, etc.) - Bonus Action"
+                        data-tooltip-disabled="Bonus action already used"
+                        aria-label="Use Item - Use a consumable from inventory">
+                    <span class="action-icon" aria-hidden="true">&#127863;</span>
+                    <span class="action-label">Use Item</span>
+                </button>
+                <button class="action-btn bonus-btn" id="btn-second-wind" data-action="second_wind" disabled
+                        style="display: none;"
+                        data-tooltip="Regain 1d10 + Fighter level HP (once per short rest)"
+                        data-tooltip-disabled="Second Wind not available"
+                        aria-label="Second Wind - Regain hit points">
+                    <span class="action-icon" aria-hidden="true">&#10084;</span>
+                    <span class="action-label">Second Wind</span>
+                </button>
+                <button class="action-btn bonus-btn" id="btn-offhand" data-action="offhand_attack" disabled
+                        style="display: none;"
+                        data-tooltip="Attack with off-hand light weapon (no ability modifier on damage)"
+                        data-tooltip-disabled="Must attack with a light weapon first"
+                        aria-label="Off-Hand Attack">
+                    <span class="action-icon" aria-hidden="true">&#9876;&#9876;</span>
+                    <span class="action-label">Off-Hand</span>
+                </button>
+                <button class="action-btn class-btn fighter-btn" id="btn-action-surge" data-action="action_surge" disabled
+                        style="display: none;"
+                        data-tooltip="Gain an additional action this turn (Fighter 2+, once per short rest)"
+                        data-tooltip-disabled="Action Surge not available"
+                        aria-label="Action Surge - Gain an additional action">
+                    <span class="action-icon" aria-hidden="true">&#9889;</span>
+                    <span class="action-label">Action Surge</span>
+                </button>
+                <button class="action-btn bonus-btn class-btn barbarian-btn" id="btn-rage" data-action="rage" disabled
+                        style="display: none;"
+                        data-tooltip="Enter a rage: bonus damage, resistance to physical damage (Barbarian 1+)"
+                        data-tooltip-disabled="Rage not available or already raging"
+                        aria-label="Rage - Enter a battle rage">
+                    <span class="action-icon" aria-hidden="true">&#128293;</span>
+                    <span class="action-label">Rage</span>
+                </button>
+                <button class="action-btn bonus-btn class-btn druid-btn" id="btn-wild-shape" data-action="wild_shape" disabled
+                        style="display: none;"
+                        data-tooltip="Transform into a beast form (Druid 2+)"
+                        data-tooltip-disabled="Wild Shape not available"
+                        aria-label="Wild Shape - Transform into a beast">
+                    <span class="action-icon" aria-hidden="true">&#128058;</span>
+                    <span class="action-label">Wild Shape</span>
+                </button>
+                <button class="action-btn class-btn paladin-btn" id="btn-lay-on-hands" data-action="lay_on_hands" disabled
+                        style="display: none;"
+                        data-tooltip="Heal yourself or an ally using your healing pool (Paladin 1+)"
+                        data-tooltip-disabled="Lay on Hands pool empty"
+                        aria-label="Lay on Hands - Heal with divine power">
+                    <span class="action-icon" aria-hidden="true">&#9995;</span>
+                    <span class="action-label">Lay on Hands</span>
+                </button>
+                <button class="action-btn bonus-btn class-btn rogue-btn" id="btn-cunning-action" data-action="cunning_action" disabled
+                        style="display: none;"
+                        data-tooltip="Dash, Disengage, or Hide as a bonus action (Rogue 2+)"
+                        data-tooltip-disabled="Bonus action already used"
+                        aria-label="Cunning Action - Dash, Disengage, or Hide">
+                    <span class="action-icon" aria-hidden="true">&#127939;</span>
+                    <span class="action-label">Cunning Action</span>
+                </button>
+                <button class="action-btn bonus-btn class-btn monk-btn" id="btn-ki-powers" data-action="ki_powers" disabled
+                        style="display: none;"
+                        data-tooltip="Use Ki powers: Flurry of Blows, Patient Defense, Step of the Wind, Stunning Strike (Monk 2+)"
+                        data-tooltip-disabled="No Ki points remaining"
+                        aria-label="Ki Powers - Use monk abilities">
+                    <span class="action-icon" aria-hidden="true">&#9775;</span>
+                    <span class="action-label">Ki Powers</span>
+                </button>
+                <button class="action-btn class-btn barbarian-btn" id="btn-reckless-attack" data-action="reckless_attack" disabled
+                        style="display: none;"
+                        data-tooltip="Gain advantage on all melee STR attacks this turn, but enemies have advantage on attacks against you (Barbarian 2+)"
+                        data-tooltip-disabled="Reckless Attack not available"
+                        aria-label="Reckless Attack - Trade defense for offense">
+                    <span class="action-icon" aria-hidden="true">&#9888;</span>
+                    <span class="action-label">Reckless</span>
+                </button>
+                <button class="action-btn class-btn cleric-btn paladin-btn" id="btn-channel-divinity" data-action="channel_divinity" disabled
+                        style="display: none;"
+                        data-tooltip="Channel divine energy for powerful effects (Cleric/Paladin 2+, once per short rest)"
+                        data-tooltip-disabled="Channel Divinity not available"
+                        aria-label="Channel Divinity - Use divine power">
+                    <span class="action-icon" aria-hidden="true">&#10013;</span>
+                    <span class="action-label">Channel Divinity</span>
+                </button>
+                <button class="action-btn bonus-btn class-btn bard-btn" id="btn-bardic-inspiration" data-action="bardic_inspiration" disabled
+                        style="display: none;"
+                        data-tooltip="Give an ally an inspiration die to add to one roll within 10 minutes (Bard 1+, CHA mod uses per long rest)"
+                        data-tooltip-disabled="No Bardic Inspiration uses remaining"
+                        aria-label="Bardic Inspiration - Inspire an ally">
+                    <span class="action-icon" aria-hidden="true">&#127926;</span>
+                    <span class="action-label">Inspire</span>
+                </button>
+                <button class="action-btn class-btn sorcerer-btn" id="btn-metamagic" data-action="metamagic" disabled
+                        style="display: none;"
+                        data-tooltip="Spend sorcery points to modify your spells (Sorcerer 3+)"
+                        data-tooltip-disabled="No Sorcery Points remaining"
+                        aria-label="Metamagic - Modify spell casting">
+                    <span class="action-icon" aria-hidden="true">&#10024;</span>
+                    <span class="action-label">Metamagic</span>
+                </button>
+                <!-- Ranger Buttons -->
+                <button class="action-btn bonus-btn class-btn ranger-btn" id="btn-hunters-mark" data-action="hunters_mark" disabled
+                        style="display: none;"
+                        data-tooltip="Mark a target: deal extra 1d6 damage on each hit, advantage on Perception/Survival to track (Ranger 1+, bonus action)"
+                        data-tooltip-disabled="Hunter's Mark not available"
+                        aria-label="Hunter's Mark - Mark target for extra damage">
+                    <span class="action-icon" aria-hidden="true">&#127919;</span>
+                    <span class="action-label">Hunter's Mark</span>
+                </button>
+                <button class="action-btn class-btn ranger-btn" id="btn-favored-foe" data-action="favored_foe" disabled
+                        style="display: none;"
+                        data-tooltip="Mark a creature as your favored foe: deal extra 1d4-1d6 damage on first hit per turn (Ranger 1+, free action)"
+                        data-tooltip-disabled="Favored Foe not available"
+                        aria-label="Favored Foe - Mark creature for bonus damage">
+                    <span class="action-icon" aria-hidden="true">&#128065;</span>
+                    <span class="action-label">Favored Foe</span>
+                </button>
+                <!-- Warlock Buttons -->
+                <button class="action-btn class-btn warlock-btn" id="btn-eldritch-blast" data-action="eldritch_blast" disabled
+                        style="display: none;"
+                        data-tooltip="Blast enemies with eldritch energy: 1d10 force damage, multiple beams at higher levels (Warlock cantrip)"
+                        data-tooltip-disabled="Eldritch Blast not available"
+                        aria-label="Eldritch Blast - Fire beams of force energy">
+                    <span class="action-icon" aria-hidden="true">&#9889;</span>
+                    <span class="action-label">Eldritch Blast</span>
+                </button>
+                <button class="action-btn class-btn warlock-btn" id="btn-invocations" data-action="invocations" disabled
+                        style="display: none;"
+                        data-tooltip="View and activate your Eldritch Invocations (Warlock 2+)"
+                        data-tooltip-disabled="No invocations available"
+                        aria-label="Invocations - View eldritch powers">
+                    <span class="action-icon" aria-hidden="true">&#128220;</span>
+                    <span class="action-label">Invocations</span>
+                </button>
+                <button class="action-btn class-btn warlock-btn" id="btn-hex" data-action="hex" disabled
+                        style="display: none;"
+                        data-tooltip="Curse a target: deal extra 1d6 necrotic damage on each hit, disadvantage on one ability (Warlock 1+, bonus action)"
+                        data-tooltip-disabled="Hex not available"
+                        aria-label="Hex - Curse a target">
+                    <span class="action-icon" aria-hidden="true">&#128128;</span>
+                    <span class="action-label">Hex</span>
+                </button>
+            </div>
+
+            <div class="action-group">
+                <span class="action-group-label">Rest</span>
+                <button class="action-btn rest-btn" id="btn-short-rest" data-action="short_rest"
+                        data-tooltip="Take a short rest: spend Hit Dice to recover HP, recover some class resources"
+                        data-tooltip-disabled="Cannot rest during combat"
+                        aria-label="Short Rest - Recover HP and some abilities">
+                    <span class="action-icon" aria-hidden="true">&#9749;</span>
+                    <span class="action-label">Short Rest</span>
+                </button>
+                <button class="action-btn rest-btn" id="btn-long-rest" data-action="long_rest"
+                        data-tooltip="Take a long rest: fully recover HP, spell slots, and all class resources"
+                        data-tooltip-disabled="Cannot rest during combat"
+                        aria-label="Long Rest - Full recovery">
+                    <span class="action-icon" aria-hidden="true">&#128716;</span>
+                    <span class="action-label">Long Rest</span>
+                </button>
+            </div>
+
+            <div class="action-group">
+                <span class="action-group-label">Other</span>
+                <button class="action-btn toggle-btn" id="btn-threat-zones" data-action="toggle_threats"
+                        data-tooltip="Toggle enemy threat zone display - shows where enemies can make opportunity attacks"
+                        aria-label="Toggle Threat Zones">
+                    <span class="action-icon" aria-hidden="true">&#128065;</span>
+                    <span class="action-label">Threats</span>
+                </button>
+                <button class="action-btn move-btn" id="btn-move" data-action="move"
+                        data-tooltip="Enable movement mode - click a highlighted cell to move"
+                        data-tooltip-disabled="No movement remaining"
+                        aria-label="Move - Enable movement mode">
+                    <span class="action-icon" aria-hidden="true">&#128694;</span>
+                    <span class="action-label">Move</span>
+                </button>
+                <button class="action-btn end-turn-btn" id="btn-end-turn"
+                        data-tooltip="End your turn and pass to the next combatant"
+                        aria-label="End Turn">
+                    <span class="action-icon" aria-hidden="true">&#10004;</span>
+                    <span class="action-label">End Turn</span>
+                </button>
+            </div>
+        </footer>
+
+        <!-- Targeting Panel (BG3 Style - compact, doesn't block grid) -->
+        <div id="targeting-panel" class="targeting-panel hidden">
+            <h3 id="targeting-title">Select Target</h3>
+            <p id="targeting-description">Click on a highlighted enemy to attack.</p>
+            <button id="targeting-cancel" class="cancel-btn">Cancel (ESC)</button>
+        </div>
+
+        <!-- Dice Roller Overlay -->
+        <div id="dice-roller" class="dice-roller hidden">
+            <div class="dice-container">
+                <div class="die d20">
+                    <div class="die-face">20</div>
+                </div>
+                <div class="second-die-container hidden">
+                    <div class="die d20 secondary">
+                        <div class="second-die-face">20</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Damage dice container for animated damage rolls -->
+            <div class="damage-dice-container hidden">
+                <div class="damage-dice-label">Damage Roll</div>
+                <div class="damage-dice-row">
+                    <!-- Dynamically populated damage dice -->
+                </div>
+            </div>
+            <div class="roll-breakdown"></div>
+            <div class="roll-result"></div>
+            <div class="damage-display hidden"></div>
+        </div>
+
+        <!-- Weapon Selection Modal (BG3 Style) -->
+        <div id="weapon-select-modal" class="weapon-select-modal hidden">
+            <div class="weapon-select-header">
+                <h3>Choose Attack</h3>
+                <button class="weapon-close-btn" id="weapon-close-btn">&times;</button>
+            </div>
+            <div class="weapon-grid" id="weapon-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Enemy Turn Banner -->
+        <div id="enemy-turn-banner" class="enemy-turn-banner hidden">
+            <div class="enemy-turn-content">
+                <span class="enemy-turn-icon">⚔️</span>
+                <span class="enemy-turn-name" id="enemy-turn-name">Goblin</span>
+                <span class="enemy-turn-text">'s Turn</span>
+            </div>
+            <div class="enemy-action-text" id="enemy-action-text"></div>
+        </div>
+
+        <!-- Attack Result Modal (fallback) -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content result-content">
+                <h3 id="result-title">Attack Result</h3>
+                <div id="result-details" class="result-details">
+                    <!-- Populated by JS -->
+                </div>
+                <button id="result-continue" class="modal-btn primary">Continue</button>
+            </div>
+        </div>
+
+        <!-- Character Import Modal -->
+        <div id="character-import-modal" class="modal-overlay hidden">
+            <div class="modal-content import-modal">
+                <div class="modal-header">
+                    <h2>Import Character</h2>
+                    <button id="import-close" class="close-btn">&times;</button>
+                </div>
+
+                <div class="import-tabs">
+                    <button class="tab active" data-tab="file">Upload File</button>
+                    <button class="tab" data-tab="url">D&D Beyond URL</button>
+                </div>
+
+                <div id="file-tab" class="tab-content">
+                    <div id="file-drop-zone" class="drop-zone">
+                        <div class="drop-zone-content">
+                            <span class="drop-icon">📄</span>
+                            <p>Drag & drop a character sheet here</p>
+                            <p class="drop-hint">or click to browse</p>
+                            <input type="file" id="character-file" accept=".pdf,.json" hidden>
+                        </div>
+                    </div>
+                    <p class="import-hint">Supports D&D Beyond PDF exports and JSON character files</p>
+                </div>
+
+                <div id="url-tab" class="tab-content hidden">
+                    <div class="url-input-group">
+                        <input type="text" id="character-url" placeholder="https://www.dndbeyond.com/characters/123456789">
+                        <button id="url-import-btn" class="modal-btn secondary">Import</button>
+                    </div>
+                    <p class="import-hint">Paste your D&D Beyond character URL (coming soon)</p>
+                </div>
+
+                <div id="import-loading" class="import-loading hidden">
+                    <div class="spinner"></div>
+                    <span>Parsing character sheet...</span>
+                </div>
+
+                <div id="import-error" class="import-error hidden"></div>
+
+                <div id="character-preview" class="character-preview hidden">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="modal-actions">
+                    <button id="import-confirm" class="modal-btn primary" disabled>Import Character</button>
+                    <button id="import-cancel" class="modal-btn secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

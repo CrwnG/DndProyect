@@ -1,0 +1,322 @@
+{
+  "id": "barbarian",
+  "name": "Barbarian",
+  "source": "2024 Player's Handbook",
+  "description": "A fierce warrior who can enter a battle rage",
+  "hit_die": "d12",
+  "primary_ability": "strength",
+  "saving_throw_proficiencies": ["strength", "constitution"],
+  "armor_proficiencies": ["light", "medium", "shields"],
+  "weapon_proficiencies": ["simple", "martial"],
+  "tool_proficiencies": [],
+  "skill_choices": {
+    "count": 2,
+    "options": ["animal_handling", "athletics", "intimidation", "nature", "perception", "survival"]
+  },
+  "starting_equipment": {
+    "choices": [
+      {
+        "options": [
+          {"item": "greataxe", "quantity": 1},
+          {"item": "martial_melee_weapon", "quantity": 1}
+        ]
+      },
+      {
+        "options": [
+          {"item": "handaxe", "quantity": 2},
+          {"item": "simple_weapon", "quantity": 1}
+        ]
+      }
+    ],
+    "default": [
+      {"item": "explorer_pack", "quantity": 1},
+      {"item": "javelin", "quantity": 4}
+    ]
+  },
+  "multiclass_requirements": {
+    "strength": 13
+  },
+  "multiclass_proficiencies": ["shields", "simple_weapons", "martial_weapons"],
+  "class_features": [
+    {
+      "id": "rage",
+      "name": "Rage",
+      "level": 1,
+      "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a Bonus Action. While raging, you gain the following benefits if you aren't wearing heavy armor: You have Advantage on Strength checks and Strength saving throws. When you make a melee weapon attack using Strength, you gain a bonus to the damage roll equal to your Rage Damage bonus. You have Resistance to Bludgeoning, Piercing, and Slashing damage. If you're able to cast spells, you can't cast them or concentrate on them while raging. Your rage lasts for 10 minutes. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a Bonus Action. Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian Features table, you must finish a Long Rest before you can rage again.",
+      "uses_per_rest": {
+        "1": 2, "2": 2, "3": 3, "4": 3, "5": 3, "6": 4, "7": 4, "8": 4, "9": 4, "10": 4,
+        "11": 4, "12": 5, "13": 5, "14": 5, "15": 5, "16": 5, "17": 6, "18": 6, "19": 6, "20": "unlimited"
+      },
+      "rage_damage": {
+        "1": 2, "2": 2, "3": 2, "4": 2, "5": 2, "6": 2, "7": 2, "8": 2, "9": 3, "10": 3,
+        "11": 3, "12": 3, "13": 3, "14": 3, "15": 3, "16": 4, "17": 4, "18": 4, "19": 4, "20": 4
+      }
+    },
+    {
+      "id": "unarmored_defense",
+      "name": "Unarmored Defense",
+      "level": 1,
+      "description": "While you aren't wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
+    },
+    {
+      "id": "danger_sense",
+      "name": "Danger Sense",
+      "level": 2,
+      "description": "You gain an uncanny sense of when things nearby aren't as they should be, giving you an edge when you dodge away from danger. You have Advantage on Dexterity saving throws unless you have the Incapacitated condition."
+    },
+    {
+      "id": "reckless_attack",
+      "name": "Reckless Attack",
+      "level": 2,
+      "description": "You can throw aside all concern for defense to attack with increased ferocity. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you Advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have Advantage until your next turn."
+    },
+    {
+      "id": "primal_knowledge",
+      "name": "Primal Knowledge",
+      "level": 3,
+      "description": "You gain proficiency in another skill from the Barbarian skill list."
+    },
+    {
+      "id": "barbarian_subclass",
+      "name": "Barbarian Subclass",
+      "level": 3,
+      "description": "You gain a Barbarian subclass of your choice. The Path of the Berserker, Path of the Wild Heart, Path of the World Tree, and Path of the Zealot subclasses are detailed after this class's description. A subclass is a specialization that grants you features at certain Barbarian levels. For the rest of your career, you gain each of your subclass's features that are of your Barbarian level or lower."
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify. You gain this feature again at Barbarian levels 8, 12, and 16."
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "level": 5,
+      "description": "You can attack twice instead of once whenever you take the Attack action on your turn."
+    },
+    {
+      "id": "fast_movement",
+      "name": "Fast Movement",
+      "level": 5,
+      "description": "Your speed increases by 10 feet while you aren't wearing Heavy armor."
+    },
+    {
+      "id": "feral_instinct",
+      "name": "Feral Instinct",
+      "level": 7,
+      "description": "Your instincts are so honed that you have Advantage on Initiative rolls."
+    },
+    {
+      "id": "instinctive_pounce",
+      "name": "Instinctive Pounce",
+      "level": 7,
+      "description": "As part of the Bonus Action you take to enter your Rage, you can move up to half your Speed."
+    },
+    {
+      "id": "brutal_strike",
+      "name": "Brutal Strike",
+      "level": 9,
+      "description": "If you use Reckless Attack, you can forgo any Advantage on one Strength-based attack roll of your choice on your turn. If that attack hits, the target takes extra damage equal to your Barbarian level, and you can cause one Brutal Strike effect of your choice. You have the following effect options: Forceful Blow (The target is pushed 15 feet straight away from you. You can then move up to half your Speed straight toward the target without provoking Opportunity Attacks), Hamstring Blow (The target's Speed is reduced by 15 feet until the start of your next turn. A target can be affected by only one Hamstring Blow at a time—the most recent one)."
+    },
+    {
+      "id": "relentless_rage",
+      "name": "Relentless Rage",
+      "level": 11,
+      "description": "Your rage can keep you fighting despite grievous wounds. If you drop to 0 Hit Points while your Rage is active and don't die outright, you can make a DC 10 Constitution saving throw. If you succeed, your Hit Points instead change to a number equal to twice your Barbarian level. Each time you use this feature after the first, the DC increases by 5. When you finish a Short or Long Rest, the DC resets to 10."
+    },
+    {
+      "id": "improved_brutal_strike",
+      "name": "Improved Brutal Strike",
+      "level": 13,
+      "description": "You have honed new ways to attack furiously. The following effects are now among your Brutal Strike options: Staggering Blow (The target has Disadvantage on the next attack roll it makes before the start of your next turn), Sundering Blow (Before the start of your next turn, the next attack roll made by another creature against the target gains a +5 bonus to the roll. An attack roll can gain only one Sundering Blow bonus)."
+    },
+    {
+      "id": "persistent_rage",
+      "name": "Persistent Rage",
+      "level": 15,
+      "description": "When you roll Initiative, you can regain all expended uses of Rage. After you regain uses of Rage in this way, you can't do so again until you finish a Long Rest. In addition, your Rage is so fierce that it now lasts for 10 minutes without you needing to do anything to maintain it. Your Rage ends early only if you have the Unconscious condition (not just Incapacitated) or don Heavy armor."
+    },
+    {
+      "id": "indomitable_might",
+      "name": "Indomitable Might",
+      "level": 18,
+      "description": "If your total for a Strength check or Strength saving throw is less than your Strength score, you can use that score in place of the total."
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "level": 19,
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Irresistible Offense is recommended."
+    },
+    {
+      "id": "primal_champion",
+      "name": "Primal Champion",
+      "level": 20,
+      "description": "You embody primal power. Your Strength and Constitution scores increase by 4, to a maximum of 25."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "path_of_the_berserker",
+      "name": "Path of the Berserker",
+      "source": "2024 Player's Handbook",
+      "description": "For Barbarians who walk the Path of the Berserker, their Rage is primarily a means to a devastating end. While raging, they find joy in the chaos of battle as they lay into their foes with wild abandon.",
+      "features": [
+        {
+          "id": "frenzy",
+          "name": "Frenzy",
+          "level": 3,
+          "description": "If you use Reckless Attack while your Rage is active, you deal extra damage to the first target you hit on your turn with a Strength-based attack. To determine the extra damage, roll a number of d6s equal to your Rage Damage bonus, and add them together. The damage has the same type as the weapon or Unarmed Strike used for the attack."
+        },
+        {
+          "id": "mindless_rage",
+          "name": "Mindless Rage",
+          "level": 6,
+          "description": "You can't have the Charmed or Frightened condition while your Rage is active. If you're Charmed or Frightened when you enter your Rage, that condition ends on you."
+        },
+        {
+          "id": "retaliation",
+          "name": "Retaliation",
+          "level": 10,
+          "description": "When you take damage from a creature that is within 5 feet of you, you can take a Reaction to make one melee attack against that creature, using a weapon or an Unarmed Strike."
+        },
+        {
+          "id": "intimidating_presence",
+          "name": "Intimidating Presence",
+          "level": 14,
+          "description": "As a Bonus Action, you can strike terror into others with your menacing presence and primal power. When you do so, each creature of your choice in a 30-foot Emanation originating from you must make a Wisdom saving throw (DC 8 + your proficiency bonus + your Strength modifier). On a failed save, a creature has the Frightened condition for 1 minute. At the end of each of the Frightened creature's turns, the creature repeats the save, ending the effect on itself on a success. Once you use this feature, you can't use it again until you finish a Long Rest unless you expend a use of your Rage (no action required) to restore your use of it."
+        }
+      ]
+    },
+    {
+      "id": "path_of_the_wild_heart",
+      "name": "Path of the Wild Heart",
+      "source": "2024 Player's Handbook",
+      "description": "Barbarians who follow the Path of the Wild Heart view themselves as kin to animals. These Barbarians learn magical means to communicate with animals, and their Rage heightens their connection to animals as it fills them with supernatural might.",
+      "features": [
+        {
+          "id": "animal_speaker",
+          "name": "Animal Speaker",
+          "level": 3,
+          "description": "You can cast the Beast Sense and Speak with Animals spells but only as Rituals. Wisdom is your spellcasting ability for them."
+        },
+        {
+          "id": "rage_of_the_wilds",
+          "name": "Rage of the Wilds",
+          "level": 3,
+          "description": "Your Rage taps into the primal power of animals. Whenever you activate your Rage, you gain one of the following options of your choice: Bear (While your Rage is active, you have Resistance to every damage type except Force and Psychic), Eagle (While your Rage is active, you can take both the Dash and Disengage actions as part of the Bonus Action you take to enter your Rage and as a Bonus Action on your other turns while raging. You also gain a Fly Speed equal to your Speed if you aren't wearing Medium or Heavy armor or using a Shield. If you are airborne when your Rage ends, you fall), Wolf (While your Rage is active, your allies have Advantage on melee attack rolls against any enemy of yours within 5 feet of you)."
+        },
+        {
+          "id": "aspect_of_the_wilds",
+          "name": "Aspect of the Wilds",
+          "level": 6,
+          "description": "You gain one of the following options of your choice. Whenever you finish a Long Rest, you can change your choice: Owl (You have Darkvision with a range of 60 feet. If you already have Darkvision, its range increases by 60 feet), Panther (You have a Climb Speed equal to your Speed), Salmon (You have a Swim Speed equal to your Speed)."
+        },
+        {
+          "id": "natures_ward",
+          "name": "Nature's Ward",
+          "level": 10,
+          "description": "You can't be Charmed or Frightened by Elementals or Fey, and you are immune to the effects of being in Extreme Heat or Extreme Cold."
+        },
+        {
+          "id": "power_of_the_wilds",
+          "name": "Power of the Wilds",
+          "level": 14,
+          "description": "Whenever you activate your Rage, you gain one of the following options of your choice: Falcon (While your Rage is active, you have a Fly Speed equal to your Speed if you aren't wearing any armor), Lion (While your Rage is active, any of your enemies within 5 feet of you have Disadvantage on attack rolls against targets other than you or another Barbarian who has this option active), Ram (While your Rage is active, you can cause a Large or smaller creature to have the Prone condition when you hit it with a melee attack)."
+        }
+      ]
+    },
+    {
+      "id": "path_of_the_world_tree",
+      "name": "Path of the World Tree",
+      "source": "2024 Player's Handbook",
+      "description": "Barbarians who follow the Path of the World Tree connect with the cosmic tree Yggdrasil through their Rage. This tree grows among the Outer Planes, connecting them to each other and the Material Plane. These Barbarians draw on the tree's power for their supernatural abilities.",
+      "features": [
+        {
+          "id": "vitality_of_the_tree",
+          "name": "Vitality of the Tree",
+          "level": 3,
+          "description": "Your Rage taps into the lifeforce of the World Tree. You gain the following benefits: Vitality Surge (When you activate your Rage, you gain a number of Temporary Hit Points equal to your Barbarian level), Life-Giving Force (At the start of each of your turns while your Rage is active, you can choose another creature within 10 feet of yourself to gain Temporary Hit Points. To determine the number of Temporary Hit Points, roll a number of d6s equal to your Rage Damage bonus, and add them together. If any of these Temporary Hit Points remain when your Rage ends, they vanish)."
+        },
+        {
+          "id": "branches_of_the_tree",
+          "name": "Branches of the Tree",
+          "level": 6,
+          "description": "Whenever a creature you can see starts its turn within 30 feet of you while your Rage is active, you can take a Reaction to summon spectral branches of the World Tree around it. The target must succeed on a Strength saving throw (DC 8 + your Proficiency Bonus + your Strength modifier) or be teleported to an unoccupied space you can see within 5 feet of yourself or in the nearest unoccupied space you can see. After the target is teleported, you can reduce its Speed to 0 until the end of the current turn."
+        },
+        {
+          "id": "battering_roots",
+          "name": "Battering Roots",
+          "level": 10,
+          "description": "During your turn, your reach increases by 10 feet, and when you hit a creature within that extended reach with an attack roll, you can push that creature up to 10 feet away from yourself."
+        },
+        {
+          "id": "travel_along_the_tree",
+          "name": "Travel Along the Tree",
+          "level": 14,
+          "description": "When you activate your Rage and as a Bonus Action while it's active, you can teleport up to 60 feet to an unoccupied space you can see. In addition, when you teleport using this feature, you can bring up to six willing creatures who are within 10 feet of you. Each creature teleports to an unoccupied space of your choice within 10 feet of your destination space."
+        }
+      ]
+    },
+    {
+      "id": "path_of_the_zealot",
+      "name": "Path of the Zealot",
+      "source": "2024 Player's Handbook",
+      "description": "For Barbarians who walk the Path of the Zealot, their Rage is not merely a connection to nature but a gift from a god. These Barbarians often experience their Rage as an ecstatic rush of divine power, channeling it as a weapon of the gods.",
+      "features": [
+        {
+          "id": "divine_fury",
+          "name": "Divine Fury",
+          "level": 3,
+          "description": "You can channel divine power into your strikes. On each of your turns while your Rage is active, the first creature you hit with a weapon or an Unarmed Strike takes extra damage equal to 1d6 plus half your Barbarian level (round down). The extra damage is Necrotic or Radiant; you choose the type each time you deal the damage."
+        },
+        {
+          "id": "warrior_of_the_gods",
+          "name": "Warrior of the Gods",
+          "level": 3,
+          "description": "A divine entity helps ensure you can continue the fight. You have a pool of four d12s that you can spend to heal yourself. As a Bonus Action, you can expend dice from the pool, roll them, and regain a number of Hit Points equal to the roll's total. Your pool regains all expended dice when you finish a Long Rest. In addition, if a spell would have the sole effect of restoring you to life (but not Undeath), the caster doesn't need Material components to cast the spell on you."
+        },
+        {
+          "id": "fanatical_focus",
+          "name": "Fanatical Focus",
+          "level": 6,
+          "description": "Once per active Rage, if you fail a saving throw, you can reroll it with a bonus equal to your Rage Damage bonus, and you must use the new roll."
+        },
+        {
+          "id": "zealous_presence",
+          "name": "Zealous Presence",
+          "level": 10,
+          "description": "As a Bonus Action, you unleash a war cry infused with divine energy. Up to ten other creatures of your choice within 60 feet of you gain Advantage on attack rolls and saving throws until the start of your next turn. Once you use this feature, you can't use it again until you finish a Long Rest unless you expend a use of your Rage (no action required) to restore your use of it."
+        },
+        {
+          "id": "rage_beyond_death",
+          "name": "Rage Beyond Death",
+          "level": 14,
+          "description": "When you're reduced to 0 Hit Points while your Rage is active, you can keep fighting despite grievous wounds if you succeed on a DC 10 Constitution saving throw. If you succeed, your Hit Points instead change to a number equal to twice your Barbarian level. Each time you use this feature after the first, the DC increases by 5. When you finish a Short or Long Rest, the DC resets to 10. When your Rage ends, you die if your current Hit Points are 0."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "proficiency_bonus": 2, "features": ["Rage", "Unarmored Defense"], "rages": 2, "rage_damage": 2},
+    {"level": 2, "proficiency_bonus": 2, "features": ["Danger Sense", "Reckless Attack"], "rages": 2, "rage_damage": 2},
+    {"level": 3, "proficiency_bonus": 2, "features": ["Primal Knowledge", "Barbarian Subclass"], "rages": 3, "rage_damage": 2},
+    {"level": 4, "proficiency_bonus": 2, "features": ["Ability Score Improvement"], "rages": 3, "rage_damage": 2},
+    {"level": 5, "proficiency_bonus": 3, "features": ["Extra Attack", "Fast Movement"], "rages": 3, "rage_damage": 2},
+    {"level": 6, "proficiency_bonus": 3, "features": ["Subclass Feature"], "rages": 4, "rage_damage": 2},
+    {"level": 7, "proficiency_bonus": 3, "features": ["Feral Instinct", "Instinctive Pounce"], "rages": 4, "rage_damage": 2},
+    {"level": 8, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "rages": 4, "rage_damage": 2},
+    {"level": 9, "proficiency_bonus": 4, "features": ["Brutal Strike"], "rages": 4, "rage_damage": 3},
+    {"level": 10, "proficiency_bonus": 4, "features": ["Subclass Feature"], "rages": 4, "rage_damage": 3},
+    {"level": 11, "proficiency_bonus": 4, "features": ["Relentless Rage"], "rages": 4, "rage_damage": 3},
+    {"level": 12, "proficiency_bonus": 4, "features": ["Ability Score Improvement"], "rages": 5, "rage_damage": 3},
+    {"level": 13, "proficiency_bonus": 5, "features": ["Improved Brutal Strike"], "rages": 5, "rage_damage": 3},
+    {"level": 14, "proficiency_bonus": 5, "features": ["Subclass Feature"], "rages": 5, "rage_damage": 3},
+    {"level": 15, "proficiency_bonus": 5, "features": ["Persistent Rage"], "rages": 5, "rage_damage": 3},
+    {"level": 16, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "rages": 5, "rage_damage": 4},
+    {"level": 17, "proficiency_bonus": 6, "features": [], "rages": 6, "rage_damage": 4},
+    {"level": 18, "proficiency_bonus": 6, "features": ["Indomitable Might"], "rages": 6, "rage_damage": 4},
+    {"level": 19, "proficiency_bonus": 6, "features": ["Epic Boon"], "rages": 6, "rage_damage": 4},
+    {"level": 20, "proficiency_bonus": 6, "features": ["Primal Champion"], "rages": "unlimited", "rage_damage": 4}
+  ]
+}

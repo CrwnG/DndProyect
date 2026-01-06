@@ -1,0 +1,61 @@
+{
+  "description": "Art objects by value tier (D&D 5e DMG)",
+  "art_25gp": [
+    {"name": "Silver ewer", "description": "Ornate silver pitcher"},
+    {"name": "Carved bone statuette", "description": "Small figurine carved from bone"},
+    {"name": "Small gold bracelet", "description": "Delicate gold jewelry"},
+    {"name": "Cloth-of-gold vestments", "description": "Religious garments with gold thread"},
+    {"name": "Black velvet mask", "description": "Elegant masquerade mask with silver thread"},
+    {"name": "Copper chalice", "description": "Drinking cup with silver filigree"},
+    {"name": "Pair of engraved bone dice", "description": "Gaming dice with detailed etchings"},
+    {"name": "Small mirror", "description": "Mirror in painted wooden frame"},
+    {"name": "Silk handkerchief", "description": "Embroidered silk cloth"},
+    {"name": "Gold locket", "description": "Small locket with painted portrait inside"}
+  ],
+  "art_250gp": [
+    {"name": "Gold ring", "description": "Ring set with bloodstones"},
+    {"name": "Carved ivory statuette", "description": "Figurine of fine craftsmanship"},
+    {"name": "Large gold bracelet", "description": "Heavy gold arm band"},
+    {"name": "Silver necklace", "description": "Chain with gemstone pendant"},
+    {"name": "Bronze crown", "description": "Decorative crown piece"},
+    {"name": "Silk robe", "description": "Robe with gold embroidery"},
+    {"name": "Large tapestry", "description": "Well-made wall hanging"},
+    {"name": "Brass mug", "description": "Drinking mug with jade inlay"},
+    {"name": "Box of turquoise figurines", "description": "Set of small animal figurines"},
+    {"name": "Gold bird cage", "description": "Ornate cage with electrum filigree"}
+  ],
+  "art_750gp": [
+    {"name": "Silver chalice", "description": "Chalice set with moonstones"},
+    {"name": "Silver-plated sword", "description": "Steel sword with silver plating"},
+    {"name": "Carved harp", "description": "Exotic wood harp with ivory inlay and zircon gems"},
+    {"name": "Small gold idol", "description": "Figurine of a deity"},
+    {"name": "Gold dragon comb", "description": "Hair comb with red garnets as eyes"},
+    {"name": "Bottle stopper cork", "description": "Cork embossed with gold leaf and set with amethysts"},
+    {"name": "Ceremonial dagger", "description": "Electrum blade with a black pearl in the pommel"},
+    {"name": "Silver and gold brooch", "description": "Brooch with pearls"},
+    {"name": "Obsidian statuette", "description": "Statuette with gold fittings and inlay"},
+    {"name": "Painted gold mask", "description": "War mask of gold"}
+  ],
+  "art_2500gp": [
+    {"name": "Fine gold chain", "description": "Chain set with a fire opal"},
+    {"name": "Old masterpiece painting", "description": "Valuable painting by a renowned artist"},
+    {"name": "Embroidered mantle", "description": "Silk and velvet mantle set with numerous moonstones"},
+    {"name": "Platinum bracelet", "description": "Heavy bracelet set with a sapphire"},
+    {"name": "Embroidered glove", "description": "Glove set with jewel chips"},
+    {"name": "Jeweled anklet", "description": "Anklet of gold set with precious stones"},
+    {"name": "Gold music box", "description": "Music box that plays when opened"},
+    {"name": "Gold circlet", "description": "Circlet set with four aquamarines"},
+    {"name": "Eye patch", "description": "Eye patch with a mock eye set in blue sapphire and moonstone"},
+    {"name": "Necklace string", "description": "Necklace of small pink pearls"}
+  ],
+  "art_7500gp": [
+    {"name": "Jeweled gold crown", "description": "Crown fit for royalty"},
+    {"name": "Jeweled platinum ring", "description": "Ring of incredible craftsmanship"},
+    {"name": "Small gold statuette", "description": "Statuette set with rubies"},
+    {"name": "Gold cup", "description": "Cup set with emeralds"},
+    {"name": "Gold jewelry box", "description": "Box with platinum filigree"},
+    {"name": "Painted gold child's sarcophagus", "description": "Child-sized golden sarcophagus"},
+    {"name": "Jade game board", "description": "Board with solid gold playing pieces"},
+    {"name": "Bejeweled ivory drinking horn", "description": "Ivory horn with gold filigree"}
+  ]
+}

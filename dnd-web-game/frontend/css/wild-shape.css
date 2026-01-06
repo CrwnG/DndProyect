@@ -1,0 +1,359 @@
+/* ========================================
+   D&D Wild Shape Modal Styles
+   Druid beast form selection UI
+   ======================================== */
+
+/* Modal Base */
+.wild-shape-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wild-shape-modal.hidden {
+    display: none;
+}
+
+.wild-shape-content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    background: linear-gradient(180deg, rgb(15, 35, 20) 0%, rgb(10, 25, 15) 100%);
+    border: 2px solid #228b22;
+    border-radius: 12px;
+    box-shadow:
+        0 0 40px rgba(34, 139, 34, 0.3),
+        0 10px 60px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.wild-shape-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(90deg, rgba(34, 139, 34, 0.3) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(34, 139, 34, 0.5);
+}
+
+.wild-shape-content .modal-header h2 {
+    margin: 0;
+    color: #98fb98;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon {
+    font-size: 1.6rem;
+}
+
+/* Wild Shape Info Bar */
+.wild-shape-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(34, 139, 34, 0.3);
+}
+
+.uses-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.uses-label {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.uses-count {
+    color: #98fb98;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.current-form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-label {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.form-name {
+    color: #ffa500;
+    font-weight: 600;
+}
+
+.btn-revert {
+    padding: 6px 14px;
+    background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+    border: 1px solid #cd853f;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-revert:hover {
+    background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+    transform: translateY(-1px);
+}
+
+/* Form Grid */
+.form-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cr-section {
+    margin-bottom: 8px;
+}
+
+.cr-header {
+    color: #98fb98;
+    font-size: 0.9rem;
+    margin: 0 0 10px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(152, 251, 152, 0.3);
+}
+
+.form-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.form-card {
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(34, 139, 34, 0.2) 0%, rgba(0, 100, 0, 0.2) 100%);
+    border: 1px solid rgba(34, 139, 34, 0.4);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.form-card:hover:not(.disabled) {
+    background: linear-gradient(135deg, rgba(34, 139, 34, 0.4) 0%, rgba(0, 100, 0, 0.4) 100%);
+    border-color: #32cd32;
+    transform: translateY(-2px);
+}
+
+.form-card.selected {
+    background: linear-gradient(135deg, rgba(50, 205, 50, 0.4) 0%, rgba(34, 139, 34, 0.4) 100%);
+    border-color: #98fb98;
+    box-shadow: 0 0 10px rgba(50, 205, 50, 0.3);
+}
+
+.form-card.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form-icon {
+    font-size: 2rem;
+    margin-bottom: 6px;
+}
+
+.form-card .form-name {
+    color: #e8e8e8;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-quick-stats {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.hp-badge, .ac-badge {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.hp-badge {
+    background: rgba(231, 76, 60, 0.3);
+    color: #f5b7b1;
+}
+
+.ac-badge {
+    background: rgba(52, 152, 219, 0.3);
+    color: #aed6f1;
+}
+
+.form-speeds {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+
+/* Form Details Panel */
+#form-details {
+    padding: 16px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(34, 139, 34, 0.3);
+}
+
+#form-details h3 {
+    margin: 0 0 12px 0;
+    color: #98fb98;
+    font-size: 1.2rem;
+}
+
+.form-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.form-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(34, 139, 34, 0.2);
+    border-radius: 6px;
+    min-width: 60px;
+}
+
+.form-stats .stat-label {
+    font-size: 0.7rem;
+    color: #a0a0a0;
+    text-transform: uppercase;
+}
+
+.form-stats .stat span:last-child {
+    font-size: 1.1rem;
+    color: #e8e8e8;
+    font-weight: 600;
+}
+
+.form-abilities h4,
+.form-attacks h4,
+.form-traits h4 {
+    margin: 12px 0 8px 0;
+    color: #98fb98;
+    font-size: 0.9rem;
+}
+
+.ability-scores {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ability-scores .ability {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    min-width: 45px;
+}
+
+.ability-scores .ability span:first-child {
+    font-size: 0.65rem;
+    color: #a0a0a0;
+}
+
+.ability-scores .ability span:last-child {
+    font-size: 0.95rem;
+    color: #e8e8e8;
+    font-weight: 600;
+}
+
+.attack-item {
+    padding: 6px 10px;
+    background: rgba(231, 76, 60, 0.1);
+    border-left: 2px solid #e74c3c;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: #e8e8e8;
+}
+
+.trait-item {
+    padding: 6px 10px;
+    background: rgba(155, 89, 182, 0.1);
+    border-left: 2px solid #9b59b6;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: #e8e8e8;
+}
+
+.btn-transform {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #228b22 0%, #006400 100%);
+    border: 1px solid #32cd32;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-transform:hover:not(:disabled) {
+    background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.4);
+}
+
+.btn-transform:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.no-forms {
+    text-align: center;
+    color: #a0a0a0;
+    padding: 40px;
+    font-style: italic;
+}
+
+/* Scrollbar */
+.form-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.form-grid::-webkit-scrollbar-thumb {
+    background: rgba(34, 139, 34, 0.5);
+    border-radius: 4px;
+}
+
+.form-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(50, 205, 50, 0.6);
+}

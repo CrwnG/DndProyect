@@ -1,0 +1,30 @@
+{
+  "id": "acolyte",
+  "name": "Acolyte",
+  "source": "2024 Player's Handbook",
+  "description": "You devoted yourself to service in a temple, either nestled in a town or secluded in a sacred grove. There you performed hallowed rites in honor of a god or pantheon. You served under a priest and studied religion.",
+  "ability_score_increases": {
+    "options": [
+      {"intelligence": 2, "wisdom": 1},
+      {"intelligence": 1, "wisdom": 2},
+      {"any_three": 1}
+    ],
+    "notes": "Choose one option: +2 to one ability and +1 to another, or +1 to three different abilities."
+  },
+  "skill_proficiencies": ["insight", "religion"],
+  "tool_proficiency": "Calligrapher's Supplies",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["calligraphers_supplies", "holy_symbol", "parchment_10_sheets", "robe", "pouch"],
+    "gold": 8
+  },
+  "origin_feat": "Magic Initiate (Cleric)",
+  "feature": {
+    "id": "shelter_of_the_faithful",
+    "name": "Shelter of the Faithful",
+    "description": "As an Acolyte, you command the respect of those who share your faith, and you can perform the religious ceremonies of your deity. You and your companions can expect free healing and care at a temple, shrine, or other established presence of your faith, though you must provide any material components needed for spells. Those who share your religion will support you (but only you) at a modest lifestyle."
+  }
+}

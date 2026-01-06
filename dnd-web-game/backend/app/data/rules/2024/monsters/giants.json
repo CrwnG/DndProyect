@@ -1,0 +1,563 @@
+{
+  "creature_type": "Giant",
+  "source": "2024 Monster Manual",
+  "description": "Giants tower over humans and their kind. They are humanlike in shape, though some have multiple heads or deformities. The six varieties of true giants—hill, stone, frost, fire, cloud, and storm—represent the most potent and numerous of the giant races.",
+  "monsters": [
+    {
+      "id": "cloud_giant",
+      "name": "Cloud Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Neutral Good (50%) or Neutral Evil (50%)",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 200,
+      "hit_dice": "16d12+96",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 27, "DEX": 10, "CON": 22, "INT": 12, "WIS": 16, "CHA": 16 },
+      "saving_throws": { "CON": 10, "WIS": 7, "CHA": 7 },
+      "skills": { "insight": 7, "perception": 7 },
+      "senses": { "passive_perception": 17 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Keen Smell",
+          "description": "The giant has advantage on Wisdom (Perception) checks that rely on smell."
+        },
+        {
+          "name": "Innate Spellcasting",
+          "description": "The giant's innate spellcasting ability is Charisma. It can innately cast the following spells, requiring no material components: At will: Detect Magic, Fog Cloud, Light. 3/day each: Feather Fall, Fly, Misty Step, Telekinesis. 1/day each: Control Weather, Gaseous Form."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two morningstar attacks."
+        },
+        {
+          "name": "Morningstar",
+          "description": "Melee Weapon Attack: +12 to hit, reach 10 ft., one target. Hit: 21 (3d8+8) piercing damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +12 to hit, range 60/240 ft., one target. Hit: 30 (4d10+8) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "fire_giant",
+      "name": "Fire Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "plate",
+      "hit_points": 162,
+      "hit_dice": "13d12+78",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 25, "DEX": 9, "CON": 23, "INT": 10, "WIS": 14, "CHA": 13 },
+      "saving_throws": { "DEX": 3, "CON": 10, "CHA": 5 },
+      "skills": { "athletics": 11, "perception": 6 },
+      "damage_immunities": ["fire"],
+      "senses": { "passive_perception": 16 },
+      "languages": ["Giant"],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two greatsword attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 28 (6d6+7) slashing damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +11 to hit, range 60/240 ft., one target. Hit: 29 (4d10+7) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "frost_giant",
+      "name": "Frost Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "patchwork armor",
+      "hit_points": 138,
+      "hit_dice": "12d12+60",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 23, "DEX": 9, "CON": 21, "INT": 9, "WIS": 10, "CHA": 12 },
+      "saving_throws": { "CON": 8, "WIS": 3, "CHA": 4 },
+      "skills": { "athletics": 9, "perception": 3 },
+      "damage_immunities": ["cold"],
+      "senses": { "passive_perception": 13 },
+      "languages": ["Giant"],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two greataxe attacks."
+        },
+        {
+          "name": "Greataxe",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 25 (3d12+6) slashing damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +9 to hit, range 60/240 ft., one target. Hit: 28 (4d10+6) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "hill_giant",
+      "name": "Hill Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 13,
+      "armor_type": "natural armor",
+      "hit_points": 105,
+      "hit_dice": "10d12+40",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 21, "DEX": 8, "CON": 19, "INT": 5, "WIS": 9, "CHA": 6 },
+      "skills": { "perception": 2 },
+      "senses": { "passive_perception": 12 },
+      "languages": ["Giant"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two greatclub attacks."
+        },
+        {
+          "name": "Greatclub",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 18 (3d8+5) bludgeoning damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +8 to hit, range 60/240 ft., one target. Hit: 21 (3d10+5) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "stone_giant",
+      "name": "Stone Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Neutral",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 126,
+      "hit_dice": "11d12+55",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 23, "DEX": 15, "CON": 20, "INT": 10, "WIS": 12, "CHA": 9 },
+      "saving_throws": { "DEX": 5, "CON": 8, "WIS": 4 },
+      "skills": { "athletics": 12, "perception": 4 },
+      "senses": { "darkvision": 60, "passive_perception": 14 },
+      "languages": ["Giant"],
+      "challenge_rating": "7",
+      "xp": 2900,
+      "traits": [
+        {
+          "name": "Stone Camouflage",
+          "description": "The giant has advantage on Dexterity (Stealth) checks made to hide in rocky terrain."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two greatclub attacks."
+        },
+        {
+          "name": "Greatclub",
+          "description": "Melee Weapon Attack: +9 to hit, reach 15 ft., one target. Hit: 19 (3d8+6) bludgeoning damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +9 to hit, range 60/240 ft., one target. Hit: 28 (4d10+6) bludgeoning damage. If the target is a creature, it must succeed on a DC 17 Strength saving throw or be knocked prone."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Rock Catching",
+          "description": "If a rock or similar object is hurled at the giant, the giant can, with a successful DC 10 Dexterity saving throw, catch the missile and take no bludgeoning damage from it."
+        }
+      ]
+    },
+    {
+      "id": "storm_giant",
+      "name": "Storm Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Chaotic Good",
+      "armor_class": 16,
+      "armor_type": "scale mail",
+      "hit_points": 230,
+      "hit_dice": "20d12+100",
+      "speed": { "walk": 50, "swim": 50 },
+      "ability_scores": { "STR": 29, "DEX": 14, "CON": 20, "INT": 16, "WIS": 18, "CHA": 18 },
+      "saving_throws": { "STR": 14, "CON": 10, "WIS": 9, "CHA": 9 },
+      "skills": { "arcana": 8, "athletics": 14, "history": 8, "perception": 9 },
+      "damage_resistances": ["cold"],
+      "damage_immunities": ["lightning", "thunder"],
+      "senses": { "passive_perception": 19 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Amphibious",
+          "description": "The giant can breathe air and water."
+        },
+        {
+          "name": "Innate Spellcasting",
+          "description": "The giant's innate spellcasting ability is Charisma (spell save DC 17). It can innately cast the following spells, requiring no material components: At will: Detect Magic, Feather Fall, Levitate, Light. 3/day each: Control Weather, Water Breathing."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two greatsword attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 30 (6d6+9) slashing damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +14 to hit, range 60/240 ft., one target. Hit: 35 (4d12+9) bludgeoning damage."
+        },
+        {
+          "name": "Lightning Strike (Recharge 5-6)",
+          "description": "The giant hurls a magical lightning bolt at a point it can see within 500 feet of it. Each creature within 10 feet of that point must make a DC 17 Dexterity saving throw, taking 54 (12d8) lightning damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "ogre",
+      "name": "Ogre",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 11,
+      "armor_type": "hide armor",
+      "hit_points": 59,
+      "hit_dice": "7d10+21",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 19, "DEX": 8, "CON": 16, "INT": 5, "WIS": 7, "CHA": 7 },
+      "senses": { "darkvision": 60, "passive_perception": 8 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "actions": [
+        {
+          "name": "Greatclub",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) bludgeoning damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 11 (2d6+4) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "troll",
+      "name": "Troll",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 84,
+      "hit_dice": "8d10+40",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 18, "DEX": 13, "CON": 20, "INT": 7, "WIS": 9, "CHA": 7 },
+      "skills": { "perception": 2 },
+      "senses": { "darkvision": 60, "passive_perception": 12 },
+      "languages": ["Giant"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Keen Smell",
+          "description": "The troll has advantage on Wisdom (Perception) checks that rely on smell."
+        },
+        {
+          "name": "Regeneration",
+          "description": "The troll regains 10 hit points at the start of its turn. If the troll takes acid or fire damage, this trait doesn't function at the start of the troll's next turn. The troll dies only if it starts its turn with 0 hit points and doesn't regenerate."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The troll makes three attacks: one with its bite and two with its claws."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6+4) piercing damage."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6+4) slashing damage."
+        }
+      ]
+    },
+    {
+      "id": "ettin",
+      "name": "Ettin",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 12,
+      "armor_type": "natural armor",
+      "hit_points": 85,
+      "hit_dice": "10d10+30",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 21, "DEX": 8, "CON": 17, "INT": 6, "WIS": 10, "CHA": 8 },
+      "skills": { "perception": 4 },
+      "senses": { "darkvision": 60, "passive_perception": 14 },
+      "languages": ["Giant", "Orc"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Two Heads",
+          "description": "The ettin has advantage on Wisdom (Perception) checks and on saving throws against being blinded, charmed, deafened, frightened, stunned, and knocked unconscious."
+        },
+        {
+          "name": "Wakeful",
+          "description": "When one of the ettin's heads is asleep, its other head is awake."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The ettin makes two attacks: one with its battleaxe and one with its morningstar."
+        },
+        {
+          "name": "Battleaxe",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 14 (2d8+5) slashing damage."
+        },
+        {
+          "name": "Morningstar",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 14 (2d8+5) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "cyclops",
+      "name": "Cyclops",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Chaotic Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 138,
+      "hit_dice": "12d12+60",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 22, "DEX": 11, "CON": 20, "INT": 8, "WIS": 6, "CHA": 10 },
+      "senses": { "passive_perception": 8 },
+      "languages": ["Giant"],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Poor Depth Perception",
+          "description": "The cyclops has disadvantage on any attack roll against a target more than 30 feet away."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The cyclops makes two greatclub attacks."
+        },
+        {
+          "name": "Greatclub",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 19 (3d8+6) bludgeoning damage."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +9 to hit, range 30/120 ft., one target. Hit: 28 (4d10+6) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "fomorian",
+      "name": "Fomorian",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 149,
+      "hit_dice": "13d12+65",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 23, "DEX": 10, "CON": 20, "INT": 9, "WIS": 14, "CHA": 6 },
+      "skills": { "perception": 8, "stealth": 3 },
+      "senses": { "darkvision": 120, "passive_perception": 18 },
+      "languages": ["Giant", "Undercommon"],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The fomorian attacks twice with its greatclub or makes one greatclub attack and uses Evil Eye once."
+        },
+        {
+          "name": "Greatclub",
+          "description": "Melee Weapon Attack: +9 to hit, reach 15 ft., one target. Hit: 19 (3d8+6) bludgeoning damage."
+        },
+        {
+          "name": "Evil Eye",
+          "description": "The fomorian magically forces a creature it can see within 60 feet of it to make a DC 14 Charisma saving throw. The creature takes 27 (6d8) psychic damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "Curse of the Evil Eye (Recharges after a Short or Long Rest)",
+          "description": "With a stare, the fomorian uses Evil Eye, but on a failed save, the creature is also cursed with magical deformities. While cursed, the creature has its speed halved and has disadvantage on ability checks, saving throws, and attacks based on Strength or Dexterity. The cursed creature can repeat the saving throw whenever it finishes a long rest, ending the effect on a success."
+        }
+      ]
+    },
+    {
+      "id": "death_giant",
+      "name": "Death Giant",
+      "size": "Huge",
+      "type": "Giant",
+      "alignment": "Neutral Evil",
+      "armor_class": 17,
+      "armor_type": "half plate",
+      "hit_points": 187,
+      "hit_dice": "15d12+90",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 27, "DEX": 14, "CON": 22, "INT": 12, "WIS": 16, "CHA": 15 },
+      "saving_throws": { "CON": 11, "WIS": 8, "CHA": 7 },
+      "skills": { "history": 6, "perception": 8, "religion": 6 },
+      "damage_immunities": ["necrotic"],
+      "senses": { "darkvision": 120, "passive_perception": 18 },
+      "languages": ["Giant", "Common"],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Soul Jar",
+          "description": "The giant carries a soul jar, a vessel holding the souls of creatures the giant has slain. The giant can use a bonus action to consume a soul from the jar, regaining 21 (6d6) hit points. The jar contains 1d6 souls when encountered."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The giant makes two Reaping Scythe attacks or one Reaping Scythe attack and uses Soul Reap."
+        },
+        {
+          "name": "Reaping Scythe",
+          "description": "Melee Weapon Attack: +13 to hit, reach 15 ft., one target. Hit: 24 (3d10+8) slashing damage plus 11 (2d10) necrotic damage."
+        },
+        {
+          "name": "Soul Reap",
+          "description": "The giant targets one creature it can see within 60 feet of it. The target must make a DC 16 Constitution saving throw, taking 35 (10d6) necrotic damage on a failed save, or half as much damage on a successful one. If this damage reduces the target to 0 hit points, the target dies, and its soul is trapped in the giant's soul jar."
+        },
+        {
+          "name": "Rock",
+          "description": "Ranged Weapon Attack: +13 to hit, range 60/240 ft., one target. Hit: 30 (4d10+8) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "ogre_battering_ram",
+      "name": "Ogre Battering Ram",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 14,
+      "armor_type": "ring mail",
+      "hit_points": 59,
+      "hit_dice": "7d10+21",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 19, "DEX": 8, "CON": 16, "INT": 5, "WIS": 7, "CHA": 7 },
+      "senses": { "darkvision": 60, "passive_perception": 8 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Siege Monster",
+          "description": "The ogre deals double damage to objects and structures."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bash",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 15 (2d10+4) bludgeoning damage, and the target must succeed on a DC 14 Strength saving throw or be knocked prone."
+        },
+        {
+          "name": "Block the Path",
+          "description": "Until the start of the ogre's next turn, attack rolls against the ogre have disadvantage, it has advantage on the attack roll it makes for an opportunity attack, and that attack deals an extra 16 (3d10) bludgeoning damage on a hit. Also, each enemy that tries to move out of the ogre's reach without teleporting must succeed on a DC 14 Strength saving throw or have its speed reduced to 0 until the start of the ogre's next turn."
+        }
+      ]
+    },
+    {
+      "id": "ogre_bolt_launcher",
+      "name": "Ogre Bolt Launcher",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 13,
+      "armor_type": "hide armor",
+      "hit_points": 59,
+      "hit_dice": "7d10+21",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 19, "DEX": 12, "CON": 16, "INT": 5, "WIS": 7, "CHA": 7 },
+      "senses": { "darkvision": 60, "passive_perception": 8 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "actions": [
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (2d4+4) bludgeoning damage."
+        },
+        {
+          "name": "Bolt Launcher",
+          "description": "Ranged Weapon Attack: +3 to hit, range 120/480 ft., one target. Hit: 17 (3d10+1) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "ogre_chain_brute",
+      "name": "Ogre Chain Brute",
+      "size": "Large",
+      "type": "Giant",
+      "alignment": "Chaotic Evil",
+      "armor_class": 11,
+      "armor_type": "hide armor",
+      "hit_points": 59,
+      "hit_dice": "7d10+21",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 19, "DEX": 8, "CON": 16, "INT": 5, "WIS": 7, "CHA": 7 },
+      "senses": { "darkvision": 60, "passive_perception": 8 },
+      "languages": ["Common", "Giant"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "actions": [
+        {
+          "name": "Fist",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (2d4+4) bludgeoning damage."
+        },
+        {
+          "name": "Chain Sweep",
+          "description": "The ogre swings its chain, and every creature within 10 feet of it must make a DC 14 Dexterity saving throw. On a failed saving throw, a creature takes 8 (1d8+4) bludgeoning damage and is knocked prone. On a successful save, the creature takes half as much damage and isn't knocked prone."
+        },
+        {
+          "name": "Chain Smash",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 13 (2d8+4) bludgeoning damage, and the target must succeed on a DC 14 Constitution saving throw or be stunned until the start of the ogre's next turn."
+        }
+      ]
+    }
+  ]
+}

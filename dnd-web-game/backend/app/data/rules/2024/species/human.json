@@ -1,0 +1,34 @@
+{
+  "id": "human",
+  "name": "Human",
+  "source": "2024 Player's Handbook",
+  "description": "Found throughout the multiverse, humans are as varied as they are numerous, and they endeavor to achieve as much as they can in the years they are given.",
+  "creature_type": "Humanoid",
+  "size": "Medium or Small (chosen at character creation)",
+  "speed": 30,
+  "languages": ["Common"],
+  "language_choices": {
+    "choose": 1,
+    "from": "any"
+  },
+  "traits": [
+    {
+      "id": "resourceful",
+      "name": "Resourceful",
+      "description": "You gain Heroic Inspiration whenever you finish a Long Rest."
+    },
+    {
+      "id": "skillful",
+      "name": "Skillful",
+      "description": "You gain proficiency in one skill of your choice."
+    },
+    {
+      "id": "versatile",
+      "name": "Versatile",
+      "description": "You gain an Origin feat of your choice. Skilled is recommended."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

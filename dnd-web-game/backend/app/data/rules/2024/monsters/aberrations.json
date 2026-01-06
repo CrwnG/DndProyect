@@ -1,0 +1,902 @@
+{
+  "creature_type": "Aberration",
+  "source": "2024 Monster Manual",
+  "description": "Aberrations are utterly alien beings. Many of them have innate magical abilities drawn from the creature's alien mind rather than the mystical forces of the world. They were either imported from another plane of existence or are the results of magical experimentation gone awry.",
+  "monsters": [
+    {
+      "id": "aboleth",
+      "name": "Aboleth",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 135,
+      "hit_dice": "18d10+36",
+      "speed": { "walk": 10, "swim": 40 },
+      "ability_scores": { "STR": 21, "DEX": 9, "CON": 15, "INT": 18, "WIS": 15, "CHA": 18 },
+      "saving_throws": { "CON": 6, "INT": 8, "WIS": 6 },
+      "skills": { "history": 12, "perception": 10 },
+      "senses": { "darkvision": 120, "passive_perception": 20 },
+      "languages": ["Deep Speech", "telepathy 120 ft."],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Amphibious",
+          "description": "The aboleth can breathe air and water."
+        },
+        {
+          "name": "Mucous Cloud",
+          "description": "While underwater, the aboleth is surrounded by transformative mucus. A creature that touches the aboleth or that hits it with a melee attack while within 5 feet of it must make a DC 14 Constitution saving throw. On a failure, the creature is diseased for 1d4 hours. The diseased creature can breathe only underwater."
+        },
+        {
+          "name": "Probing Telepathy",
+          "description": "If a creature communicates telepathically with the aboleth, the aboleth learns the creature's greatest desires if the aboleth can see the creature."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The aboleth makes three tentacle attacks."
+        },
+        {
+          "name": "Tentacle",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 12 (2d6+5) bludgeoning damage. If the target is a creature, it must succeed on a DC 14 Constitution saving throw or become diseased. The disease has no effect for 1 minute and can be removed by any magic that cures disease. After 1 minute, the diseased creature's skin becomes translucent and slimy, the creature can't regain hit points unless it is underwater, and the disease can be removed only by heal or another disease-curing spell of 6th level or higher. When the creature is outside a body of water, it takes 6 (1d12) acid damage every 10 minutes unless moisture is applied to the skin before 10 minutes have passed."
+        },
+        {
+          "name": "Tail",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 15 (3d6+5) bludgeoning damage."
+        },
+        {
+          "name": "Enslave (3/Day)",
+          "description": "The aboleth targets one creature it can see within 30 feet of it. The target must succeed on a DC 14 Wisdom saving throw or be magically charmed by the aboleth until the aboleth dies or until it is on a different plane of existence from the target. The charmed target is under the aboleth's control and can't take reactions, and the aboleth and the target can communicate telepathically with each other over any distance. Whenever the charmed target takes damage, the target can repeat the saving throw. On a success, the effect ends. No more than once every 24 hours, the target can also repeat the saving throw when it is at least 1 mile away from the aboleth."
+        }
+      ],
+      "legendary_actions": [
+        {
+          "name": "Detect",
+          "description": "The aboleth makes a Wisdom (Perception) check."
+        },
+        {
+          "name": "Tail Swipe",
+          "description": "The aboleth makes one tail attack."
+        },
+        {
+          "name": "Psychic Drain (Costs 2 Actions)",
+          "description": "One creature charmed by the aboleth takes 10 (3d6) psychic damage, and the aboleth regains hit points equal to the damage the creature takes."
+        }
+      ],
+      "legendary_actions_per_round": 3
+    },
+    {
+      "id": "beholder",
+      "name": "Beholder",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 180,
+      "hit_dice": "19d10+76",
+      "speed": { "walk": 0, "fly": 20, "hover": true },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 18, "INT": 17, "WIS": 15, "CHA": 17 },
+      "saving_throws": { "INT": 8, "WIS": 7, "CHA": 8 },
+      "skills": { "perception": 12 },
+      "condition_immunities": ["prone"],
+      "senses": { "darkvision": 120, "passive_perception": 22 },
+      "languages": ["Deep Speech", "Undercommon"],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Antimagic Cone",
+          "description": "The beholder's central eye creates an area of antimagic, as in the antimagic field spell, in a 150-foot cone. At the start of each of its turns, the beholder decides which way the cone faces and whether the cone is active. The area works against the beholder's own eye rays."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 14 (4d6) piercing damage."
+        },
+        {
+          "name": "Eye Rays",
+          "description": "The beholder shoots three of the following magical eye rays at random (reroll duplicates), choosing one to three targets it can see within 120 feet of it: 1. Charm Ray. The targeted creature must succeed on a DC 16 Wisdom saving throw or be charmed by the beholder for 1 hour, or until the beholder harms the creature. 2. Paralyzing Ray. The targeted creature must succeed on a DC 16 Constitution saving throw or be paralyzed for 1 minute. 3. Fear Ray. The targeted creature must succeed on a DC 16 Wisdom saving throw or be frightened for 1 minute. 4. Slowing Ray. The targeted creature must succeed on a DC 16 Dexterity saving throw. On a failed save, the target's speed is halved for 1 minute. 5. Enervation Ray. The targeted creature must make a DC 16 Constitution saving throw, taking 36 (8d8) necrotic damage on a failed save, or half as much damage on a successful one. 6. Telekinetic Ray. If the target is a creature, it must succeed on a DC 16 Strength saving throw or the beholder moves it up to 30 feet in any direction. 7. Sleep Ray. The targeted creature must succeed on a DC 16 Wisdom saving throw or fall asleep and remain unconscious for 1 minute. 8. Petrification Ray. The targeted creature must make a DC 16 Dexterity saving throw. On a failed save, the creature begins to turn to stone and is restrained. 9. Disintegration Ray. If the target is a creature, it must succeed on a DC 16 Dexterity saving throw or take 45 (10d8) force damage. 10. Death Ray. The targeted creature must succeed on a DC 16 Dexterity saving throw or take 55 (10d10) necrotic damage. The target dies if the ray reduces it to 0 hit points."
+        }
+      ],
+      "legendary_actions": [
+        {
+          "name": "Eye Ray",
+          "description": "The beholder uses one random eye ray."
+        }
+      ],
+      "legendary_actions_per_round": 3
+    },
+    {
+      "id": "chuul",
+      "name": "Chuul",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 93,
+      "hit_dice": "11d10+33",
+      "speed": { "walk": 30, "swim": 30 },
+      "ability_scores": { "STR": 19, "DEX": 10, "CON": 16, "INT": 5, "WIS": 11, "CHA": 5 },
+      "skills": { "perception": 4 },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": { "darkvision": 60, "passive_perception": 14 },
+      "languages": ["understands Deep Speech but can't speak"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Amphibious",
+          "description": "The chuul can breathe air and water."
+        },
+        {
+          "name": "Sense Magic",
+          "description": "The chuul senses magic within 120 feet of it at will. This trait otherwise works like the detect magic spell but isn't itself magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The chuul makes two pincer attacks. If the chuul is grappling a creature, the chuul can also use its tentacles once."
+        },
+        {
+          "name": "Pincer",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 11 (2d6+4) bludgeoning damage. The target is grappled (escape DC 14) if it is a Large or smaller creature and the chuul doesn't have two other creatures grappled."
+        },
+        {
+          "name": "Tentacles",
+          "description": "One creature grappled by the chuul must succeed on a DC 13 Constitution saving throw or be poisoned for 1 minute. Until this poison ends, the target is paralyzed. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "gibbering_mouther",
+      "name": "Gibbering Mouther",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Neutral",
+      "armor_class": 9,
+      "hit_points": 67,
+      "hit_dice": "9d8+27",
+      "speed": { "walk": 10, "swim": 10 },
+      "ability_scores": { "STR": 10, "DEX": 8, "CON": 16, "INT": 3, "WIS": 10, "CHA": 6 },
+      "condition_immunities": ["prone"],
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": [],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Aberrant Ground",
+          "description": "The ground in a 10-foot radius around the mouther is doughlike difficult terrain. Each creature that starts its turn in that area must succeed on a DC 10 Strength saving throw or have its speed reduced to 0 until the start of its next turn."
+        },
+        {
+          "name": "Gibbering",
+          "description": "The mouther babbles incoherently while it can see any creature and isn't incapacitated. Each creature that starts its turn within 20 feet of the mouther and can hear the gibbering must succeed on a DC 10 Wisdom saving throw. On a failure, the creature can't take reactions until the start of its next turn and rolls a d8 to determine what it does during its turn. On a 1 to 4, the creature does nothing. On a 5 or 6, the creature takes no action or bonus action and uses all its movement to move in a randomly determined direction. On a 7 or 8, the creature makes a melee attack against a randomly determined creature within its reach or does nothing if it can't make such an attack."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The gibbering mouther makes one bite attack and, if it can, uses its Blinding Spittle."
+        },
+        {
+          "name": "Bites",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one creature. Hit: 17 (5d6) piercing damage. If the target is Medium or smaller, it must succeed on a DC 10 Strength saving throw or be knocked prone. If the target is killed by this damage, it is absorbed into the mouther."
+        },
+        {
+          "name": "Blinding Spittle (Recharge 5-6)",
+          "description": "The mouther spits a chemical glob at a point it can see within 15 feet of it. The glob explodes in a blinding flash of light on impact. Each creature within 5 feet of the flash must succeed on a DC 13 Dexterity saving throw or be blinded until the end of the mouther's next turn."
+        }
+      ]
+    },
+    {
+      "id": "mind_flayer",
+      "name": "Mind Flayer",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 15,
+      "armor_type": "breastplate",
+      "hit_points": 71,
+      "hit_dice": "13d8+13",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 12, "CON": 12, "INT": 19, "WIS": 17, "CHA": 17 },
+      "saving_throws": { "INT": 7, "WIS": 6, "CHA": 6 },
+      "skills": { "arcana": 7, "deception": 6, "insight": 6, "perception": 6, "persuasion": 6, "stealth": 4 },
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Deep Speech", "Undercommon", "telepathy 120 ft."],
+      "challenge_rating": "7",
+      "xp": 2900,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The mind flayer has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "description": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components: At will: Detect Thoughts, Levitate. 1/day each: Dominate Monster, Plane Shift (self only)."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 15 (2d10+4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+        },
+        {
+          "name": "Extract Brain",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+        },
+        {
+          "name": "Mind Blast (Recharge 5-6)",
+          "description": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8+4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "intellect_devourer",
+      "name": "Intellect Devourer",
+      "size": "Tiny",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 12,
+      "hit_points": 21,
+      "hit_dice": "6d4+6",
+      "speed": { "walk": 40 },
+      "ability_scores": { "STR": 6, "DEX": 14, "CON": 13, "INT": 12, "WIS": 11, "CHA": 10 },
+      "skills": { "perception": 2, "stealth": 4 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["blinded"],
+      "senses": { "blindsight": 60, "passive_perception": 12 },
+      "languages": ["understands Deep Speech but can't speak", "telepathy 60 ft."],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Detect Sentience",
+          "description": "The intellect devourer can sense the presence and location of any creature within 300 feet of it that has an Intelligence of 3 or higher, regardless of interposing barriers, unless the creature is protected by a mind blank spell."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The intellect devourer makes one attack with its claws and uses Devour Intellect."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) slashing damage."
+        },
+        {
+          "name": "Devour Intellect",
+          "description": "The intellect devourer targets one creature it can see within 10 feet of it that has a brain. The target must succeed on a DC 12 Intelligence saving throw against this magic or take 11 (2d10) psychic damage. Also on a failure, roll 3d6: If the total equals or exceeds the target's Intelligence score, that score is reduced to 0. The target is stunned until it regains at least one point of Intelligence."
+        },
+        {
+          "name": "Body Thief",
+          "description": "The intellect devourer initiates an Intelligence contest with an incapacitated humanoid within 5 feet of it that isn't protected by protection from evil and good. If it wins the contest, the intellect devourer magically consumes the target's brain, teleports into the target's skull, and takes control of the target's body. While inside a creature, the intellect devourer has total cover against attacks and other effects originating outside its host. The intellect devourer retains its Intelligence, Wisdom, and Charisma scores, as well as its understanding of Deep Speech, its telepathy, and its traits. It otherwise adopts the target's statistics. It knows everything the creature knew, including spells and languages. If the host body dies, the intellect devourer must leave it. A protection from evil and good spell cast on the body drives the intellect devourer out. The intellect devourer is also forced out if the target regains its devoured brain by means of a wish. By spending 5 feet of its movement, the intellect devourer can voluntarily leave the body, teleporting to the nearest unoccupied space within 5 feet of it. The body then dies, unless its brain is restored within 1 round."
+        }
+      ]
+    },
+    {
+      "id": "otyugh",
+      "name": "Otyugh",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 114,
+      "hit_dice": "12d10+48",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 11, "CON": 19, "INT": 6, "WIS": 13, "CHA": 6 },
+      "saving_throws": { "CON": 7 },
+      "senses": { "darkvision": 120, "passive_perception": 11 },
+      "languages": ["Otyugh"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Limited Telepathy",
+          "description": "The otyugh can magically transmit simple messages and images to any creature within 120 feet of it that can understand a language. This form of telepathy doesn't allow the receiving creature to telepathically respond."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The otyugh makes three attacks: one with its bite and two with its tentacles."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 12 (2d8+3) piercing damage. If the target is a creature, it must succeed on a DC 15 Constitution saving throw against disease or become poisoned until the disease is cured. Every 24 hours that elapse, the target must repeat the saving throw, reducing its hit point maximum by 5 (1d10) on a failure. The disease is cured on a success. The target dies if the disease reduces its hit point maximum to 0. This reduction to the target's hit point maximum lasts until the disease is cured."
+        },
+        {
+          "name": "Tentacle",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 7 (1d8+3) bludgeoning damage plus 4 (1d8) piercing damage. If the target is Medium or smaller, it is grappled (escape DC 13) and restrained until the grapple ends. The otyugh has two tentacles, each of which can grapple one target."
+        },
+        {
+          "name": "Tentacle Slam",
+          "description": "The otyugh slams creatures grappled by it into each other or a solid surface. Each creature must succeed on a DC 14 Constitution saving throw or take 10 (2d6+3) bludgeoning damage and be stunned until the end of the otyugh's next turn. On a successful save, the target takes half the bludgeoning damage and isn't stunned."
+        }
+      ]
+    },
+    {
+      "id": "spectator",
+      "name": "Spectator",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Lawful Neutral",
+      "armor_class": 14,
+      "armor_type": "natural armor",
+      "hit_points": 39,
+      "hit_dice": "6d8+12",
+      "speed": { "walk": 0, "fly": 30, "hover": true },
+      "ability_scores": { "STR": 8, "DEX": 14, "CON": 14, "INT": 13, "WIS": 14, "CHA": 11 },
+      "skills": { "perception": 6 },
+      "condition_immunities": ["prone"],
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Deep Speech", "Undercommon", "telepathy 120 ft."],
+      "challenge_rating": "3",
+      "xp": 700,
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +1 to hit, reach 5 ft., one target. Hit: 2 (1d6-1) piercing damage."
+        },
+        {
+          "name": "Eye Rays",
+          "description": "The spectator shoots up to two of the following magical eye rays at one or two creatures it can see within 90 feet of it. It can use each ray only once on a turn. 1. Confusion Ray. The target must succeed on a DC 13 Wisdom saving throw, or it can't take reactions until the end of its next turn. On its turn, the target can't move, and it uses its action to make a melee or ranged attack against a randomly determined creature within range. 2. Paralyzing Ray. The target must succeed on a DC 13 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. 3. Fear Ray. The target must succeed on a DC 13 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. 4. Wounding Ray. The target must make a DC 13 Constitution saving throw, taking 16 (3d10) necrotic damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "Create Food and Water",
+          "description": "The spectator magically creates enough food and water to sustain itself for 24 hours."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Spell Reflection",
+          "description": "If the spectator makes a successful saving throw against a spell, or a spell attack misses it, the spectator can choose another creature (including the spellcaster) it can see within 30 feet of it. The spell targets the chosen creature instead of the spectator. If the spell forced a saving throw, the chosen creature makes its own save. If the spell was an attack, the attack roll is rerolled against the chosen creature."
+        }
+      ]
+    },
+    {
+      "id": "mind_flayer_arcanist",
+      "name": "Mind Flayer Arcanist",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 15,
+      "armor_type": "breastplate",
+      "hit_points": 71,
+      "hit_dice": "13d8+13",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 12, "CON": 12, "INT": 19, "WIS": 17, "CHA": 17 },
+      "saving_throws": { "INT": 7, "WIS": 6, "CHA": 6 },
+      "skills": { "arcana": 7, "deception": 6, "insight": 6, "perception": 6, "persuasion": 6, "stealth": 4 },
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Deep Speech", "Undercommon", "telepathy 120 ft."],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The mind flayer has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "description": "The mind flayer's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no components: At will: Detect Thoughts, Levitate. 1/day each: Dominate Monster, Plane Shift (self only)."
+        },
+        {
+          "name": "Spellcasting",
+          "description": "The mind flayer arcanist is a 10th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 15, +7 to hit with spell attacks). It has the following wizard spells prepared: Cantrips (at will): Blade Ward, Dancing Lights, Mage Hand, Shocking Grasp. 1st level (4 slots): Detect Magic, Disguise Self, Shield, Sleep. 2nd level (3 slots): Blur, Invisibility, Ray of Enfeeblement. 3rd level (3 slots): Clairvoyance, Lightning Bolt, Sending. 4th level (3 slots): Confusion, Hallucinatory Terrain. 5th level (2 slots): Telekinesis, Wall of Force."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 15 (2d10+4) psychic damage. If the target is Medium or smaller, it is grappled (escape DC 15) and must succeed on a DC 15 Intelligence saving throw or be stunned until this grapple ends."
+        },
+        {
+          "name": "Extract Brain",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one incapacitated humanoid grappled by the mind flayer. Hit: The target takes 55 (10d10) piercing damage. If this damage reduces the target to 0 hit points, the mind flayer kills the target by extracting and devouring its brain."
+        },
+        {
+          "name": "Mind Blast (Recharge 5-6)",
+          "description": "The mind flayer magically emits psychic energy in a 60-foot cone. Each creature in that area must succeed on a DC 15 Intelligence saving throw or take 22 (4d8+4) psychic damage and be stunned for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        }
+      ]
+    },
+    {
+      "id": "elder_brain",
+      "name": "Elder Brain",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 10,
+      "hit_points": 210,
+      "hit_dice": "20d10+100",
+      "speed": { "walk": 5, "swim": 10 },
+      "ability_scores": { "STR": 15, "DEX": 10, "CON": 20, "INT": 21, "WIS": 19, "CHA": 20 },
+      "saving_throws": { "INT": 10, "WIS": 9, "CHA": 10 },
+      "skills": { "arcana": 10, "deception": 10, "insight": 14, "intimidation": 10, "persuasion": 10 },
+      "damage_immunities": ["psychic"],
+      "condition_immunities": ["charmed", "frightened"],
+      "senses": { "blindsight": 120, "passive_perception": 14 },
+      "languages": ["understands Common, Deep Speech, and Undercommon but can't speak", "telepathy 5 miles"],
+      "challenge_rating": "14",
+      "xp": 11500,
+      "traits": [
+        {
+          "name": "Creature Sense",
+          "description": "The elder brain is aware of the presence of creatures within 5 miles of it that have an Intelligence score of 4 or higher. It knows the distance and direction to each creature, as well as each one's Intelligence score, but can't sense anything else about it. A creature protected by a mind blank spell, a nondetection spell, or similar magic can't be perceived in this manner."
+        },
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "description": "If the elder brain fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The elder brain has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Telepathic Hub",
+          "description": "The elder brain can use its telepathy to initiate and maintain telepathic conversations with up to ten creatures at a time. The elder brain can let those creatures telepathically hear each other while connected in this way."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "description": "The elder brain's innate spellcasting ability is Intelligence (spell save DC 18). It can innately cast the following spells, requiring no components: At will: Detect Thoughts, Levitate. 3/day each: Modify Memory, Plane Shift (self only). 1/day each: Dominate Monster, Mass Suggestion."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacle",
+          "description": "Melee Weapon Attack: +7 to hit, reach 30 ft., one target. Hit: 20 (4d8+2) bludgeoning damage. If the target is a Huge or smaller creature, it is grappled (escape DC 15) and takes 9 (1d8+5) psychic damage at the start of each of its turns until the grapple ends."
+        },
+        {
+          "name": "Mind Blast (Recharge 5-6)",
+          "description": "The elder brain magically emits psychic energy. Creatures of the elder brain's choice within 60 feet of it must succeed on a DC 18 Intelligence saving throw or take 32 (5d10+5) psychic damage and be stunned for 1 minute. A target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Psychic Link",
+          "description": "The elder brain targets one incapacitated creature it can perceive with its Creature Sense trait and establishes a psychic link with that creature. Until the psychic link ends, the elder brain can perceive everything the target senses. The target becomes aware that something is linked to its mind once it is no longer incapacitated, and the elder brain can terminate the link at any time (no action required). The target can use an action on its turn to attempt to break the psychic link, doing so with a successful DC 18 Charisma saving throw. On a successful save, the target takes 10 (3d6) psychic damage. The psychic link also ends if the target and the elder brain are more than 5 miles apart, with no consequences to the target."
+        },
+        {
+          "name": "Sense Thoughts",
+          "description": "The elder brain targets a creature with which it has a psychic link. The elder brain gains insight into the target's reasoning, its emotional state, and thoughts that loom large in its mind (including things the target worries about, loves, or hates). The elder brain can also make a Charisma (Deception) check with advantage to deceive the target's mind into thinking it believes one idea or feels a particular emotion. The target contests this attempt with a Wisdom (Insight) check. If the elder brain succeeds, the mind believes the deception for 1 hour or until evidence of the lie is presented to the target."
+        }
+      ],
+      "legendary_actions": [
+        {
+          "name": "Tentacle",
+          "description": "The elder brain makes a tentacle attack."
+        },
+        {
+          "name": "Break Concentration",
+          "description": "The elder brain targets a creature within 120 feet of it with which it has a psychic link. The elder brain breaks the creature's concentration on a spell it has cast. The creature also takes 1d4 psychic damage per level of the spell."
+        },
+        {
+          "name": "Psychic Pulse",
+          "description": "The elder brain targets a creature within 120 feet of it with which it has a psychic link. Enemies of the elder brain within 10 feet of that creature take 10 (3d6) psychic damage."
+        },
+        {
+          "name": "Sever Psychic Link",
+          "description": "The elder brain targets a creature within 120 feet of it with which it has a psychic link. The elder brain ends the link, causing the creature to have disadvantage on all ability checks, attack rolls, and saving throws until the end of the creature's next turn."
+        }
+      ],
+      "legendary_actions_per_round": 3
+    },
+    {
+      "id": "grell",
+      "name": "Grell",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "hit_points": 55,
+      "hit_dice": "10d8+10",
+      "speed": { "walk": 10, "fly": 30, "hover": true },
+      "ability_scores": { "STR": 15, "DEX": 14, "CON": 13, "INT": 12, "WIS": 11, "CHA": 9 },
+      "skills": { "perception": 4, "stealth": 6 },
+      "damage_immunities": ["lightning"],
+      "condition_immunities": ["blinded", "prone"],
+      "senses": { "blindsight": 60, "passive_perception": 14 },
+      "languages": ["Grell"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The grell makes two attacks: one with its tentacles and one with its beak."
+        },
+        {
+          "name": "Tentacles",
+          "description": "Melee Weapon Attack: +4 to hit, reach 10 ft., one creature. Hit: 7 (1d10+2) piercing damage, and the target must succeed on a DC 11 Constitution saving throw or be poisoned for 1 minute. The poisoned target is paralyzed, and it can repeat the saving throw at the end of each of its turns, ending the effect on a success. The target is also grappled (escape DC 15). If the target is Medium or smaller, it is also restrained until this grapple ends. While grappling the target, the grell has advantage on attack rolls against it and can't use this attack against other targets. When the grell moves, any Medium or smaller target it is grappling moves with it."
+        },
+        {
+          "name": "Beak",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 7 (2d4+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "nothic",
+      "name": "Nothic",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 45,
+      "hit_dice": "6d8+18",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 14, "DEX": 16, "CON": 16, "INT": 13, "WIS": 10, "CHA": 8 },
+      "skills": { "arcana": 3, "insight": 4, "perception": 2, "stealth": 5 },
+      "senses": { "truesight": 120, "passive_perception": 12 },
+      "languages": ["Undercommon"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Keen Sight",
+          "description": "The nothic has advantage on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The nothic makes two claw attacks."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) slashing damage."
+        },
+        {
+          "name": "Rotting Gaze",
+          "description": "The nothic targets one creature it can see within 30 feet of it. The target must succeed on a DC 12 Constitution saving throw against this magic or take 10 (3d6) necrotic damage."
+        },
+        {
+          "name": "Weird Insight",
+          "description": "The nothic targets one creature it can see within 30 feet of it. The target must contest its Charisma (Deception) check against the nothic's Wisdom (Insight) check. If the nothic wins, it magically learns one fact or secret about the target. The target automatically wins if it is immune to being charmed."
+        }
+      ]
+    },
+    {
+      "id": "star_spawn_mangler",
+      "name": "Star Spawn Mangler",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Chaotic Evil",
+      "armor_class": 14,
+      "hit_points": 71,
+      "hit_dice": "13d8+13",
+      "speed": { "walk": 40, "climb": 40 },
+      "ability_scores": { "STR": 8, "DEX": 18, "CON": 12, "INT": 11, "WIS": 12, "CHA": 7 },
+      "saving_throws": { "DEX": 7, "CON": 4 },
+      "skills": { "stealth": 7 },
+      "damage_resistances": ["cold"],
+      "damage_immunities": ["psychic"],
+      "condition_immunities": ["charmed", "frightened", "prone"],
+      "senses": { "darkvision": 60, "passive_perception": 11 },
+      "languages": ["Deep Speech"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Ambush",
+          "description": "On the first round of combat, the mangler has advantage on attack rolls against any creature it has surprised."
+        },
+        {
+          "name": "Shadow Stealth",
+          "description": "While in dim light or darkness, the mangler can take the Hide action as a bonus action."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The mangler makes two Claw attacks."
+        },
+        {
+          "name": "Claw",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (1d8+4) slashing damage. If the attack roll has advantage, the target also takes 7 (2d6) psychic damage."
+        },
+        {
+          "name": "Flurry of Claws (Recharge 5-6)",
+          "description": "The mangler makes six Claw attacks. Either before or after these attacks, it can move up to its speed without provoking opportunity attacks."
+        }
+      ]
+    },
+    {
+      "id": "star_spawn_hulk",
+      "name": "Star Spawn Hulk",
+      "size": "Large",
+      "type": "Aberration",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 136,
+      "hit_dice": "13d10+65",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 20, "DEX": 8, "CON": 21, "INT": 7, "WIS": 12, "CHA": 9 },
+      "saving_throws": { "DEX": 3, "WIS": 5 },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["psychic"],
+      "condition_immunities": ["charmed", "frightened"],
+      "senses": { "darkvision": 60, "passive_perception": 11 },
+      "languages": ["Deep Speech"],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Psychic Mirror",
+          "description": "If the hulk takes psychic damage, each creature within 10 feet of the hulk takes that damage instead; the hulk takes none. In addition, the hulk's thoughts and location can't be discerned by magic."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The hulk makes two Slam attacks. If both attacks hit the same target, the target also takes 9 (2d8) psychic damage and must succeed on a DC 17 Constitution saving throw or be stunned until the end of the target's next turn."
+        },
+        {
+          "name": "Slam",
+          "description": "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 14 (2d8+5) bludgeoning damage."
+        },
+        {
+          "name": "Reaping Arms (Recharge 5-6)",
+          "description": "The hulk makes a separate Slam attack against each creature within 10 feet of it. Each creature that is hit must also succeed on a DC 17 Dexterity saving throw or be knocked prone."
+        }
+      ]
+    },
+    {
+      "id": "star_spawn_seer",
+      "name": "Star Spawn Seer",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Neutral Evil",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 153,
+      "hit_dice": "18d8+72",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 14, "DEX": 12, "CON": 18, "INT": 22, "WIS": 19, "CHA": 16 },
+      "saving_throws": { "DEX": 6, "INT": 11, "WIS": 9, "CHA": 8 },
+      "skills": { "perception": 9 },
+      "damage_resistances": ["cold"],
+      "damage_immunities": ["psychic"],
+      "condition_immunities": ["charmed", "frightened"],
+      "senses": { "darkvision": 60, "passive_perception": 19 },
+      "languages": ["Common", "Deep Speech", "Undercommon"],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Out-of-Phase Movement",
+          "description": "The seer can move through other creatures and objects as if they were difficult terrain. Each creature it moves through takes 5 (1d10) psychic damage; no creature can take this damage more than once per turn. The seer takes 5 (1d10) force damage if it ends its turn inside an object."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The seer makes two Comet Staff attacks or uses Psychic Orb twice."
+        },
+        {
+          "name": "Comet Staff",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 9 (1d6+6) bludgeoning damage plus 18 (4d8) psychic damage, and if the target is a creature, it must succeed on a DC 19 Constitution saving throw or be incapacitated until the end of its next turn."
+        },
+        {
+          "name": "Psychic Orb",
+          "description": "Ranged Spell Attack: +11 to hit, range 120 ft., one creature. Hit: 27 (5d10) psychic damage."
+        },
+        {
+          "name": "Collapse Distance (Recharge 6)",
+          "description": "The seer warps space around one creature it can see within 30 feet of it. That creature must make a DC 19 Wisdom saving throw. On a failed save, the target, along with any equipment it is wearing or carrying, is magically teleported up to 60 feet to an unoccupied space the seer can see, and all other creatures within 10 feet of the target's original space each take 39 (6d12) psychic damage. On a successful save, the target takes 19 (3d12) psychic damage."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Bend Space",
+          "description": "When the seer would be hit by an attack, it teleports, exchanging positions with another star spawn it can see within 60 feet of it. The other star spawn is hit by the attack instead."
+        }
+      ]
+    },
+    {
+      "id": "neothelid",
+      "name": "Neothelid",
+      "size": "Gargantuan",
+      "type": "Aberration",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 325,
+      "hit_dice": "21d20+105",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 27, "DEX": 7, "CON": 21, "INT": 3, "WIS": 16, "CHA": 12 },
+      "saving_throws": { "INT": 1, "WIS": 8, "CHA": 6 },
+      "senses": { "blindsight": 120, "passive_perception": 13 },
+      "languages": [],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Creature Sense",
+          "description": "The neothelid is aware of the presence of creatures within 1 mile of it that have an Intelligence score of 4 or higher. It knows the distance and direction to each creature, as well as each creature's Intelligence score, but can't sense anything else about it. A creature protected by a mind blank spell, a nondetection spell, or similar magic can't be perceived in this manner."
+        },
+        {
+          "name": "Innate Spellcasting (Psionics)",
+          "description": "The neothelid's innate spellcasting ability is Wisdom (spell save DC 16). It can innately cast the following spells, requiring no components: At will: Levitate. 1/day each: Confusion, Feeblemind, Telekinesis."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The neothelid has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tentacles",
+          "description": "Melee Weapon Attack: +13 to hit, reach 15 ft., one target. Hit: 21 (3d8+8) bludgeoning damage plus 13 (3d8) psychic damage. If the target is a Large or smaller creature, it must succeed on a DC 18 Strength saving throw or be swallowed by the neothelid. A swallowed creature is blinded and restrained, it has total cover against attacks and other effects outside the neothelid, and it takes 35 (10d6) acid damage at the start of each of the neothelid's turns. If the neothelid takes 30 damage or more on a single turn from a creature inside it, the neothelid must succeed on a DC 18 Constitution saving throw at the end of that turn or regurgitate all swallowed creatures, which fall prone in a space within 10 feet of the neothelid. If the neothelid dies, a swallowed creature is no longer restrained by it and can escape from the corpse by using 20 feet of movement, exiting prone."
+        },
+        {
+          "name": "Acid Breath (Recharge 5-6)",
+          "description": "The neothelid exhales acid in a 60-foot cone. Each creature in that area must make a DC 18 Dexterity saving throw, taking 35 (10d6) acid damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "gauth",
+      "name": "Gauth",
+      "size": "Medium",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 15,
+      "armor_type": "natural armor",
+      "hit_points": 67,
+      "hit_dice": "9d8+27",
+      "speed": { "walk": 0, "fly": 20, "hover": true },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 16, "INT": 15, "WIS": 15, "CHA": 13 },
+      "saving_throws": { "INT": 5, "WIS": 5, "CHA": 4 },
+      "skills": { "perception": 5 },
+      "condition_immunities": ["prone"],
+      "senses": { "darkvision": 120, "passive_perception": 15 },
+      "languages": ["Deep Speech", "Undercommon"],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Stunning Gaze",
+          "description": "When a creature that can see the gauth's central eye starts its turn within 30 feet of the gauth, the gauth can force it to make a DC 14 Wisdom saving throw if the gauth isn't incapacitated and can see the creature. A creature that fails the save is stunned until the start of its next turn. Unless surprised, a creature can avert its eyes at the start of its turn to avoid the saving throw. If the creature does so, it can't see the gauth until the start of its next turn, when it can avert its eyes again. If the creature looks at the gauth in the meantime, it must immediately make the save."
+        },
+        {
+          "name": "Death Throes",
+          "description": "When the gauth dies, the magical energy within it explodes, and each creature within 10 feet of it must make a DC 14 Dexterity saving throw, taking 13 (3d8) force damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 9 (2d8) piercing damage."
+        },
+        {
+          "name": "Eye Rays",
+          "description": "The gauth shoots three of the following magical eye rays at random (reroll duplicates), choosing one to three targets it can see within 120 feet of it: 1. Devour Magic Ray. The targeted creature must succeed on a DC 14 Dexterity saving throw or have one of its magic items lose all magical properties until the start of the gauth's next turn. 2. Enervation Ray. The targeted creature must make a DC 14 Constitution saving throw, taking 18 (4d8) necrotic damage on a failed save, or half as much damage on a successful one. 3. Pushing Ray. The targeted creature must succeed on a DC 14 Strength saving throw or be pushed up to 15 feet directly away from the gauth and have its speed halved until the start of the gauth's next turn. 4. Fire Ray. The targeted creature must succeed on a DC 14 Dexterity saving throw or take 22 (4d10) fire damage. 5. Paralyzing Ray. The targeted creature must succeed on a DC 14 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. 6. Sleep Ray. The targeted creature must succeed on a DC 14 Wisdom saving throw or fall asleep and remain unconscious for 1 minute. The target awakens if it takes damage or another creature takes an action to wake it. This ray has no effect on constructs and undead."
+        }
+      ]
+    },
+    {
+      "id": "gazer",
+      "name": "Gazer",
+      "size": "Tiny",
+      "type": "Aberration",
+      "alignment": "Neutral Evil",
+      "armor_class": 13,
+      "hit_points": 13,
+      "hit_dice": "3d4+6",
+      "speed": { "walk": 0, "fly": 30, "hover": true },
+      "ability_scores": { "STR": 3, "DEX": 17, "CON": 14, "INT": 3, "WIS": 10, "CHA": 7 },
+      "saving_throws": { "WIS": 2 },
+      "skills": { "perception": 4, "stealth": 5 },
+      "condition_immunities": ["prone"],
+      "senses": { "darkvision": 60, "passive_perception": 14 },
+      "languages": [],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Aggressive",
+          "description": "As a bonus action, the gazer can move up to its speed toward a hostile creature that it can see."
+        },
+        {
+          "name": "Mimicry",
+          "description": "The gazer can mimic simple sounds of speech it has heard, in any language. A creature that hears the sounds can tell they are imitations with a successful DC 10 Wisdom (Insight) check."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
+        },
+        {
+          "name": "Eye Rays",
+          "description": "The gazer shoots two of the following magical eye rays at random (reroll duplicates), choosing one or two targets it can see within 60 feet of it: 1. Dazing Ray. The targeted creature must succeed on a DC 12 Wisdom saving throw or be charmed until the start of the gazer's next turn. While the target is charmed in this way, its speed is halved, and it has disadvantage on attack rolls. 2. Fear Ray. The targeted creature must succeed on a DC 12 Wisdom saving throw or be frightened of the gazer until the start of the gazer's next turn. 3. Frost Ray. The targeted creature must succeed on a DC 12 Dexterity saving throw or take 10 (3d6) cold damage. 4. Telekinetic Ray. If the target is a creature that is Medium or smaller, it must succeed on a DC 12 Strength saving throw or be moved up to 30 feet directly away from the gazer. If the target is a Tiny object that isn't being worn or carried, the gazer moves it up to 30 feet in any direction. The gazer can also exert fine control on objects with this ray, such as manipulating a simple tool or opening a container."
+        }
+      ]
+    },
+    {
+      "id": "flumph",
+      "name": "Flumph",
+      "size": "Small",
+      "type": "Aberration",
+      "alignment": "Lawful Good",
+      "armor_class": 12,
+      "hit_points": 7,
+      "hit_dice": "2d6",
+      "speed": { "walk": 5, "fly": 30 },
+      "ability_scores": { "STR": 6, "DEX": 15, "CON": 10, "INT": 14, "WIS": 14, "CHA": 11 },
+      "skills": { "arcana": 4, "history": 4, "religion": 4 },
+      "damage_vulnerabilities": ["psychic"],
+      "senses": { "darkvision": 60, "passive_perception": 12 },
+      "languages": ["understands Undercommon but can't speak", "telepathy 60 ft."],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "Advanced Telepathy",
+          "description": "The flumph can perceive the content of any telepathic communication used within 60 feet of it, and it can't be surprised by creatures with any form of telepathy."
+        },
+        {
+          "name": "Prone Deficiency",
+          "description": "If the flumph is knocked prone, roll a die. On an odd result, the flumph lands upside-down and is incapacitated. At the end of each of its turns, the flumph can make a DC 10 Dexterity saving throw, righting itself and ending the incapacitated condition if it succeeds."
+        },
+        {
+          "name": "Telepathic Shroud",
+          "description": "The flumph is immune to any effect that would sense its emotions or read its thoughts, as well as all divination spells."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tendrils",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 4 (1d4+2) piercing damage plus 2 (1d4) acid damage. At the end of each of its turns, the target must make a DC 10 Constitution saving throw, taking 2 (1d4) acid damage on a failure or ending the recurring acid damage on a success. A lesser restoration spell cast on the target also ends the recurring acid damage."
+        },
+        {
+          "name": "Stench Spray (1/Day)",
+          "description": "Each creature in a 15-foot cone originating from the flumph must succeed on a DC 10 Dexterity saving throw or be coated in a foul-smelling liquid. A coated creature exudes a horrible stench for 1d4 hours. The coated creature is poisoned as long as the stench lasts, and other creatures are poisoned while within 5 feet of the coated creature. A creature can remove the stench on itself by using a short rest to bathe in water, alcohol, or vinegar."
+        }
+      ]
+    },
+    {
+      "id": "cranium_rat",
+      "name": "Cranium Rat",
+      "size": "Tiny",
+      "type": "Aberration",
+      "alignment": "Lawful Evil",
+      "armor_class": 12,
+      "hit_points": 2,
+      "hit_dice": "1d4",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 2, "DEX": 14, "CON": 10, "INT": 4, "WIS": 11, "CHA": 8 },
+      "senses": { "darkvision": 30, "passive_perception": 10 },
+      "languages": ["telepathy 30 ft."],
+      "challenge_rating": "0",
+      "xp": 10,
+      "traits": [
+        {
+          "name": "Illumination",
+          "description": "As a bonus action, the cranium rat can shed dim light from its brain in a 5-foot radius or extinguish the light."
+        },
+        {
+          "name": "Telepathic Shroud",
+          "description": "The cranium rat is immune to any effect that would sense its emotions or read its thoughts, as well as to all divination spells."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage."
+        }
+      ]
+    }
+  ]
+}

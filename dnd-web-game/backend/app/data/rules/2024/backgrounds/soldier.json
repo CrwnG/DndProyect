@@ -1,0 +1,29 @@
+{
+  "id": "soldier",
+  "name": "Soldier",
+  "source": "2024 Player's Handbook",
+  "description": "You trained in the ways of war and have been a part of a military organization. You might have been part of a standing army, a militia, or a mercenary company. You know how to survive the rigors of combat.",
+  "ability_score_increases": {
+    "options": [
+      {"strength": 2, "constitution": 1},
+      {"strength": 1, "constitution": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["athletics", "intimidation"],
+  "tool_proficiency": "Gaming Set (one of your choice)",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["gaming_set", "healer's_kit", "quiver_with_20_arrows", "shortbow", "spear", "pouch", "travelers_clothes"],
+    "gold": 14
+  },
+  "origin_feat": "Savage Attacker",
+  "feature": {
+    "id": "military_rank",
+    "name": "Military Rank",
+    "description": "You have a military rank from your career as a soldier. Soldiers loyal to your former military organization still recognize your authority and influence. You can invoke your rank to exert influence over other soldiers and requisition simple equipment or horses for temporary use. You can also usually gain access to friendly military encampments and fortresses where your rank is recognized."
+  }
+}

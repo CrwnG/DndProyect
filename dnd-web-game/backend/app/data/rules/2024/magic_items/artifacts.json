@@ -1,0 +1,212 @@
+{
+  "rarity": "Artifact",
+  "source": "2024 Dungeon Master's Guide",
+  "description": "Artifacts are unique magic items of tremendous power. They have their own origins and histories, and each is unique. An artifact might have been created by gods or mortals of awesome power. It could have been created during the dawn of time or in the recent past. Destroying an artifact typically requires a special means.",
+  "items": [
+    {
+      "id": "axe_of_the_dwarvish_lords",
+      "name": "Axe of the Dwarvish Lords",
+      "type": "Weapon (battleaxe)",
+      "rarity": "Artifact",
+      "attunement": true,
+      "attunement_requirement": "by a Dwarf",
+      "description": "Seeing the evil that had been wrought upon his people, a dwarven king named Gurdrim rose to challenge the dark forces. He crafted an axe of terrible power. You gain a +3 bonus to attack and damage rolls made with this magic axe. The axe also functions as a Belt of Dwarvenkind, a Dwarven Thrower, and a Sword of Sharpness. Conjure Earth Elemental: Once per day. Invisibility to Dwarves: All dwarves have Disadvantage on attack rolls against you.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1,
+        "minor_detrimental": 2
+      },
+      "destroying": "The only way to destroy the axe is to melt it down in the Foundry of Moradin, the dwarven god's divine forge."
+    },
+    {
+      "id": "book_of_exalted_deeds",
+      "name": "Book of Exalted Deeds",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "attunement_requirement": "by a creature of good alignment",
+      "description": "The definitive treatise on all that is good in the multiverse, the Book of Exalted Deeds figures prominently in many religions. Rather than a single tome, the work is a collection of texts composed by various deities and sages of the Upper Planes. Reading this book over 80 hours grants several benefits: Your Wisdom and Charisma scores become 24 unless already higher. You are protected by a Hallow spell that creates a 60-foot-radius aura around you.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 2
+      },
+      "destroying": "It is rumored that the Book of Exalted Deeds can't be destroyed as long as good exists in the multiverse. However, drowning the book in the River Styx removes all writing and imagery from its pages and renders the book powerless for 1d100 years."
+    },
+    {
+      "id": "book_of_vile_darkness",
+      "name": "Book of Vile Darkness",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "attunement_requirement": "by a creature of evil alignment",
+      "description": "The contents of this foul manuscript of unspeakable wickedness are the meat and drink of those who worship the Lower Planes. No mortal was meant to know the secrets it contains. If a creature of good alignment touches the book, it must make a DC 17 Constitution save or take 8d6 Radiant damage. Reading this book over 80 hours grants several benefits: Your Charisma score becomes 24 unless already higher. You can cast spells related to darkness and corruption.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1,
+        "minor_detrimental": 3,
+        "major_detrimental": 1
+      },
+      "destroying": "The Book of Vile Darkness allows pages to be torn from it, but any evil lore contained on those pages finds its way back into the book eventually. As long as evil exists in the multiverse, the book can't be destroyed. However, if a creature of good alignment reads the entire book without going insane or being corrupted, the book turns to ash and is destroyed for 1d100 years."
+    },
+    {
+      "id": "eye_of_vecna",
+      "name": "Eye of Vecna",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "Seldom is the name Vecna spoken except in a hushed voice. Vecna was, in his time, one of the mightiest of all wizards. Through dark magic and conquest, he forged a terrible empire. For all his power, Vecna couldn't escape his own mortality. To attune to the eye, you must gouge out your own eye and press the artifact into the empty socket. The eye grafts itself to your head and remains there until you die. While attuned, you gain: Truesight, X-ray vision, the ability to cast Eye Bite and other spells, and advantage on saving throws against being charmed.",
+      "random_properties": {
+        "minor_beneficial": 1,
+        "major_beneficial": 1,
+        "minor_detrimental": 1
+      },
+      "destroying": "The Eye of Vecna must be struck with the Sword of Kas by someone attuned to it. The sword must be used to deliver a Coup de Grâce to a creature that is attuned to the eye, and the eye must be in the creature's eye socket at the time."
+    },
+    {
+      "id": "hand_of_vecna",
+      "name": "Hand of Vecna",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "To attune to the hand, you must lop off your left hand at the wrist and the Hand of Vecna grafts itself to your arm. Your alignment shifts to neutral evil, and you gain the following benefits: Your Strength score becomes 20 unless already higher. Melee attacks deal an extra 2d8 Cold damage. You can cast Finger of Death once per day. You have a spellcasting focus for spells that have verbal and somatic components.",
+      "random_properties": {
+        "minor_beneficial": 1,
+        "major_beneficial": 1,
+        "minor_detrimental": 1
+      },
+      "destroying": "The Hand of Vecna can be destroyed only by consuming it with the fire breathed by the ancient red dragon Ashardalon, after using the hand to commit at least three good acts."
+    },
+    {
+      "id": "orb_of_dragonkind",
+      "name": "Orb of Dragonkind",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "Ages past, elves and humans waged a terrible war against evil dragons. When the world seemed doomed, powerful wizards came together and worked their greatest magic, forging five Orbs of Dragonkind to help them defeat the dragons. One orb was taken to each of the five combating nations. While you are attuned to an orb, you can use an action to peer into the orb's depths and speak its command word. You then have control over the dragons within 40 miles.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1,
+        "minor_detrimental": 1
+      },
+      "destroying": "An Orb of Dragonkind appears fragile but is impervious to most damage, including the attacks and breath weapons of dragons. A Disintegrate spell or one good hit from a +3 magic weapon is sufficient to destroy an orb."
+    },
+    {
+      "id": "sword_of_kas",
+      "name": "Sword of Kas",
+      "type": "Weapon (longsword)",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "When Vecna grew in power, he appointed an evil lieutenant, Kas the Bloody-Handed, to act as his bodyguard and assassin. This blade is the only thing known to be able to destroy the artifacts of Vecna. You gain a +3 bonus to attack and damage rolls made with this magic weapon. It has the following additional properties: Critical Hit on 19-20, deals +2d10 slashing damage to undead, grants advantage on attack rolls against Vecna, grants the wielder the ability to cast spells.",
+      "random_properties": {
+        "minor_beneficial": 1,
+        "major_beneficial": 1,
+        "minor_detrimental": 1,
+        "major_detrimental": 1
+      },
+      "destroying": "The Sword of Kas can be destroyed only when it is used to sever the Hand of Vecna."
+    },
+    {
+      "id": "wand_of_orcus",
+      "name": "Wand of Orcus",
+      "type": "Wand",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "The ghastly Wand of Orcus rarely leaves Orcus's side. The device, as evil as its creator, is a rod of obsidian topped by a skull. You can use the wand to kill any creature by pointing it at the creature and speaking a command word (Con save DC 17 or die). The wand has 7 charges and can be used to cast spells including Animate Dead, Blight, Circle of Death, Finger of Death, and Power Word Kill.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1,
+        "minor_detrimental": 2,
+        "major_detrimental": 1
+      },
+      "destroying": "The wand of Orcus can be broken by a creature of good alignment that first bathes the wand in the blood of a slain angel, then anoints it with holy water, and finally speaks the word of power 'athalat' over the wand while standing in a place of overwhelming holiness. The wand reforms in Orcus's layer of the Abyss 1d10 years later."
+    },
+    {
+      "id": "talisman_of_the_sphere",
+      "name": "Talisman of the Sphere",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "When you make an Intelligence (Arcana) check to control a Sphere of Annihilation while you are holding this talisman, you double your proficiency bonus on the check. In addition, when you start your turn with control over a Sphere of Annihilation, you can use an action to levitate the sphere 10 feet plus a number of additional feet equal to 10 × your Intelligence modifier."
+    },
+    {
+      "id": "mighty_servant_of_leuk_o",
+      "name": "Mighty Servant of Leuk-o",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "Named for the warlord who infamously employed it, this artifact is a 10-foot-tall construct designed to serve as a vehicle. It is so massive and complex that it requires two drivers for safe operation. You gain a +1 bonus to AC. The construct has AC 20, 200 HP, and is immune to poison and psychic damage. It has the following speeds: walking 60 ft., swimming 60 ft., flying 60 ft.",
+      "random_properties": {
+        "minor_beneficial": 2
+      },
+      "destroying": "The Mighty Servant of Leuk-o can be destroyed by first disassembling every component of it, each of which must be destroyed in a different way, and then melting the pieces in the heart of a volcano."
+    },
+    {
+      "id": "rod_of_seven_parts",
+      "name": "Rod of Seven Parts",
+      "type": "Rod",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "This rod is said to have been fashioned from fragments of the spear used by the Queen of Chaos against the Wind Dukes of Aaqa in the legendary Battle of Pesh. The rod was shattered into seven pieces and scattered across the planes. When all seven parts are assembled, the Rod of Seven Parts is a +3 magic quarterstaff. It has the following properties for each section: Part 1 (Cure Wounds), Part 2 (Slow), Part 3 (Haste), Part 4 (Control Weather), Part 5 (Heal), Part 6 (Resurrection), Part 7 (Wish).",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1
+      },
+      "destroying": "A fully assembled Rod of Seven Parts can be broken in half only over the knee of a deity, which destroys the rod and releases a wave of pure Law that transforms the creature and plane in a dramatic fashion."
+    },
+    {
+      "id": "teeth_of_dahlver_nar",
+      "name": "Teeth of Dahlver-Nar",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "The Teeth of Dahlver-Nar are the petrified teeth of Dahlver-Nar, a powerful cleric who traveled across the planes. Each tooth bestows a different power when placed in an empty tooth socket. The holder can willingly replace one of their own teeth with a tooth from the set. Each tooth has a unique power based on the creature it came from (dragon, beholder, vampire, etc.).",
+      "random_properties": {
+        "minor_beneficial": 1
+      },
+      "destroying": "Each tooth must be planted in the mouth of a different dead creature before the 24th hour after that creature died. Each creature must then be returned to life. When that happens, all the teeth are destroyed."
+    },
+    {
+      "id": "crook_of_rao",
+      "name": "Crook of Rao",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "Ages ago, the serene god Rao created a tool to shepherd the planes—a shepherd's crook. When the lich Vecna sought to conquer the Flanaess, Rao found champions to wield his artifact. You can use the crook to banish evil extraplanar creatures back to their home planes. You can use an action to force all fiends within 60 feet of you to make a DC 23 Charisma save or be banished to their home plane.",
+      "random_properties": {
+        "minor_beneficial": 2,
+        "major_beneficial": 1
+      },
+      "destroying": "The Crook of Rao can be destroyed if it absorbs the essence of at least ten unique demon lords or archdevils after banishing each one with its Banishment property."
+    },
+    {
+      "id": "demonomicon_of_iggwilv",
+      "name": "Demonomicon of Iggwilv",
+      "type": "Wondrous Item",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "An encyclopedic reference on demons written by the infamous witch Iggwilv. Anyone who attunes to the book must make a DC 20 Charisma save or be possessed by an evil spirit. The book grants access to forbidden knowledge about demons and the Abyss. You can cast spells from the book including Magic Circle, Planar Binding, and Gate (fiends only).",
+      "random_properties": {
+        "minor_beneficial": 1,
+        "major_beneficial": 1,
+        "minor_detrimental": 1,
+        "major_detrimental": 1
+      },
+      "destroying": "To destroy the Demonomicon, someone must trap a number of demon lords within its pages equal to the number of layers of the Abyss, and then burn the book in the fire of the Positive Energy Plane."
+    },
+    {
+      "id": "nightbringer",
+      "name": "Nightbringer",
+      "type": "Weapon (flail)",
+      "rarity": "Artifact",
+      "attunement": true,
+      "description": "This unholy flail was forged from black iron in the depths of Gehenna. The weapon drains light and life from everything around it. You gain a +3 bonus to attack and damage rolls made with this weapon. On a hit, the target takes an extra 3d8 Necrotic damage. Creatures killed by this weapon can't be returned to life except by a Wish spell. The weapon casts Darkness centered on itself at will.",
+      "random_properties": {
+        "minor_beneficial": 1,
+        "major_beneficial": 1,
+        "minor_detrimental": 1,
+        "major_detrimental": 1
+      },
+      "destroying": "Nightbringer must be bathed in the light of the sun for 100 consecutive years on the Positive Energy Plane."
+    }
+  ]
+}

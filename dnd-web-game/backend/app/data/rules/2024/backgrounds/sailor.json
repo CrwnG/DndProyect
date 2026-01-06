@@ -1,0 +1,29 @@
+{
+  "id": "sailor",
+  "name": "Sailor",
+  "source": "2024 Player's Handbook",
+  "description": "You spent your youth aboard a ship, learning the ropes—both literally and figuratively. You've sailed under a captain and crewed with seasoned mariners.",
+  "ability_score_increases": {
+    "options": [
+      {"dexterity": 2, "wisdom": 1},
+      {"dexterity": 1, "wisdom": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["acrobatics", "perception"],
+  "tool_proficiency": "Navigator's Tools",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["navigators_tools", "dagger", "fishing_tackle", "silk_rope_50ft", "pouch", "travelers_clothes"],
+    "gold": 20
+  },
+  "origin_feat": "Tavern Brawler",
+  "feature": {
+    "id": "ships_passage",
+    "name": "Ship's Passage",
+    "description": "When you need to, you can secure free passage on a sailing ship for yourself and your adventuring companions. You might sail on the ship you served on, or another ship you have good relations with. You sail for free, though you and your companions are expected to assist the crew during the voyage."
+  }
+}

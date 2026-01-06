@@ -1,0 +1,1273 @@
+{
+  "metadata": {
+    "version": "2024",
+    "source": "D&D 2024 Monster Manual",
+    "creature_type": "Celestial",
+    "description": "Celestials are creatures native to the Upper Planes, beings of inherent goodness."
+  },
+  "creatures": [
+    {
+      "id": "couatl",
+      "name": "Couatl",
+      "size": "Medium",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 97,
+      "hit_dice": "13d8+39",
+      "speed": {
+        "walk": 30,
+        "fly": 90
+      },
+      "ability_scores": {
+        "STR": 16,
+        "DEX": 20,
+        "CON": 17,
+        "INT": 18,
+        "WIS": 20,
+        "CHA": 18
+      },
+      "saving_throws": {
+        "CON": 5,
+        "WIS": 7,
+        "CHA": 6
+      },
+      "damage_resistances": ["radiant"],
+      "damage_immunities": ["psychic", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": [],
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 15
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Magic Weapons",
+          "description": "The couatl's weapon attacks are magical."
+        },
+        {
+          "name": "Shielded Mind",
+          "description": "The couatl is immune to scrying and to any effect that would sense its emotions, read its thoughts, or detect its location."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one creature. Hit: 8 (1d6 + 5) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 24 hours. Until this poison ends, the target is unconscious. Another creature can use an action to shake the target awake.",
+          "attack_bonus": 8,
+          "damage": "1d6+5",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Constrict",
+          "description": "Melee Weapon Attack: +6 to hit, reach 10 ft., one Medium or smaller creature. Hit: 10 (2d6 + 3) bludgeoning damage, and the target is grappled (escape DC 15). Until this grapple ends, the target is restrained, and the couatl can't constrict another target.",
+          "attack_bonus": 6,
+          "damage": "2d6+3",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Change Shape",
+          "description": "The couatl magically polymorphs into a humanoid or beast that has a challenge rating equal to or less than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the couatl's choice). In a new form, the couatl retains its game statistics and ability to speak, but its AC, movement modes, Strength, Dexterity, and special senses are replaced by those of the new form, and it gains any statistics and capabilities (except class features, legendary actions, and lair actions) that the new form has but that it lacks."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 14,
+        "attack_bonus": 6,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good", "detect magic", "detect thoughts"],
+          "3/day_each": ["bless", "create food and water", "cure wounds", "lesser restoration", "protection from poison", "sanctuary", "shield"],
+          "1/day_each": ["dream", "greater restoration", "scrying"]
+        }
+      }
+    },
+    {
+      "id": "deva",
+      "name": "Deva",
+      "size": "Medium",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 136,
+      "hit_dice": "16d8+64",
+      "speed": {
+        "walk": 30,
+        "fly": 90
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 18,
+        "CON": 18,
+        "INT": 17,
+        "WIS": 20,
+        "CHA": 20
+      },
+      "saving_throws": {
+        "WIS": 9,
+        "CHA": 9
+      },
+      "skills": {
+        "insight": 9,
+        "perception": 9
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 19
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Angelic Weapons",
+          "description": "The deva's weapon attacks are magical. When the deva hits with any weapon, the weapon deals an extra 4d8 radiant damage (included in the attack)."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The deva has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The deva makes two melee attacks."
+        },
+        {
+          "name": "Mace",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) bludgeoning damage plus 18 (4d8) radiant damage.",
+          "attack_bonus": 8,
+          "damage": "1d6+4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Healing Touch (3/Day)",
+          "description": "The deva touches another creature. The target magically regains 20 (4d8 + 2) hit points and is freed from any curse, disease, poison, blindness, or deafness."
+        },
+        {
+          "name": "Change Shape",
+          "description": "The deva magically polymorphs into a humanoid or beast that has a challenge rating equal to or less than its own, or back into its true form. It reverts to its true form if it dies. Any equipment it is wearing or carrying is absorbed or borne by the new form (the deva's choice). In a new form, the deva retains its game statistics and ability to speak, but its AC, movement modes, Strength, Dexterity, and other actions are replaced by those of the new form."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 17,
+        "attack_bonus": 9,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good"],
+          "1/day_each": ["commune", "raise dead"]
+        }
+      }
+    },
+    {
+      "id": "planetar",
+      "name": "Planetar",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 19,
+      "armor_type": "natural armor",
+      "hit_points": 200,
+      "hit_dice": "16d10+112",
+      "speed": {
+        "walk": 40,
+        "fly": 120
+      },
+      "ability_scores": {
+        "STR": 24,
+        "DEX": 20,
+        "CON": 24,
+        "INT": 19,
+        "WIS": 22,
+        "CHA": 25
+      },
+      "saving_throws": {
+        "CON": 12,
+        "WIS": 11,
+        "CHA": 12
+      },
+      "skills": {
+        "perception": 11
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened"],
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 21
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "16",
+      "xp": 15000,
+      "traits": [
+        {
+          "name": "Angelic Weapons",
+          "description": "The planetar's weapon attacks are magical. When the planetar hits with any weapon, the weapon deals an extra 5d8 radiant damage (included in the attack)."
+        },
+        {
+          "name": "Divine Awareness",
+          "description": "The planetar knows if it hears a lie."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The planetar has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The planetar makes two melee attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +12 to hit, reach 5 ft., one target. Hit: 21 (4d6 + 7) slashing damage plus 22 (5d8) radiant damage.",
+          "attack_bonus": 12,
+          "damage": "4d6+7",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Healing Touch (4/Day)",
+          "description": "The planetar touches another creature. The target magically regains 30 (6d8 + 3) hit points and is freed from any curse, disease, poison, blindness, or deafness."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 20,
+        "attack_bonus": 12,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good", "invisibility (self only)"],
+          "3/day_each": ["blade barrier", "dispel evil and good", "flame strike", "raise dead"],
+          "1/day_each": ["commune", "control weather", "insect plague"]
+        }
+      }
+    },
+    {
+      "id": "solar",
+      "name": "Solar",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 21,
+      "armor_type": "natural armor",
+      "hit_points": 243,
+      "hit_dice": "18d10+144",
+      "speed": {
+        "walk": 50,
+        "fly": 150
+      },
+      "ability_scores": {
+        "STR": 26,
+        "DEX": 22,
+        "CON": 26,
+        "INT": 25,
+        "WIS": 25,
+        "CHA": 30
+      },
+      "saving_throws": {
+        "INT": 14,
+        "WIS": 14,
+        "CHA": 17
+      },
+      "skills": {
+        "perception": 14
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["necrotic", "poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "poisoned"],
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 24
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "21",
+      "xp": 33000,
+      "traits": [
+        {
+          "name": "Angelic Weapons",
+          "description": "The solar's weapon attacks are magical. When the solar hits with any weapon, the weapon deals an extra 6d8 radiant damage (included in the attack)."
+        },
+        {
+          "name": "Divine Awareness",
+          "description": "The solar knows if it hears a lie."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The solar has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The solar makes two greatsword attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +15 to hit, reach 5 ft., one target. Hit: 22 (4d6 + 8) slashing damage plus 27 (6d8) radiant damage.",
+          "attack_bonus": 15,
+          "damage": "4d6+8",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Slaying Longbow",
+          "description": "Ranged Weapon Attack: +13 to hit, range 150/600 ft., one target. Hit: 15 (2d8 + 6) piercing damage plus 27 (6d8) radiant damage. If the target is a creature that has 100 hit points or fewer, it must succeed on a DC 15 Constitution saving throw or die.",
+          "attack_bonus": 13,
+          "damage": "2d8+6",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Flying Sword",
+          "description": "The solar releases its greatsword to hover magically in an unoccupied space within 5 feet of it. If the solar can see the sword, the solar can mentally command it as a bonus action to fly up to 50 feet and either make one attack against a target or return to the solar's hands. If the hovering sword is targeted by any effect, the solar is considered to be holding it. The hovering sword falls if the solar dies."
+        },
+        {
+          "name": "Healing Touch (4/Day)",
+          "description": "The solar touches another creature. The target magically regains 40 (8d8 + 4) hit points and is freed from any curse, disease, poison, blindness, or deafness."
+        }
+      ],
+      "legendary_actions": {
+        "actions_per_turn": 3,
+        "actions": [
+          {
+            "name": "Teleport",
+            "description": "The solar magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see.",
+            "cost": 1
+          },
+          {
+            "name": "Searing Burst (Costs 2 Actions)",
+            "description": "The solar emits magical, divine energy. Each creature of its choice in a 10-foot radius must make a DC 23 Dexterity saving throw, taking 14 (4d6) fire damage plus 14 (4d6) radiant damage on a failed save, or half as much damage on a successful one.",
+            "cost": 2
+          },
+          {
+            "name": "Blinding Gaze (Costs 3 Actions)",
+            "description": "The solar targets one creature it can see within 30 feet of it. If the target can see it, the target must succeed on a DC 15 Constitution saving throw or be blinded until magic such as the lesser restoration spell removes the blindness.",
+            "cost": 3
+          }
+        ]
+      },
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 25,
+        "attack_bonus": 17,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good", "invisibility (self only)"],
+          "3/day_each": ["blade barrier", "dispel evil and good", "resurrection"],
+          "1/day_each": ["commune", "control weather"]
+        }
+      }
+    },
+    {
+      "id": "pegasus",
+      "name": "Pegasus",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Chaotic Good",
+      "armor_class": 12,
+      "hit_points": 59,
+      "hit_dice": "7d10+21",
+      "speed": {
+        "walk": 60,
+        "fly": 90
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 15,
+        "CON": 16,
+        "INT": 10,
+        "WIS": 15,
+        "CHA": 13
+      },
+      "saving_throws": {
+        "DEX": 4,
+        "WIS": 4,
+        "CHA": 3
+      },
+      "skills": {
+        "perception": 6
+      },
+      "senses": {
+        "passive_perception": 16
+      },
+      "languages": ["understands Celestial, Common, Elvish, and Sylvan but can't speak"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "actions": [
+        {
+          "name": "Hooves",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage.",
+          "attack_bonus": 6,
+          "damage": "2d6+4",
+          "damage_type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "id": "unicorn",
+      "name": "Unicorn",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 12,
+      "hit_points": 67,
+      "hit_dice": "9d10+18",
+      "speed": {
+        "walk": 50
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 14,
+        "CON": 15,
+        "INT": 11,
+        "WIS": 17,
+        "CHA": 16
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "paralyzed", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 13
+      },
+      "languages": ["Celestial", "Elvish", "Sylvan", "telepathy 60 ft."],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Charge",
+          "description": "If the unicorn moves at least 20 feet straight toward a target and then hits it with a horn attack on the same turn, the target takes an extra 9 (2d8) piercing damage. If the target is a creature, it must succeed on a DC 15 Strength saving throw or be knocked prone."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The unicorn has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The unicorn's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The unicorn makes two attacks: one with its hooves and one with its horn."
+        },
+        {
+          "name": "Hooves",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage.",
+          "attack_bonus": 7,
+          "damage": "2d6+4",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Horn",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage.",
+          "attack_bonus": 7,
+          "damage": "1d8+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Healing Touch (3/Day)",
+          "description": "The unicorn touches another creature with its horn. The target magically regains 11 (2d8 + 2) hit points. In addition, the touch removes all diseases and neutralizes all poisons affecting the target."
+        },
+        {
+          "name": "Teleport (1/Day)",
+          "description": "The unicorn magically teleports itself and up to three willing creatures it can see within 5 feet of it, along with any equipment they are wearing or carrying, to a location the unicorn is familiar with, up to 1 mile away."
+        }
+      ],
+      "legendary_actions": {
+        "actions_per_turn": 3,
+        "actions": [
+          {
+            "name": "Hooves",
+            "description": "The unicorn makes one attack with its hooves.",
+            "cost": 1
+          },
+          {
+            "name": "Shimmering Shield (Costs 2 Actions)",
+            "description": "The unicorn creates a shimmering, magical field around itself or another creature it can see within 60 feet of it. The target gains a +2 bonus to AC until the end of the unicorn's next turn.",
+            "cost": 2
+          },
+          {
+            "name": "Heal Self (Costs 3 Actions)",
+            "description": "The unicorn magically regains 11 (2d8 + 2) hit points.",
+            "cost": 3
+          }
+        ]
+      },
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 14,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good", "druidcraft", "pass without trace"],
+          "1/day_each": ["calm emotions", "dispel evil and good", "entangle"]
+        }
+      }
+    },
+    {
+      "id": "empyrean",
+      "name": "Empyrean",
+      "size": "Huge",
+      "type": "Celestial (Titan)",
+      "alignment": "Chaotic Good (75%) or Neutral Evil (25%)",
+      "armor_class": 22,
+      "armor_type": "natural armor",
+      "hit_points": 313,
+      "hit_dice": "19d12+190",
+      "speed": {
+        "walk": 50,
+        "fly": 50,
+        "swim": 50
+      },
+      "ability_scores": {
+        "STR": 30,
+        "DEX": 21,
+        "CON": 30,
+        "INT": 21,
+        "WIS": 22,
+        "CHA": 27
+      },
+      "saving_throws": {
+        "STR": 17,
+        "INT": 12,
+        "WIS": 13,
+        "CHA": 15
+      },
+      "skills": {
+        "insight": 13,
+        "persuasion": 15
+      },
+      "damage_immunities": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 16
+      },
+      "languages": ["all"],
+      "challenge_rating": "23",
+      "xp": 50000,
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "description": "If the empyrean fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The empyrean has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The empyrean's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Maul",
+          "description": "Melee Weapon Attack: +17 to hit, reach 10 ft., one target. Hit: 31 (6d6 + 10) bludgeoning damage. If the target is a creature, it must succeed on a DC 15 Constitution saving throw or be stunned until the end of the empyrean's next turn.",
+          "attack_bonus": 17,
+          "damage": "6d6+10",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Bolt",
+          "description": "Ranged Spell Attack: +15 to hit, range 600 ft., one target. Hit: 24 (7d6) damage of one of the following types (empyrean's choice): acid, cold, fire, force, lightning, radiant, or thunder.",
+          "attack_bonus": 15,
+          "damage": "7d6",
+          "damage_type": "varies"
+        }
+      ],
+      "legendary_actions": {
+        "actions_per_turn": 3,
+        "actions": [
+          {
+            "name": "Attack",
+            "description": "The empyrean makes one attack.",
+            "cost": 1
+          },
+          {
+            "name": "Bolster",
+            "description": "The empyrean bolsters all nonhostile creatures within 120 feet of it until the end of its next turn. Bolstered creatures can't be charmed or frightened, and they gain advantage on ability checks and saving throws until the end of the empyrean's next turn.",
+            "cost": 2
+          },
+          {
+            "name": "Trembling Strike (Costs 3 Actions)",
+            "description": "The empyrean strikes the ground with its maul, triggering an earth tremor. All other creatures on the ground within 60 feet of the empyrean must succeed on a DC 25 Strength saving throw or be knocked prone.",
+            "cost": 3
+          }
+        ]
+      },
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 23,
+        "innate": true,
+        "spells": {
+          "at_will": ["greater restoration", "pass without trace", "water breathing", "water walk"],
+          "1/day_each": ["commune", "dispel evil and good", "earthquake", "fire storm", "plane shift (self only)"]
+        }
+      }
+    },
+    {
+      "id": "ki_rin",
+      "name": "Ki-rin",
+      "size": "Huge",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 20,
+      "armor_type": "natural armor",
+      "hit_points": 152,
+      "hit_dice": "16d12+48",
+      "speed": {
+        "walk": 60,
+        "fly": 120,
+        "hover": true
+      },
+      "ability_scores": {
+        "STR": 21,
+        "DEX": 16,
+        "CON": 16,
+        "INT": 19,
+        "WIS": 20,
+        "CHA": 20
+      },
+      "skills": {
+        "insight": 9,
+        "perception": 9,
+        "religion": 8
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": {
+        "blindsight": 30,
+        "darkvision": 120,
+        "passive_perception": 19
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Legendary Resistance (3/Day)",
+          "description": "If the ki-rin fails a saving throw, it can choose to succeed instead."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The ki-rin has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The ki-rin's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The ki-rin makes three attacks: two with its hooves and one with its horn."
+        },
+        {
+          "name": "Hoof",
+          "description": "Melee Weapon Attack: +9 to hit, reach 15 ft., one target. Hit: 10 (2d4 + 5) bludgeoning damage.",
+          "attack_bonus": 9,
+          "damage": "2d4+5",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Horn",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) piercing damage.",
+          "attack_bonus": 9,
+          "damage": "2d8+5",
+          "damage_type": "piercing"
+        }
+      ],
+      "legendary_actions": {
+        "actions_per_turn": 3,
+        "actions": [
+          {
+            "name": "Detect",
+            "description": "The ki-rin makes a Wisdom (Perception) check or a Wisdom (Insight) check.",
+            "cost": 1
+          },
+          {
+            "name": "Smite",
+            "description": "The ki-rin makes a hoof attack or casts sacred flame.",
+            "cost": 1
+          },
+          {
+            "name": "Move",
+            "description": "The ki-rin moves up to half its speed without provoking opportunity attacks.",
+            "cost": 1
+          }
+        ]
+      },
+      "spellcasting": {
+        "ability": "WIS",
+        "save_dc": 17,
+        "attack_bonus": 9,
+        "innate": true,
+        "spells": {
+          "at_will": ["gaseous form", "major image", "mending"],
+          "3/day_each": ["cure wounds", "dispel magic", "lesser restoration", "sending"],
+          "1/day_each": ["create food and water", "control weather", "greater restoration", "plane shift", "wind walk"]
+        }
+      }
+    },
+    {
+      "id": "hollyphant",
+      "name": "Hollyphant",
+      "size": "Small",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 36,
+      "hit_dice": "8d6+8",
+      "speed": {
+        "walk": 20,
+        "fly": 120
+      },
+      "ability_scores": {
+        "STR": 10,
+        "DEX": 11,
+        "CON": 12,
+        "INT": 16,
+        "WIS": 19,
+        "CHA": 16
+      },
+      "saving_throws": {
+        "DEX": 3,
+        "CON": 4,
+        "CHA": 6
+      },
+      "damage_resistances": ["bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["poisoned"],
+      "senses": {
+        "passive_perception": 14
+      },
+      "languages": ["Celestial", "telepathy 120 ft."],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Aura of Invulnerability",
+          "description": "An invisible aura forms a 10-foot-radius sphere around the hollyphant for as long as it lives. Any spell of 5th level or lower cast from outside the barrier can't affect creatures or objects within it, even if the spell is cast using a higher level spell slot. Such a spell can target creatures and objects within the barrier, but the spell has no effect on them. Similarly, the area within the barrier is excluded from the areas affected by such spells. The hollyphant can use an action to suppress this trait until its concentration ends (as if concentrating on a spell)."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The hollyphant's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Tusks",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d6) piercing damage.",
+          "attack_bonus": 3,
+          "damage": "1d6",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Trumpet (3/Day)",
+          "description": "The hollyphant blows air through its trunk, creating a trumpet sound that can be heard within 600 feet. The trumpet also creates a 30-foot cone of energy that has one of the following effects, chosen by the hollyphant:\n\nTrumpet of Blasting. Each creature in the cone must make a DC 14 Constitution saving throw. On a failed save, a creature takes 17 (5d6) thunder damage and is deafened for 1 minute. On a successful save, a creature takes half as much damage and isn't deafened.\n\nTrumpet of Sparkles. Creatures in the cone that the hollyphant can see are covered in silver or golden sparkles for 1 minute. While the sparkles last, the creature is a target for celestials."
+        }
+      ],
+      "spellcasting": {
+        "ability": "WIS",
+        "save_dc": 15,
+        "innate": true,
+        "spells": {
+          "2/day_each": ["bless", "cure wounds", "protection from evil and good"],
+          "1/day_each": ["banishment", "heal", "raise dead", "shapechange (into a golden-furred mammoth)", "teleport (with no chance of error)"]
+        }
+      }
+    },
+    {
+      "id": "hound_archon",
+      "name": "Hound Archon",
+      "size": "Medium",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 16,
+      "armor_type": "natural armor",
+      "hit_points": 75,
+      "hit_dice": "10d8+30",
+      "speed": {
+        "walk": 40
+      },
+      "ability_scores": {
+        "STR": 18,
+        "DEX": 14,
+        "CON": 16,
+        "INT": 12,
+        "WIS": 16,
+        "CHA": 14
+      },
+      "saving_throws": {
+        "CON": 6,
+        "WIS": 6
+      },
+      "skills": {
+        "perception": 6,
+        "stealth": 5
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 16
+      },
+      "languages": ["Celestial", "Common", "telepathy 60 ft."],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Aura of Menace",
+          "description": "Any hostile creature that starts its turn within 20 feet of the archon must make a DC 14 Wisdom saving throw, unless the archon is incapacitated. On a failed save, the creature is frightened until the start of its next turn. If a creature's saving throw is successful, the creature is immune to the archon's Aura of Menace for the next 24 hours."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The archon has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Magic Weapons",
+          "description": "The archon's weapon attacks are magical."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The archon makes two attacks: one with its bite and one with its greatsword."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage plus 4 (1d8) radiant damage.",
+          "attack_bonus": 7,
+          "damage": "1d8+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage plus 4 (1d8) radiant damage.",
+          "attack_bonus": 7,
+          "damage": "2d6+4",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Change Shape",
+          "description": "The archon magically polymorphs into a Medium or Small humanoid, or back into its true form. Other than its size, its statistics are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 13,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good"],
+          "1/day_each": ["aid", "continual flame"]
+        }
+      }
+    },
+    {
+      "id": "lantern_archon",
+      "name": "Lantern Archon",
+      "size": "Small",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 12,
+      "hit_points": 13,
+      "hit_dice": "3d6+3",
+      "speed": {
+        "walk": 0,
+        "fly": 60,
+        "hover": true
+      },
+      "ability_scores": {
+        "STR": 1,
+        "DEX": 14,
+        "CON": 12,
+        "INT": 6,
+        "WIS": 14,
+        "CHA": 10
+      },
+      "damage_immunities": ["lightning", "poison"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened", "grappled", "paralyzed", "petrified", "poisoned", "prone", "restrained"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 12
+      },
+      "languages": ["Celestial", "telepathy 60 ft."],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Aura of Light",
+          "description": "The archon sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The archon can dim or brighten its light as a bonus action. Creatures of the archon's choice in the bright light have advantage on saving throws against being frightened."
+        },
+        {
+          "name": "Incorporeal Movement",
+          "description": "The archon can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The archon has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Light Ray",
+          "description": "Ranged Spell Attack: +4 to hit, range 60 ft., one target. Hit: 9 (2d6 + 2) radiant damage.",
+          "attack_bonus": 4,
+          "damage": "2d6+2",
+          "damage_type": "radiant"
+        },
+        {
+          "name": "Gestalt (3/Day)",
+          "description": "Nine lantern archons can combine to form a composite being for up to 10 minutes. The gestalt has the statistics of a deva but retains the lantern archons' Light Ray attack (dealing 5d6 + 2 radiant damage instead). When the gestalt is reduced to 0 hit points, it separates into the original lantern archons."
+        }
+      ],
+      "spellcasting": {
+        "ability": "WIS",
+        "save_dc": 12,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good", "light"]
+        }
+      }
+    },
+    {
+      "id": "trumpet_archon",
+      "name": "Trumpet Archon",
+      "size": "Medium",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 17,
+      "armor_type": "natural armor",
+      "hit_points": 102,
+      "hit_dice": "12d8+48",
+      "speed": {
+        "walk": 30,
+        "fly": 90
+      },
+      "ability_scores": {
+        "STR": 16,
+        "DEX": 18,
+        "CON": 18,
+        "INT": 14,
+        "WIS": 18,
+        "CHA": 20
+      },
+      "saving_throws": {
+        "CON": 8,
+        "WIS": 8,
+        "CHA": 9
+      },
+      "skills": {
+        "perception": 8,
+        "performance": 9
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 18
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Angelic Weapons",
+          "description": "The archon's weapon attacks are magical. When the archon hits with any weapon, the weapon deals an extra 2d8 radiant damage (included in the attack)."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The archon has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The archon makes two longsword attacks."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) slashing damage plus 9 (2d8) radiant damage.",
+          "attack_bonus": 7,
+          "damage": "1d8+3",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Trumpet of Blinding (Recharge 5-6)",
+          "description": "The archon blows its celestial trumpet. Each creature within 30 feet of the archon that can hear it must make a DC 17 Constitution saving throw. On a failed save, a creature takes 21 (6d6) thunder damage and is blinded for 1 minute. On a successful save, a creature takes half as much damage and isn't blinded. A blinded creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+        },
+        {
+          "name": "Healing Touch (3/Day)",
+          "description": "The archon touches another creature. The target magically regains 16 (3d8 + 3) hit points and is freed from any curse, disease, or poison."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 17,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good"],
+          "1/day_each": ["mass cure wounds", "raise dead"]
+        }
+      }
+    },
+    {
+      "id": "angel_of_valor",
+      "name": "Angel of Valor",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Lawful Good",
+      "armor_class": 18,
+      "armor_type": "plate armor",
+      "hit_points": 178,
+      "hit_dice": "17d10+85",
+      "speed": {
+        "walk": 40,
+        "fly": 90
+      },
+      "ability_scores": {
+        "STR": 22,
+        "DEX": 16,
+        "CON": 20,
+        "INT": 14,
+        "WIS": 18,
+        "CHA": 20
+      },
+      "saving_throws": {
+        "STR": 11,
+        "CON": 10,
+        "WIS": 9,
+        "CHA": 10
+      },
+      "skills": {
+        "athletics": 11,
+        "intimidation": 10,
+        "perception": 9
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "condition_immunities": ["charmed", "exhaustion", "frightened"],
+      "senses": {
+        "truesight": 120,
+        "passive_perception": 19
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Angelic Weapons",
+          "description": "The angel's weapon attacks are magical. When the angel hits with any weapon, the weapon deals an extra 4d8 radiant damage (included in the attack)."
+        },
+        {
+          "name": "Aura of Valor",
+          "description": "Allies within 30 feet of the angel can't be frightened while the angel isn't incapacitated. Additionally, allies in the aura add the angel's Charisma modifier (+5) to their saving throws against being charmed or frightened."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The angel has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The angel makes three melee attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage plus 18 (4d8) radiant damage.",
+          "attack_bonus": 11,
+          "damage": "2d6+6",
+          "damage_type": "slashing"
+        },
+        {
+          "name": "Inspiring Presence (1/Day)",
+          "description": "The angel bolsters all allies within 60 feet that can see or hear it. Each affected creature gains 20 temporary hit points and has advantage on attack rolls and saving throws until the end of the angel's next turn."
+        },
+        {
+          "name": "Divine Wrath (Recharge 5-6)",
+          "description": "The angel channels divine fury through its weapon. All creatures in a 20-foot cone must make a DC 18 Dexterity saving throw, taking 36 (8d8) radiant damage on a failed save, or half as much damage on a successful one."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 18,
+        "innate": true,
+        "spells": {
+          "at_will": ["detect evil and good"],
+          "3/day_each": ["dispel magic", "hold person"],
+          "1/day_each": ["flame strike", "holy weapon"]
+        }
+      }
+    },
+    {
+      "id": "radiant_idol",
+      "name": "Radiant Idol",
+      "size": "Large",
+      "type": "Celestial",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 142,
+      "hit_dice": "15d10+60",
+      "speed": {
+        "walk": 40
+      },
+      "ability_scores": {
+        "STR": 23,
+        "DEX": 18,
+        "CON": 19,
+        "INT": 17,
+        "WIS": 20,
+        "CHA": 21
+      },
+      "saving_throws": {
+        "WIS": 10,
+        "CHA": 10
+      },
+      "skills": {
+        "deception": 10,
+        "insight": 10,
+        "perception": 10,
+        "persuasion": 10
+      },
+      "damage_resistances": ["radiant", "bludgeoning, piercing, and slashing from nonmagical attacks"],
+      "senses": {
+        "darkvision": 120,
+        "passive_perception": 20
+      },
+      "languages": ["all", "telepathy 120 ft."],
+      "challenge_rating": "11",
+      "xp": 7200,
+      "traits": [
+        {
+          "name": "Aura of False Divinity",
+          "description": "A creature that starts its turn within 30 feet of the idol must make a DC 18 Wisdom saving throw, provided the idol isn't incapacitated. On a failed save, the creature is charmed by the idol for 1 minute or until the idol harms the creature. A creature charmed in this way views the idol with reverence."
+        },
+        {
+          "name": "Magic Resistance",
+          "description": "The idol has advantage on saving throws against spells and other magical effects."
+        },
+        {
+          "name": "Fallen Grace",
+          "description": "The idol's weapon attacks deal an extra 3d8 radiant or necrotic damage (idol's choice, included in the attack)."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The idol makes two flail attacks."
+        },
+        {
+          "name": "Flail",
+          "description": "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 10 (1d8 + 6) bludgeoning damage plus 13 (3d8) radiant or necrotic damage (idol's choice).",
+          "attack_bonus": 11,
+          "damage": "1d8+6",
+          "damage_type": "bludgeoning"
+        },
+        {
+          "name": "Blinding Bolt",
+          "description": "Ranged Spell Attack: +10 to hit, range 120 ft., one target. Hit: 22 (4d8 + 5) radiant damage, and the target must succeed on a DC 18 Constitution saving throw or be blinded until the end of its next turn.",
+          "attack_bonus": 10,
+          "damage": "4d8+5",
+          "damage_type": "radiant"
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 18,
+        "innate": true,
+        "spells": {
+          "at_will": ["command", "thaumaturgy"],
+          "3/day_each": ["charm person", "hold person"],
+          "1/day_each": ["dominate person", "mass suggestion"]
+        }
+      }
+    },
+    {
+      "id": "guardian_naga",
+      "name": "Guardian Naga",
+      "size": "Large",
+      "type": "Monstrosity",
+      "alignment": "Lawful Good",
+      "armor_class": 18,
+      "armor_type": "natural armor",
+      "hit_points": 127,
+      "hit_dice": "15d10+45",
+      "speed": {
+        "walk": 40
+      },
+      "ability_scores": {
+        "STR": 19,
+        "DEX": 18,
+        "CON": 16,
+        "INT": 16,
+        "WIS": 19,
+        "CHA": 18
+      },
+      "saving_throws": {
+        "DEX": 8,
+        "CON": 7,
+        "INT": 7,
+        "WIS": 8,
+        "CHA": 8
+      },
+      "damage_immunities": ["poison"],
+      "condition_immunities": ["charmed", "poisoned"],
+      "senses": {
+        "darkvision": 60,
+        "passive_perception": 14
+      },
+      "languages": ["Celestial", "Common"],
+      "challenge_rating": "10",
+      "xp": 5900,
+      "traits": [
+        {
+          "name": "Rejuvenation",
+          "description": "If it dies, the naga returns to life in 1d6 days and regains all its hit points. Only a wish spell can prevent this trait from functioning."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one creature. Hit: 8 (1d8 + 4) piercing damage, and the target must make a DC 15 Constitution saving throw, taking 45 (10d8) poison damage on a failed save, or half as much damage on a successful one.",
+          "attack_bonus": 8,
+          "damage": "1d8+4",
+          "damage_type": "piercing"
+        },
+        {
+          "name": "Spit Poison",
+          "description": "Ranged Weapon Attack: +8 to hit, range 15/30 ft., one creature. Hit: The target must make a DC 15 Constitution saving throw, taking 45 (10d8) poison damage on a failed save, or half as much damage on a successful one.",
+          "attack_bonus": 8
+        }
+      ],
+      "spellcasting": {
+        "ability": "WIS",
+        "save_dc": 16,
+        "attack_bonus": 8,
+        "caster_level": 11,
+        "spells": {
+          "cantrips": ["mending", "sacred flame", "thaumaturgy"],
+          "1st_level": ["command", "cure wounds", "shield of faith"],
+          "2nd_level": ["calm emotions", "hold person"],
+          "3rd_level": ["bestow curse", "clairvoyance"],
+          "4th_level": ["banishment", "freedom of movement"],
+          "5th_level": ["flame strike", "geas"],
+          "6th_level": ["true seeing"]
+        },
+        "slots": {
+          "1st": 4,
+          "2nd": 3,
+          "3rd": 3,
+          "4th": 3,
+          "5th": 2,
+          "6th": 1
+        }
+      }
+    }
+  ]
+}

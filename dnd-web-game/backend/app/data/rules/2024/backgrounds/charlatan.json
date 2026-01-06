@@ -1,0 +1,29 @@
+{
+  "id": "charlatan",
+  "name": "Charlatan",
+  "source": "2024 Player's Handbook",
+  "description": "Once you were old enough to order an ale, you embarked on a profitable career selling fake Potions of Healing, snake oil, and similar goods. You know what people want, and you learned to exploit that knowledge.",
+  "ability_score_increases": {
+    "options": [
+      {"dexterity": 2, "charisma": 1},
+      {"dexterity": 1, "charisma": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["deception", "sleight_of_hand"],
+  "tool_proficiency": "Forgery Kit",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["forgery_kit", "costume", "fine_clothes", "pouch"],
+    "gold": 15
+  },
+  "origin_feat": "Skilled",
+  "feature": {
+    "id": "false_identity",
+    "name": "False Identity",
+    "description": "You have created a second identity that includes documentation, established acquaintances, and disguises that allow you to assume that persona. Additionally, you can forge documents including official papers and personal letters, as long as you have seen an example of the kind of document or the handwriting you are trying to copy."
+  }
+}

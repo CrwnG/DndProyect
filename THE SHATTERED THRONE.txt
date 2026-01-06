@@ -1,0 +1,1970 @@
+﻿THE SHATTERED THRONE
+A D&D 5th Edition Campaign for Characters Level 1-6
+Difficulty: Challenging (70% Combat / 30% Story)
+Expected Duration: 25-40 hours of play
+Party Size: 1-4 characters
+Setting: Dark fantasy with horror elements
+________________
+
+
+INTRODUCTION
+Campaign Overview
+The Shattered Throne is a combat-focused dungeon crawl campaign where players must stop the resurrection of Valdris the Undying, a lich-king who ruled the kingdom of Aethermoor three centuries ago. His phylactery was shattered into five fragments and hidden across the land, but a cult called the Ashen Covenant has begun collecting the pieces.
+The players must race against the cult through five dangerous locations, fighting their way to each fragment before the Ashen Covenant can reassemble the phylactery and return Valdris to power.
+Design Philosophy
+This campaign prioritizes:
+* Tactical combat over social encounters
+* Dungeon exploration over open-world travel
+* Difficult encounters that require resource management
+* Clear objectives with minimal narrative ambiguity
+* Escalating threat that builds to a climactic finale
+Running This Campaign
+Combat Difficulty
+Encounters are designed to be challenging. Most combat encounters are rated Hard or Deadly by CR standards. Players should:
+* Use short rests strategically
+* Conserve resources for boss fights
+* Accept that retreat is sometimes necessary
+* Expect character death as a real possibility
+Rest Rules (Recommended)
+* Short Rest: 1 hour (as normal)
+* Long Rest: Only in designated safe areas (marked in the text)
+* Healing Potions: Available for purchase between chapters
+Loot Distribution
+Treasure is placed deliberately. Magic items are rare and impactful. Gold is scarce early and becomes more available in later chapters.
+________________
+
+
+CAMPAIGN BACKGROUND
+The History of Valdris
+Three hundred years ago, the kingdom of Aethermoor prospered under wise rulers. That ended when the court wizard Valdris discovered the secrets of lichdom. He murdered the royal family, raised their corpses as servants, and declared himself the Undying King.
+For fifty years, Valdris ruled from the Obsidian Spire, a tower of black glass that pierced the clouds. The living served as cattle for his experiments. The dead served as his army.
+The Order of the Dawn — paladins, clerics, and wizards united against undeath — finally defeated Valdris in a siege that cost ten thousand lives. They could not destroy him permanently while his phylactery existed, so they shattered it into five pieces and hid them across the ruined kingdom:
+1. The Heart Fragment — Hidden in the crypts beneath the Temple of Dawn
+2. The Eye Fragment — Sealed in the abandoned iron mines of Grimhold
+3. The Hand Fragment — Buried beneath the watchtower of Thornwatch
+4. The Voice Fragment — Sunk in the flooded ruins of Old Aethermoor
+5. The Crown Fragment — Left in the Obsidian Spire itself, guarded by traps
+The Order then sealed Valdris's incorporeal essence in a prison of blessed silver beneath the Spire. They believed he would remain trapped forever.
+They were wrong.
+The Ashen Covenant
+The Ashen Covenant is a cult dedicated to Valdris's return. Founded by descendants of his original followers, they have spent generations searching for the phylactery fragments.
+Three months ago, they found the first piece.
+The cult is led by Sister Morvenna, a former cleric who turned to necromancy after her temple rejected her for experimenting on corpses. She is cunning, patient, and utterly devoted to Valdris.
+Her lieutenants include:
+* Brother Kael — A death knight bound to Valdris's will, leading the cult's undead forces
+* The Whisper — An assassin and spy who has infiltrated multiple settlements
+* Grimjaw — An ogre zombie, Morvenna's personal bodyguard
+The Current Situation
+The adventure begins as the cult attacks Millbrook, a small farming village, searching for information about the crypt locations. The players are present when the attack begins.
+________________
+
+
+CHAPTER 1: THE BLIGHTED VILLAGE
+Character Level: 1
+Location: Millbrook and surrounding farmland
+Objectives:
+* Survive the cult attack on Millbrook
+* Learn about the Ashen Covenant and the phylactery fragments
+* Discover the location of the Sunken Crypts
+* Reach level 2
+Part 1: The Attack on Millbrook
+Scene: Midnight Assault
+Read or paraphrase:
+You've stopped for the night in Millbrook, a farming village of perhaps two hundred souls. The inn is warm, the ale is cheap, and the beds are clean enough. You're just settling in when the screaming starts.
+Through the window, you see torchlight — too much torchlight, moving between the buildings. A woman runs past, clutching a child. Behind her shambles a figure in rotten armor, sword raised.
+The dead have come to Millbrook.
+The village is under attack by the Ashen Covenant. Zombies and skeletons assault from three directions while hooded cultists search specific buildings.
+Village Map
+                   NORTH
+                      |
+    [Farms]---[Barn]--[Church]--[Graveyard]
+       |         |        |          |
+    [Field]--[Square]--[Inn]----[Stable]
+       |         |        |          |
+    [Farm]---[Smith]--[Mill]----[Bridge]
+                      |
+                    SOUTH (Road)
+
+
+Initial Combat: The Village Square
+Encounter: Village Defense (Hard)
+When players exit the inn, they face:
+* 4 Zombies (CR 1/4 each)
+* 2 Skeletons (CR 1/4 each)
+Tactics: Zombies attack the nearest living creature. Skeletons stay at range, firing arrows.
+Terrain:
+* Wooden market stalls provide half cover
+* A well in the center can be used tactically
+* Overturned cart blocks the north path (difficult terrain)
+Development:
+* Round 3: Screams come from the church
+* Round 5: The smith's building catches fire
+The Burning Smithy
+If players investigate the smithy:
+Encounter: Rescue at the Forge (Medium)
+A family is trapped inside the burning building:
+* Tomas the Smith (commoner) — unconscious, smoke inhalation
+* Mira (commoner) — his wife, trying to drag him out
+* Two children hiding under a table
+Hazard: Burning Building
+* Creatures starting their turn inside take 1d6 fire damage
+* Constitution save DC 10 at the start of each turn or be poisoned by smoke until the start of their next turn
+* The roof collapses in 5 rounds, dealing 2d10 bludgeoning damage to all inside (Dex save DC 12 for half)
+Enemies present:
+* 2 Zombies blocking the door
+Reward: If rescued, Tomas reveals the cult was asking about "the crypts beneath the old temple."
+The Church Assault
+The cult's primary target is Father Aldric, an elderly priest who knows the location of the Sunken Crypts.
+Encounter: Sanctuary Breached (Deadly)
+Inside the church:
+* 2 Cultists (CR 1/8 each) — interrogating the priest
+* 1 Cult Fanatic (CR 2) — leading the interrogation
+* 4 Zombies (CR 1/4 each) — guarding the doors
+Tactics:
+* The Cult Fanatic casts hold person on the most dangerous-looking melee character
+* Cultists use daggers and fight to the death
+* Zombies protect the Fanatic
+Father Aldric: An elderly human with white hair and kind eyes. He is wounded (5 HP remaining) when the players arrive.
+Terrain:
+* Wooden pews provide half cover
+* The altar is on a raised platform (+5 ft. elevation)
+* Candles can be knocked over to create fire hazards
+Development: If the Cult Fanatic drops below 10 HP, she attempts to flee, shouting "The Covenant will have the fragments! Valdris rises!"
+Aftermath
+Once the attack is repelled, survivors gather in the church. Father Aldric can provide exposition:
+What Father Aldric Knows:
+* The attackers are the Ashen Covenant, a cult dedicated to the lich Valdris
+* Valdris was defeated 300 years ago, his phylactery shattered
+* One fragment is hidden in the Sunken Crypts, the flooded tombs beneath the Temple of Dawn
+* The temple is a day's travel east, now ruins since the war
+* "They have a head start. If they reach the fragment first, the dead of three centuries will walk again."
+Loot from the Church Fight:
+* Cult Fanatic carries: 15 gp, a crude map showing the temple location, a scroll of inflict wounds
+* Combined from cultists and zombies: 8 gp, 3 daggers, 2 shortswords
+Safe Rest: The church is warded. Players can take a long rest here after the battle.
+________________
+
+
+Part 2: The Road to the Temple
+The journey to the Temple of Dawn takes one day on foot. The road passes through overgrown farmland, abandoned villages, and dark forest.
+Travel Encounters (Roll 1d6)
+Roll once for each half-day of travel:
+d6
+	Encounter
+	1-2
+	No encounter
+	3
+	Wolves — 1d4+1 wolves (CR 1/4 each), hungry and aggressive
+	4
+	Cult Scouts — 2 cultists and 1 zombie on patrol
+	5
+	Corpse Field — A farmstead with 6 bodies. Searching finds 12 gp but awakens 3 zombies
+	6
+	The Hanged Man — A dead cult member swings from a tree, killed by villagers. A note in his pocket contains a partial cult cipher
+	Optional Encounter: The Broken Bridge
+The main road crosses a river via an old stone bridge. The cult has destroyed the center span.
+Crossing Options:
+1. Swim (DC 12 Athletics) — The current is strong. Failure means 1d6 bludgeoning damage and washed 100 feet downstream
+2. Fallen Tree — A tree can be felled (1 hour of work) to create a makeshift bridge. DC 10 Acrobatics to cross
+3. Wade Upstream — 30 minutes detour to find a shallow crossing. Attracts 2 giant frogs (CR 1/4 each) from the marsh
+Arrival at the Temple
+Read or paraphrase:
+The Temple of Dawn was once magnificent. Now it is a ruin — columns toppled, walls crumbled, the great dome collapsed into rubble. Vines crawl over everything, and the symbol of the dawn god has been defaced with ash and blood.
+Fresh footprints lead to a stairway descending into darkness. The cult is already inside.
+The temple ruins are not dangerous, but the crypts below are the first true dungeon.
+Milestone: Characters should reach level 2 before entering the Sunken Crypts.
+________________
+
+
+CHAPTER 2: THE SUNKEN CRYPTS
+Character Level: 2
+Location: The flooded catacombs beneath the Temple of Dawn
+Objectives:
+* Navigate the partially flooded crypts
+* Defeat the cult forces racing for the same prize
+* Recover the Heart Fragment before the cult does
+* Reach level 3
+Dungeon Overview
+The Sunken Crypts are ancient burial chambers that flooded when an underground river changed course decades ago. The water level varies — some areas are merely damp, others are waist-deep, and a few are completely submerged.
+The cult entered an hour before the players. They are moving slower due to their zombie minions' inability to swim.
+Dungeon Features
+Lighting: None. Total darkness unless players provide light.
+Water Depth:
+* Damp — No effect
+* Ankle-deep — Difficult terrain
+* Waist-deep — Difficult terrain, disadvantage on Stealth checks, fire damage halved
+* Submerged — Requires swimming, underwater combat rules apply
+Walls: Carved stone, sturdy. Old burial niches line the walls, most containing skeletal remains.
+Air Quality: Stale but breathable. Some pockets of bad air exist (noted in text).
+Dungeon Map
+LEVEL 1 (Upper Crypts)
+                           
+    ┌─────────────────────────────────────┐
+    │                                     │
+    │   [1. Entry Hall]                   │
+    │        │                            │
+    │   [2. Guard Room]──[3. Armory]      │
+    │        │                            │
+    │   [4. Flooded Corridor]             │
+    │        │         │                  │
+    │   [5. Crypt A]  [6. Crypt B]        │
+    │        │                            │
+    │   [7. Collapsed Hall]               │
+    │        │                            │
+    │   [STAIRS DOWN]                     │
+    │                                     │
+    └─────────────────────────────────────┘
+
+
+LEVEL 2 (Lower Crypts)
+
+
+    ┌─────────────────────────────────────┐
+    │                                     │
+    │   [STAIRS UP]                       │
+    │        │                            │
+    │   [8. Sunken Chapel]                │
+    │        │                            │
+    │   [9. Submerged Passage]            │
+    │        │                            │
+    │   [10. Bone Pit]──[11. Side Crypt]  │
+    │        │                            │
+    │   [12. Guardian Chamber]            │
+    │        │                            │
+    │   [13. The Heart Vault]             │
+    │                                     │
+    └─────────────────────────────────────┘
+
+
+________________
+
+
+Level 1: Upper Crypts
+Room 1: Entry Hall
+Dimensions: 30 ft. x 40 ft., 15 ft. ceiling
+Water Level: Damp
+Light: Dim light from above (broken ceiling)
+Description:
+Stone steps descend into a grand entry hall. Water damage has warped the floor tiles and left green stains on the walls. Four stone pillars support what remains of the ceiling, though one has cracked and leans dangerously. Alcoves along the walls hold moldering burial shrouds.
+Three bodies lie near the far doorway — villagers, recently killed. Their blood hasn't fully dried.
+Features:
+* The bodies are the cult's victims from Millbrook, brought as potential zombie material
+* The cracked pillar can be pushed over with a DC 14 Strength check, dealing 3d6 bludgeoning damage to creatures in a 10-foot line (Dex save DC 12 for half)
+* Searching the alcoves: DC 12 Investigation finds a silver holy symbol worth 25 gp
+Encounter: None initially. If players make significant noise, the guards in Room 2 investigate.
+Room 2: Guard Room
+Dimensions: 20 ft. x 20 ft., 10 ft. ceiling
+Water Level: Ankle-deep
+Light: None
+Description:
+This room was once a checkpoint for temple guards. Stone benches line the walls, and rusted weapon racks stand empty. The water here reaches your ankles, cold and murky. Through the doorway ahead, you hear splashing — something is moving.
+Encounter: Crypt Guardians (Medium)
+* 3 Skeletons (CR 1/4 each) — These are ancient temple guards, animated by the ambient necromantic energy
+* The skeletons attack anyone who isn't undead or bearing a holy symbol of the old temple
+Tactics: Skeletons use the doorways as chokepoints, attacking with rusty shortswords. They do not pursue beyond this room.
+Loot:
+* Rusted shortswords (functional but -1 to damage)
+* Behind a loose stone (DC 14 Perception): 23 gp in old coins, 1 potion of healing
+Room 3: Armory
+Dimensions: 15 ft. x 15 ft., 10 ft. ceiling
+Water Level: Ankle-deep
+Light: None
+Description:
+Rotted weapon racks collapse at a touch. Whatever was stored here has long since rusted to uselessness — except for one item displayed on the far wall, seemingly untouched by time.
+Treasure:
+* Mace of Dawn's First Light — A silvered mace with a sun motif. Functions as a normal mace but deals an extra 1d4 radiant damage to undead. (Valuable for this dungeon!)
+* A moldy leather satchel containing: healer's kit (3 uses remaining), 50 feet of frayed rope
+Trap: The display case is trapped. DC 12 Perception to notice the pressure plate. DC 12 Dexterity check to disarm. If triggered: a blade swings down, +5 to hit, 2d6 slashing damage.
+Room 4: Flooded Corridor
+Dimensions: 60 ft. long, 10 ft. wide, 10 ft. ceiling
+Water Level: Waist-deep
+Light: None
+Description:
+The corridor ahead is flooded to your waist with black, stagnant water. The surface is covered with a thin film of algae. The ceiling is lower here, pressing down oppressively. Something pale floats in the water about halfway down — a body.
+Features:
+* The "body" is a zombie playing dead (Deception +0 vs. Passive Perception). It attacks when creatures pass within 5 feet
+* The water conceals 3-foot-deep pits at random intervals. DC 12 Perception while moving carefully, or fall prone and go underwater
+* Movement is difficult terrain throughout
+Encounter: Ambush Predator (Medium)
+* 1 Zombie (CR 1/4) — The floating corpse
+* 2 Giant Crabs (CR 1/8 each) — Lurking underwater, attack anyone who falls prone
+Tactics: The crabs grapple fallen targets and attempt to drown them (held underwater, can hold breath for 1 + Con modifier minutes, then suffocation rules apply).
+Room 5: Crypt A (Empty Crypt)
+Dimensions: 20 ft. x 30 ft., 8 ft. ceiling
+Water Level: Ankle-deep
+Light: None
+Description:
+This burial chamber holds a dozen stone sarcophagi, their lids askew. The bodies within have been reduced to bones and dust. Someone has recently searched this room — the sarcophagi have been opened and their contents scattered.
+Features:
+* The cult searched here and moved on
+* Signs of passage: wet footprints leading south, discarded torch stubs
+* One sarcophagus lid can be used as improvised cover (three-quarters cover, immobile)
+Loot: Already looted. DC 15 Investigation finds a missed gold ring worth 15 gp wedged in a crack.
+Room 6: Crypt B (Trap Crypt)
+Dimensions: 20 ft. x 30 ft., 8 ft. ceiling
+Water Level: Ankle-deep
+Light: None
+Description:
+Unlike the other crypt, this chamber's sarcophagi remain sealed. Carved warnings in an archaic script cover the walls. In the center of the room, a stone pedestal holds a golden chalice.
+The Chalice: A trap. The chalice is gold-plated brass, worth 5 gp. Taking it triggers the trap.
+Trap: Sealing Tomb
+* Trigger: Lifting the chalice
+* Effect: Stone doors slam shut (DC 20 Strength to force open). Sarcophagi lids slide open, releasing 4 Skeletons. Doors reopen when all skeletons are destroyed or after 10 minutes.
+* Detection: DC 14 Investigation notices the pressure mechanism under the chalice
+* Disarm: DC 14 Dexterity check with thieves' tools, or wedging the doors open before triggering
+Encounter: Sealed with the Dead (Hard)
+* 4 Skeletons (CR 1/4 each) — Ancient guards, sealed here to protect... nothing important
+Room 7: Collapsed Hall
+Dimensions: 40 ft. x 20 ft., varies (5-15 ft.)
+Water Level: Ankle-deep, with deeper pools
+Light: None
+Description:
+The ceiling has partially collapsed here, creating a maze of fallen stone and unstable rubble. Water pools in the lowest points, some deep enough to submerge a halfling entirely. Through the debris, you can see stairs leading down — and hear voices echoing from below.
+Features:
+* Navigating the rubble requires DC 10 Acrobatics or risk dislodging stones (DC 12 Dexterity save or 1d6 bludgeoning damage)
+* A deliberate collapse can be triggered with 10 minutes of work, blocking pursuit from above
+* The voices below are cult members (Room 8)
+Hidden Path: DC 15 Perception finds a narrow crawl space leading directly to Room 11 on Level 2, bypassing several encounters.
+________________
+
+
+Level 2: Lower Crypts
+Room 8: Sunken Chapel
+Dimensions: 50 ft. x 40 ft., 20 ft. ceiling
+Water Level: Waist-deep
+Light: Torches on walls (cult placed them)
+Description:
+This was once a chapel — an altar stands at the far end, half-submerged, and faded murals depict a rising sun. The cult has made camp here. Bedrolls and supplies sit on raised platforms along the walls. Three robed figures argue near the altar while zombies stand motionless in the water.
+"The fragment isn't here," one says. "We go deeper."
+"Sister Morvenna wants it found NOW," another hisses. "Search again!"
+Encounter: Cult Forward Camp (Hard)
+* 3 Cultists (CR 1/8 each)
+* 1 Cult Fanatic (CR 2) — Directing the search
+* 4 Zombies (CR 1/4 each) — Standing in the water
+Tactics:
+* If alerted, cultists take cover behind the altar (three-quarters cover)
+* The Fanatic uses command ("Flee!") to break player formations
+* Zombies advance slowly through difficult terrain
+* One cultist attempts to flee deeper to warn others in Room 10
+Terrain:
+* Raised platforms (5 ft. above water) provide dry ground but expose targets
+* The altar provides three-quarters cover
+* Destroyed sections of floor create 10-foot-deep pools
+Loot:
+* Cult supplies: 4 torches, 2 days of rations, 50 ft. rope
+* On the Fanatic: 20 gp, a letter from "Sister Morvenna" describing the fragment's location ("in the Guardian's chamber, past the bone pit")
+* Hidden in a bedroll (DC 12 Investigation): Potion of healing, vial of antitoxin
+Rest Opportunity: Clearing this room allows a short rest with some risk. Long rest is possible but has a 25% chance of a wandering encounter (1d4 zombies).
+Room 9: Submerged Passage
+Dimensions: 30 ft. long, 10 ft. wide, 6 ft. ceiling
+Water Level: Fully submerged
+Light: None (even with torches, visibility is 10 ft.)
+Description:
+The passage ahead is completely underwater. The current is slight, and you can see the corridor extends perhaps thirty feet before opening into a larger space. There is no way forward without swimming.
+Features:
+* Swimming DC 10 Athletics to make normal progress (half speed)
+* Holding breath: 1 + Constitution modifier minutes (minimum 30 seconds)
+* The passage takes 2 rounds to swim through at normal speed
+* Armor heavier than light imposes disadvantage on Athletics checks to swim
+Hazard: Drowned Grasp
+At the halfway point, skeletal hands reach from burial niches in the walls.
+* 2 Skeletons (CR 1/4 each) — embedded in the walls, grabbing at swimmers
+* Each swimmer must make a DC 12 Strength save or be grappled (escape DC 12)
+* Grappled creatures are held underwater and begin suffocating if they run out of breath
+* Destroying a skeleton (AC 13, 13 HP) frees the grappled creature
+Room 10: Bone Pit
+Dimensions: 40 ft. diameter, domed ceiling 25 ft. high
+Water Level: Ankle-deep around edges, 15 ft. deep pit in center
+Light: None
+Description:
+This circular chamber contains a massive pit filled with bones — thousands of them, the accumulated dead of centuries. The water here drains into the pit, creating a gentle current toward the center. A narrow ledge circles the room, providing access to exits on the north and east walls.
+Something moves in the bone pile. Many somethings.
+Encounter: The Bone Pit (Deadly)
+* 1 Minotaur Skeleton (CR 2) — Assembles from the bones when creatures enter
+* 6 Skeletons (CR 1/4 each) — Rise from the pit over 3 rounds (2 per round)
+Tactics:
+* The Minotaur Skeleton charges the first creature it sees, attempting to knock them into the pit
+* Creatures knocked into the pit take 1d6 bludgeoning damage from the fall and land prone in difficult terrain (bones)
+* Climbing out of the pit requires DC 12 Athletics
+* Skeletons emerge from the bone pile and swarm targets in the pit
+Terrain:
+* The ledge is 5 ft. wide, difficult terrain due to dampness
+* Falling into the pit: 15 ft. fall (1d6 damage), difficult terrain at bottom
+* The bones can be set on fire with oil and flame, dealing 1d6 fire damage per round to creatures in the pit and destroying skeletons that haven't risen yet
+Loot:
+* Buried in the bones (10 minutes of searching, DC 14 Investigation): 45 gp in scattered coins, a silver dagger, a jade amulet worth 50 gp
+Room 11: Side Crypt (Secret Approach)
+Dimensions: 15 ft. x 20 ft., 8 ft. ceiling
+Water Level: Damp
+Light: None
+Description:
+This small crypt connects to the crawl space from above. Four stone sarcophagi stand undisturbed. The air is fresher here — there must be another way out.
+Features:
+* The crawl space from Room 7 emerges here
+* This room is behind the main cult advance; they haven't searched it
+* A hidden door (DC 15 Perception, DC 12 Investigation if searching) leads directly to Room 12, bypassing the Bone Pit
+Treasure:
+* Sarcophagi contain: Bones, rotted burial clothes, and one +1 shield bearing the dawn sun symbol. This shield was buried with a fallen paladin.
+Room 12: Guardian Chamber
+Dimensions: 30 ft. x 30 ft., 15 ft. ceiling
+Water Level: Ankle-deep
+Light: Faint blue glow from the guardian
+Description:
+The chamber ahead pulses with pale blue light. As you enter, you see its source — a towering figure made of bones, standing before an iron door. It stands twelve feet tall, four arms ending in clawed hands, a skull crowned with broken horns. Blue fire burns in its eye sockets.
+A corpse lies at its feet — a cult member, recently killed. The guardian did its job.
+The skull turns toward you. A voice echoes from nowhere: "PROVE YOUR WORTH OR JOIN THE DEAD."
+The Guardian
+This is a construct created by the Order of Dawn to protect the fragment. It will attack anyone who doesn't prove themselves worthy... or who simply attacks it.
+Proving Worthy:
+* Present a holy symbol of a good deity: The guardian steps aside
+* Speak the pass phrase "Dawn breaks eternal": The guardian steps aside (this phrase is found in Father Aldric's records if players asked, or on a scroll in Room 11)
+* Defeating the guardian in combat: The guardian crumbles, the door unlocks
+Encounter: Guardian of the Dawn (Deadly)
+Bone Guardian (Modified Minotaur Skeleton)
+* AC: 14 (natural armor)
+* HP: 85
+* Speed: 30 ft.
+* STR: 18 (+4) DEX: 11 (+0) CON: 16 (+3) INT: 6 (-2) WIS: 10 (+0) CHA: 5 (-3)
+* Damage Vulnerabilities: Bludgeoning
+* Damage Immunities: Poison
+* Condition Immunities: Exhaustion, poisoned
+* Senses: Darkvision 60 ft., passive Perception 10
+* Challenge: 3 (700 XP)
+Actions:
+* Multiattack: The guardian makes two claw attacks.
+* Claw: +6 to hit, reach 10 ft., 2d6+4 slashing damage
+* Gore: +6 to hit, reach 5 ft., 2d8+4 piercing damage
+* Bone Volley (Recharge 5-6): The guardian hurls bone shards in a 15-foot cone. Each creature must make a DC 13 Dexterity save, taking 3d6 piercing damage on a failure, half on success.
+Tactics:
+* Opens with Bone Volley if multiple targets are clustered
+* Focuses attacks on whoever dealt the most damage to it
+* Does not pursue outside this room
+The Iron Door:
+* Locked (DC 20 to pick, DC 25 Strength to force)
+* Opens automatically if the guardian is destroyed or bypassed
+* Trapped with a glyph: DC 15 Perception to notice, DC 15 Arcana to identify. Triggered by forcing/picking, deals 3d6 thunder damage in a 10-foot radius (DC 13 Con save for half)
+Room 13: The Heart Vault
+Dimensions: 20 ft. x 20 ft., 10 ft. ceiling
+Water Level: Dry
+Light: Red glow from the fragment
+Description:
+The vault is dry and pristine, protected by powerful magic. In the center of the room, a stone pedestal holds a crystal case, and within the case, a fragment of something dark — a shard of obsidian that pulses with sickly red light.
+This is the Heart Fragment — one-fifth of Valdris's phylactery.
+As you reach for it, the shadows in the corners of the room begin to move.
+Final Encounter: Shadow of the Heart (Deadly)
+When the fragment is touched, the room's defenses activate:
+* 2 Shadows (CR 1/2 each) — Manifest from the darkness
+Shadow
+* AC 12
+* HP 16
+* Speed 40 ft.
+* Damage Vulnerabilities: Radiant
+* Damage Resistances: Acid, cold, fire, lightning, thunder; bludgeoning, piercing, and slashing from nonmagical attacks
+* Damage Immunities: Necrotic, poison
+* Condition Immunities: Exhaustion, frightened, grappled, paralyzed, petrified, poisoned, prone, restrained
+Strength Drain: Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 2d6+2 necrotic damage, and the target's Strength score is reduced by 1d4. The target dies if this reduces its Strength to 0. Otherwise, the reduction lasts until the target finishes a short or long rest.
+Tactics:
+* Shadows focus on lightly-armored characters with low Strength
+* They use their incorporeal movement to pass through walls and flank
+* The Mace of Dawn's First Light (from Room 3) deals radiant damage, which they are vulnerable to
+The Heart Fragment:
+Once the shadows are defeated, the fragment can be taken. It is a jagged piece of black crystal, cold to the touch, about the size of a fist. It radiates palpable evil.
+Properties:
+* Holding the fragment for more than 1 minute requires a DC 10 Wisdom save or gain one level of exhaustion
+* Wrapping it in cloth or placing it in a container negates this effect
+* It detects as overwhelmingly evil to detect magic/evil spells
+* It cannot be destroyed by normal means
+Chapter Treasure:
+* The Heart Fragment (quest item)
+* In the vault: 150 gp worth of ancient coins, a Potion of Greater Healing, a Scroll of Protection from Evil and Good
+________________
+
+
+Chapter 2 Conclusion
+With the Heart Fragment secured, the players have won the first race against the Ashen Covenant. However, the cult now knows someone is opposing them.
+Returning to Millbrook:
+Father Aldric is relieved but grim:
+"You've done well, but this is only the beginning. Four fragments remain. The cult will be more desperate now — and more dangerous.
+The next fragment — the Eye — was hidden in the iron mines of Grimhold. The mines were abandoned thirty years ago after something... emerged from the deep tunnels. No one goes there now.
+Rest. Prepare. And pray."
+Milestone: Characters should reach level 3 before Chapter 3.
+Rewards:
+* 100 gp from the village treasury
+* Access to Tomas the Smith's services (he survived): Basic weapons and armor at standard prices
+* Father Aldric can cast remove curse or lesser restoration once per day for free
+________________
+
+
+CHAPTER 3: THE IRON MINES OF GRIMHOLD
+Character Level: 3
+Location: Abandoned iron mines in the Grimhold Mountains
+Objectives:
+* Descend into the abandoned mines
+* Survive the creatures that have claimed the darkness
+* Reach the Eye Fragment before the cult
+* Defeat the horror that guards it
+* Reach level 4
+Part 1: Journey to Grimhold
+The Mountain Road
+The mines are three days' travel from Millbrook. The road climbs into the Grimhold Mountains, growing colder and more desolate with each mile.
+Travel Events (one per day):
+Day 1: The Refugee Camp
+A group of refugees has made camp by the roadside — a dozen people with hollow eyes and meager supplies. They fled from a village to the north.
+The refugees share rumors:
+* "The dead walk in the highlands. Whole villages, emptied overnight."
+* "Hooded figures passed through two days ago, heading for the old mines."
+* "They say something woke up in Grimhold. Something that was sleeping for a long time."
+Optional Combat: That night, 4 Ghouls (CR 1) attack the refugee camp. The players can defend them or flee.
+Day 2: The Abandoned Checkpoint
+An old guard tower marks the border of the mining territory. It has been recently occupied — fresh bootprints, a still-warm fire pit, discarded cult robes.
+Clues Found:
+* A hastily-drawn map of the mines' upper levels
+* A coded message: "The Eye sees all. Bring the sacrifice. Morvenna awaits below."
+* Signs of at least 8-10 cult members ahead
+Day 3: Grimhold Approach
+The mine entrance looms in the mountainside — a yawning darkness framed by rotting timber. The wind carries a faint sound from within... something between a moan and a whisper.
+Fresh bodies lie at the entrance. Cult members, but not killed by blade or spell. Their faces are frozen in expressions of absolute terror, and their hair has turned white.
+The Bodies:
+* 3 dead cult members
+* Cause of death: Heart failure (fear)
+* Whatever killed them came from inside the mines
+* Their equipment has been taken (by surviving cult members who went ahead)
+________________
+
+
+Dungeon Overview: The Iron Mines
+The mines are structured in three levels:
+1. Upper Mines — Recently abandoned, relatively safe
+2. Deep Mines — Where the miners dug too deep
+3. The Abyss — The ancient cavern beneath, where the Eye Fragment waits
+Dungeon Features
+Lighting: None. Absolute darkness.
+Air: Gets thinner and more stale as you descend. In the Abyss, there are pockets of poison gas.
+Hazards:
+* Unstable tunnels (collapse risk)
+* Flooded sections
+* Vertical shafts
+* Abandoned mining equipment (some still functional)
+The Horror: Something lives in the deepest parts of the mine. The miners called it "The Dweller." It is never seen clearly, always at the edge of torchlight, always watching.
+Mine Map
+LEVEL 1: UPPER MINES
+
+
+    [Entrance]
+        │
+    [1. Entry Shaft]
+        │
+    [2. Foreman's Office]──[3. Barracks]
+        │
+    [4. Main Tunnel]
+        │         │
+    [5. East Vein] [6. West Vein]──[7. Equipment Storage]
+        │
+    [8. Collapsed Section]
+        │
+    [SHAFT DOWN]
+
+
+LEVEL 2: DEEP MINES
+
+
+    [SHAFT UP]
+        │
+    [9. Junction Chamber]
+        │         │           │
+    [10. Flooded] [11. Mine Cart] [12. Ore Processing]
+        │           Track           │
+    [13. Cultist Camp]      [14. Bone Tunnel]
+        │
+    [15. The Breakthrough]
+        │
+    [DESCENT TO ABYSS]
+
+
+LEVEL 3: THE ABYSS
+
+
+    [ENTRANCE FROM ABOVE]
+        │
+    [16. Crystal Cavern]
+        │
+    [17. The Bridge]
+        │
+    [18. Island of Eyes]
+
+
+________________
+
+
+Level 1: Upper Mines
+Room 1: Entry Shaft
+Dimensions: 40 ft. x 30 ft., 15 ft. ceiling with support beams
+Lighting: Dim natural light from entrance
+Air Quality: Fresh
+Description:
+The entry shaft is reinforced with timber beams, many rotting but still standing. Mining carts sit on rusted tracks leading deeper into the mountain. Tools lie where they were dropped — pickaxes, shovels, lanterns. The miners left in a hurry.
+On the wall, someone has scratched a message: "IT SEES."
+Features:
+* Abandoned mining carts can be pushed along the tracks (useful later)
+* The tool cache includes: 3 pickaxes (improvised weapons, 1d6 piercing), 4 torches, 2 lanterns with oil (8 hours total)
+* Tracks lead to Room 4
+Encounter: None, but sounds echo from deeper in — distant screams, or perhaps just wind.
+Room 2: Foreman's Office
+Dimensions: 20 ft. x 15 ft., 10 ft. ceiling
+Lighting: None
+Air Quality: Stale
+Description:
+A small office carved into the rock. A desk covered in papers, a chair overturned, a bookshelf with mining records. A skeleton in foreman's clothes sits slumped against the wall, a pickaxe through its chest — a suicide or murder, thirty years old.
+Information Found:
+* Foreman's Log: Details the discovery of the "deep cavern" and the strange crystals within. The final entry reads: "The men refuse to work. They say something watches them from the darkness. They say it whispers their names."
+* Map of Level 2: Reliable, shows the Cultist Camp location
+* Key Ring: Opens doors in Rooms 7 and 12
+Loot:
+* Locked strongbox (DC 12 to pick): 35 gp in payroll, a silver pocket watch worth 25 gp
+* A Driftglobe — The foreman's personal light source. Commands: "Light" (as light spell) or "Day" (as daylight, once per dawn). Floats and follows the holder.
+Room 3: Barracks
+Dimensions: 40 ft. x 20 ft., 10 ft. ceiling
+Lighting: None
+Air Quality: Stale, smell of rot
+Description:
+Bunk beds line the walls, blankets rotted to rags. The miners' personal effects remain — boots, clothes, letters from home. Something has been here recently. The bunks have been searched, mattresses torn open.
+In the corner, a body — fresher than the others. A cult member, dead perhaps a day. Something has been... feeding on it.
+Encounter: Dining Rats (Easy)
+* 4 Giant Rats (CR 1/8 each)
+The rats attack if disturbed from their meal. They fight until half are killed, then flee.
+Loot:
+* On the dead cultist: 8 gp, a dagger, a journal describing the cult's mission ("Retrieve the Eye Fragment, eliminate any witnesses")
+* Hidden under a mattress (DC 13 Investigation): A love letter wrapped around a Potion of Healing
+Room 4: Main Tunnel
+Dimensions: 100 ft. long, 15 ft. wide, 12 ft. ceiling
+Lighting: None
+Air Quality: Adequate, slight draft
+Description:
+The main tunnel extends into darkness, mine cart tracks running down the center. The walls show signs of extensive excavation — iron ore was pulled from here for decades. Support beams groan occasionally, and dust falls from the ceiling.
+Features:
+* The tracks function and connect Rooms 1, 5, 6, and 8
+* A mine cart can be ridden (or pushed) at 30 ft. per round
+* The draft suggests airflow from below (the shaft at Room 8)
+Hazard: Unstable Ceiling
+At the midpoint, the ceiling is cracked. Loud noises (combat, shouting) have a 25% chance of triggering a collapse:
+* 10 ft. radius, 3d6 bludgeoning damage (DC 13 Dex save for half)
+* Blocked for 10 minutes of digging (or permanently)
+Encounter: Roll for Random Encounter (see table below)
+Rooms 5 & 6: East and West Veins
+Dimensions: 30 ft. deep, 10 ft. wide, 8 ft. ceiling
+Lighting: None
+Air Quality: Stale
+Description:
+Side tunnels branch from the main passage, following veins of iron ore. These have been picked clean, the walls scarred by decades of excavation. The tunnels dead-end in raw rock.
+East Vein (Room 5):
+* A Swarm of Bats (CR 1/4) roosts here and attacks if disturbed by light
+* Hidden behind rubble (DC 15 Investigation): A miner's cache — 50 gp in a pouch, a flask of dwarven whiskey (worth 10 gp)
+West Vein (Room 6):
+* Contains 3 Zombies (CR 1/4 each) — former miners, still clutching pickaxes
+* These were animated by ambient necromantic energy from the cult's passage
+* Loot: Pickaxes (functional), combined 12 gp in pockets
+Room 7: Equipment Storage
+Dimensions: 25 ft. x 25 ft., 10 ft. ceiling
+Lighting: None
+Air Quality: Stale
+Door: Locked. Key in Room 2, or DC 14 to pick.
+Description:
+This storage room holds the more valuable mining equipment. Crates of iron spikes, coils of rope, barrels of lamp oil, and a rack of specialized tools. Much of it has rusted, but some remains useful.
+Useful Equipment:
+* 200 ft. of rope (hemp, fraying but usable)
+* 50 iron pitons
+* 3 flasks of lamp oil (can be used as improvised fire bombs: 2d6 fire damage in 5-foot radius)
+* 1 crate of mining explosives (3 charges): Each charge deals 5d6 fire damage in a 20-foot radius (DC 14 Dex save for half). VERY LOUD — triggers collapse checks in adjacent rooms.
+* A climber's kit
+* 10 torches
+Room 8: Collapsed Section
+Dimensions: Originally larger, now 20 ft. x 20 ft. with rubble
+Lighting: None
+Air Quality: Dusty, hard to breathe
+Description:
+The tunnel has partially collapsed here, rubble blocking what was once a wider passage. Through gaps in the debris, you can see more tunnel beyond — and a vertical shaft descending into darkness. The cult has cleared a path through the rubble, just wide enough for a person to squeeze through.
+Features:
+* Squeezing through: DC 10 Acrobatics, or DC 14 Strength to widen the path (1 hour, loud)
+* The shaft descends 60 ft. to Level 2
+* A rope and piton system has been installed by the cult — climbing is DC 10 Athletics with the rope, DC 15 without
+Hazard:
+* The rubble is unstable. Combat in this room has a 50% chance of triggering further collapse
+* Collapse: 4d6 bludgeoning damage (DC 14 Dex save for half), buries creatures
+________________
+
+
+Level 2: Deep Mines
+Room 9: Junction Chamber
+Dimensions: 30 ft. diameter, 20 ft. ceiling
+Lighting: None
+Air Quality: Thin
+Description:
+The shaft opens into a junction where several tunnels meet. The air is thin here, and your torchlight seems dimmer — as if the darkness itself pushes back. Three passages lead away: one slopes down into water, one follows old cart tracks, and one is marked with a chalk symbol — a vertical eye.
+Fresh footprints in the dust head toward the eye symbol.
+Features:
+* Passages lead to Rooms 10 (flooded), 11 (cart tracks), and 14 (eye symbol/Bone Tunnel)
+* The chalk symbol marks the cult's route to the Abyss
+* Resting here is possible but uncomfortable (-1 to all healing rolls)
+Encounter: Darkness Watcher
+Something is watching from the shadows. Players with passive Perception 15+ notice:
+* A feeling of being observed
+* A shape at the edge of torchlight that vanishes when looked at directly
+* Faint whispers in a language they don't understand
+This is The Dweller, the horror of Grimhold. It does not attack here — it is learning.
+Room 10: Flooded Tunnel
+Dimensions: 50 ft. long, 10 ft. wide, 8 ft. ceiling
+Water Depth: Starts ankle-deep, reaches ceiling at the end
+Air Quality: Damp, breathable
+Description:
+Water has flooded this tunnel, growing deeper as it slopes down. The far end is completely submerged. Something glints beneath the surface.
+Features:
+* The glinting object is a dead miner's skeleton clutching a +1 dagger
+* Retrieving it requires swimming 30 ft. underwater (DC 10 Athletics, 3 rounds round trip)
+* The water is icy cold: Constitution save DC 12 or gain one level of exhaustion after swimming
+Hazard: Water Weird
+A Water Weird (CR 3) lurks here, bound long ago to guard this passage.
+Water Weird
+* AC 13
+* HP 58
+* Speed 0 ft., swim 60 ft.
+* Damage Resistances: Fire; bludgeoning, piercing, and slashing from nonmagical attacks
+* Damage Immunities: Poison
+* Condition Immunities: Exhaustion, grappled, paralyzed, poisoned, restrained, prone, unconscious
+* Constrict: +5 to hit, 3d6 bludgeoning damage and target is grappled (escape DC 13) and restrained. The weird tries to drag grappled creatures underwater to drown.
+The Water Weird attacks anyone who enters the water. It cannot leave the flooded area.
+Room 11: Mine Cart Track
+Dimensions: 80 ft. tunnel with functional cart track
+Lighting: None
+Air Quality: Adequate
+Description:
+The cart track descends at a gentle slope, curving around corners. An intact mine cart sits at the top, rusted but functional. Someone has oiled the wheels recently.
+Features:
+* Riding the cart: Travels at 60 ft. per round, no check required
+* The track passes through the Ore Processing Room (Room 12) before ending at the Cultist Camp (Room 13)
+* A brake lever controls speed. DC 10 to slow, DC 15 to stop quickly
+Hazard: Runaway Cart
+If the brake fails (25% chance each use after the first):
+* The cart accelerates to 120 ft. per round
+* Crash at the end deals 3d6 bludgeoning damage to all passengers
+* Loud enough to alert everyone in Level 2
+Room 12: Ore Processing
+Dimensions: 40 ft. x 30 ft., 15 ft. ceiling
+Lighting: None
+Air Quality: Dusty
+Door: To a storage area. Locked (key from Room 2 or DC 14 to pick).
+Description:
+Large machines fill this room — ore crushers, smelting furnaces, sorting tables. Everything is rusted and silent. The cart track runs through the center, emerging from a tunnel above and continuing to a loading platform.
+Features:
+* The machines are non-functional but could provide cover
+* The locked storage contains: 200 gp worth of refined iron ingots (heavy, 50 lbs), mining tools, and a Cloak of Protection hidden in a foreman's locker
+Encounter: Mechanical Hazard
+If combat occurs here, there's a 25% chance per round that damaged machinery activates:
+* Ore crusher: DC 14 Dex save or 2d10 bludgeoning damage to random creature within 10 ft.
+* Furnace burst: 15-foot cone of fire, 2d6 fire damage (DC 12 Dex save for half)
+Room 13: Cultist Camp
+Dimensions: 50 ft. x 40 ft., 20 ft. ceiling (natural cavern)
+Lighting: Torches (cult placed)
+Air Quality: Adequate
+Description:
+The tunnel opens into a natural cavern the miners broke into. The cult has established a forward camp here — tents, supplies, a makeshift altar covered in blood. Bodies of sacrificed miners line the walls, preserved by the cold.
+The camp is active. Robed figures kneel before the altar, chanting. Others stand guard.
+Encounter: Cult Forward Base (Deadly)
+* 1 Cult Fanatic (CR 2) — Leading the ritual
+* 4 Cultists (CR 1/8 each) — Chanting
+* 2 Zombies (CR 1/4 each) — Guards
+* 1 Ghoul (CR 1) — The cult's "pet," lurking near the bodies
+Tactics:
+* The Cult Fanatic uses spiritual weapon and hold person
+* Cultists break from chanting to fight if attacked
+* The Ghoul focuses on paralyzed or downed targets
+* If clearly losing, the Fanatic attempts to flee to Room 15 to warn Morvenna
+Altar: The altar radiates evil. Desecrating it (10 minutes of work or dispel magic) grants a blessing: +1 to saving throws against necrotic damage for 24 hours.
+Loot:
+* Cult supplies: 10 days of rations, 100 ft. rope, 20 torches
+* On the Fanatic: 45 gp, a Scroll of Darkness, a key to the cage in Room 14
+* Hidden in a tent (DC 14 Investigation): 80 gp, a letter from Morvenna ("The Eye awaits. Bring the slaves for the final sacrifice.")
+Rest Opportunity: Safe short rest. Long rest has 50% chance of The Dweller encounter.
+Room 14: Bone Tunnel
+Dimensions: 60 ft. long, 10 ft. wide, 8 ft. ceiling
+Lighting: None
+Air Quality: Foul
+Description:
+This tunnel is lined with bones — not human, but something else. Massive ribcages form arches overhead. Skulls the size of wagons grin from the walls. Whatever these creatures were, they've been dead for millennia.
+A cage at the tunnel's end holds prisoners — three emaciated miners, captured by the cult.
+The Bones:
+* Ancient, pre-dating the mine by thousands of years
+* DC 15 Nature or Arcana: These are the bones of ancient creatures, possibly the original inhabitants of this cavern system
+* They are not animated, but they radiate faint necromantic energy
+The Prisoners:
+* 3 survivors from the original mining operation, kept alive for sacrifice
+* They know: The cult is preparing a ritual below, Sister Morvenna is with them, "something terrible" lives in the darkness
+* They can guide players through the Breakthrough to the Abyss (advantage on navigation)
+* The cage is locked (key from Room 13 or DC 14 to pick)
+Room 15: The Breakthrough
+Dimensions: 30 ft. x 30 ft., ceiling opens into a vast chasm
+Lighting: Faint phosphorescent glow from below
+Air Quality: Strange, electric
+Description:
+This is where the miners broke through into something ancient. The floor ends at a jagged hole, perhaps fifty feet across, descending into a void lit by eerie blue-green phosphorescence. Carved handholds lead down the walls — not miner's work, but something older, something purposeful.
+The cult has gone this way. You can hear chanting echoing from far below.
+The Descent:
+* 200 ft. down to the Abyss floor
+* Carved handholds: DC 10 Athletics to climb with rope, DC 15 without
+* Falling: 20d6 bludgeoning damage
+* The cult used ropes (still in place, but a 10% chance per user that they fray and snap)
+The Dweller:
+As the party descends, The Dweller manifests fully for the first time:
+Halfway down, the light below flickers. Something vast moves in the darkness — something that fills the chasm, coiling like smoke. Eyes open in the void. Dozens of them. Hundreds.
+A voice fills your mind: "LITTLE LIGHTS. LITTLE LIVES. THE EYE SEES ALL. THE EYE KNOWS ALL. COME TO ME."
+This is a fear effect. Each character must make a DC 14 Wisdom save or be frightened for 1 minute. Frightened characters have disadvantage on ability checks and attack rolls while they can see any of the eyes.
+The Dweller does not attack during the descent. It is toying with its prey.
+________________
+
+
+Level 3: The Abyss
+Room 16: Crystal Cavern
+Dimensions: 100 ft. diameter, 60 ft. ceiling
+Lighting: Phosphorescent crystals (dim light)
+Air Quality: Pure, unnaturally so
+Description:
+The Abyss is a cavern of impossible beauty. Massive crystals grow from every surface, glowing with inner light — blues, greens, purples. The effect is like standing inside a geode the size of a cathedral.
+Bodies lie among the crystals. Cult members, dead from causes you can't identify. Their eyes are open, staring at nothing, expressions of rapture on their faces.
+A path of worked stone leads deeper in.
+The Crystals:
+* Beautiful but dangerous
+* Touching them requires a DC 12 Wisdom save or become charmed for 1 minute, wanting only to gaze into the crystal's light
+* Charmed creatures won't defend themselves
+* Breaking a crystal (AC 13, 10 HP) releases stored energy: 2d6 psychic damage in a 10-foot radius
+The Dead Cultists:
+* Cause of death: Psychic overload from The Dweller
+* They carry: Combined 40 gp, various weapons (nothing magical)
+Encounter: None immediately, but The Dweller is everywhere here.
+Room 17: The Bridge
+Dimensions: 100 ft. bridge, 20 ft. wide, spanning a bottomless chasm
+Lighting: Crystals below (dim light)
+Air Quality: Cold, still
+Description:
+A stone bridge, carved from living rock, spans a chasm with no visible bottom. The crystals continue down into the void, glittering like stars in reverse. The bridge is narrow, with no railings.
+On the far side, you see your destination — an island of stone floating in the void, connected only by this bridge. On that island, something pulses with dark red light.
+And standing on the bridge, waiting for you, is a woman in ashen robes. Behind her, rows of the dead.
+Sister Morvenna:
+"You've come far, little heroes. Farther than I expected. The first fragment was a surprise — I'll grant you that. But this ends here."
+She raises a hand, and the dead shamble forward.
+"Valdris will rise. The Shattered Throne will be made whole. And you will join the eternal army."
+Encounter: The Bridge Battle (Deadly)
+This is a major boss fight.
+Enemies:
+* 1 Sister Morvenna (see stat block below)
+* 2 Ghouls (CR 1 each)
+* 4 Zombies (CR 1/4 each)
+Sister Morvenna Medium humanoid (human), neutral evil
+* AC: 13 (chain shirt under robes)
+* HP: 52 (8d8+16)
+* Speed: 30 ft.
+* STR: 10 (+0) DEX: 12 (+1) CON: 14 (+2) INT: 16 (+3) WIS: 18 (+4) CHA: 14 (+2)
+* Saving Throws: Wis +6, Cha +4
+* Skills: Arcana +5, Religion +5, Deception +4
+* Senses: Passive Perception 14
+* Languages: Common, Abyssal
+* Challenge: 4 (1,100 XP)
+Spellcasting: Morvenna is a 5th-level spellcaster. Her spellcasting ability is Wisdom (spell save DC 14, +6 to hit with spell attacks).
+Cantrips: chill touch, sacred flame, thaumaturgy 1st level (4 slots): bane, inflict wounds, shield of faith 2nd level (3 slots): hold person, spiritual weapon 3rd level (2 slots): animate dead, spirit guardians
+Actions:
+* Corrupted Staff: Melee Weapon Attack: +2 to hit, reach 5 ft., 1d6 bludgeoning plus 2d6 necrotic damage.
+* Channel Negative Energy (Recharge 5-6): Each creature within 30 feet of Morvenna that is not undead must make a DC 14 Constitution saving throw, taking 4d6 necrotic damage on a failed save, or half as much on a successful one. Undead in the area regain hit points equal to half the damage dealt.
+Tactics:
+* Morvenna opens with spirit guardians (necrotic version) and maintains concentration
+* Uses hold person on the biggest threat
+* Spiritual weapon provides extra damage each round
+* The ghouls try to paralyze targets for easy kills
+* Zombies form a wall on the narrow bridge
+* If reduced to 15 HP or below, Morvenna attempts to flee across the bridge
+Terrain:
+* The bridge is 20 ft. wide with no railings
+* Falling: 10d6 falling damage, then lost in the void (effectively dead without magic)
+* Pushing: Shove attacks can knock creatures over the edge (Athletics vs. Athletics/Acrobatics, no save if prone)
+* The bridge can support combat weight but not explosive force (mining charges would destroy a section)
+Development:
+* If Morvenna flees to Room 18, she attempts to claim the Eye Fragment
+* If killed, her body carries the key to the fragment's containment
+Room 18: Island of Eyes
+Dimensions: 50 ft. diameter floating stone platform
+Lighting: The Eye Fragment (bright red light)
+Air Quality: Charged, electric
+Description:
+The Island of Eyes floats in the void, connected to the bridge and nothing else. The surface is carved with symbols that hurt to look at — eyes within eyes within eyes, fractal and maddening.
+At the center, on a pillar of black stone, sits the Eye Fragment. A shard of obsidian that seems to stare back at you. As you approach, you realize — it literally does. The fragment is carved to resemble an eye, and it tracks your movements.
+The Dweller's voice fills your mind: "YOU HAVE COME TO MY HEART. DO YOU WISH TO SEE? DO YOU WISH TO KNOW? TAKE THE EYE. SEE WHAT I SEE."
+The Eye Fragment:
+Taking the fragment triggers The Dweller's attack.
+Final Encounter: The Dweller in Darkness (Deadly)
+The Dweller is not a single creature but a psychic entity spread throughout the Abyss. What manifests here is an avatar.
+The Dweller's Avatar Large aberration, chaotic evil
+* AC: 14 (natural armor)
+* HP: 90
+* Speed: 0 ft., fly 40 ft. (hover)
+* STR: 16 (+3) DEX: 14 (+2) CON: 18 (+4) INT: 20 (+5) WIS: 16 (+3) CHA: 18 (+4)
+* Saving Throws: Int +8, Wis +6, Cha +7
+* Skills: Perception +6, Insight +6
+* Damage Resistances: Psychic; bludgeoning, piercing, and slashing from nonmagical attacks
+* Condition Immunities: Charmed, frightened, prone
+* Senses: Truesight 120 ft., passive Perception 16
+* Languages: Telepathy 120 ft.
+* Challenge: 5 (1,800 XP)
+Many Eyes: The Dweller cannot be surprised and has advantage on all Perception checks.
+Aura of Madness: Any creature that starts its turn within 20 feet of The Dweller must succeed on a DC 14 Wisdom saving throw or be incapacitated until the start of their next turn as visions flood their mind.
+Actions:
+* Multiattack: The Dweller makes two Psychic Lash attacks.
+* Psychic Lash: Ranged Spell Attack: +8 to hit, range 60 ft., 2d8+5 psychic damage.
+* Mind Flay (Recharge 5-6): The Dweller targets one creature it can see within 60 feet. The target must make a DC 16 Intelligence saving throw, taking 6d6 psychic damage on a failed save, or half as much on a successful one. If this damage reduces the target to 0 hit points, the target is stable but is afflicted with indefinite madness (see DMG).
+* Gaze of Terror (1/Day): The Dweller fixes its many eyes on a 30-foot cone. Each creature in the area must succeed on a DC 14 Wisdom saving throw or be frightened for 1 minute. A frightened creature can repeat the save at the end of each of its turns.
+Legendary Actions (2/round):
+* Shift: The Dweller teleports up to 30 feet.
+* Eye Ray: The Dweller makes one Psychic Lash attack.
+* Summon Shade (Costs 2 Actions): A Shadow (CR 1/2) appears within 30 feet.
+Tactics:
+* Opens with Gaze of Terror to frighten as many as possible
+* Uses Aura of Madness to incapacitate melee attackers
+* Stays at range, using Psychic Lash and Mind Flay
+* Teleports away if cornered
+* Summons Shadows to overwhelm weakened characters
+Weaknesses:
+* The Driftglobe from Room 2 (Level 1) can cast daylight, which suppresses the Aura of Madness while active
+* Radiant damage prevents the Dweller from using Legendary Actions until the end of its next turn
+* If the Eye Fragment is destroyed (AC 15, 30 HP, immune to psychic), The Dweller is banished permanently (but the fragment is lost)
+Victory:
+When The Dweller's avatar is destroyed:
+The entity screams — not with sound, but with psychic force that drives you to your knees. The eyes in the darkness close, one by one, until only the Eye Fragment remains, pulsing on its pillar.
+The voice, weaker now: "You... have... won... this... battle. But I have seen the ending. Valdris rises. The throne... is made whole. And you... you will..."
+Silence. The crystals dim. The Abyss is quiet.
+Loot:
+* The Eye Fragment (quest item)
+* On the pillar beneath the fragment: 200 gp in ancient coins, a Ring of Mind Shielding, a Scroll of Dispel Magic
+* If Morvenna was killed: Her Corrupted Staff (functions as a quarterstaff that deals +1d6 necrotic damage but whispers dark thoughts to its wielder)
+________________
+
+
+Chapter 3 Conclusion
+With two fragments secured, the party has proven themselves a serious threat to the Ashen Covenant. But the cult still has allies, resources, and a head start on the remaining pieces.
+Returning from Grimhold:
+The rescued miners can guide the party safely out. They share information:
+* The cult spoke of "the fortress" and "the siege" — likely referring to Thornwatch
+* Brother Kael, the death knight, leads the cult's military forces
+* The cult is growing desperate; they're taking more risks
+Milestone: Characters should reach level 4.
+Rewards:
+* The gratitude of Grimhold's survivors: Free lodging and supplies in any settlement
+* The Ring of Mind Shielding proves invaluable against psychic threats
+* Father Aldric, upon seeing the Eye Fragment, grows somber: "Two pieces. Three remain. But the cult will not sit idle. They will come for what you carry."
+________________
+
+
+CHAPTER 4: THE SIEGE OF THORNWATCH
+Character Level: 4
+Location: Thornwatch Keep, a frontier fortress
+Objectives:
+* Reach Thornwatch before the cult's army
+* Prepare the fortress's defenses
+* Survive the siege (multiple waves)
+* Recover the Hand Fragment from beneath the keep
+* Reach level 5
+Part 1: The Race to Thornwatch
+Intelligence Gathering
+Father Aldric has been researching while the party was in Grimhold:
+"The Hand Fragment was buried beneath Thornwatch Keep, a fortress built by the Order of Dawn to guard the eastern passes. The keep still stands, manned by a small garrison. But the Ashen Covenant knows its location too."
+He spreads a map on the table. "My sources say the cult is gathering an army of the dead — hundreds, perhaps thousands. They march on Thornwatch. You must reach the keep first and help them prepare... or the fragment and everyone in that fortress will be lost."
+Timeline:
+* The party has 3 days before the cult army arrives
+* Thornwatch is 2 days away at normal pace (1 day if hustling, but arrives exhausted)
+* Every day of early arrival allows more preparation
+Travel to Thornwatch
+Forced March Option: If the party pushes hard (12+ hours of travel per day), they can arrive in 1 day but must make DC 15 Constitution saves or gain one level of exhaustion.
+Standard Pace: 2 days of travel. Roll for one encounter per day.
+Travel Encounters (Roll 1d6):
+d6
+	Encounter
+	1-2
+	No encounter
+	3
+	Cult Scouts — 3 cultists and 2 zombies patrolling. They attempt to flee and warn the army if spotted.
+	4
+	Refugees from Thornwatch — Civilians fleeing in advance. They share intel: "The garrison is preparing, but they don't have enough men."
+	5
+	Ghoul Pack — 4 ghouls, advance scouts of the undead army. No warning ability.
+	6
+	The Fallen Knight — A dying knight from Thornwatch, left behind after a scouting mission went wrong. He carries a message: "Tell Captain Varn... the army is bigger than we thought. Thousands. And something worse leads them. Something dead but... not dead."
+	Arrival at Thornwatch
+Description:
+Thornwatch Keep sits atop a rocky outcrop, commanding views of the eastern passes. It's a functional fortress, not a palace — thick walls, a single gatehouse, a central tower. Soldiers move along the battlements, and you can see preparations underway: barricades, stockpiles of arrows, braziers of burning oil.
+A banner of the dawn sun flies from the tower. The keep has held for three centuries. In three days, it will face its greatest test.
+Meeting Captain Varn:
+Captain Helena Varn is the garrison commander. A scarred woman in her forties, she's a veteran of border wars and has no patience for nonsense.
+"So you're the ones who've been stealing fragments from under the cult's nose. Good. We need every advantage."
+She leads you to a map of the fortress. "I have fifty soldiers. The cult has thousands — mostly undead, but enough living officers to coordinate them. We can hold the walls for a time, but if they bring siege weapons or something we can't counter..."
+She looks at you directly. "I need to know: can you fight? And more importantly, can you get that fragment out of the vault before they breach the walls?"
+________________
+
+
+Part 2: Siege Preparation
+The party has time before the siege begins to prepare defenses, scout the enemy, and access the vault. How they spend this time affects the siege's difficulty.
+Preparation Options
+Each preparation takes 4 hours. The party has 24-72 hours depending on when they arrived.
+Defense Preparations:
+Preparation
+	Effect
+	Requirements
+	Reinforce Gate
+	Gate HP increased by 50
+	DC 14 Athletics, materials provided
+	Train Militia
+	+10 temporary defenders
+	DC 14 Persuasion or Intimidation
+	Set Traps
+	Enemies take 2d6 damage entering kill zones
+	DC 14 Investigation, materials provided
+	Bless Weapons
+	Garrison arrows count as magical for 24 hours
+	Requires cleric/paladin, spell slots
+	Scout Enemy
+	Learn enemy composition and timeline
+	DC 14 Stealth, risk of combat
+	Sabotage
+	Destroy enemy siege equipment (if they have it)
+	DC 16 Stealth, very risky
+	Access Vault
+	Enter the vault and retrieve fragment early
+	See "The Vault" below
+	The Vault:
+The Hand Fragment is sealed in a vault beneath the keep's tower. Captain Varn has the key but warns:
+"The vault has its own guardians. The Order of Dawn didn't trust anyone — not even the garrison. Whatever's down there has been sealed for three centuries."
+Accessing the vault during the siege is dangerous (enemies may breach while the party is below). Accessing it early is safer but uses preparation time.
+________________
+
+
+Part 3: The Siege
+The siege occurs in three waves over two days. Between waves, the party can short rest and make tactical decisions.
+Siege Rules
+Defender Forces:
+* 50 soldiers (or more with militia training)
+* Each soldier has AC 16, 11 HP, attacks at +4 for 1d8+2 damage
+* Soldiers are controlled by the DM as a resource, not individually
+Fortress Features:
+* Walls: 30 feet high, 5 feet thick. AC 17, 100 HP per 10-foot section.
+* Gate: Reinforced oak with iron bands. AC 15, 50 HP (100 if reinforced).
+* Towers: Four corner towers with arrow slits (three-quarters cover).
+* Battlements: Half cover for defenders.
+* Oil Cauldrons: 3 available. Each deals 3d6 fire damage in a 10-foot area when dumped.
+Player Role:
+Players can:
+1. Command — Make tactical decisions, rally troops (Charisma checks)
+2. Fight — Engage directly in combat encounters
+3. Special Actions — Use abilities, spells, or prepared traps
+Each wave includes a Command Phase (tactical decisions) and a Combat Phase (direct fighting).
+________________
+
+
+Wave 1: The Dead Tide (Day 1, Dawn)
+Enemy Forces:
+* 200 Zombies (represented abstractly — see below)
+* 50 Skeletons (archers)
+* 2 Ogre Zombies (battering rams)
+Abstract Combat:
+The horde attacks the walls. For each round of abstract combat:
+* Garrison kills 2d6 zombies (4d6 if blessed weapons or traps used)
+* Horde deals 2d6 damage to a random wall section or the gate
+* Ogre zombies deal 3d10 damage to the gate each round they're alive
+Player Combat Encounter: The Breach Attempt (Hard)
+A group of enemies scales the wall near the party:
+* 6 Zombies climbing ladders
+* 2 Ghouls leading the assault
+* 1 Skeleton Archer Squad (treat as 4 skeletons firing together: +4 to hit, 4d6 piercing)
+Objectives:
+1. Kill the climbers before they establish a foothold
+2. Destroy the ladders (AC 10, 20 HP each)
+3. Optional: Kill the Ogre Zombies at the gate (requires leaving the wall)
+Wave 1 Resolution:
+After 10 rounds, the first wave retreats. Calculate losses:
+* Horde loses 50-80% of zombies depending on defenses
+* Garrison loses 1d6 soldiers (reduced by successful preparations)
+* Gate/wall damage is calculated
+Short Rest Available
+________________
+
+
+Wave 2: The Burning Night (Day 1, Dusk)
+Enemy Forces:
+* 100 remaining Zombies
+* 30 Skeletons
+* 4 Specters (new threat — fly over walls)
+* 1 Flameskull (siege mage)
+New Threat: Specters
+Specters ignore walls entirely, flying over to attack defenders.
+Abstract Combat:
+* Same as Wave 1, but specters kill 1d4 soldiers per round they're active
+* The Flameskull casts fireball at the gate every 3 rounds (8d6 fire damage)
+Player Combat Encounter: The Flying Dead (Deadly)
+The specters and flameskull attack the party directly:
+* 4 Specters (CR 1 each)
+* 1 Flameskull (CR 4)
+Specter
+* AC 12, HP 22
+* Immune to necrotic, poison; resistant to everything except radiant
+* Life Drain: +4 to hit, 3d6 necrotic and reduce max HP by damage dealt
+Flameskull
+* AC 13, HP 40
+* Immune to fire, poison; resistant to piercing
+* Spellcasting: fireball (8d6), magic missile, blur
+* Rejuvenation: Returns in 1 hour unless dispel magic or holy water applied
+Objectives:
+1. Destroy the specters before they decimate the garrison
+2. Kill the flameskull (and properly destroy it)
+3. Protect the gate from flameskull's fireballs
+Wave 2 Resolution:
+After 8 rounds, the second wave retreats. Calculate losses:
+* Remaining horde destroyed or scattered
+* Garrison losses: 2d6 soldiers (spectral attacks are devastating)
+* Gate/wall damage calculated
+Long Rest Available (in shifts)
+________________
+
+
+Wave 3: The Death Knight (Day 2, Noon)
+Enemy Forces:
+* 50 remaining Zombies
+* Brother Kael, Death Knight (the cult's military commander)
+* 2 Wights (Kael's lieutenants)
+* 1 Siege Tower (mobile cover, 60 HP)
+The Commander Arrives:
+The final wave is different. The remaining undead form disciplined ranks. At their head rides a figure in black armor, mounted on a skeletal warhorse. His sword burns with green fire.
+"I AM BROTHER KAEL. SERVANT OF VALDRIS. OPEN YOUR GATES AND I WILL GRANT YOU A CLEAN DEATH. RESIST, AND I WILL RAISE YOUR CORPSES TO SERVE FOR ETERNITY."
+Abstract Combat:
+* The siege tower approaches (reaches walls in 5 rounds)
+* Brother Kael uses hellfire orb (modified fireball) against the gate
+* Zombies are minimal threat; the real danger is Kael himself
+Player Combat Encounter: Death Knight Duel (Deadly+)
+If the siege tower reaches the walls, or if the gate falls, Brother Kael attacks directly.
+Brother Kael, Death Knight Medium undead, lawful evil
+* AC: 18 (plate)
+* HP: 102
+* Speed: 30 ft.
+* STR: 18 (+4) DEX: 14 (+2) CON: 16 (+3) INT: 12 (+1) WIS: 14 (+2) CHA: 16 (+3)
+* Saving Throws: Str +7, Con +6, Wis +5, Cha +6
+* Damage Immunities: Necrotic, poison
+* Condition Immunities: Exhaustion, frightened, poisoned
+* Senses: Darkvision 120 ft., passive Perception 12
+* Challenge: 6 (2,300 XP)
+Magic Resistance: Advantage on saves against spells.
+Spellcasting:
+* At will: command
+* 1/day each: banishment, dispel magic, hellfire orb (as fireball but necrotic)
+Actions:
+* Multiattack: Two greatsword attacks
+* Greatsword: +7 to hit, 2d6+4 slashing plus 2d8 necrotic
+* Hellfire Orb (1/day): 60-foot range, 20-foot radius, 8d6 necrotic (DC 14 Dex for half)
+Reactions:
+* Parry: Add 3 to AC against one melee attack
+Legendary Actions (3/round):
+* Attack: One greatsword attack
+* Command Undead: One allied undead within 60 feet can immediately attack
+* Frightful Presence (Costs 2): Each creature within 30 feet must DC 14 Wis save or be frightened for 1 minute
+Tactics:
+* Opens with Hellfire Orb against grouped defenders
+* Uses Frightful Presence to break morale
+* Focuses on the strongest melee combatant
+* The wights protect him and attack spellcasters
+2 Wights
+* AC 14, HP 45 each
+* Multiattack: Longsword (+4, 1d8+2) and Life Drain (+4, 1d6+2 necrotic, reduce max HP)
+Victory Condition:
+* Kael fights until destroyed (he cannot retreat — Valdris's will compels him)
+* When Kael falls, remaining undead become mindless and attack randomly
+Wave 3 Resolution:
+With Brother Kael destroyed:
+The death knight falls, his armor clattering empty to the ground. The green fire in his blade flickers and dies. Across the battlefield, the remaining undead collapse like puppets with cut strings.
+Thornwatch has held.
+________________
+
+
+Part 4: The Vault Below
+With the siege ended, the party can safely access the vault.
+The Vault Entrance
+Description:
+Beneath the central tower, a spiral stair descends into darkness. Captain Varn's key opens a heavy iron door, revealing a corridor of worked stone, older than the fortress above.
+Vault Room 1: The Antechamber
+Dimensions: 30 ft. x 30 ft., 12 ft. ceiling
+Lighting: Magical torches (permanent continual flame)
+Air Quality: Fresh (magical preservation)
+Description:
+The antechamber is carved with murals depicting the Order of Dawn's victory over Valdris. Knights charge, spells fly, and the lich-king falls. At the center of the far wall, an inscription in silver letters:
+"ONLY THE WORTHY MAY PASS. ONLY THE PURE MAY CLAIM."
+Trial of Worth:
+Three statues stand in alcoves: a warrior, a priest, and a wizard. Approaching the inner door triggers the trial.
+The statues speak in unison: "Prove your worth. Face the trials of Blade, Spirit, and Mind."
+Trial of Blade: A melee combatant must duel the warrior statue.
+Animated Warrior Statue
+* AC 17, HP 60
+* Slam +6, 2d8+4 bludgeoning
+* Immune to poison, psychic
+* The duel is one-on-one. If others interfere, the statue shatters and reforms at full HP
+Trial of Spirit: A character with divine magic must answer three questions truthfully while under zone of truth.
+* "Why do you seek the fragment?"
+* "What would you sacrifice to stop Valdris?"
+* "Do you serve the living or the dead?" (Any honest answer succeeds; deception fails the trial)
+Trial of Mind: A character must solve a riddle:
+"I was born in fire, forged in darkness, shattered by light. I sleep in pieces, dream of wholeness, wake only in night. What am I?"
+Answer: "The phylactery" or "Valdris's phylactery"
+Failure: If any trial fails, 4 Animated Armor (CR 1 each) attack the party.
+Success: The door opens.
+Vault Room 2: The Hand Vault
+Dimensions: 20 ft. x 20 ft., 10 ft. ceiling
+Lighting: Red glow from the fragment
+Air Quality: Cold, still
+Description:
+The inner vault contains a single pedestal, and on it, the Hand Fragment — a piece of black crystal shaped like a grasping claw. Unlike the others, this fragment moves, the fingers flexing slowly as if trying to grip something unseen.
+The Guardian:
+Taking the fragment awakens its final guardian:
+Wraith Guardian Medium undead, neutral evil
+* AC: 13
+* HP: 67
+* Speed: 0 ft., fly 60 ft. (hover)
+* Damage Resistances: Everything except radiant
+* Damage Immunities: Necrotic, poison
+* Condition Immunities: Charmed, exhaustion, grappled, paralyzed, petrified, poisoned, prone, restrained
+* Senses: Darkvision 60 ft.
+* Challenge: 5 (1,800 XP)
+Incorporeal Movement: Move through creatures and objects.
+Sunlight Sensitivity: Disadvantage in sunlight.
+Actions:
+* Life Drain: +6 to hit, 4d8+3 necrotic, reduce max HP by damage dealt. Target dies at 0 max HP and rises as specter.
+* Create Specter (1/day): Target humanoid corpse rises as specter under wraith's control.
+Tactics:
+* Passes through walls to flank
+* Targets lowest-HP character
+* Uses corpses from the siege (if any were brought down) to create specters
+Victory:
+The wraith dissolves with a wail, and the vault falls silent. The Hand Fragment lies still on its pedestal, the grasping motion ceased — for now.
+Loot:
+* The Hand Fragment (quest item)
+* Vault treasures: 300 gp in ancient gold, a +1 longsword etched with dawn symbols, a Periapt of Wound Closure
+________________
+
+
+Chapter 4 Conclusion
+Three fragments secured. Two remain.
+Aftermath at Thornwatch:
+Captain Varn and the survivors are grateful:
+"You saved this fortress. You saved everyone here. When you stop Valdris — and you will stop him — know that Thornwatch stands with you."
+Milestone: Characters should reach level 5.
+Rewards:
+* Captain Varn offers her personal weapon: Varn's Fury, a +1 warhammer that deals an extra 1d6 radiant damage to undead
+* Free supplies, healing, and rest at Thornwatch
+* Information: The Voice Fragment is in the flooded ruins of Old Aethermoor, the Crown Fragment remains in the Obsidian Spire
+Father Aldric's Message:
+A letter arrives by courier:
+"The cult is reeling from their losses. Sister Morvenna survived — she was not at the siege. She has retreated to the Obsidian Spire with what forces remain.
+Two fragments remain. The Voice lies in Old Aethermoor, beneath the waters that swallowed the city. The Crown never left the Spire.
+Morvenna has the cult's remaining strength. She will fortify the Spire. I recommend claiming the Voice first, then assaulting the Spire with all three fragments secured.
+Be swift. Every day Morvenna has to prepare makes your final battle harder.
+—Father Aldric"
+________________
+
+
+CHAPTER 5: THE DROWNED CITY
+Character Level: 5
+Location: Old Aethermoor, the flooded capital
+Objectives:
+* Navigate the sunken ruins
+* Deal with the aquatic horrors that now inhabit the city
+* Locate and recover the Voice Fragment
+* Survive the cult's final ambush
+* Reach level 6
+The Flooded Ruins
+Old Aethermoor was the capital of the kingdom before Valdris's fall. During the siege that killed him, the Order of Dawn broke a dam to flood the city and wash away his undead army. The city has remained underwater ever since — a drowned memorial to the war's devastation.
+Approaching the Ruins
+Description:
+Where a great city once stood, there is now only water. A vast lake stretches before you, placid and dark. Here and there, the tops of buildings break the surface — spires, domes, the peak of what must have been a palace. Birds nest in the ruins. Fish jump in the shallows.
+According to Father Aldric's notes, the Voice Fragment was hidden in the Temple of the Voice — a cathedral to a god of truth and prophecy. The temple's bell tower still rises above the waterline, about a mile from shore.
+Getting There
+The temple is 1 mile into the flooded city. Options:
+1. Swim — Exhausting (Constitution saves every 30 minutes, DC 12 or gain exhaustion) and dangerous
+2. Boat — A fishing village nearby can provide boats for 10 gp. Boat holds 4 people.
+3. Magic — Water breathing, water walk, etc. make everything easier
+The Flooded City Map
+SURFACE VIEW
+
+
+    [Shore]
+       │
+    [Shallow Ruins] ─── [Merchant District]
+       │                      │
+    [Sunken Plaza] ─── [Noble Quarter]
+       │                      │
+    [Canal District] ─── [Temple District]
+       │                      │
+    [Palace Ruins]      [TEMPLE OF THE VOICE]
+
+
+The journey passes through several areas. Each has potential encounters.
+________________
+
+
+Journey Through the Ruins
+Area 1: Shallow Ruins
+Water Depth: 3-6 feet
+Visibility: Clear
+Description:
+The outer ruins are barely submerged. Rooftops break the surface, and you can pole a boat between the buildings. Fish dart through broken windows. The city is eerily preserved — the flood killed everyone, but it also stopped time.
+Encounter: Scavengers (Medium)
+A band of Sahuagin has claimed these waters.
+* 4 Sahuagin (CR 1/2 each)
+Sahuagin
+* AC 12, HP 22
+* Speed 30 ft., swim 40 ft.
+* Multiattack: 2 claw attacks (+3, 1d4+1) or spear (+3, 1d6+1)
+* Blood Frenzy: Advantage on attacks against wounded targets
+* Limited Amphibiousness: Can breathe air for 4 hours
+Tactics:
+* Attack from underwater, dragging targets below
+* Focus on wounded targets (Blood Frenzy)
+* Flee if outmatched; they're scouts, not suicidal
+Development: If captured alive, a sahuagin reveals that their tribe has claimed the Temple District. A "great beast" serves their priestess.
+Area 2: The Sunken Plaza
+Water Depth: 10-15 feet
+Visibility: Murky
+Description:
+A great plaza lies beneath you, visible through the green water. Statues of kings and heroes stand in rows, arms raised as if frozen mid-gesture. At the center, a fountain — still somehow flowing, a bubble of air around it.
+The Fountain:
+The fountain is magical, blessed by a god of waters long ago. The bubble of air provides a safe rest point.
+* Inside the bubble: Normal breathing, dry conditions
+* The fountain provides healing water: Drinking it restores 2d4+2 HP (once per creature per day)
+* The bubble holds 6 Medium creatures comfortably
+Hidden Treasure:
+In the fountain basin (DC 15 Investigation): A Ring of Swimming (grants swim speed 40 ft., can breathe underwater for 1 hour per day)
+Area 3: Canal District
+Water Depth: 20-30 feet
+Visibility: Poor (dim light below 10 feet)
+Description:
+The canals that once carried gondolas and trade barges are now dark chasms between drowned buildings. Something large moves in the depths — a shadow that dwarfs your boat.
+Encounter: The Lurker (Hard)
+A Giant Octopus (CR 1) has made this area its home, but it's not alone — it serves as a mount and pet for a Merrow (CR 2).
+Merrow
+* AC 13, HP 45
+* Speed 10 ft., swim 40 ft.
+* Multiattack: Bite (+6, 1d8+4) and Claws (+6, 2d4+4)
+* Harpoon (ranged 60 ft.): +6 to hit, 2d6+4 piercing, and target is pulled 20 feet toward the merrow
+Giant Octopus
+* AC 11, HP 52
+* Tentacles: +5 to hit, 2d6+3 bludgeoning, and target is grappled (escape DC 16)
+* Ink Cloud: 20-foot radius obscured water, 1/short rest
+Tactics:
+* The octopus grapples and constricts while the merrow attacks with its harpoon
+* Ink cloud to escape if losing
+* Both fight to the death (territorial)
+Area 4: Temple District
+Water Depth: 15-25 feet
+Visibility: Moderate
+Description:
+Temples to a dozen gods rise from the water, their domes and spires breaching the surface. Most are ruined, their doors open to the flood. But one — the Temple of the Voice — stands relatively intact, its great bell tower rising fifty feet above the lake.
+Sahuagin patrol these waters in numbers. They've claimed the temple as their home.
+The Sahuagin Tribe:
+A tribe of 20+ sahuagin lives in the Temple District. They're led by a Sahuagin Priestess who has discovered the Voice Fragment and uses its power to command the tribe.
+Approaching the Temple:
+Two options:
+1. Stealth: DC 15 Stealth to approach undetected (underwater grants advantage)
+2. Force: Fight through patrols (see below)
+Patrol Encounter (Medium):
+* 6 Sahuagin (CR 1/2 each)
+* Alert reinforcements if not killed quickly (3 rounds)
+________________
+
+
+The Temple of the Voice
+Temple Features
+Structure: A grand cathedral, mostly intact but flooded to the second floor. The upper levels (including the bell tower) are above water.
+Layout:
+SIDE VIEW
+
+
+    [Bell Tower] ← Voice Fragment location
+         │
+    [Upper Choir] ← Above water
+         │
+    [Main Hall] ← Partially flooded
+         │
+    [Entry] ← Fully flooded
+         │
+    [Catacombs] ← Fully flooded
+
+
+Temple Encounters
+Entry (Flooded):
+* Water Depth: 20 feet to ceiling
+* Guardians: 4 Sahuagin guards
+Main Hall (Partially Flooded):
+* Water Depth: 10 feet; balconies and choir loft above water
+* Guardians: 2 Sahuagin, 1 Giant Octopus (the priestess's pet)
+Upper Choir (Dry):
+* Access: Climb or swim up through the flooded hall
+* Guardians: The Sahuagin Priestess and her elite guards
+Encounter: The Priestess of the Drowned (Deadly)
+Sahuagin Priestess Medium humanoid (sahuagin), lawful evil
+* AC: 12 (natural armor)
+* HP: 71 (11d8+22)
+* Speed: 30 ft., swim 40 ft.
+* STR: 13 (+1) DEX: 11 (+0) CON: 14 (+2) INT: 12 (+1) WIS: 16 (+3) CHA: 14 (+2)
+* Skills: Perception +6, Religion +4
+* Senses: Darkvision 120 ft.
+* Challenge: 4 (1,100 XP)
+Blood Frenzy: Advantage on melee attacks against wounded creatures.
+Spellcasting (Cleric):
+* Cantrips: guidance, sacred flame, thaumaturgy
+* 1st level (4 slots): bless, command, inflict wounds
+* 2nd level (3 slots): hold person, spiritual weapon
+* 3rd level (2 slots): mass healing word, spirit guardians
+Actions:
+* Multiattack: Bite and claws, or two trident attacks
+* Bite: +4 to hit, 1d4+1 piercing
+* Claws: +4 to hit, 1d4+1 slashing
+* Trident: +4 to hit, 1d6+1 piercing
+Voice Fragment Power: The priestess has attuned to the Voice Fragment, granting:
+* Command as a bonus action (1/round)
+* Telepathy 60 ft.
+* Creatures that hear her voice make Wisdom saves at disadvantage
+Entourage:
+* 2 Sahuagin Champions (Sahuagin with 45 HP and +5 to hit)
+* 2 Sahuagin (standard)
+Tactics:
+* Opens with spirit guardians (necrotic damage)
+* Uses the Voice Fragment's command (bonus action) to disable threats
+* Champions protect her while she casts
+* Attempts to push enemies into the flooded areas below
+The Bell Tower (Dry):
+After defeating the priestess, access to the bell tower is clear.
+Description:
+The bell tower rises above the flood, open to the sky. A great bronze bell hangs silent above. Below it, on a pedestal of carved stone, rests the Voice Fragment — a shard of black crystal that seems to hum with unspoken words.
+As you approach, the humming grows louder. Words form in your mind — not hostile, but questioning:
+"Who speaks? Who commands? The Voice remembers all. The Voice speaks all truths. Will you hear the truth of Valdris?"
+The Voice Fragment's Revelation:
+If the party accepts, the fragment shows a vision:
+You see Valdris in life — a young wizard, brilliant and ambitious. You see his corruption, his transformation, his reign of terror. You see the Order of Dawn's victory, the shattering of the phylactery.
+And you see something else: Valdris's soul, still trapped beneath the Obsidian Spire, still aware, still plotting. He does not need the fragments assembled to return — he needs them assembled to return at full power. Even now, weakened, he is waking. The seal is failing.
+"The fragments must be destroyed," the Voice whispers. "The Obsidian Spire holds the secret. The Crown Fragment was never just a prison — it is a key. Find it. Destroy it. End this forever."
+Loot:
+* The Voice Fragment (quest item)
+* Priestess's treasure: 200 gp in pearls and coral, a Cloak of the Manta Ray, a Scroll of Water Breathing
+* Temple treasury (hidden, DC 16 Investigation): 150 gp, a +1 trident, a holy symbol of the Voice god (acts as a holy symbol and grants advantage on Insight checks 1/day)
+________________
+
+
+The Cult's Final Ambush
+As the Party Leaves:
+Sister Morvenna has been tracking the party. She springs her trap as they exit the flooded city.
+Description:
+You emerge from the ruins into the shallows near shore. Your boat — and your gear left behind — is gone. In its place, a woman in ash-gray robes stands on the water's surface, held aloft by dark magic. Behind her, ranks of the dead.
+"Four fragments," Sister Morvenna says. "You've been busy. But you've also done exactly what I needed. You've gathered them in one place."
+She raises her hand, and the dead advance.
+Encounter: Morvenna's Revenge (Deadly)
+Sister Morvenna (enhanced from Chapter 3)
+* HP: 78 (increased from near-death survival)
+* New Spell: Animate dead at 4th level (6 zombies)
+* New Ability: Dark Resilience — When reduced to 0 HP, make a DC 10 Constitution save. On success, drop to 1 HP instead (1/day).
+Forces:
+* 6 Zombies (freshly animated from cult corpses)
+* 2 Specters (summoned)
+* 1 Ghast (CR 2) — Her new lieutenant
+Tactics:
+* Morvenna stays back, casting from range (she's learned her lesson)
+* Specters target spellcasters
+* Ghast leads the zombie charge
+* If clearly losing, Morvenna attempts to flee (she has misty step prepared)
+Victory:
+If Morvenna is killed:
+The cult leader falls, her connection to Valdris severed. As she dies, she laughs — a horrible, rattling sound.
+"You think... you've won? He's already... waking. The Spire... awaits. And you'll... deliver the fragments... right... to... him..."
+Her body dissolves into ash.
+If Morvenna escapes:
+The cult leader vanishes into shadow, her laughter echoing across the water.
+"The Spire awaits, heroes! Come and finish this — if you dare!"
+________________
+
+
+Chapter 5 Conclusion
+Four fragments secured. One remains — and it waits in the heart of enemy territory.
+Milestone: Characters should reach level 6.
+The Voice Fragment's Warning:
+The fragment's vision revealed the truth: the fragments can be destroyed, ending Valdris's threat forever. But only the Crown Fragment holds the secret of how.
+Father Aldric's Final Counsel:
+"You've done the impossible. Four fragments, secured against all odds. But the hardest part remains.
+"The Obsidian Spire is Valdris's stronghold. Even diminished, he has power there. Morvenna — if she survived — has retreated there with everything the cult has left. And beneath the Spire, Valdris himself waits.
+"But you have something they don't: hope. The people believe in you. The dead you've laid to rest are at peace. And the fragments themselves — even corrupted as they are — respond to your will.
+"Go. End this. And may the dawn break eternal."
+________________
+
+
+CHAPTER 6: THE OBSIDIAN SPIRE
+Character Level: 6
+Location: The Obsidian Spire, Valdris's ancient stronghold
+Objectives:
+* Penetrate the Spire's defenses
+* Recover the Crown Fragment
+* Destroy the phylactery fragments (or choose another path)
+* Defeat Valdris in his weakened state
+* End the threat forever
+The Final Approach
+The Spire
+Description:
+The Obsidian Spire rises from a blasted wasteland — a needle of black glass piercing the sky. Nothing grows here. Nothing lives. The ground is scorched, the air heavy with the smell of old death.
+The Spire is impossibly tall, perhaps a thousand feet, tapering to a point that seems to scratch the clouds. At its base, a single door of black iron stands open — an invitation, or a trap.
+Exterior Features
+* The Wasteland: A 1-mile radius of dead earth surrounds the Spire. No cover, no water, no life. Undead sentries patrol in packs.
+* The Door: Always open. Valdris wants the fragments brought to him.
+* No Siege: The Spire cannot be damaged by conventional means. Entry through the door is the only option.
+Getting There
+The wasteland crossing is dangerous:
+Patrol Encounters (roll 1d4):
+d4
+	Encounter
+	1
+	6 Zombies and 2 Ghouls — a standard patrol
+	2
+	4 Skeletons with bows and 1 Ghast — an archer squad
+	3
+	2 Wights — elite scouts who will flee to warn the Spire
+	4
+	Grimjaw the Ogre Zombie — Morvenna's bodyguard, alone
+	Grimjaw (if Morvenna is dead, he wanders aimlessly; if she survived, he guards the door)
+* AC: 8, HP: 85
+* Morningstar: +6 to hit, 2d8+4 bludgeoning
+* Relentless: If reduced to 0 HP by damage that isn't radiant, make DC 5+damage Con save. Success = 1 HP.
+________________
+
+
+The Spire Interior
+Spire Layout
+VERTICAL SECTION
+
+
+    [PINNACLE] — Crown Fragment location, Valdris's Throne
+         │
+    [LEVEL 5: Ritual Chamber] — Where the fragments would be assembled
+         │
+    [LEVEL 4: Morvenna's Sanctum] — Her quarters (if alive)
+         │
+    [LEVEL 3: Barracks] — Undead garrison
+         │
+    [LEVEL 2: Trophy Hall] — Valdris's collection
+         │
+    [LEVEL 1: Entry Hall] — First challenge
+         │
+    [BASEMENT: The Seal] — Where Valdris's essence is imprisoned
+
+
+Spire Features
+* Material: The walls are solid obsidian, immune to damage
+* Lighting: Pale green magical light throughout
+* Stairs: A central spiral stair connects all levels
+* Wards: Teleportation and planar travel are blocked within the Spire
+________________
+
+
+Level 1: Entry Hall
+Dimensions: 100 ft. diameter, 30 ft. ceiling
+Lighting: Green torches (magical)
+Description:
+The Entry Hall is circular, the walls carved with scenes of Valdris's triumphs — cities burning, armies falling, the lich-king enthroned above mountains of corpses. At the center, a spiral stair ascends into the tower.
+Waiting for you are the Spire's first guardians.
+Encounter: The Welcome Committee (Hard)
+* 4 Ghouls (CR 1 each)
+* 2 Ghasts (CR 2 each)
+* 1 Wight (CR 3) — commanding
+Tactics:
+* Ghasts use their stench to sicken, then ghouls paralyze
+* The wight hangs back, using Life Drain on paralyzed targets
+* They fight to destruction; there is no retreat
+Loot:
+* Wight carries: 50 gp, a key that opens Morvenna's sanctum (if needed)
+________________
+
+
+Level 2: Trophy Hall
+Dimensions: 80 ft. diameter, 25 ft. ceiling
+Lighting: Spotlights on displays (magical)
+Description:
+Valdris collected trophies from his conquests. They're displayed here: the crowned skull of a king, the shattered staff of an archmage, the preserved heart of a dragon, the banner of the Order of Dawn — torn and bloodstained.
+Something watches from the shadows.
+Encounter: The Flameskull Curator (Medium)
+A Flameskull (CR 4) guards this level — the animated skull of Valdris's former rival, bound to serve for eternity.
+Flameskull
+* AC 13, HP 40
+* Fireball (8d6), magic missile, blur, shield
+* Fire immunity
+* Rejuvenation: Returns in 1 hour unless destroyed with dispel magic or holy water on remains
+Tactics:
+* Opens with fireball if grouped
+* Uses blur and shield for defense
+* Flies to stay out of melee range
+Trophy Loot:
+* Archmage's Staff Fragment: Functions as an arcane focus, grants +1 to spell attack rolls
+* Dragon's Heart: If consumed (takes 1 minute), grants resistance to fire damage for 24 hours
+* Order of Dawn Banner: If displayed, grants allies within 30 ft. advantage on saves against fear
+________________
+
+
+Level 3: Barracks
+Dimensions: 80 ft. diameter, 20 ft. ceiling
+Lighting: Dim green glow
+Description:
+The barracks level holds the Spire's garrison — undead standing in silent ranks, waiting for orders. Dozens of them. Perhaps hundreds.
+As you enter, they don't move. They wait. One figure steps forward — a skeleton in rotted noble's clothes, a crown of tarnished silver on its skull.
+The Skeleton Prince:
+This is the animated remains of the last prince of Aethermoor, murdered by Valdris and raised as a mockery.
+Skeleton Prince (Modified Wight)
+* AC 14, HP 52
+* Commands the garrison
+* Can order 10 skeletons/zombies to attack per round as a bonus action
+Encounter: The Dead Army (Deadly)
+The garrison activates:
+* 1 Skeleton Prince (as above)
+* Initial: 6 Skeletons and 4 Zombies
+* Reinforcements: 4 more undead per round for 5 rounds
+Victory Condition:
+* Kill the Skeleton Prince — the rest collapse, their command structure broken
+Tactics:
+* The Prince stays protected behind waves of undead
+* Focuses on wearing down the party through attrition
+* Uses his command ability to flood the room with bodies
+Alternative: A DC 18 Persuasion check, appealing to the prince's buried memories, causes him to hesitate for 1 round and dismiss half the garrison. ("You were a prince once. Do you remember? Your people need you to rest.")
+________________
+
+
+Level 4: Morvenna's Sanctum
+Dimensions: 60 ft. diameter, 15 ft. ceiling
+Lighting: Candles (normal light)
+If Morvenna Survived:
+Description:
+The cult leader's sanctum is cluttered with books, alchemical equipment, and ritual components. Maps of the kingdom cover one wall, fragments marked with pins. Morvenna stands at the center, staff raised.
+"You shouldn't have come. But since you're here... give me the fragments. Valdris will reward those who serve him willingly. Resist, and you'll serve him as corpses."
+Encounter: Morvenna's Last Stand (Deadly)
+Sister Morvenna (Final Form)
+* HP: 90
+* New Spells: Spirit guardians (3rd), blight (4th)
+* New Ability: Death's Embrace — When reduced to 0 HP, explodes in necrotic energy. All creatures within 20 feet take 4d8 necrotic damage (DC 14 Con save for half).
+Accompanied by:
+* 2 Specters (CR 1 each)
+* 1 Wraith (CR 5) — her most powerful servant
+Tactics:
+* Morvenna fights with everything she has
+* This is her final chance to complete her life's work
+* The wraith targets whoever has the most fragments
+If Morvenna Died Earlier:
+The sanctum is empty except for her notes and research. Reading them reveals:
+* The Crown Fragment is in the Pinnacle
+* Valdris is weakened but waking
+* The fragments can only be destroyed by casting them into the seal chamber's blessed silver (in the Basement)
+Sanctum Loot:
+* 250 gp in assorted valuables
+* Morvenna's Notes (quest information)
+* Staff of the Ashen Covenant: +1 quarterstaff, deals +1d6 necrotic damage, once per day can cast animate dead (2 zombies)
+* Scroll of Greater Restoration
+________________
+
+
+Level 5: Ritual Chamber
+Dimensions: 50 ft. diameter, 20 ft. ceiling
+Lighting: Pulsing red (from the Pinnacle above)
+Description:
+The Ritual Chamber is prepared for the reassembly of the phylactery. A circle of silver inlay dominates the floor, surrounded by runes. Five pedestals stand at the circle's points — four empty, one holding the Crown Fragment.
+The fragment pulses with malevolent energy. A crown of black crystal, broken and jagged, but unmistakably meant for a king.
+Above, the final stairway leads to the Pinnacle — and Valdris's throne.
+The Crown Fragment:
+Taking the Crown Fragment triggers Valdris's awareness:
+A voice fills the chamber — ancient, powerful, and utterly cold:
+"You bring the fragments to me. How... convenient. Come, little heroes. Come to my throne. Let us end this face to face."
+Taking the Fragment:
+The Crown Fragment is not trapped. Valdris wants the party to bring all five fragments to him.
+Choice Point:
+The party now has all five fragments. They can:
+1. Go to the Pinnacle — Face Valdris with all fragments
+2. Go to the Basement — Destroy the fragments in the seal chamber
+3. Attempt something else — (DM adjudication)
+________________
+
+
+The Basement: The Seal Chamber
+Dimensions: 40 ft. diameter, 10 ft. ceiling
+Lighting: Bright silver radiance
+Description:
+Beneath the Spire, a chamber of blessed silver holds the remnants of Valdris's prison. The walls shine with divine light — the last of the Order of Dawn's magic. At the center, a pit of molten silver churns slowly, held at impossible temperatures by ancient enchantments.
+This is where the phylactery was shattered. This is where it can be destroyed forever.
+Destroying the Fragments:
+Casting all five fragments into the pit:
+The fragments hit the silver and... scream. A wail of absolute agony tears through the Spire. The walls shake. The silver flares blindingly bright.
+And then, silence.
+The fragments are gone. The phylactery is destroyed. Valdris can never return.
+BUT:
+If the fragments are destroyed, Valdris's essence — freed from its anchor — manifests immediately, desperate for one final chance at survival.
+Encounter: Valdris Unleashed (Deadly)
+Valdris's Essence (weakened, but furious)
+Medium undead, lawful evil
+* AC: 15 (natural)
+* HP: 120
+* Speed: 0 ft., fly 40 ft. (hover)
+* STR: 8 (-1) DEX: 16 (+3) CON: 16 (+3) INT: 20 (+5) WIS: 18 (+4) CHA: 18 (+4)
+* Damage Immunities: Necrotic, poison; bludgeoning/piercing/slashing from nonmagical attacks
+* Condition Immunities: Charmed, exhaustion, frightened, paralyzed, poisoned
+* Senses: Truesight 120 ft.
+* Challenge: 8 (3,900 XP)
+Incorporeal: Can move through creatures and objects.
+Rejuvenation: Can only be permanently destroyed if the phylactery is destroyed first (it is!).
+Spellcasting:
+* At will: chill touch (3d8), detect magic, mage hand
+* 3/day each: blight, counterspell, dispel magic, ray of enfeeblement
+* 1/day: finger of death, cloudkill
+Legendary Actions (3/round):
+* Cantrip: Cast chill touch
+* Incorporeal Move: Move up to half speed without provoking
+* Paralyzing Touch (2 Actions): +8 to hit, DC 16 Con save or paralyzed for 1 minute
+Tactics:
+* Opens with cloudkill in the enclosed space
+* Uses finger of death on whoever has dealt the most damage
+* Uses counterspell aggressively
+* Passes through walls to avoid being cornered
+Victory:
+The lich-king's essence unravels, screaming curses in languages dead for millennia. Without the phylactery to anchor him, without a body to inhabit, he has nothing to hold onto.
+"This... is not... the end... I will... return... I will..."
+The voice fades. The silver dims to a gentle glow. Valdris the Undying is, at last, truly dead.
+________________
+
+
+The Pinnacle: Valdris's Throne
+Alternative Path: If the party goes to confront Valdris directly without destroying the fragments:
+Dimensions: 30 ft. diameter, open to the sky
+Lighting: Starlight and the fragments' glow
+Description:
+The Pinnacle of the Obsidian Spire opens to the sky. A throne of black glass sits at the center, and upon it, a figure — skeletal, robed in tattered finery, a crown of shadow resting on his skull.
+Valdris. The Undying King. Waiting.
+He is diminished — translucent, flickering, barely present. But his eyes burn with intelligence and malice.
+"You've brought them. All five. How generous." He rises, floating above the throne. "Now, give them to me, and I will make your deaths quick. Refuse, and I will make them eternal."
+Encounter: The Shattered King (Deadly)
+This version of Valdris is weaker but can absorb fragments to heal.
+Valdris the Weakened
+* Same stats as above but HP: 80
+* Fragment Absorption: As an action, Valdris can absorb a fragment within 30 feet. He regains 30 HP and gains one of the following:
+   * Heart: +2 to AC
+   * Eye: Truesight 120 ft.
+   * Hand: +2 to attack and damage rolls
+   * Voice: Enemies have disadvantage on saves vs. his spells
+   * Crown: Can use Legendary Actions 5 times per round
+Tactics:
+* Prioritizes absorbing fragments
+* If he absorbs all five, he returns to full power (treat as CR 15+ — the party cannot win)
+* The party must either kill him quickly or prevent him from reaching the fragments
+Preventing Absorption:
+* Keep fragments scattered among party members
+* Use movement to stay away
+* Destroy fragments by dropping them off the Pinnacle (they shatter on the ground far below, but Valdris takes 20 damage per fragment destroyed this way)
+Victory:
+The lich-king shatters like the glass his tower is made of. For one moment, his face shows something other than malice — surprise, perhaps, or even relief.
+"Finally... after so long... finally..."
+He is gone. The Obsidian Spire groans, cracks spiderwebbing through its surface. Without Valdris's will to sustain it, the tower begins to collapse.
+________________
+
+
+Escape the Spire
+With Valdris destroyed, the Spire collapses!
+Escape Sequence:
+The party has 5 rounds to escape before the tower comes down.
+* Round 1-2: Move normally, collapsing debris causes 1d6 bludgeoning damage per round (DC 12 Dex negates)
+* Round 3-4: Difficult terrain, damage increases to 2d6
+* Round 5: The stairway collapses. Jump from Level 1 (30 feet) or find another way.
+Alternative Escape:
+* Feather fall or similar magic
+* The windows on each level
+* Riding debris (DC 15 Acrobatics)
+* If the party has the Cloak of the Manta Ray, jumping into the nearby swamps works
+Failure: Characters who don't escape take 10d6 bludgeoning damage (DC 15 Dex for half) and are buried. Surviving characters must dig them out.
+________________
+
+
+Campaign Conclusion
+Victory
+The Obsidian Spire falls, glass and stone crashing to the blasted earth. Dust rises in a column visible for miles. And when it clears, nothing remains but rubble.
+Valdris the Undying is destroyed. The Shattered Throne will never be made whole. The Ashen Covenant is broken, their leader dead, their army dust.
+You have saved the kingdom. You have saved the world.
+As you walk away from the ruins, the first rays of dawn break over the horizon. For the first time in three centuries, they fall on land free from Valdris's shadow.
+The nightmare is over.
+The dawn has come.
+Epilogue
+If the party destroyed the fragments: The phylactery is utterly annihilated. There is no chance of Valdris's return, ever. The kingdom can rebuild without fear.
+If the party kept some fragments: These remain dangerous artifacts. They could be sealed away... or they could be used for other purposes. The temptation of power remains.
+Character Fates:
+* Father Aldric writes a chronicle of the heroes' deeds, ensuring they will be remembered
+* Captain Varn is promoted to general and leads the rebuilding of the kingdom's military
+* The survivors of Millbrook, Grimhold, and Thornwatch build a memorial to those who fell
+* The party becomes legend — the heroes who broke the Shattered Throne
+________________
+
+
+APPENDICES
+Appendix A: Monster Statistics
+Standard Monsters by Challenge Rating
+CR 1/8
+* Cultist: AC 12, HP 9, Scimitar +3 (1d6+1)
+CR 1/4
+* Zombie: AC 8, HP 22, Slam +3 (1d6+1). Undead Fortitude.
+* Skeleton: AC 13, HP 13, Shortsword +4 (1d6+2) or Shortbow +4 (1d6+2)
+* Giant Rat: AC 12, HP 7, Bite +4 (1d4+2)
+CR 1/2
+* Sahuagin: AC 12, HP 22, Multiattack, Blood Frenzy
+* Shadow: AC 12, HP 16, Strength Drain
+* Specter: AC 12, HP 22, Life Drain, incorporeal
+CR 1
+* Ghoul: AC 12, HP 22, Claws paralyze (DC 10 Con)
+* Specter: (see above)
+* Giant Octopus: AC 11, HP 52, Grapple + Constrict
+CR 2
+* Cult Fanatic: AC 13, HP 33, Spellcasting (Cleric 4th)
+* Ghast: AC 13, HP 36, Stench aura, paralyzing claws
+* Ogre Zombie: AC 8, HP 85, Morningstar +6 (2d8+4)
+* Minotaur Skeleton: AC 12, HP 67, Gore + Greataxe
+CR 3
+* Wight: AC 14, HP 45, Life Drain + Longsword
+* Water Weird: AC 13, HP 58, Constrict + drown
+CR 4
+* Flameskull: AC 13, HP 40, Fireball, Magic Missile, Rejuvenation
+CR 5
+* Wraith: AC 13, HP 67, Life Drain, Create Specter
+________________
+
+
+Appendix B: Magic Items
+Chapter 2 Items
+* Mace of Dawn's First Light: +1d4 radiant damage to undead
+* +1 Shield (Dawn Symbol)
+Chapter 3 Items
+* Driftglobe: Light at will, Daylight 1/dawn
+* +1 Dagger
+* Cloak of Protection: +1 AC and saving throws
+* Ring of Mind Shielding: Immune to telepathy, thoughts can't be read
+Chapter 4 Items
+* Varn's Fury: +1 warhammer, +1d6 radiant vs undead
+* +1 Longsword
+* Periapt of Wound Closure: Stabilize automatically, double healing dice
+Chapter 5 Items
+* Ring of Swimming: Swim 40 ft., breathe underwater 1 hour/day
+* Cloak of the Manta Ray: Breathe underwater, swim 60 ft.
+* +1 Trident
+Chapter 6 Items
+* Archmage's Staff Fragment: +1 spell attack rolls
+* Staff of the Ashen Covenant: +1 quarterstaff, +1d6 necrotic, animate dead 1/day
+________________
+
+
+Appendix C: Random Encounter Tables
+Overworld Travel
+d20
+	Encounter
+	1-8
+	No encounter
+	9-11
+	1d4+1 Wolves (hungry)
+	12-14
+	2 Cultists + 1d4 Zombies (patrol)
+	15-16
+	1d4 Ghouls (hunting)
+	17-18
+	Refugees (information)
+	19
+	Abandoned camp (loot opportunity)
+	20
+	Special encounter (DM choice)
+	Dungeon General
+d12
+	Encounter
+	1-4
+	No encounter
+	5-6
+	1d6 Zombies (wandering)
+	7-8
+	1d4 Skeletons (patrol)
+	9-10
+	1d2 Ghouls (hunting)
+	11
+	Trap (DM choice)
+	12
+	Special (environmental hazard or treasure)
+	________________
+
+
+Appendix D: Maps
+Maps are provided in ASCII format throughout the document. For play, the DM should recreate these on grid paper or a VTT.
+Map Legend
+* # Wall/impassable
+* . Open floor
+* ~ Water
+* @ Player start
+* G Enemy (goblin type)
+* Z Zombie
+* S Skeleton
+* B Boss
+* T Treasure
+* D Door
+* ^ Stairs up
+* v Stairs down
+________________
+
+
+Appendix E: Scaling Guide
+For Solo Play (1 character)
+* Reduce enemy HP by 25%
+* Reduce enemy damage by 25%
+* Provide a loyal NPC companion (CR 1/2 or 1)
+* Increase healing item availability
+For Large Parties (5-6 characters)
+* Increase enemy HP by 25%
+* Add 1-2 additional enemies per encounter
+* Reduce treasure slightly to maintain balance
+For Deadlier Games
+* Use max HP for all enemies
+* Enemies focus fire on weakest targets
+* Reduce long rest opportunities
+* Healing items are rare
+For Easier Games
+* Use minimum HP for enemies
+* Enemies split attacks evenly
+* Allow long rests after every major encounter
+* Provide extra healing items and magic gear
+________________
+
+
+Appendix F: DM Notes
+Pacing
+* Each chapter should take 4-8 hours of play
+* Don't skip short rests — they're vital for survival
+* Long rests should feel earned
+Tone
+* This is dark fantasy, not grimdark
+* Hope exists, but must be fought for
+* The villains are evil, but not cartoonish
+* Let players feel powerful, but never safe
+Combat Philosophy
+* Combat should be meaningful, not filler
+* Every fight should have a tactical element (terrain, objectives, choices)
+* Let players retreat if overwhelmed — it's not failing, it's surviving
+* Character death is possible and should be treated seriously
+Story Flexibility
+* The core plot (stop Valdris) is fixed
+* Everything else can be adapted
+* Player choices should matter
+* If they find a creative solution, reward it
+________________
+
+
+END OF CAMPAIGN DOCUMENT
+The Shattered Throne
+ Version 1.0
+For use with D&D 5th Edition (2024)
+70% Combat / 30% Story
+Levels 1-6
+25-40 hours of play
+May your dice roll true, and may the dawn break eternal.

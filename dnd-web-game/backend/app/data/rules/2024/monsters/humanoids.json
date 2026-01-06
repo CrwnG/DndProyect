@@ -1,0 +1,1612 @@
+{
+  "creature_type": "Humanoid",
+  "source": "2024 Monster Manual",
+  "description": "Humanoids are the main peoples of the D&D world, both civilized and savage, including humans and a tremendous variety of other species. They have language and culture, few if any innate magical abilities, and a humanoid form.",
+  "monsters": [
+    {
+      "id": "acolyte",
+      "name": "Acolyte",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 10,
+      "hit_points": 9,
+      "hit_dice": "2d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 10, "CON": 10, "INT": 10, "WIS": 14, "CHA": 11 },
+      "skills": { "medicine": 4, "religion": 2 },
+      "senses": { "passive_perception": 12 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Spellcasting",
+          "description": "The acolyte is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The acolyte has the following cleric spells prepared: Cantrips: Light, Sacred Flame, Thaumaturgy. 1st Level (3 slots): Bless, Cure Wounds, Sanctuary."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Club",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "assassin",
+      "name": "Assassin",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-good alignment",
+      "armor_class": 15,
+      "armor_type": "studded leather",
+      "hit_points": 78,
+      "hit_dice": "12d8+24",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 16, "CON": 14, "INT": 13, "WIS": 11, "CHA": 10 },
+      "saving_throws": { "DEX": 6, "INT": 4 },
+      "skills": { "acrobatics": 6, "deception": 3, "perception": 3, "stealth": 9 },
+      "damage_resistances": ["poison"],
+      "senses": { "passive_perception": 13 },
+      "languages": ["Thieves' cant plus any two languages"],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Assassinate",
+          "description": "During its first turn, the assassin has advantage on attack rolls against any creature that hasn't taken a turn. Any hit the assassin scores against a surprised creature is a critical hit."
+        },
+        {
+          "name": "Evasion",
+          "description": "If the assassin is subjected to an effect that allows it to make a Dexterity saving throw to take only half damage, the assassin instead takes no damage if it succeeds on the saving throw, and only half damage if it fails."
+        },
+        {
+          "name": "Sneak Attack",
+          "description": "Once per turn, the assassin deals an extra 14 (4d6) damage when it hits a target with a weapon attack and has advantage on the attack roll, or when the target is within 5 feet of an ally of the assassin that isn't incapacitated and the assassin doesn't have disadvantage on the attack roll."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The assassin makes two shortsword attacks."
+        },
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) piercing damage, and the target must make a DC 15 Constitution saving throw, taking 24 (7d6) poison damage on a failed save, or half as much damage on a successful one."
+        },
+        {
+          "name": "Light Crossbow",
+          "description": "Ranged Weapon Attack: +6 to hit, range 80/320 ft., one target. Hit: 7 (1d8+3) piercing damage, and the target must make a DC 15 Constitution saving throw, taking 24 (7d6) poison damage on a failed save, or half as much damage on a successful one."
+        }
+      ]
+    },
+    {
+      "id": "bandit",
+      "name": "Bandit",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-lawful alignment",
+      "armor_class": 12,
+      "armor_type": "leather armor",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 12, "CON": 12, "INT": 10, "WIS": 10, "CHA": 10 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "actions": [
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6+1) slashing damage."
+        },
+        {
+          "name": "Light Crossbow",
+          "description": "Ranged Weapon Attack: +3 to hit, range 80/320 ft., one target. Hit: 5 (1d8+1) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "bandit_captain",
+      "name": "Bandit Captain",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-lawful alignment",
+      "armor_class": 15,
+      "armor_type": "studded leather",
+      "hit_points": 65,
+      "hit_dice": "10d8+20",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 15, "DEX": 16, "CON": 14, "INT": 14, "WIS": 11, "CHA": 14 },
+      "saving_throws": { "STR": 4, "DEX": 5, "WIS": 2 },
+      "skills": { "athletics": 4, "deception": 4 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any two languages"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The captain makes three melee attacks: two with its scimitar and one with its dagger. Or the captain makes two ranged attacks with its daggers."
+        },
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) slashing damage."
+        },
+        {
+          "name": "Dagger",
+          "description": "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 5 (1d4+3) piercing damage."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The captain adds 2 to its AC against one melee attack that would hit it. To do so, the captain must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "berserker",
+      "name": "Berserker",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any chaotic alignment",
+      "armor_class": 13,
+      "armor_type": "hide armor",
+      "hit_points": 67,
+      "hit_dice": "9d8+27",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 12, "CON": 17, "INT": 9, "WIS": 11, "CHA": 9 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Reckless",
+          "description": "At the start of its turn, the berserker can gain advantage on all melee weapon attack rolls during that turn, but attack rolls against it have advantage until the start of its next turn."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Greataxe",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 9 (1d12+3) slashing damage."
+        }
+      ]
+    },
+    {
+      "id": "commoner",
+      "name": "Commoner",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 10,
+      "hit_points": 4,
+      "hit_dice": "1d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 10, "CON": 10, "INT": 10, "WIS": 10, "CHA": 10 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "0",
+      "xp": 10,
+      "actions": [
+        {
+          "name": "Club",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d4) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "cultist",
+      "name": "Cultist",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-good alignment",
+      "armor_class": 12,
+      "armor_type": "leather armor",
+      "hit_points": 9,
+      "hit_dice": "2d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 12, "CON": 10, "INT": 10, "WIS": 11, "CHA": 10 },
+      "skills": { "deception": 2, "religion": 2 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "Dark Devotion",
+          "description": "The cultist has advantage on saving throws against being charmed or frightened."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 4 (1d6+1) slashing damage."
+        }
+      ]
+    },
+    {
+      "id": "cult_fanatic",
+      "name": "Cult Fanatic",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-good alignment",
+      "armor_class": 13,
+      "armor_type": "leather armor",
+      "hit_points": 33,
+      "hit_dice": "6d8+6",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 14, "CON": 12, "INT": 10, "WIS": 13, "CHA": 14 },
+      "skills": { "deception": 4, "persuasion": 4, "religion": 2 },
+      "senses": { "passive_perception": 11 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Dark Devotion",
+          "description": "The fanatic has advantage on saving throws against being charmed or frightened."
+        },
+        {
+          "name": "Spellcasting",
+          "description": "The fanatic is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 11, +3 to hit with spell attacks). The fanatic has the following cleric spells prepared: Cantrips: Light, Sacred Flame, Thaumaturgy. 1st Level (4 slots): Command, Inflict Wounds, Shield of Faith. 2nd Level (3 slots): Hold Person, Spiritual Weapon."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The fanatic makes two melee attacks."
+        },
+        {
+          "name": "Dagger",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 20/60 ft., one creature. Hit: 4 (1d4+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 11,
+      "armor_type": "16 with barkskin",
+      "hit_points": 27,
+      "hit_dice": "5d8+5",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 12, "CON": 13, "INT": 12, "WIS": 15, "CHA": 11 },
+      "skills": { "medicine": 4, "nature": 3, "perception": 4 },
+      "senses": { "passive_perception": 14 },
+      "languages": ["Druidic plus any two languages"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Spellcasting",
+          "description": "The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared: Cantrips: Druidcraft, Produce Flame, Shillelagh. 1st Level (4 slots): Entangle, Longstrider, Speak with Animals, Thunderwave. 2nd Level (3 slots): Animal Messenger, Barkskin."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Quarterstaff",
+          "description": "Melee Weapon Attack: +2 to hit (+4 to hit with shillelagh), reach 5 ft., one target. Hit: 3 (1d6) bludgeoning damage, 4 (1d8) bludgeoning damage if wielded with two hands, or 6 (1d8+2) bludgeoning damage with shillelagh."
+        }
+      ]
+    },
+    {
+      "id": "gladiator",
+      "name": "Gladiator",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 16,
+      "armor_type": "studded leather, shield",
+      "hit_points": 112,
+      "hit_dice": "15d8+45",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 18, "DEX": 15, "CON": 16, "INT": 10, "WIS": 12, "CHA": 15 },
+      "saving_throws": { "STR": 7, "DEX": 5, "CON": 6 },
+      "skills": { "athletics": 10, "intimidation": 5 },
+      "senses": { "passive_perception": 11 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Brave",
+          "description": "The gladiator has advantage on saving throws against being frightened."
+        },
+        {
+          "name": "Brute",
+          "description": "A melee weapon deals one extra die of its damage when the gladiator hits with it (included in the attack)."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The gladiator makes three melee attacks or two ranged attacks."
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. and range 20/60 ft., one target. Hit: 11 (2d6+4) piercing damage, or 13 (2d8+4) piercing damage if used with two hands to make a melee attack."
+        },
+        {
+          "name": "Shield Bash",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 9 (2d4+4) bludgeoning damage. If the target is a Medium or smaller creature, it must succeed on a DC 15 Strength saving throw or be knocked prone."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The gladiator adds 3 to its AC against one melee attack that would hit it. To do so, the gladiator must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "goblin",
+      "name": "Goblin",
+      "size": "Small",
+      "type": "Humanoid (goblinoid)",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "leather armor, shield",
+      "hit_points": 7,
+      "hit_dice": "2d6",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 8, "DEX": 14, "CON": 10, "INT": 10, "WIS": 8, "CHA": 8 },
+      "skills": { "stealth": 6 },
+      "senses": { "darkvision": 60, "passive_perception": 9 },
+      "languages": ["Common", "Goblin"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Nimble Escape",
+          "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) slashing damage."
+        },
+        {
+          "name": "Shortbow",
+          "description": "Ranged Weapon Attack: +4 to hit, range 80/320 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "goblin_boss",
+      "name": "Goblin Boss",
+      "size": "Small",
+      "type": "Humanoid (goblinoid)",
+      "alignment": "Neutral Evil",
+      "armor_class": 17,
+      "armor_type": "chain shirt, shield",
+      "hit_points": 21,
+      "hit_dice": "6d6",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 10, "INT": 10, "WIS": 8, "CHA": 10 },
+      "skills": { "stealth": 6 },
+      "senses": { "darkvision": 60, "passive_perception": 9 },
+      "languages": ["Common", "Goblin"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Nimble Escape",
+          "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The goblin makes two attacks with its scimitar. The second attack has disadvantage."
+        },
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) slashing damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +2 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 3 (1d6) piercing damage."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Redirect Attack",
+          "description": "When a creature the goblin can see targets it with an attack, the goblin chooses another goblin within 5 feet of it. The two goblins swap places, and the chosen goblin becomes the target instead."
+        }
+      ]
+    },
+    {
+      "id": "guard",
+      "name": "Guard",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 16,
+      "armor_type": "chain shirt, shield",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 13, "DEX": 12, "CON": 12, "INT": 10, "WIS": 11, "CHA": 10 },
+      "skills": { "perception": 2 },
+      "senses": { "passive_perception": 12 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "actions": [
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d6+1) piercing damage, or 5 (1d8+1) piercing damage if used with two hands to make a melee attack."
+        }
+      ]
+    },
+    {
+      "id": "hobgoblin",
+      "name": "Hobgoblin",
+      "size": "Medium",
+      "type": "Humanoid (goblinoid)",
+      "alignment": "Lawful Evil",
+      "armor_class": 18,
+      "armor_type": "chain mail, shield",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 13, "DEX": 12, "CON": 12, "INT": 10, "WIS": 10, "CHA": 9 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Common", "Goblin"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Martial Advantage",
+          "description": "Once per turn, the hobgoblin can deal an extra 7 (2d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8+1) slashing damage, or 6 (1d10+1) slashing damage if used with two hands."
+        },
+        {
+          "name": "Longbow",
+          "description": "Ranged Weapon Attack: +3 to hit, range 150/600 ft., one target. Hit: 5 (1d8+1) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "hobgoblin_captain",
+      "name": "Hobgoblin Captain",
+      "size": "Medium",
+      "type": "Humanoid (goblinoid)",
+      "alignment": "Lawful Evil",
+      "armor_class": 17,
+      "armor_type": "half plate",
+      "hit_points": 39,
+      "hit_dice": "6d8+12",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 15, "DEX": 14, "CON": 14, "INT": 12, "WIS": 10, "CHA": 13 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Common", "Goblin"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Martial Advantage",
+          "description": "Once per turn, the hobgoblin can deal an extra 10 (3d6) damage to a creature it hits with a weapon attack if that creature is within 5 feet of an ally of the hobgoblin that isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The hobgoblin makes two greatsword attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 9 (2d6+2) slashing damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Leadership (Recharges after a Short or Long Rest)",
+          "description": "For 1 minute, the hobgoblin can utter a special command or warning whenever a nonhostile creature that it can see within 30 feet of it makes an attack roll or a saving throw. The creature can add a d4 to its roll provided it can hear and understand the hobgoblin. A creature can benefit from only one Leadership die at a time. This effect ends if the hobgoblin is incapacitated."
+        }
+      ]
+    },
+    {
+      "id": "knight",
+      "name": "Knight",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 18,
+      "armor_type": "plate",
+      "hit_points": 52,
+      "hit_dice": "8d8+16",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 11, "CON": 14, "INT": 11, "WIS": 11, "CHA": 15 },
+      "saving_throws": { "CON": 4, "WIS": 2 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "traits": [
+        {
+          "name": "Brave",
+          "description": "The knight has advantage on saving throws against being frightened."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The knight makes two melee attacks."
+        },
+        {
+          "name": "Greatsword",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6+3) slashing damage."
+        },
+        {
+          "name": "Heavy Crossbow",
+          "description": "Ranged Weapon Attack: +2 to hit, range 100/400 ft., one target. Hit: 5 (1d10) piercing damage."
+        },
+        {
+          "name": "Leadership (Recharges after a Short or Long Rest)",
+          "description": "For 1 minute, the knight can utter a special command or warning whenever a nonhostile creature that it can see within 30 feet of it makes an attack roll or a saving throw. The creature can add a d4 to its roll provided it can hear and understand the knight. A creature can benefit from only one Leadership die at a time. This effect ends if the knight is incapacitated."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The knight adds 2 to its AC against one melee attack that would hit it. To do so, the knight must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "kobold",
+      "name": "Kobold",
+      "size": "Small",
+      "type": "Humanoid (kobold)",
+      "alignment": "Lawful Evil",
+      "armor_class": 12,
+      "hit_points": 5,
+      "hit_dice": "2d6-2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 7, "DEX": 15, "CON": 9, "INT": 8, "WIS": 7, "CHA": 8 },
+      "senses": { "darkvision": 60, "passive_perception": 8 },
+      "languages": ["Common", "Draconic"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the kobold has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        },
+        {
+          "name": "Pack Tactics",
+          "description": "The kobold has advantage on an attack roll against a creature if at least one of the kobold's allies is within 5 feet of the creature and the ally isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Dagger",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4+2) piercing damage."
+        },
+        {
+          "name": "Sling",
+          "description": "Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 4 (1d4+2) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 12,
+      "armor_type": "15 with mage armor",
+      "hit_points": 40,
+      "hit_dice": "9d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 9, "DEX": 14, "CON": 11, "INT": 17, "WIS": 12, "CHA": 11 },
+      "saving_throws": { "INT": 6, "WIS": 4 },
+      "skills": { "arcana": 6, "history": 6 },
+      "senses": { "passive_perception": 11 },
+      "languages": ["any four languages"],
+      "challenge_rating": "6",
+      "xp": 2300,
+      "traits": [
+        {
+          "name": "Spellcasting",
+          "description": "The mage is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The mage has the following wizard spells prepared: Cantrips: Fire Bolt, Light, Mage Hand, Prestidigitation. 1st Level (4 slots): Detect Magic, Mage Armor, Magic Missile, Shield. 2nd Level (3 slots): Misty Step, Suggestion. 3rd Level (3 slots): Counterspell, Fireball, Fly. 4th Level (3 slots): Greater Invisibility, Ice Storm. 5th Level (1 slot): Cone of Cold."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Dagger",
+          "description": "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d4+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "noble",
+      "name": "Noble",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 15,
+      "armor_type": "breastplate",
+      "hit_points": 9,
+      "hit_dice": "2d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 12, "CON": 11, "INT": 12, "WIS": 14, "CHA": 16 },
+      "skills": { "deception": 5, "insight": 4, "persuasion": 5 },
+      "senses": { "passive_perception": 12 },
+      "languages": ["any two languages"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "actions": [
+        {
+          "name": "Rapier",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 5 (1d8+1) piercing damage."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon."
+        }
+      ]
+    },
+    {
+      "id": "orc",
+      "name": "Orc",
+      "size": "Medium",
+      "type": "Humanoid (orc)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 13,
+      "armor_type": "hide armor",
+      "hit_points": 15,
+      "hit_dice": "2d8+6",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 12, "CON": 16, "INT": 7, "WIS": 11, "CHA": 10 },
+      "skills": { "intimidation": 2 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Common", "Orc"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Aggressive",
+          "description": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Greataxe",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 9 (1d12+3) slashing damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 6 (1d6+3) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "orc_war_chief",
+      "name": "Orc War Chief",
+      "size": "Medium",
+      "type": "Humanoid (orc)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "chain mail",
+      "hit_points": 93,
+      "hit_dice": "11d8+44",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 18, "DEX": 12, "CON": 18, "INT": 11, "WIS": 11, "CHA": 16 },
+      "saving_throws": { "STR": 6, "CON": 6, "WIS": 2 },
+      "skills": { "intimidation": 5 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Common", "Orc"],
+      "challenge_rating": "4",
+      "xp": 1100,
+      "traits": [
+        {
+          "name": "Aggressive",
+          "description": "As a bonus action, the orc can move up to its speed toward a hostile creature that it can see."
+        },
+        {
+          "name": "Gruumsh's Fury",
+          "description": "The orc deals an extra 4 (1d8) damage when it hits with a weapon attack (included in the attacks)."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The orc makes two attacks with its greataxe or its spear."
+        },
+        {
+          "name": "Greataxe",
+          "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 15 (1d12+4+1d8) slashing damage."
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 12 (1d6+4+1d8) piercing damage, or 13 (2d8+4) piercing damage if used with two hands to make a melee attack."
+        },
+        {
+          "name": "Battle Cry (1/Day)",
+          "description": "Each creature of the war chief's choice that is within 30 feet of it, can hear it, and not already affected by Battle Cry gain advantage on attack rolls until the start of the war chief's next turn. The war chief can then make one attack as a bonus action."
+        }
+      ]
+    },
+    {
+      "id": "priest",
+      "name": "Priest",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 13,
+      "armor_type": "chain shirt",
+      "hit_points": 27,
+      "hit_dice": "5d8+5",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 10, "CON": 12, "INT": 13, "WIS": 16, "CHA": 13 },
+      "skills": { "medicine": 7, "persuasion": 3, "religion": 5 },
+      "senses": { "passive_perception": 13 },
+      "languages": ["any two languages"],
+      "challenge_rating": "2",
+      "xp": 450,
+      "traits": [
+        {
+          "name": "Divine Eminence",
+          "description": "As a bonus action, the priest can expend a spell slot to cause its melee weapon attacks to magically deal an extra 10 (3d6) radiant damage to a target on a hit. This benefit lasts until the end of the turn. If the priest expends a spell slot of 2nd level or higher, the extra damage increases by 1d6 for each level above 1st."
+        },
+        {
+          "name": "Spellcasting",
+          "description": "The priest is a 5th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 13, +5 to hit with spell attacks). The priest has the following cleric spells prepared: Cantrips: Light, Sacred Flame, Thaumaturgy. 1st Level (4 slots): Cure Wounds, Guiding Bolt, Sanctuary. 2nd Level (3 slots): Lesser Restoration, Spiritual Weapon. 3rd Level (2 slots): Dispel Magic, Spirit Guardians."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Mace",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 3 (1d6) bludgeoning damage."
+        }
+      ]
+    },
+    {
+      "id": "scout",
+      "name": "Scout",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 13,
+      "armor_type": "leather armor",
+      "hit_points": 16,
+      "hit_dice": "3d8+3",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 11, "DEX": 14, "CON": 12, "INT": 11, "WIS": 13, "CHA": 11 },
+      "skills": { "nature": 4, "perception": 5, "stealth": 6, "survival": 5 },
+      "senses": { "passive_perception": 15 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Keen Hearing and Sight",
+          "description": "The scout has advantage on Wisdom (Perception) checks that rely on hearing or sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The scout makes two melee attacks or two ranged attacks."
+        },
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Longbow",
+          "description": "Ranged Weapon Attack: +4 to hit, range 150/600 ft., one target. Hit: 6 (1d8+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "spy",
+      "name": "Spy",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 12,
+      "hit_points": 27,
+      "hit_dice": "6d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 15, "CON": 10, "INT": 12, "WIS": 14, "CHA": 16 },
+      "skills": { "deception": 5, "insight": 4, "investigation": 5, "perception": 6, "persuasion": 5, "sleight_of_hand": 4, "stealth": 4 },
+      "senses": { "passive_perception": 16 },
+      "languages": ["any two languages"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Cunning Action",
+          "description": "On each of its turns, the spy can use a bonus action to take the Dash, Disengage, or Hide action."
+        },
+        {
+          "name": "Sneak Attack",
+          "description": "Once per turn, the spy deals an extra 7 (2d6) damage when it hits a target with a weapon attack and has advantage on the attack roll, or when the target is within 5 feet of an ally of the spy that isn't incapacitated and the spy doesn't have disadvantage on the attack roll."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The spy makes two melee attacks."
+        },
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Hand Crossbow",
+          "description": "Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "thug",
+      "name": "Thug",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any non-good alignment",
+      "armor_class": 11,
+      "armor_type": "leather armor",
+      "hit_points": 32,
+      "hit_dice": "5d8+10",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 15, "DEX": 11, "CON": 14, "INT": 10, "WIS": 10, "CHA": 11 },
+      "skills": { "intimidation": 2 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Pack Tactics",
+          "description": "The thug has advantage on an attack roll against a creature if at least one of the thug's allies is within 5 feet of the creature and the ally isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The thug makes two melee attacks."
+        },
+        {
+          "name": "Mace",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 5 (1d6+2) bludgeoning damage."
+        },
+        {
+          "name": "Heavy Crossbow",
+          "description": "Ranged Weapon Attack: +2 to hit, range 100/400 ft., one target. Hit: 5 (1d10) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "tribal_warrior",
+      "name": "Tribal Warrior",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 12,
+      "armor_type": "hide armor",
+      "hit_points": 11,
+      "hit_dice": "2d8+2",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 13, "DEX": 11, "CON": 12, "INT": 8, "WIS": 11, "CHA": 8 },
+      "senses": { "passive_perception": 10 },
+      "languages": ["any one language"],
+      "challenge_rating": "1/8",
+      "xp": 25,
+      "traits": [
+        {
+          "name": "Pack Tactics",
+          "description": "The warrior has advantage on an attack roll against a creature if at least one of the warrior's allies is within 5 feet of the creature and the ally isn't incapacitated."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d6+1) piercing damage, or 5 (1d8+1) piercing damage if used with two hands to make a melee attack."
+        }
+      ]
+    },
+    {
+      "id": "veteran",
+      "name": "Veteran",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 17,
+      "armor_type": "splint",
+      "hit_points": 58,
+      "hit_dice": "9d8+18",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 16, "DEX": 13, "CON": 14, "INT": 10, "WIS": 11, "CHA": 10 },
+      "skills": { "athletics": 5, "perception": 2 },
+      "senses": { "passive_perception": 12 },
+      "languages": ["any one language (usually Common)"],
+      "challenge_rating": "3",
+      "xp": 700,
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The veteran makes two longsword attacks. If it has a shortsword drawn, it can also make a shortsword attack."
+        },
+        {
+          "name": "Longsword",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8+3) slashing damage, or 8 (1d10+3) slashing damage if used with two hands."
+        },
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6+3) piercing damage."
+        },
+        {
+          "name": "Heavy Crossbow",
+          "description": "Ranged Weapon Attack: +3 to hit, range 100/400 ft., one target. Hit: 6 (1d10+1) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "bugbear",
+      "name": "Bugbear",
+      "size": "Medium",
+      "type": "Humanoid (goblinoid)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 16,
+      "armor_type": "hide armor, shield",
+      "hit_points": 27,
+      "hit_dice": "5d8+5",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 15, "DEX": 14, "CON": 13, "INT": 8, "WIS": 11, "CHA": 9 },
+      "skills": { "stealth": 6, "survival": 2 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Common", "Goblin"],
+      "challenge_rating": "1",
+      "xp": 200,
+      "traits": [
+        {
+          "name": "Brute",
+          "description": "A melee weapon deals one extra die of its damage when the bugbear hits with it (included in the attack)."
+        },
+        {
+          "name": "Surprise Attack",
+          "description": "If the bugbear surprises a creature and hits it with an attack during the first round of combat, the target takes an extra 7 (2d6) damage from the attack."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Morningstar",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 11 (2d8+2) piercing damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 9 (2d6+2) piercing damage in melee or 5 (1d6+2) piercing damage at range."
+        }
+      ]
+    },
+    {
+      "id": "gnoll",
+      "name": "Gnoll",
+      "size": "Medium",
+      "type": "Humanoid (gnoll)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "hide armor, shield",
+      "hit_points": 22,
+      "hit_dice": "5d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 14, "DEX": 12, "CON": 11, "INT": 6, "WIS": 10, "CHA": 7 },
+      "senses": { "darkvision": 60, "passive_perception": 10 },
+      "languages": ["Gnoll"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Rampage",
+          "description": "When the gnoll reduces a creature to 0 hit points with a melee attack on its turn, the gnoll can take a bonus action to move up to half its speed and make a bite attack."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 4 (1d4+2) piercing damage."
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 5 (1d6+2) piercing damage, or 6 (1d8+2) piercing damage if used with two hands to make a melee attack."
+        },
+        {
+          "name": "Longbow",
+          "description": "Ranged Weapon Attack: +3 to hit, range 150/600 ft., one target. Hit: 5 (1d8+1) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "lizardfolk",
+      "name": "Lizardfolk",
+      "size": "Medium",
+      "type": "Humanoid (lizardfolk)",
+      "alignment": "Neutral",
+      "armor_class": 15,
+      "armor_type": "natural armor, shield",
+      "hit_points": 22,
+      "hit_dice": "4d8+4",
+      "speed": { "walk": 30, "swim": 30 },
+      "ability_scores": { "STR": 15, "DEX": 10, "CON": 13, "INT": 7, "WIS": 12, "CHA": 7 },
+      "skills": { "perception": 3, "stealth": 4, "survival": 5 },
+      "senses": { "passive_perception": 13 },
+      "languages": ["Draconic"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Hold Breath",
+          "description": "The lizardfolk can hold its breath for 15 minutes."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The lizardfolk makes two melee attacks, each one with a different weapon."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Heavy Club",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) bludgeoning damage."
+        },
+        {
+          "name": "Javelin",
+          "description": "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 30/120 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Spiked Shield",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        }
+      ]
+    },
+    {
+      "id": "sahuagin",
+      "name": "Sahuagin",
+      "size": "Medium",
+      "type": "Humanoid (sahuagin)",
+      "alignment": "Lawful Evil",
+      "armor_class": 12,
+      "armor_type": "natural armor",
+      "hit_points": 22,
+      "hit_dice": "4d8+4",
+      "speed": { "walk": 30, "swim": 40 },
+      "ability_scores": { "STR": 13, "DEX": 11, "CON": 12, "INT": 12, "WIS": 13, "CHA": 9 },
+      "skills": { "perception": 5 },
+      "senses": { "darkvision": 120, "passive_perception": 15 },
+      "languages": ["Sahuagin"],
+      "challenge_rating": "1/2",
+      "xp": 100,
+      "traits": [
+        {
+          "name": "Blood Frenzy",
+          "description": "The sahuagin has advantage on melee attack rolls against any creature that doesn't have all its hit points."
+        },
+        {
+          "name": "Limited Amphibiousness",
+          "description": "The sahuagin can breathe air and water, but it needs to be submerged at least once every 4 hours to avoid suffocating."
+        },
+        {
+          "name": "Shark Telepathy",
+          "description": "The sahuagin can magically command any shark within 120 feet of it, using a limited telepathy."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The sahuagin makes two melee attacks: one with its bite and one with its claws or spear."
+        },
+        {
+          "name": "Bite",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4+1) piercing damage."
+        },
+        {
+          "name": "Claws",
+          "description": "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4+1) slashing damage."
+        },
+        {
+          "name": "Spear",
+          "description": "Melee or Ranged Weapon Attack: +3 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d6+1) piercing damage, or 5 (1d8+1) piercing damage if used with two hands to make a melee attack."
+        }
+      ]
+    },
+    {
+      "id": "archmage",
+      "name": "Archmage",
+      "size": "Medium",
+      "type": "Humanoid (any species)",
+      "alignment": "Any alignment",
+      "armor_class": 12,
+      "armor_type": "15 with mage armor",
+      "hit_points": 99,
+      "hit_dice": "18d8+18",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 12, "INT": 20, "WIS": 15, "CHA": 16 },
+      "saving_throws": { "INT": 9, "WIS": 6 },
+      "skills": { "arcana": 13, "history": 13 },
+      "damage_resistances": ["damage from spells", "nonmagical bludgeoning, piercing, and slashing (from stoneskin)"],
+      "senses": { "passive_perception": 12 },
+      "languages": ["any six languages"],
+      "challenge_rating": "12",
+      "xp": 8400,
+      "traits": [
+        {
+          "name": "Magic Resistance",
+          "description": "The archmage has advantage on saving throws against spells and other magical effects."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Dagger",
+          "description": "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d4+2) piercing damage."
+        }
+      ],
+      "spellcasting": {
+        "ability": "INT",
+        "save_dc": 17,
+        "attack_bonus": 9,
+        "caster_level": 18,
+        "spells": {
+          "cantrips": ["fire bolt", "light", "mage hand", "prestidigitation", "shocking grasp"],
+          "1st_level": ["detect magic", "identify", "mage armor*", "magic missile"],
+          "2nd_level": ["detect thoughts", "mirror image", "misty step"],
+          "3rd_level": ["counterspell", "fly", "lightning bolt"],
+          "4th_level": ["banishment", "fire shield", "stoneskin*"],
+          "5th_level": ["cone of cold", "scrying", "wall of force"],
+          "6th_level": ["globe of invulnerability"],
+          "7th_level": ["teleport"],
+          "8th_level": ["mind blank*"],
+          "9th_level": ["time stop"]
+        },
+        "slots": { "1st": 4, "2nd": 3, "3rd": 3, "4th": 3, "5th": 3, "6th": 1, "7th": 1, "8th": 1, "9th": 1 }
+      }
+    },
+    {
+      "id": "drow",
+      "name": "Drow",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 15,
+      "armor_type": "chain shirt",
+      "hit_points": 13,
+      "hit_dice": "3d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 10, "INT": 11, "WIS": 11, "CHA": 12 },
+      "skills": { "perception": 2, "stealth": 4 },
+      "senses": { "darkvision": 120, "passive_perception": 12 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "1/4",
+      "xp": 50,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage."
+        },
+        {
+          "name": "Hand Crossbow",
+          "description": "Ranged Weapon Attack: +4 to hit, range 30/120 ft., one target. Hit: 5 (1d6+2) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 11,
+        "innate": true,
+        "spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "faerie fire"]
+        }
+      }
+    },
+    {
+      "id": "drow_elite_warrior",
+      "name": "Drow Elite Warrior",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 18,
+      "armor_type": "studded leather, shield",
+      "hit_points": 71,
+      "hit_dice": "11d8+22",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 13, "DEX": 18, "CON": 14, "INT": 11, "WIS": 13, "CHA": 12 },
+      "saving_throws": { "DEX": 7, "CON": 5, "WIS": 4 },
+      "skills": { "perception": 4, "stealth": 10 },
+      "senses": { "darkvision": 120, "passive_perception": 14 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "5",
+      "xp": 1800,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The drow makes two shortsword attacks."
+        },
+        {
+          "name": "Shortsword",
+          "description": "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6+4) piercing damage plus 10 (3d6) poison damage."
+        },
+        {
+          "name": "Hand Crossbow",
+          "description": "Ranged Weapon Attack: +7 to hit, range 30/120 ft., one target. Hit: 7 (1d6+4) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The drow adds 3 to its AC against one melee attack that would hit it. To do so, the drow must see the attacker and be wielding a melee weapon."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 12,
+        "innate": true,
+        "spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "faerie fire", "levitate (self only)"]
+        }
+      }
+    },
+    {
+      "id": "drow_mage",
+      "name": "Drow Mage",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 12,
+      "armor_type": "15 with mage armor",
+      "hit_points": 45,
+      "hit_dice": "10d8",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 9, "DEX": 14, "CON": 10, "INT": 17, "WIS": 13, "CHA": 12 },
+      "skills": { "arcana": 6, "deception": 4, "perception": 4, "stealth": 5 },
+      "senses": { "darkvision": 120, "passive_perception": 14 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "7",
+      "xp": 2900,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Staff",
+          "description": "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 2 (1d6-1) bludgeoning damage, or 3 (1d8-1) bludgeoning damage if used with two hands, plus 3 (1d6) poison damage."
+        },
+        {
+          "name": "Summon Demon (1/Day)",
+          "description": "The drow magically summons a quasit, or attempts to summon a shadow demon with a 50 percent chance of success. The summoned demon appears in an unoccupied space within 60 feet of its summoner, acts as an ally of its summoner, and can't summon other demons. It remains for 10 minutes, until it or its summoner dies, or until its summoner dismisses it as an action."
+        }
+      ],
+      "spellcasting": {
+        "ability": "INT",
+        "save_dc": 14,
+        "attack_bonus": 6,
+        "caster_level": 10,
+        "spells": {
+          "cantrips": ["mage hand", "minor illusion", "poison spray", "ray of frost"],
+          "1st_level": ["mage armor", "magic missile", "shield", "witch bolt"],
+          "2nd_level": ["alter self", "misty step", "web"],
+          "3rd_level": ["fly", "lightning bolt"],
+          "4th_level": ["Evard's black tentacles", "greater invisibility"],
+          "5th_level": ["cloudkill"]
+        },
+        "slots": { "1st": 4, "2nd": 3, "3rd": 3, "4th": 3, "5th": 2 },
+        "innate_spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "faerie fire", "levitate (self only)"]
+        }
+      }
+    },
+    {
+      "id": "drow_priestess_of_lolth",
+      "name": "Drow Priestess of Lolth",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 16,
+      "armor_type": "scale mail",
+      "hit_points": 71,
+      "hit_dice": "13d8+13",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 10, "DEX": 14, "CON": 12, "INT": 13, "WIS": 17, "CHA": 18 },
+      "saving_throws": { "CON": 4, "WIS": 6, "CHA": 7 },
+      "skills": { "insight": 6, "perception": 6, "religion": 4, "stealth": 5 },
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "8",
+      "xp": 3900,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The drow makes two scourge attacks."
+        },
+        {
+          "name": "Scourge",
+          "description": "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) piercing damage plus 17 (5d6) poison damage."
+        },
+        {
+          "name": "Summon Demon (1/Day)",
+          "description": "The drow attempts to magically summon a yochlol with a 30 percent chance of success. If the attempt fails, the drow takes 5 (1d10) psychic damage. Otherwise, the summoned demon appears in an unoccupied space within 60 feet of its summoner, acts as an ally of its summoner, and can't summon other demons. It remains for 10 minutes, until it or its summoner dies, or until its summoner dismisses it as an action."
+        }
+      ],
+      "spellcasting": {
+        "ability": "WIS",
+        "save_dc": 14,
+        "attack_bonus": 6,
+        "caster_level": 10,
+        "spells": {
+          "cantrips": ["guidance", "poison spray", "resistance", "spare the dying", "thaumaturgy"],
+          "1st_level": ["animal friendship", "cure wounds", "detect poison and disease", "ray of sickness"],
+          "2nd_level": ["lesser restoration", "protection from poison", "web"],
+          "3rd_level": ["conjure animals (2 giant spiders)", "dispel magic"],
+          "4th_level": ["divination", "freedom of movement"],
+          "5th_level": ["insect plague", "mass cure wounds"]
+        },
+        "slots": { "1st": 4, "2nd": 3, "3rd": 3, "4th": 3, "5th": 2 },
+        "innate_spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "dispel magic", "faerie fire", "levitate (self only)", "suggestion"]
+        }
+      }
+    },
+    {
+      "id": "drow_house_captain",
+      "name": "Drow House Captain",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 16,
+      "armor_type": "chain mail",
+      "hit_points": 162,
+      "hit_dice": "25d8+50",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 14, "DEX": 19, "CON": 15, "INT": 12, "WIS": 14, "CHA": 13 },
+      "saving_throws": { "DEX": 8, "CON": 6, "WIS": 6 },
+      "skills": { "perception": 6, "stealth": 8 },
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "9",
+      "xp": 5000,
+      "traits": [
+        {
+          "name": "Battle Command",
+          "description": "As a bonus action, the drow targets one ally it can see within 30 feet of it. If the target can see or hear the drow, the target can use its reaction to make one melee attack or to take the Dodge or Hide action."
+        },
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The drow makes three attacks: two with its scimitar and one with its whip or its hand crossbow."
+        },
+        {
+          "name": "Scimitar",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 7 (1d6+4) slashing damage plus 14 (4d6) poison damage."
+        },
+        {
+          "name": "Whip",
+          "description": "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 6 (1d4+4) slashing damage. If the target is an ally, it has advantage on attack rolls until the end of its next turn."
+        },
+        {
+          "name": "Hand Crossbow",
+          "description": "Ranged Weapon Attack: +8 to hit, range 30/120 ft., one target. Hit: 7 (1d6+4) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
+        }
+      ],
+      "reactions": [
+        {
+          "name": "Parry",
+          "description": "The drow adds 3 to its AC against one melee attack that would hit it. To do so, the drow must see the attacker and be wielding a melee weapon."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 13,
+        "innate": true,
+        "spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "faerie fire", "levitate (self only)"]
+        }
+      }
+    },
+    {
+      "id": "drow_shadowblade",
+      "name": "Drow Shadowblade",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Neutral Evil",
+      "armor_class": 17,
+      "armor_type": "studded leather",
+      "hit_points": 150,
+      "hit_dice": "20d8+60",
+      "speed": { "walk": 30 },
+      "ability_scores": { "STR": 14, "DEX": 21, "CON": 16, "INT": 12, "WIS": 14, "CHA": 13 },
+      "saving_throws": { "DEX": 9, "CON": 7, "WIS": 6 },
+      "skills": { "perception": 6, "stealth": 13 },
+      "senses": { "darkvision": 120, "passive_perception": 16 },
+      "languages": ["Elvish", "Undercommon"],
+      "challenge_rating": "11",
+      "xp": 7200,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Shadow Step",
+          "description": "While in dim light or darkness, the drow can teleport as a bonus action up to 60 feet to an unoccupied space it can see that is also in dim light or darkness. It then has advantage on the first melee attack it makes before the end of the turn."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The drow makes three shadow sword attacks. One of those attacks can be replaced by a hand crossbow attack. The drow can also use Spellcasting to cast darkness."
+        },
+        {
+          "name": "Shadow Sword",
+          "description": "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 8 (1d6+5) piercing damage plus 10 (3d6) necrotic damage. If the target is a creature, any hit point regain it receives until the start of the drow's next turn is halved."
+        },
+        {
+          "name": "Hand Crossbow",
+          "description": "Ranged Weapon Attack: +9 to hit, range 30/120 ft., one target. Hit: 8 (1d6+5) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour. If the saving throw fails by 5 or more, the target is also unconscious while poisoned in this way. The target wakes up if it takes damage or if another creature takes an action to shake it awake."
+        }
+      ],
+      "spellcasting": {
+        "ability": "CHA",
+        "save_dc": 13,
+        "innate": true,
+        "spells": {
+          "at_will": ["dancing lights"],
+          "1/day_each": ["darkness", "faerie fire", "levitate (self only)"]
+        }
+      }
+    },
+    {
+      "id": "drow_arachnomancer",
+      "name": "Drow Arachnomancer",
+      "size": "Medium",
+      "type": "Humanoid (elf)",
+      "alignment": "Chaotic Evil",
+      "armor_class": 15,
+      "armor_type": "studded leather",
+      "hit_points": 162,
+      "hit_dice": "25d8+50",
+      "speed": { "walk": 30, "climb": 30 },
+      "ability_scores": { "STR": 11, "DEX": 17, "CON": 14, "INT": 19, "WIS": 14, "CHA": 16 },
+      "saving_throws": { "CON": 7, "INT": 9, "CHA": 8 },
+      "skills": { "arcana": 9, "nature": 9, "perception": 7, "stealth": 8 },
+      "damage_resistances": ["poison"],
+      "senses": { "blindsight": 10, "darkvision": 120, "passive_perception": 17 },
+      "languages": ["Elvish", "Undercommon", "can speak with spiders"],
+      "challenge_rating": "13",
+      "xp": 10000,
+      "traits": [
+        {
+          "name": "Fey Ancestry",
+          "description": "The drow has advantage on saving throws against being charmed, and magic can't put the drow to sleep."
+        },
+        {
+          "name": "Spider Climb",
+          "description": "The drow can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+        },
+        {
+          "name": "Sunlight Sensitivity",
+          "description": "While in sunlight, the drow has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+        },
+        {
+          "name": "Web Walker",
+          "description": "The drow ignores movement restrictions caused by webbing."
+        }
+      ],
+      "actions": [
+        {
+          "name": "Multiattack",
+          "description": "The drow makes three attacks, using Bite, Poisonous Touch, Web, or a combination of them. One attack can be replaced by a use of Spellcasting."
+        },
+        {
+          "name": "Bite (Spider Form Only)",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 12 (2d8+3) piercing damage, and the target must make a DC 15 Constitution saving throw, taking 31 (7d8) poison damage on a failed save, or half as much damage on a successful one. If the poison damage reduces the target to 0 hit points, the target is stable but poisoned for 1 hour, even after regaining hit points, and is paralyzed while poisoned in this way."
+        },
+        {
+          "name": "Poisonous Touch (Humanoid Form Only)",
+          "description": "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 35 (10d6) poison damage."
+        },
+        {
+          "name": "Web (Spider Form Only; Recharge 5-6)",
+          "description": "Ranged Weapon Attack: +8 to hit, range 30/60 ft., one creature. Hit: The target is restrained by webbing. As an action, the restrained target can make a DC 15 Strength check, bursting the webbing on a success. The webbing can also be attacked and destroyed (AC 10; 5 hit points; vulnerability to fire damage; immunity to bludgeoning, poison, and psychic damage)."
+        },
+        {
+          "name": "Change Shape (Recharges after a Short or Long Rest)",
+          "description": "The drow magically polymorphs into a Large spider, remaining in that form for up to 1 hour, or back into its true form. Its statistics, other than its size, are the same in each form. It can speak and cast spells while in spider form. Any equipment it is wearing or carrying in humanoid form melds into the spider form. It can't activate, use, wield, or otherwise benefit from any of its equipment. It reverts to its humanoid form if it dies."
+        }
+      ],
+      "spellcasting": {
+        "ability": "INT",
+        "save_dc": 17,
+        "attack_bonus": 9,
+        "caster_level": 16,
+        "spells": {
+          "cantrips": ["chill touch", "dancing lights", "mage hand", "poison spray"],
+          "1st_level": ["mage armor", "shield", "witch bolt"],
+          "2nd_level": ["alter self", "darkness", "spider climb", "web"],
+          "3rd_level": ["animate dead", "conjure animals (spiders)", "vampiric touch"],
+          "4th_level": ["black tentacles", "giant insect", "greater invisibility"],
+          "5th_level": ["cloudkill", "insect plague"],
+          "6th_level": ["eyebite"],
+          "7th_level": ["etherealness"],
+          "8th_level": ["dominate monster"]
+        },
+        "slots": { "1st": 4, "2nd": 3, "3rd": 3, "4th": 3, "5th": 2, "6th": 1, "7th": 1, "8th": 1 }
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "guard",
+  "name": "Guard",
+  "source": "2024 Player's Handbook",
+  "description": "You served as a sentinel, standing watch over a gate, wall, or camp. You know how to stay awake through the most tedious hours and how to spot trouble before it becomes an emergency.",
+  "ability_score_increases": {
+    "options": [
+      {"strength": 2, "wisdom": 1},
+      {"strength": 1, "wisdom": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["athletics", "perception"],
+  "tool_proficiency": "Gaming Set (one of your choice)",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["gaming_set", "hooded_lantern", "manacles", "quiver_with_20_arrows", "spear", "pouch", "travelers_clothes"],
+    "gold": 12
+  },
+  "origin_feat": "Alert",
+  "feature": {
+    "id": "watcher's_eye",
+    "name": "Watcher's Eye",
+    "description": "Your experience in patrolling has taught you to spot trouble. You can spot signs of patrol routes and guard movements, and you can usually determine where guards are stationed or when their shifts change. You have an easier time finding someone to bribe or getting past someone who isn't paying attention."
+  }
+}

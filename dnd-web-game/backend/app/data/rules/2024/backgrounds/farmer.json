@@ -1,0 +1,29 @@
+{
+  "id": "farmer",
+  "name": "Farmer",
+  "source": "2024 Player's Handbook",
+  "description": "You grew up close to the land. Years of toil in a field, pasture, or vineyard taught you patience and hard work. You sometimes dream of traveling to see the world, but you took pride in the honest work of farm life.",
+  "ability_score_increases": {
+    "options": [
+      {"strength": 2, "constitution": 1},
+      {"strength": 1, "constitution": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["animal_handling", "nature"],
+  "tool_proficiency": "Carpenter's Tools",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["carpenters_tools", "healer's_kit", "iron_pot", "shovel", "pouch", "travelers_clothes"],
+    "gold": 23
+  },
+  "origin_feat": "Tough",
+  "feature": {
+    "id": "harvest_season",
+    "name": "Harvest Season",
+    "description": "You know how to work the land and get the most out of it. You can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water, and so forth."
+  }
+}

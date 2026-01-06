@@ -1,0 +1,29 @@
+{
+  "id": "sage",
+  "name": "Sage",
+  "source": "2024 Player's Handbook",
+  "description": "You spent your formative years traveling between manors and monasteries, studying ancient tomes and learning the ways of magic and lore. You have a thirst for knowledge.",
+  "ability_score_increases": {
+    "options": [
+      {"constitution": 2, "intelligence": 1},
+      {"constitution": 1, "intelligence": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["arcana", "history"],
+  "tool_proficiency": "Calligrapher's Supplies",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["calligraphers_supplies", "book_history", "parchment_8_sheets", "robe", "pouch"],
+    "gold": 8
+  },
+  "origin_feat": "Magic Initiate (Wizard)",
+  "feature": {
+    "id": "researcher",
+    "name": "Researcher",
+    "description": "When you attempt to learn or recall a piece of lore, if you do not know that information, you often know where and from whom you can obtain it. Usually, this information comes from a library, scriptorium, university, or a sage or other learned person or creature."
+  }
+}

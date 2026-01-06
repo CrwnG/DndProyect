@@ -1,0 +1,442 @@
+{
+  "weapons": {
+    "simple_melee": [
+      {
+        "id": "club",
+        "name": "Club",
+        "cost": "1 sp",
+        "damage": "1d4",
+        "damage_type": "bludgeoning",
+        "weight": 2,
+        "properties": ["light"],
+        "mastery": "slow"
+      },
+      {
+        "id": "dagger",
+        "name": "Dagger",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "damage_type": "piercing",
+        "weight": 1,
+        "properties": ["finesse", "light", "thrown"],
+        "range": 20,
+        "long_range": 60,
+        "mastery": "nick"
+      },
+      {
+        "id": "greatclub",
+        "name": "Greatclub",
+        "cost": "2 sp",
+        "damage": "1d8",
+        "damage_type": "bludgeoning",
+        "weight": 10,
+        "properties": ["two_handed"],
+        "mastery": "push"
+      },
+      {
+        "id": "handaxe",
+        "name": "Handaxe",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "damage_type": "slashing",
+        "weight": 2,
+        "properties": ["light", "thrown"],
+        "range": 20,
+        "long_range": 60,
+        "mastery": "vex"
+      },
+      {
+        "id": "javelin",
+        "name": "Javelin",
+        "cost": "5 sp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": ["thrown"],
+        "range": 30,
+        "long_range": 120,
+        "mastery": "slow"
+      },
+      {
+        "id": "light_hammer",
+        "name": "Light Hammer",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "damage_type": "bludgeoning",
+        "weight": 2,
+        "properties": ["light", "thrown"],
+        "range": 20,
+        "long_range": 60,
+        "mastery": "nick"
+      },
+      {
+        "id": "mace",
+        "name": "Mace",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "damage_type": "bludgeoning",
+        "weight": 4,
+        "properties": [],
+        "mastery": "sap"
+      },
+      {
+        "id": "quarterstaff",
+        "name": "Quarterstaff",
+        "cost": "2 sp",
+        "damage": "1d6",
+        "damage_type": "bludgeoning",
+        "weight": 4,
+        "properties": ["versatile"],
+        "versatile_damage": "1d8",
+        "mastery": "topple"
+      },
+      {
+        "id": "sickle",
+        "name": "Sickle",
+        "cost": "1 gp",
+        "damage": "1d4",
+        "damage_type": "slashing",
+        "weight": 2,
+        "properties": ["light"],
+        "mastery": "nick"
+      },
+      {
+        "id": "spear",
+        "name": "Spear",
+        "cost": "1 gp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 3,
+        "properties": ["thrown", "versatile"],
+        "range": 20,
+        "long_range": 60,
+        "versatile_damage": "1d8",
+        "mastery": "sap"
+      }
+    ],
+    "simple_ranged": [
+      {
+        "id": "light_crossbow",
+        "name": "Light Crossbow",
+        "cost": "25 gp",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 5,
+        "properties": ["ammunition", "loading", "two_handed"],
+        "range": 80,
+        "long_range": 320,
+        "mastery": "slow"
+      },
+      {
+        "id": "dart",
+        "name": "Dart",
+        "cost": "5 cp",
+        "damage": "1d4",
+        "damage_type": "piercing",
+        "weight": 0.25,
+        "properties": ["finesse", "thrown"],
+        "range": 20,
+        "long_range": 60,
+        "mastery": "vex"
+      },
+      {
+        "id": "shortbow",
+        "name": "Shortbow",
+        "cost": "25 gp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": ["ammunition", "two_handed"],
+        "range": 80,
+        "long_range": 320,
+        "mastery": "vex"
+      },
+      {
+        "id": "sling",
+        "name": "Sling",
+        "cost": "1 sp",
+        "damage": "1d4",
+        "damage_type": "bludgeoning",
+        "weight": 0,
+        "properties": ["ammunition"],
+        "range": 30,
+        "long_range": 120,
+        "mastery": "slow"
+      }
+    ],
+    "martial_melee": [
+      {
+        "id": "battleaxe",
+        "name": "Battleaxe",
+        "cost": "10 gp",
+        "damage": "1d8",
+        "damage_type": "slashing",
+        "weight": 4,
+        "properties": ["versatile"],
+        "versatile_damage": "1d10",
+        "mastery": "topple"
+      },
+      {
+        "id": "flail",
+        "name": "Flail",
+        "cost": "10 gp",
+        "damage": "1d8",
+        "damage_type": "bludgeoning",
+        "weight": 2,
+        "properties": [],
+        "mastery": "sap"
+      },
+      {
+        "id": "glaive",
+        "name": "Glaive",
+        "cost": "20 gp",
+        "damage": "1d10",
+        "damage_type": "slashing",
+        "weight": 6,
+        "properties": ["heavy", "reach", "two_handed"],
+        "mastery": "graze"
+      },
+      {
+        "id": "greataxe",
+        "name": "Greataxe",
+        "cost": "30 gp",
+        "damage": "1d12",
+        "damage_type": "slashing",
+        "weight": 7,
+        "properties": ["heavy", "two_handed"],
+        "mastery": "cleave"
+      },
+      {
+        "id": "greatsword",
+        "name": "Greatsword",
+        "cost": "50 gp",
+        "damage": "2d6",
+        "damage_type": "slashing",
+        "weight": 6,
+        "properties": ["heavy", "two_handed"],
+        "mastery": "graze"
+      },
+      {
+        "id": "halberd",
+        "name": "Halberd",
+        "cost": "20 gp",
+        "damage": "1d10",
+        "damage_type": "slashing",
+        "weight": 6,
+        "properties": ["heavy", "reach", "two_handed"],
+        "mastery": "cleave"
+      },
+      {
+        "id": "lance",
+        "name": "Lance",
+        "cost": "10 gp",
+        "damage": "1d12",
+        "damage_type": "piercing",
+        "weight": 6,
+        "properties": ["reach", "special"],
+        "special": "Disadvantage on attacks within 5ft. Requires two hands unless mounted.",
+        "mastery": "topple"
+      },
+      {
+        "id": "longsword",
+        "name": "Longsword",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "damage_type": "slashing",
+        "weight": 3,
+        "properties": ["versatile"],
+        "versatile_damage": "1d10",
+        "mastery": "sap"
+      },
+      {
+        "id": "maul",
+        "name": "Maul",
+        "cost": "10 gp",
+        "damage": "2d6",
+        "damage_type": "bludgeoning",
+        "weight": 10,
+        "properties": ["heavy", "two_handed"],
+        "mastery": "topple"
+      },
+      {
+        "id": "morningstar",
+        "name": "Morningstar",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 4,
+        "properties": [],
+        "mastery": "sap"
+      },
+      {
+        "id": "pike",
+        "name": "Pike",
+        "cost": "5 gp",
+        "damage": "1d10",
+        "damage_type": "piercing",
+        "weight": 18,
+        "properties": ["heavy", "reach", "two_handed"],
+        "mastery": "push"
+      },
+      {
+        "id": "rapier",
+        "name": "Rapier",
+        "cost": "25 gp",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": ["finesse"],
+        "mastery": "vex"
+      },
+      {
+        "id": "scimitar",
+        "name": "Scimitar",
+        "cost": "25 gp",
+        "damage": "1d6",
+        "damage_type": "slashing",
+        "weight": 3,
+        "properties": ["finesse", "light"],
+        "mastery": "nick"
+      },
+      {
+        "id": "shortsword",
+        "name": "Shortsword",
+        "cost": "10 gp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": ["finesse", "light"],
+        "mastery": "vex"
+      },
+      {
+        "id": "trident",
+        "name": "Trident",
+        "cost": "5 gp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 4,
+        "properties": ["thrown", "versatile"],
+        "range": 20,
+        "long_range": 60,
+        "versatile_damage": "1d8",
+        "mastery": "topple"
+      },
+      {
+        "id": "war_pick",
+        "name": "War Pick",
+        "cost": "5 gp",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": [],
+        "mastery": "sap"
+      },
+      {
+        "id": "warhammer",
+        "name": "Warhammer",
+        "cost": "15 gp",
+        "damage": "1d8",
+        "damage_type": "bludgeoning",
+        "weight": 2,
+        "properties": ["versatile"],
+        "versatile_damage": "1d10",
+        "mastery": "push"
+      },
+      {
+        "id": "whip",
+        "name": "Whip",
+        "cost": "2 gp",
+        "damage": "1d4",
+        "damage_type": "slashing",
+        "weight": 3,
+        "properties": ["finesse", "reach"],
+        "mastery": "slow"
+      }
+    ],
+    "martial_ranged": [
+      {
+        "id": "blowgun",
+        "name": "Blowgun",
+        "cost": "10 gp",
+        "damage": "1",
+        "damage_type": "piercing",
+        "weight": 1,
+        "properties": ["ammunition", "loading"],
+        "range": 25,
+        "long_range": 100,
+        "mastery": "vex"
+      },
+      {
+        "id": "hand_crossbow",
+        "name": "Hand Crossbow",
+        "cost": "75 gp",
+        "damage": "1d6",
+        "damage_type": "piercing",
+        "weight": 3,
+        "properties": ["ammunition", "light", "loading"],
+        "range": 30,
+        "long_range": 120,
+        "mastery": "vex"
+      },
+      {
+        "id": "heavy_crossbow",
+        "name": "Heavy Crossbow",
+        "cost": "50 gp",
+        "damage": "1d10",
+        "damage_type": "piercing",
+        "weight": 18,
+        "properties": ["ammunition", "heavy", "loading", "two_handed"],
+        "range": 100,
+        "long_range": 400,
+        "mastery": "push"
+      },
+      {
+        "id": "longbow",
+        "name": "Longbow",
+        "cost": "50 gp",
+        "damage": "1d8",
+        "damage_type": "piercing",
+        "weight": 2,
+        "properties": ["ammunition", "heavy", "two_handed"],
+        "range": 150,
+        "long_range": 600,
+        "mastery": "slow"
+      },
+      {
+        "id": "net",
+        "name": "Net",
+        "cost": "1 gp",
+        "damage": "0",
+        "damage_type": "none",
+        "weight": 3,
+        "properties": ["special", "thrown"],
+        "range": 5,
+        "long_range": 15,
+        "special": "Large or smaller creature is restrained until freed (DC 10 STR or slashing damage to net).",
+        "mastery": "slow"
+      }
+    ]
+  },
+  "properties": {
+    "ammunition": "Requires ammunition to use. After combat, you can recover half your expended ammunition.",
+    "finesse": "Use STR or DEX for attack and damage rolls (your choice).",
+    "heavy": "Small creatures have disadvantage on attack rolls with this weapon.",
+    "light": "Ideal for two-weapon fighting. Can use as off-hand weapon.",
+    "loading": "Can only fire once per action, bonus action, or reaction regardless of attacks.",
+    "reach": "Adds 5 feet to your reach when attacking and for opportunity attacks.",
+    "special": "See weapon description for special rules.",
+    "thrown": "Can be thrown for a ranged attack using the same ability modifier.",
+    "two_handed": "Requires two hands to use.",
+    "versatile": "Can be used with one or two hands. Two-handed uses the versatile damage die."
+  },
+  "mastery_descriptions": {
+    "cleave": "On hit, deal your STR modifier damage to one other creature adjacent to the target.",
+    "graze": "On miss, deal damage equal to your ability modifier to the target.",
+    "nick": "Make an extra attack with this light weapon as part of the Attack action.",
+    "push": "On hit, push target 10ft away (target can make STR save to resist).",
+    "sap": "On hit, target has disadvantage on its next attack roll.",
+    "slow": "On hit, reduce target's speed by 10ft until start of your next turn.",
+    "topple": "On hit, target must make STR save or fall prone.",
+    "vex": "On hit, gain advantage on your next attack against this target before end of your next turn."
+  }
+}

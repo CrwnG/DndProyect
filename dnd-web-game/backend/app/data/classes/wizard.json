@@ -1,0 +1,65 @@
+{
+  "id": "wizard",
+  "name": "Wizard",
+  "hit_die": "d6",
+  "primary_ability": "intelligence",
+  "spellcasting_ability": "intelligence",
+  "saving_throw_proficiencies": ["intelligence", "wisdom"],
+  "armor_proficiencies": [],
+  "weapon_proficiencies": ["dagger", "dart", "sling", "quarterstaff", "light_crossbow"],
+  "starting_hp": 6,
+  "hp_per_level": 4,
+  "features": {
+    "1": [
+      {
+        "id": "spellcasting",
+        "name": "Spellcasting",
+        "description": "You have learned to cast spells through study and practice."
+      },
+      {
+        "id": "arcane_recovery",
+        "name": "Arcane Recovery",
+        "description": "Once per day when you finish a short rest, you can recover spell slots with a combined level equal to half your wizard level (rounded up).",
+        "uses_per_day": 1
+      }
+    ],
+    "2": [
+      {
+        "id": "arcane_tradition",
+        "name": "Arcane Tradition",
+        "description": "You choose an arcane tradition: School of Evocation."
+      },
+      {
+        "id": "evocation_savant",
+        "name": "Evocation Savant",
+        "description": "The gold and time you must spend to copy an evocation spell is halved."
+      },
+      {
+        "id": "sculpt_spells",
+        "name": "Sculpt Spells",
+        "description": "When you cast an evocation spell that affects others, you can choose a number of creatures equal to 1 + the spell's level. Those creatures automatically succeed on their saving throws and take no damage."
+      }
+    ]
+  },
+  "spell_slots": {
+    "1": {"cantrips": 3, "1st": 2},
+    "2": {"cantrips": 3, "1st": 3},
+    "3": {"cantrips": 3, "1st": 4, "2nd": 2}
+  },
+  "starting_equipment": [
+    {
+      "id": "quarterstaff",
+      "name": "Quarterstaff",
+      "type": "weapon",
+      "damage": "1d6",
+      "damage_type": "bludgeoning",
+      "properties": ["versatile"],
+      "versatile_damage": "1d8"
+    },
+    {
+      "id": "spellbook",
+      "name": "Spellbook",
+      "type": "focus"
+    }
+  ]
+}

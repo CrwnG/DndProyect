@@ -1,0 +1,69 @@
+{
+  "id": "elf",
+  "name": "Elf",
+  "source": "2024 Player's Handbook",
+  "description": "Created by the god Corellon, the first elves could change their forms at will. They lost this ability when Corellon cursed them for plotting with the deity Lolth, who tried and failed to usurp Corellon's dominion. Now elves are bound to their current forms.",
+  "creature_type": "Humanoid",
+  "size": "Medium (about 5-6 feet tall)",
+  "speed": 30,
+  "languages": ["Common", "Elvish"],
+  "traits": [
+    {
+      "id": "darkvision_elf",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 60 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "elven_lineage",
+      "name": "Elven Lineage",
+      "description": "You are part of a lineage that grants you supernatural abilities. Choose one of the following lineages. You gain the 1st-level benefit of that lineage. When you reach 3rd level and 5th level, you learn a higher-level spell as shown on the table. You always have that spell prepared. You can cast it once without a spell slot, and you regain the ability to cast it in that way when you finish a Long Rest. You can also cast the spell using any spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for the spells you cast with this trait (choose when you select the lineage).",
+      "lineages": [
+        {
+          "id": "drow",
+          "name": "Drow",
+          "description": "The lineage of the Dark Elves",
+          "cantrip": "Dancing Lights",
+          "level_3_spell": "Faerie Fire",
+          "level_5_spell": "Darkness",
+          "notes": "You aren't hindered by sunlight."
+        },
+        {
+          "id": "high_elf",
+          "name": "High Elf",
+          "description": "The lineage of the High Elves",
+          "cantrip": "Prestidigitation",
+          "level_3_spell": "Detect Magic",
+          "level_5_spell": "Misty Step"
+        },
+        {
+          "id": "wood_elf",
+          "name": "Wood Elf",
+          "description": "The lineage of the Wood Elves",
+          "cantrip": "Druidcraft",
+          "level_3_spell": "Longstrider",
+          "level_5_spell": "Pass without Trace",
+          "speed_bonus": 5,
+          "notes": "Your Speed increases by 5 feet."
+        }
+      ]
+    },
+    {
+      "id": "fey_ancestry",
+      "name": "Fey Ancestry",
+      "description": "You have Advantage on saving throws you make to avoid or end the Charmed condition."
+    },
+    {
+      "id": "keen_senses",
+      "name": "Keen Senses",
+      "description": "You have proficiency in the Perception skill."
+    },
+    {
+      "id": "trance",
+      "name": "Trance",
+      "description": "You don't need to sleep, and magic can't put you to sleep. You can finish a Long Rest in 4 hours if you spend those hours in a trancelike meditation, during which you remain conscious."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

@@ -1,0 +1,360 @@
+{
+  "id": "fighter",
+  "name": "Fighter",
+  "source": "2024 Player's Handbook",
+  "description": "A master of martial combat, skilled with a variety of weapons and armor",
+  "hit_die": "d10",
+  "primary_ability": "strength_or_dexterity",
+  "saving_throw_proficiencies": ["strength", "constitution"],
+  "armor_proficiencies": ["light", "medium", "heavy", "shields"],
+  "weapon_proficiencies": ["simple", "martial"],
+  "tool_proficiencies": [],
+  "skill_choices": {
+    "count": 2,
+    "options": ["acrobatics", "animal_handling", "athletics", "history", "insight", "intimidation", "perception", "survival"]
+  },
+  "starting_equipment": {
+    "choices": [
+      {
+        "options": [
+          {"item": "chain_mail", "quantity": 1},
+          {"items": [{"item": "leather_armor", "quantity": 1}, {"item": "longbow", "quantity": 1}, {"item": "arrows", "quantity": 20}]}
+        ]
+      },
+      {
+        "options": [
+          {"item": "greatsword", "quantity": 1},
+          {"items": [{"item": "longsword", "quantity": 1}, {"item": "shield", "quantity": 1}]}
+        ]
+      }
+    ],
+    "default": [
+      {"item": "light_crossbow", "quantity": 1},
+      {"item": "bolts", "quantity": 20},
+      {"item": "dungeoneers_pack", "quantity": 1}
+    ]
+  },
+  "multiclass_requirements": {
+    "strength": 13,
+    "or_dexterity": 13
+  },
+  "multiclass_proficiencies": ["light_armor", "medium_armor", "shields", "simple_weapons", "martial_weapons"],
+  "class_features": [
+    {
+      "id": "fighting_style",
+      "name": "Fighting Style",
+      "level": 1,
+      "description": "You gain a Fighting Style feat of your choice. Instead of choosing one of those feats, you can choose the option below: Classic Fighting Styles (Archery: +2 bonus to ranged weapon attacks, Defense: +1 to AC while wearing armor, Dueling: +2 damage with one-handed weapons when no other weapon held, Great Weapon Fighting: Reroll 1s and 2s on damage dice with two-handed weapons, Protection: Impose disadvantage on attacks against allies within 5 feet (reaction, requires shield), Two-Weapon Fighting: Add ability modifier to off-hand damage).",
+      "options": [
+        {"id": "archery", "name": "Archery", "description": "+2 bonus to attack rolls with ranged weapons"},
+        {"id": "defense", "name": "Defense", "description": "+1 to AC while wearing armor"},
+        {"id": "dueling", "name": "Dueling", "description": "+2 to damage when wielding a melee weapon in one hand and no other weapons"},
+        {"id": "great_weapon_fighting", "name": "Great Weapon Fighting", "description": "Reroll 1s and 2s on damage dice for two-handed or versatile weapons"},
+        {"id": "protection", "name": "Protection", "description": "Impose disadvantage on attacks against allies within 5 feet (reaction with shield)"},
+        {"id": "two_weapon_fighting", "name": "Two-Weapon Fighting", "description": "Add ability modifier to off-hand weapon damage"}
+      ]
+    },
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "level": 1,
+      "description": "You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a Bonus Action to regain Hit Points equal to 1d10 plus your Fighter level. Once you use this feature, you must finish a Short or Long Rest before you can use it again. You can use it twice before a rest starting at level 4, three times at level 10, and four times at level 16."
+    },
+    {
+      "id": "weapon_mastery",
+      "name": "Weapon Mastery",
+      "level": 1,
+      "description": "Your training with weapons allows you to use the mastery properties of three kinds of Simple or Martial weapons of your choice. Whenever you finish a Long Rest, you can practice weapon drills and change one of those weapon choices. When you reach certain Fighter levels, you gain the ability to use the mastery properties of more kinds of weapons: four kinds at level 4, five kinds at level 10, and six kinds at level 16."
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "level": 2,
+      "description": "You can push yourself beyond your normal limits for a moment. On your turn, you can take one additional action. Once you use this feature, you must finish a Short or Long Rest before you can use it again. You can use it twice before a rest starting at level 17."
+    },
+    {
+      "id": "tactical_mind",
+      "name": "Tactical Mind",
+      "level": 2,
+      "description": "You have a mind for tactics and getting the upper hand on foes. When you fail an ability check, you can expend a use of your Second Wind to push yourself toward success. Rather than regaining Hit Points, you roll 1d10 and add the number rolled to the ability check, potentially turning it into a success. If the check still fails, this use of Second Wind isn't expended."
+    },
+    {
+      "id": "fighter_subclass",
+      "name": "Fighter Subclass",
+      "level": 3,
+      "description": "You gain a Fighter subclass of your choice. The Battle Master, Champion, Eldritch Knight, and Psi Warrior subclasses are detailed after this class's description."
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify. You gain this feature again at Fighter levels 6, 8, 12, 14, and 16."
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "level": 5,
+      "description": "You can attack twice instead of once whenever you take the Attack action on your turn."
+    },
+    {
+      "id": "tactical_shift",
+      "name": "Tactical Shift",
+      "level": 5,
+      "description": "Whenever you activate your Second Wind with a Bonus Action, you can move up to half your Speed without provoking Opportunity Attacks."
+    },
+    {
+      "id": "indomitable",
+      "name": "Indomitable",
+      "level": 9,
+      "description": "If you fail a saving throw, you can reroll it with a bonus equal to your Fighter level. You must use the new roll, and you can't use this feature again until you finish a Long Rest. You can use this feature twice between Long Rests starting at level 13 and three times starting at level 17."
+    },
+    {
+      "id": "extra_attack_2",
+      "name": "Extra Attack (2)",
+      "level": 11,
+      "description": "You can attack three times whenever you take the Attack action on your turn."
+    },
+    {
+      "id": "studied_attacks",
+      "name": "Studied Attacks",
+      "level": 13,
+      "description": "You study your opponents and learn from each attack you make. If you make an attack roll against a creature and miss, you have Advantage on your next attack roll against that creature before the end of your next turn."
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "level": 19,
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Combat Prowess is recommended."
+    },
+    {
+      "id": "extra_attack_3",
+      "name": "Extra Attack (3)",
+      "level": 20,
+      "description": "You can attack four times whenever you take the Attack action on your turn."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "battle_master",
+      "name": "Battle Master",
+      "source": "2024 Player's Handbook",
+      "description": "Battle Masters are students of the art of battle, learning martial techniques passed down through generations. They master maneuvers that allow them to outmaneuver and outwit their foes.",
+      "features": [
+        {
+          "id": "combat_superiority",
+          "name": "Combat Superiority",
+          "level": 3,
+          "description": "You have honed your martial techniques. You learn three maneuvers of your choice from the Maneuvers Options list. You gain additional maneuvers at higher levels: four at level 7, five at level 10, and six at level 15. When you gain a Fighter level, you can replace one maneuver you know with another. Superiority Dice: You have four Superiority Dice, which are d8s. A Superiority Die is expended when you use it. You regain all expended Superiority Dice when you finish a Short or Long Rest. You gain another Superiority Die at Fighter levels 7 and 15. Saving Throws: If a maneuver requires a saving throw, the DC equals 8 + your Proficiency Bonus + your Strength or Dexterity modifier (your choice)."
+        },
+        {
+          "id": "student_of_war",
+          "name": "Student of War",
+          "level": 3,
+          "description": "You gain proficiency with one type of Artisan's Tools of your choice, and you gain proficiency in one skill of your choice from the following list: History, Insight, Performance, or Persuasion."
+        },
+        {
+          "id": "know_your_enemy",
+          "name": "Know Your Enemy",
+          "level": 7,
+          "description": "As a Bonus Action, you can discern certain strengths and weaknesses of a creature you can see within 30 feet of yourself; you know whether that creature has any Immunities, Resistances, or Vulnerabilities, and if the creature has any, you know what they are."
+        },
+        {
+          "id": "improved_combat_superiority",
+          "name": "Improved Combat Superiority",
+          "level": 10,
+          "description": "Your Superiority Dice are now d10s."
+        },
+        {
+          "id": "relentless",
+          "name": "Relentless",
+          "level": 15,
+          "description": "When you roll Initiative and have no Superiority Dice remaining, you regain one Superiority Die."
+        },
+        {
+          "id": "ultimate_combat_superiority",
+          "name": "Ultimate Combat Superiority",
+          "level": 18,
+          "description": "Your Superiority Dice are now d12s."
+        }
+      ],
+      "maneuvers": [
+        {"id": "ambush", "name": "Ambush", "description": "When you make a Dexterity (Stealth) check or an Initiative roll, you can expend one Superiority Die and add the die to the roll, provided you don't have the Incapacitated condition."},
+        {"id": "bait_and_switch", "name": "Bait and Switch", "description": "When you're within 5 feet of a creature on your turn, you can expend one Superiority Die and switch places with that creature, provided you spend at least 5 feet of movement and the creature is willing and doesn't have the Incapacitated condition. This movement doesn't provoke Opportunity Attacks. Roll the Superiority Die. Until the start of your next turn, you or the other creature (your choice) gains a bonus to AC equal to the number rolled."},
+        {"id": "commanders_strike", "name": "Commander's Strike", "description": "When you take the Attack action on your turn, you can forgo one of your attacks and use a Bonus Action to direct one of your companions to strike. When you do so, choose a willing creature who can see or hear you and expend one Superiority Die. That creature can immediately use its Reaction to make one attack with a weapon or an Unarmed Strike, adding the Superiority Die to the attack's damage roll on a hit."},
+        {"id": "commanding_presence", "name": "Commanding Presence", "description": "When you make a Charisma (Intimidation, Performance, or Persuasion) check, you can expend one Superiority Die and add the Superiority Die to the ability check."},
+        {"id": "disarming_attack", "name": "Disarming Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to attempt to disarm the target. Add the Superiority Die to the attack's damage roll. The target must succeed on a Strength saving throw, or it drops one object of your choice that it's holding, with the object landing in its space."},
+        {"id": "distracting_strike", "name": "Distracting Strike", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to distract the creature. Add the Superiority Die to the attack's damage roll. The next attack roll against the target by an attacker other than you has Advantage if the attack is made before the start of your next turn."},
+        {"id": "evasive_footwork", "name": "Evasive Footwork", "description": "When you move on your turn, you can expend one Superiority Die, rolling the die and adding the number rolled to your AC until the end of the turn."},
+        {"id": "feinting_attack", "name": "Feinting Attack", "description": "As a Bonus Action, you can expend one Superiority Die to feint, choosing one creature within 5 feet of yourself as your target. You have Advantage on your next attack roll against that target this turn. If that attack hits, add the Superiority Die to the attack's damage roll."},
+        {"id": "goading_attack", "name": "Goading Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to attempt to goad the target into attacking you. Add the Superiority Die to the attack's damage roll. The target must succeed on a Wisdom saving throw or the target has Disadvantage on all attack rolls against targets other than you until the end of your next turn."},
+        {"id": "lunging_attack", "name": "Lunging Attack", "description": "As a Bonus Action, you can expend one Superiority Die and take the Dash action. If you move at least 10 feet in a straight line immediately before hitting with a melee attack as part of the Attack action on this turn, you can add the Superiority Die to the attack's damage roll."},
+        {"id": "maneuvering_attack", "name": "Maneuvering Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to maneuver one of your comrades into a more advantageous position. Add the Superiority Die to the attack's damage roll. Choose a willing creature who can see or hear you. That creature can use its Reaction to move up to half its Speed without provoking Opportunity Attacks from the target of your attack."},
+        {"id": "menacing_attack", "name": "Menacing Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to attempt to frighten the target. Add the Superiority Die to the attack's damage roll. The target must succeed on a Wisdom saving throw or have the Frightened condition until the end of your next turn."},
+        {"id": "parry", "name": "Parry", "description": "When another creature damages you with a melee attack, you can use your Reaction and expend one Superiority Die to reduce the damage by the number you roll on your Superiority Die plus your Strength or Dexterity modifier (your choice)."},
+        {"id": "precision_attack", "name": "Precision Attack", "description": "When you miss with an attack roll, you can expend one Superiority Die, roll that die, and add it to the attack roll, potentially causing it to hit."},
+        {"id": "pushing_attack", "name": "Pushing Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to attempt to drive the target back. Add the Superiority Die to the attack's damage roll. If the target is Large or smaller, it must succeed on a Strength saving throw or be pushed up to 15 feet directly away from you."},
+        {"id": "rally", "name": "Rally", "description": "As a Bonus Action, you can expend one Superiority Die to bolster the resolve of one of your companions. Choose a willing creature who can see or hear you. That creature gains Temporary Hit Points equal to the Superiority Die roll plus your Intelligence, Wisdom, or Charisma modifier (your choice)."},
+        {"id": "riposte", "name": "Riposte", "description": "When a creature misses you with a melee attack, you can use your Reaction and expend one Superiority Die to make a melee attack against the creature. If you hit, add the Superiority Die to the attack's damage roll."},
+        {"id": "sweeping_attack", "name": "Sweeping Attack", "description": "When you hit a creature with a melee attack, you can expend one Superiority Die to attempt to damage another creature with the same attack. Choose another creature within 5 feet of the original target and within your reach. If the original attack roll would hit the second creature, it takes damage equal to the number you roll on your Superiority Die. The damage is of the same type dealt by the original attack."},
+        {"id": "tactical_assessment", "name": "Tactical Assessment", "description": "When you make an Intelligence (History or Investigation) check or a Wisdom (Insight) check, you can expend one Superiority Die and add the Superiority Die to the ability check."},
+        {"id": "trip_attack", "name": "Trip Attack", "description": "When you hit a creature with an attack roll, you can expend one Superiority Die to attempt to knock the target down. Add the Superiority Die to the attack's damage roll. If the target is Large or smaller, it must succeed on a Strength saving throw or have the Prone condition."}
+      ]
+    },
+    {
+      "id": "champion",
+      "name": "Champion",
+      "source": "2024 Player's Handbook",
+      "description": "A Champion focuses on raw physical power, honed to deadly perfection. Those who model themselves on this archetype combine rigorous training with physical excellence to deal devastating blows.",
+      "features": [
+        {
+          "id": "improved_critical",
+          "name": "Improved Critical",
+          "level": 3,
+          "description": "Your attack rolls with weapons and Unarmed Strikes score a Critical Hit on a roll of 19 or 20 on the d20."
+        },
+        {
+          "id": "remarkable_athlete",
+          "name": "Remarkable Athlete",
+          "level": 3,
+          "description": "Thanks to your athleticism, you have Advantage on Initiative rolls and Strength (Athletics) checks. In addition, when you make a running Long Jump, the distance you can cover increases by a number of feet equal to your Strength modifier."
+        },
+        {
+          "id": "additional_fighting_style",
+          "name": "Additional Fighting Style",
+          "level": 7,
+          "description": "You gain another Fighting Style feat of your choice."
+        },
+        {
+          "id": "heroic_warrior",
+          "name": "Heroic Warrior",
+          "level": 10,
+          "description": "The thrill of battle drives you toward victory. During combat, you can give yourself Heroic Inspiration whenever you start your turn without it."
+        },
+        {
+          "id": "superior_critical",
+          "name": "Superior Critical",
+          "level": 15,
+          "description": "Your attack rolls with weapons and Unarmed Strikes now score a Critical Hit on a roll of 18, 19, or 20 on the d20."
+        },
+        {
+          "id": "survivor",
+          "name": "Survivor",
+          "level": 18,
+          "description": "You attain the pinnacle of resilience in battle, giving you these benefits: Defy Death (You have Advantage on Death Saving Throws. Moreover, when you roll 18 to 20 on a Death Saving Throw, you gain the benefit of rolling a 20), Heroic Rally (At the start of each of your turns, you regain Hit Points equal to 5 plus your Constitution modifier if you have no more than half your Hit Points remaining. You don't gain this benefit if you have 0 Hit Points)."
+        }
+      ]
+    },
+    {
+      "id": "eldritch_knight",
+      "name": "Eldritch Knight",
+      "source": "2024 Player's Handbook",
+      "description": "The Eldritch Knight combines martial mastery with arcane magic. They learn to cast spells and weave them together with their weapon attacks.",
+      "spellcasting": {
+        "ability": "intelligence",
+        "spell_list": "wizard",
+        "restrictions": "Abjuration and Evocation only until level 8, 14, and 20 when you can learn any school"
+      },
+      "features": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "level": 3,
+          "description": "You have learned to cast spells. You learn three Wizard cantrips of your choice. You learn a number of Wizard spells based on your Fighter level. The spells you learn must be from the Abjuration or Evocation school, except at levels 8, 14, and 20 when you can learn from any school."
+        },
+        {
+          "id": "war_bond",
+          "name": "War Bond",
+          "level": 3,
+          "description": "You learn a ritual that creates a magical bond between yourself and one weapon. You perform the ritual over the course of 1 hour, which can be done during a Short Rest. The weapon must be within your reach throughout the ritual, at the conclusion of which you touch the weapon and forge the bond. Once you have bonded a weapon to yourself, you can't be disarmed of that weapon unless you have the Incapacitated condition. If it is on the same plane of existence, you can summon that weapon as a Bonus Action, causing it to teleport instantly to your hand. You can have up to two bonded weapons, but can summon only one at a time with your Bonus Action."
+        },
+        {
+          "id": "war_magic",
+          "name": "War Magic",
+          "level": 7,
+          "description": "When you take the Attack action on your turn, you can replace one of the attacks with a casting of one of your Wizard cantrips that has a casting time of an action."
+        },
+        {
+          "id": "eldritch_strike",
+          "name": "Eldritch Strike",
+          "level": 10,
+          "description": "When you hit a creature with an attack using a weapon, that creature has Disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn."
+        },
+        {
+          "id": "arcane_charge",
+          "name": "Arcane Charge",
+          "level": 15,
+          "description": "When you use your Action Surge, you can also teleport up to 30 feet to an unoccupied space you can see. You can teleport before or after the additional action."
+        },
+        {
+          "id": "improved_war_magic",
+          "name": "Improved War Magic",
+          "level": 18,
+          "description": "When you take the Attack action on your turn, you can replace two of the attacks with a casting of one of your Wizard spells that has a casting time of an action."
+        }
+      ],
+      "spells_known": {
+        "3": 3, "4": 4, "7": 5, "8": 6, "10": 7, "11": 8, "13": 9, "14": 10, "16": 11, "19": 12, "20": 13
+      }
+    },
+    {
+      "id": "psi_warrior",
+      "name": "Psi Warrior",
+      "source": "2024 Player's Handbook",
+      "description": "A Psi Warrior is a fighter who augments their physical might with psionic power. Their mind awakens to a psionic spark that allows them to protect themselves and others, strike with telekinetic force, and move objects with their thoughts.",
+      "features": [
+        {
+          "id": "psionic_power",
+          "name": "Psionic Power",
+          "level": 3,
+          "description": "You harbor a wellspring of psionic energy within yourself. This energy is represented by your Psionic Energy dice, which fuel various psionic powers you have from this subclass. You have a number of these dice equal to twice your Proficiency Bonus, and they are d6s. They change to d8s at level 5, d10s at level 11, and d12s at level 17. A Psionic Energy die is expended when you roll it. When you expend a Psionic Energy die, you regain it when you finish a Short or Long Rest. You can use the following powers with your Psionic Energy dice: Protective Field (When you or another creature you can see within 30 feet of yourself takes damage, you can take a Reaction to expend one Psionic Energy die, roll the die, and reduce the damage taken by the number rolled plus your Intelligence modifier), Psionic Strike (Once on each of your turns, immediately after you hit a target within 30 feet of yourself with an attack and deal damage to it with a weapon, you can expend one Psionic Energy die, rolling it and dealing Force damage to the target equal to the number rolled plus your Intelligence modifier), Telekinetic Movement (As a Magic action, you can try to telekinetically move one Large or smaller creature or object within 30 feet of yourself. If the target is a creature, it must succeed on a Strength saving throw, or you move it up to 30 feet. If the target is an object, you move it up to 30 feet)."
+        },
+        {
+          "id": "telekinetic_adept",
+          "name": "Telekinetic Adept",
+          "level": 7,
+          "description": "You gain the following abilities: Psi-Powered Leap (As a Bonus Action, you can propel your body with your mind. You gain a Fly Speed equal to twice your Speed until the end of the current turn. Once you take this Bonus Action, you can't do so again until you finish a Short or Long Rest, unless you expend a Psionic Energy die to take the Bonus Action again), Telekinetic Thrust (When you deal damage to a target with your Psionic Strike, you can force the target to make a Strength saving throw against a DC equal to 8 + your Proficiency Bonus + your Intelligence modifier. On a failed save, you knock the target Prone or move it up to 10 feet in any direction horizontally)."
+        },
+        {
+          "id": "guarded_mind",
+          "name": "Guarded Mind",
+          "level": 10,
+          "description": "The psionic energy flowing through you has bolstered your mind. You have Resistance to Psychic damage. Moreover, if you start your turn with the Charmed or Frightened condition, you can expend a Psionic Energy die (no action required) and end every effect on yourself that's giving you those conditions."
+        },
+        {
+          "id": "bulwark_of_force",
+          "name": "Bulwark of Force",
+          "level": 15,
+          "description": "You can shield yourself and others with telekinetic force. As a Bonus Action, you can choose creatures, which can include yourself, that you can see within 30 feet of yourself, up to a number of creatures equal to your Intelligence modifier (minimum of one creature). Each of the chosen creatures gains Half Cover for 1 minute or until you have the Incapacitated condition. Once you take this Bonus Action, you can't do so again until you finish a Long Rest, unless you expend a Psionic Energy die to take the Bonus Action again."
+        },
+        {
+          "id": "telekinetic_master",
+          "name": "Telekinetic Master",
+          "level": 18,
+          "description": "Your ability to move creatures and objects with your mind is now matched by few. You always have the Telekinesis spell prepared. With this feature, you can cast the spell without a spell slot, and you must finish a Long Rest before you can cast it in this way again. When you cast the spell, your spellcasting ability for the spell is Intelligence. You can also cast the spell using spell slots you have of the appropriate level."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "proficiency_bonus": 2, "features": ["Fighting Style", "Second Wind", "Weapon Mastery"], "second_wind_uses": 1, "weapon_masteries": 3},
+    {"level": 2, "proficiency_bonus": 2, "features": ["Action Surge", "Tactical Mind"], "second_wind_uses": 1, "weapon_masteries": 3},
+    {"level": 3, "proficiency_bonus": 2, "features": ["Fighter Subclass"], "second_wind_uses": 1, "weapon_masteries": 3},
+    {"level": 4, "proficiency_bonus": 2, "features": ["Ability Score Improvement"], "second_wind_uses": 2, "weapon_masteries": 4},
+    {"level": 5, "proficiency_bonus": 3, "features": ["Extra Attack", "Tactical Shift"], "second_wind_uses": 2, "weapon_masteries": 4},
+    {"level": 6, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "second_wind_uses": 2, "weapon_masteries": 4},
+    {"level": 7, "proficiency_bonus": 3, "features": ["Subclass Feature"], "second_wind_uses": 2, "weapon_masteries": 4},
+    {"level": 8, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "second_wind_uses": 2, "weapon_masteries": 4},
+    {"level": 9, "proficiency_bonus": 4, "features": ["Indomitable"], "second_wind_uses": 2, "weapon_masteries": 4, "indomitable_uses": 1},
+    {"level": 10, "proficiency_bonus": 4, "features": ["Subclass Feature"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 1},
+    {"level": 11, "proficiency_bonus": 4, "features": ["Extra Attack (2)"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 1},
+    {"level": 12, "proficiency_bonus": 4, "features": ["Ability Score Improvement"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 1},
+    {"level": 13, "proficiency_bonus": 5, "features": ["Studied Attacks"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 2},
+    {"level": 14, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 2},
+    {"level": 15, "proficiency_bonus": 5, "features": ["Subclass Feature"], "second_wind_uses": 3, "weapon_masteries": 5, "indomitable_uses": 2},
+    {"level": 16, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "second_wind_uses": 4, "weapon_masteries": 6, "indomitable_uses": 2},
+    {"level": 17, "proficiency_bonus": 6, "features": [], "second_wind_uses": 4, "weapon_masteries": 6, "indomitable_uses": 3, "action_surge_uses": 2},
+    {"level": 18, "proficiency_bonus": 6, "features": ["Subclass Feature"], "second_wind_uses": 4, "weapon_masteries": 6, "indomitable_uses": 3},
+    {"level": 19, "proficiency_bonus": 6, "features": ["Epic Boon"], "second_wind_uses": 4, "weapon_masteries": 6, "indomitable_uses": 3},
+    {"level": 20, "proficiency_bonus": 6, "features": ["Extra Attack (3)"], "second_wind_uses": 4, "weapon_masteries": 6, "indomitable_uses": 3}
+  ]
+}

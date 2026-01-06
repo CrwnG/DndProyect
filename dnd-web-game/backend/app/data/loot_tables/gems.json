@@ -1,0 +1,67 @@
+{
+  "description": "Gemstones by value tier (D&D 5e DMG)",
+  "gems_10gp": [
+    {"name": "Azurite", "description": "Opaque mottled deep blue"},
+    {"name": "Banded Agate", "description": "Translucent striped brown, blue, white, or red"},
+    {"name": "Blue Quartz", "description": "Transparent pale blue"},
+    {"name": "Eye Agate", "description": "Translucent circles of gray, white, brown, blue, or green"},
+    {"name": "Hematite", "description": "Opaque gray-black"},
+    {"name": "Lapis Lazuli", "description": "Opaque light and dark blue with yellow flecks"},
+    {"name": "Malachite", "description": "Opaque striated light and dark green"},
+    {"name": "Moss Agate", "description": "Translucent pink or yellow-white with mossy gray or green markings"},
+    {"name": "Obsidian", "description": "Opaque black"},
+    {"name": "Rhodochrosite", "description": "Opaque light pink"},
+    {"name": "Tiger Eye", "description": "Translucent brown with golden center"},
+    {"name": "Turquoise", "description": "Opaque light blue-green"}
+  ],
+  "gems_50gp": [
+    {"name": "Bloodstone", "description": "Opaque dark gray with red flecks"},
+    {"name": "Carnelian", "description": "Opaque orange to red-brown"},
+    {"name": "Chalcedony", "description": "Opaque white"},
+    {"name": "Chrysoprase", "description": "Translucent green"},
+    {"name": "Citrine", "description": "Transparent pale yellow-brown"},
+    {"name": "Jasper", "description": "Opaque blue, black, or brown"},
+    {"name": "Moonstone", "description": "Translucent white with pale blue glow"},
+    {"name": "Onyx", "description": "Opaque bands of black and white, or pure black or white"},
+    {"name": "Quartz", "description": "Transparent white, smoky gray, or yellow"},
+    {"name": "Sardonyx", "description": "Opaque bands of red and white"},
+    {"name": "Star Rose Quartz", "description": "Translucent rosy stone with white star-shaped center"},
+    {"name": "Zircon", "description": "Transparent pale blue-green"}
+  ],
+  "gems_100gp": [
+    {"name": "Amber", "description": "Transparent watery gold to rich gold"},
+    {"name": "Amethyst", "description": "Transparent deep purple"},
+    {"name": "Chrysoberyl", "description": "Transparent yellow-green to pale green"},
+    {"name": "Coral", "description": "Opaque crimson"},
+    {"name": "Garnet", "description": "Transparent red, brown-green, or violet"},
+    {"name": "Jade", "description": "Translucent light green, deep green, or white"},
+    {"name": "Jet", "description": "Opaque deep black"},
+    {"name": "Pearl", "description": "Opaque lustrous white, yellow, or pink"},
+    {"name": "Spinel", "description": "Transparent red, red-brown, or deep green"},
+    {"name": "Tourmaline", "description": "Transparent pale green, blue, brown, or red"}
+  ],
+  "gems_500gp": [
+    {"name": "Alexandrite", "description": "Transparent dark green"},
+    {"name": "Aquamarine", "description": "Transparent pale blue-green"},
+    {"name": "Black Pearl", "description": "Opaque pure black"},
+    {"name": "Blue Spinel", "description": "Transparent deep blue"},
+    {"name": "Peridot", "description": "Transparent rich olive green"},
+    {"name": "Topaz", "description": "Transparent golden yellow"}
+  ],
+  "gems_1000gp": [
+    {"name": "Black Opal", "description": "Translucent dark green with black mottling and golden flecks"},
+    {"name": "Blue Sapphire", "description": "Transparent blue-white to medium blue"},
+    {"name": "Emerald", "description": "Transparent deep bright green"},
+    {"name": "Fire Opal", "description": "Translucent fiery red"},
+    {"name": "Opal", "description": "Translucent pale blue with green and golden mottling"},
+    {"name": "Star Ruby", "description": "Translucent ruby with white star-shaped center"},
+    {"name": "Star Sapphire", "description": "Translucent blue sapphire with white star-shaped center"},
+    {"name": "Yellow Sapphire", "description": "Transparent fiery yellow or yellow-green"}
+  ],
+  "gems_5000gp": [
+    {"name": "Black Sapphire", "description": "Translucent lustrous black with glowing highlights"},
+    {"name": "Diamond", "description": "Transparent blue-white, canary, pink, brown, or blue"},
+    {"name": "Jacinth", "description": "Transparent fiery orange"},
+    {"name": "Ruby", "description": "Transparent clear red to deep crimson"}
+  ]
+}

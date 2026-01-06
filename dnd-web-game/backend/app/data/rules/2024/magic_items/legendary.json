@@ -1,0 +1,394 @@
+{
+  "rarity": "Legendary",
+  "source": "2024 Dungeon Master's Guide",
+  "description": "Legendary magic items are among the most powerful items in existence. They typically cost 50,000+ GP and are the stuff of legends, often having storied histories.",
+  "items": [
+    {
+      "id": "apparatus_of_kwalish",
+      "name": "Apparatus of Kwalish",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This item first appears to be a Large sealed iron barrel weighing 500 pounds. The barrel has a hidden catch, which can be found with a DC 20 Intelligence (Investigation) check. Releasing the catch unlocks a hatch at one end of the barrel, allowing two Medium or smaller creatures to crawl inside. Inside are levers that operate the apparatus like a mechanical lobster with legs, pincers, and a watertight seal."
+    },
+    {
+      "id": "armor_of_invulnerability",
+      "name": "Armor of Invulnerability",
+      "type": "Armor (plate)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "You have Resistance to nonmagical damage while you wear this armor. Additionally, you can use an action to make yourself immune to nonmagical damage for 10 minutes or until you are no longer wearing the armor. Once this special action is used, it can't be used again until the next dawn."
+    },
+    {
+      "id": "armor_plus_3",
+      "name": "Armor, +3",
+      "type": "Armor (light, medium, or heavy)",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "You have a +3 bonus to AC while wearing this armor."
+    },
+    {
+      "id": "belt_of_cloud_giant_strength",
+      "name": "Belt of Cloud Giant Strength",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this belt, your Strength score changes to 27. If your Strength is already equal to or greater than the belt's score, the item has no effect on you."
+    },
+    {
+      "id": "belt_of_storm_giant_strength",
+      "name": "Belt of Storm Giant Strength",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this belt, your Strength score changes to 29. If your Strength is already equal to or greater than the belt's score, the item has no effect on you."
+    },
+    {
+      "id": "blackrazor",
+      "name": "Blackrazor",
+      "type": "Weapon (greatsword)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a creature of non-lawful alignment",
+      "description": "Hidden in the dungeon of White Plume Mountain, Blackrazor shimmers like a night sky full of stars. Its black blade, showing a starscape beneath its surface, seems to feed on light. You gain a +3 bonus to attack and damage rolls. Devour Soul: When you use Blackrazor to reduce a creature to 0 HP, you gain Temporary Hit Points equal to the slain creature's HP max. Sentient: Blackrazor is a sentient chaotic neutral weapon with Int 17, Wis 10, Cha 19."
+    },
+    {
+      "id": "cloak_of_invisibility",
+      "name": "Cloak of Invisibility",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this cloak, you can pull its hood over your head to cause yourself to become Invisible. While you are Invisible, anything you are carrying or wearing is Invisible with you. You become visible when you cease wearing the hood. Pulling the hood up or down requires an action. The cloak has 2 hours of Invisibility per day."
+    },
+    {
+      "id": "crystal_ball_of_mind_reading",
+      "name": "Crystal Ball of Mind Reading",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "This crystal ball is about 6 inches in diameter. While touching it, you can cast the Scrying spell (save DC 17) with it. While scrying, you can cast the Detect Thoughts spell (save DC 17) targeting creatures you can see within 30 feet of the spell's sensor."
+    },
+    {
+      "id": "crystal_ball_of_telepathy",
+      "name": "Crystal Ball of Telepathy",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "This crystal ball is about 6 inches in diameter. While touching it, you can cast the Scrying spell (save DC 17) with it. While scrying, you can communicate telepathically with creatures within 30 feet of the spell's sensor and you can cast the Suggestion spell (save DC 17) on one of them."
+    },
+    {
+      "id": "crystal_ball_of_true_seeing",
+      "name": "Crystal Ball of True Seeing",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "This crystal ball is about 6 inches in diameter. While touching it, you can cast the Scrying spell (save DC 17) with it. While scrying, you have Truesight with a radius of 120 feet centered on the spell's sensor."
+    },
+    {
+      "id": "cubic_gate",
+      "name": "Cubic Gate",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This cube is 3 inches across and radiates palpable magical energy. The six sides of the cube are each keyed to a different plane of existence, one of which is the Material Plane. You can use an action to press one side of the cube to cast the Gate spell with it, opening a portal to the plane keyed to that side. The cube has 3 charges and regains 1d3 charges daily at dawn."
+    },
+    {
+      "id": "deck_of_many_things",
+      "name": "Deck of Many Things",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "Usually found in a box or pouch, this deck contains a number of cards made of ivory or vellum. Most (75%) of these decks have only 13 cards, but the rest have 22. Before you draw a card, you must declare how many cards you intend to draw and then draw them randomly. Any cards drawn in excess of this number have no effect. Once drawn, a card takes effect immediately."
+    },
+    {
+      "id": "defender",
+      "name": "Defender",
+      "type": "Weapon (any sword)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. The first time you attack with the sword on each of your turns, you can transfer some or all of the sword's bonus to your AC, instead of using the bonus on any attacks that turn. This bonus persists until the start of your next turn."
+    },
+    {
+      "id": "efreeti_chain",
+      "name": "Efreeti Chain",
+      "type": "Armor (chain mail)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this armor, you gain a +3 bonus to AC, you are immune to Fire damage, and you can understand and speak Primordial. In addition, you can stand on and walk across molten rock as if it were solid ground."
+    },
+    {
+      "id": "hammer_of_thunderbolts",
+      "name": "Hammer of Thunderbolts",
+      "type": "Weapon (maul)",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon. Giant's Bane (Requires Attunement): You must be wearing a Belt of Giant Strength and Gauntlets of Ogre Power to attune to this weapon. Your Strength score increases by 4 (max 30). When you roll a 20 on an attack against a Giant, the giant must succeed on a DC 17 Constitution save or die. Thunderclap: The hammer has 5 charges for casting spells."
+    },
+    {
+      "id": "holy_avenger",
+      "name": "Holy Avenger",
+      "type": "Weapon (any sword)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a Paladin",
+      "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a Fiend or an Undead with it, that creature takes an extra 2d10 Radiant damage. While you hold the drawn sword, it creates a 10-foot-radius aura around you. You and all creatures friendly to you in the aura have Advantage on saving throws against spells and other magical effects."
+    },
+    {
+      "id": "horn_of_valhalla_iron",
+      "name": "Horn of Valhalla (Iron)",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "You can use an action to blow this horn. In response, warrior spirits from the Valhalla appear within 60 feet of you. They use the Berserker statistics and return to Valhalla after 1 hour or when they drop to 0 Hit Points. Iron: 5d4+5 Berserkers. You must be proficient with all martial weapons to use this horn."
+    },
+    {
+      "id": "ioun_stone_greater_absorption",
+      "name": "Ioun Stone (Greater Absorption)",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "Marbled lavender and green ellipsoid. While this stone orbits your head, you can use your Reaction to cancel a spell of 8th level or lower cast by a creature you can see. Once the stone has canceled 50 levels of spells, it burns out and turns dull gray."
+    },
+    {
+      "id": "ioun_stone_mastery",
+      "name": "Ioun Stone (Mastery)",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "Pale green prism. Your proficiency bonus increases by 1 while this ioun stone orbits your head."
+    },
+    {
+      "id": "ioun_stone_regeneration",
+      "name": "Ioun Stone (Regeneration)",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "Pearly white spindle. You regain 15 Hit Points at the end of each hour this stone orbits your head, provided that you have at least 1 Hit Point."
+    },
+    {
+      "id": "iron_flask",
+      "name": "Iron Flask",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This iron bottle has a brass stopper. You can use an action to speak the flask's command word, targeting a creature that you can see within 60 feet of you. If the target is native to a plane of existence other than the one you're on, the target must succeed on a DC 17 Wisdom save or be trapped in the flask. A creature trapped in the flask can be released as an action."
+    },
+    {
+      "id": "luck_blade",
+      "name": "Luck Blade",
+      "type": "Weapon (any sword)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "You gain a +1 bonus to attack and damage rolls made with this magic weapon. While the sword is on your person, you also gain a +1 bonus to saving throws. Luck: If the sword is on your person, you can call on its luck (no action required) to reroll one attack roll, ability check, or saving throw you dislike. Wish: The sword has 1d4 - 1 charges. While holding it, you can use an action to expend 1 charge and cast the Wish spell from it."
+    },
+    {
+      "id": "potion_of_storm_giant_strength",
+      "name": "Potion of Storm Giant Strength",
+      "type": "Potion",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "When you drink this potion, your Strength score changes to 29 for 1 hour. The potion has no effect on you if your Strength is equal to or greater than that score."
+    },
+    {
+      "id": "ring_of_djinni_summoning",
+      "name": "Ring of Djinni Summoning",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you can speak its command word as an action to summon a particular Djinni from the Elemental Plane of Air. The djinni appears in an unoccupied space you choose within 120 feet of you. It remains as long as you concentrate (as if concentrating on a spell), to a maximum of 1 hour, or until it drops to 0 Hit Points."
+    },
+    {
+      "id": "ring_of_elemental_command_air",
+      "name": "Ring of Elemental Command (Air)",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you have Advantage on attack rolls against Air Elementals, and they have Disadvantage on attack rolls against you. You can cast spells from the ring (Dominate Monster on Air Elementals, Gust of Wind, Wind Wall). You have Resistance to Lightning damage. You have a flying speed equal to your walking speed."
+    },
+    {
+      "id": "ring_of_elemental_command_earth",
+      "name": "Ring of Elemental Command (Earth)",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you have Advantage on attack rolls against Earth Elementals, and they have Disadvantage on attack rolls against you. You can cast spells from the ring (Dominate Monster on Earth Elementals, Stone Shape, Stoneskin, Wall of Stone). You can move through solid earth or rock as if it were Difficult Terrain."
+    },
+    {
+      "id": "ring_of_elemental_command_fire",
+      "name": "Ring of Elemental Command (Fire)",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you have Advantage on attack rolls against Fire Elementals, and they have Disadvantage on attack rolls against you. You can cast spells from the ring (Burning Hands, Dominate Monster on Fire Elementals, Fireball, Wall of Fire). You have Immunity to Fire damage."
+    },
+    {
+      "id": "ring_of_elemental_command_water",
+      "name": "Ring of Elemental Command (Water)",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you have Advantage on attack rolls against Water Elementals, and they have Disadvantage on attack rolls against you. You can cast spells from the ring (Create or Destroy Water, Control Water, Dominate Monster on Water Elementals, Ice Storm, Wall of Ice). You can breathe underwater and have a swimming speed equal to your walking speed."
+    },
+    {
+      "id": "ring_of_invisibility",
+      "name": "Ring of Invisibility",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you can turn invisible as an action. Anything you are wearing or carrying is invisible with you. You remain invisible until the ring is removed, until you attack or cast a spell, or until you use a Bonus Action to become visible again."
+    },
+    {
+      "id": "ring_of_spell_turning",
+      "name": "Ring of Spell Turning",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "While wearing this ring, you have Advantage on saving throws against any spell that targets only you (not in an area of effect). In addition, if you roll a 20 for the save and the spell is 7th level or lower, the spell has no effect on you and instead targets the caster."
+    },
+    {
+      "id": "ring_of_three_wishes",
+      "name": "Ring of Three Wishes",
+      "type": "Ring",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the Wish spell from it. The ring becomes nonmagical when you use the last charge."
+    },
+    {
+      "id": "robe_of_the_archmagi",
+      "name": "Robe of the Archmagi",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a Sorcerer, Warlock, or Wizard",
+      "description": "This elegant garment is made from exquisite cloth of white, gray, or black and adorned with silvery runes. Your base AC is 15 + your Dexterity modifier while you wear this robe. You have Advantage on saving throws against spells and other magical effects. Your spell save DC and spell attack bonus each increase by 2."
+    },
+    {
+      "id": "rod_of_lordly_might",
+      "name": "Rod of Lordly Might",
+      "type": "Rod",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "This rod has a flanged head, and it functions as a magic mace that grants a +3 bonus to attack and damage rolls made with it. The rod has several functions: Six buttons along the haft transform it into different weapons or tools (Flame Tongue, +3 Battleaxe, +3 Spear, Climbing Pole, Battering Ram, Compass). It also has charges for casting spells."
+    },
+    {
+      "id": "rod_of_the_pact_keeper_plus_3",
+      "name": "Rod of the Pact Keeper, +3",
+      "type": "Rod",
+      "rarity": "Very Rare",
+      "attunement": true,
+      "attunement_requirement": "by a Warlock",
+      "description": "While holding this rod, you gain a +3 bonus to spell attack rolls and to the saving throw DCs of your warlock spells. In addition, you can regain one warlock spell slot as an action while holding the rod. You can't use this property again until you finish a Long Rest."
+    },
+    {
+      "id": "scarab_of_protection",
+      "name": "Scarab of Protection",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "If you hold this beetle-shaped medallion in your hand for 1 round, an inscription appears on its surface revealing its magical nature. It provides two benefits while on your person: You have Advantage on saving throws against spells. The scarab has 12 charges. When you fail a save against a Necromancy spell or an effect from an Undead, you can use your Reaction to expend 1 charge to succeed on the save instead."
+    },
+    {
+      "id": "shield_plus_3",
+      "name": "Shield, +3",
+      "type": "Armor (shield)",
+      "rarity": "Very Rare",
+      "attunement": false,
+      "description": "While holding this shield, you have a +3 bonus to AC. This bonus is in addition to the shield's normal bonus to AC."
+    },
+    {
+      "id": "sovereign_glue",
+      "name": "Sovereign Glue",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This viscous, milky-white substance can form a permanent adhesive bond between any two objects. It must be stored in a jar or flask that has been coated inside with Oil of Slipperiness. One ounce of the glue can cover a 1-foot square surface. The glue takes 1 minute to set. Once it has set, the bond it creates can be broken only by the application of Universal Solvent or Oil of Etherealness."
+    },
+    {
+      "id": "sphere_of_annihilation",
+      "name": "Sphere of Annihilation",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This 2-foot-diameter black sphere is a hole in the multiverse, hovering in space and stabilized by a magical field surrounding it. The sphere obliterates all matter it passes through and all matter that passes through it. Anything other than an Artifact that touches the sphere and isn't destroyed is instantly destroyed."
+    },
+    {
+      "id": "staff_of_the_magi",
+      "name": "Staff of the Magi",
+      "type": "Staff",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a Sorcerer, Warlock, or Wizard",
+      "description": "This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls. While you hold it, you gain a +2 bonus to spell attack rolls. The staff has 50 charges for spellcasting. It regains 4d6 + 2 charges daily at dawn. Spell Absorption: While holding the staff, you have Advantage on saves against spells. If you succeed on the save, you can convert the spell's energy into charges. Retributive Strike: You can break the staff to cause an explosion."
+    },
+    {
+      "id": "sword_of_answering",
+      "name": "Sword of Answering",
+      "type": "Weapon (longsword)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a creature with the same alignment as the sword",
+      "description": "In the world of Greyhawk, only nine of these blades are known to exist. Each is patterned after the legendary sword Fragarach, which is variously translated as 'Final Word.' Each of the nine swords has its own name and alignment. Each is a +3 longsword. You gain a +3 bonus to attack and damage rolls. Answer: When a creature within your reach makes an attack against you, you can use your Reaction to make one melee attack with this sword with Advantage. If this attack hits, it deals an extra 3d6 damage."
+    },
+    {
+      "id": "talisman_of_pure_good",
+      "name": "Talisman of Pure Good",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a creature of good alignment",
+      "description": "This talisman is a mighty symbol of goodness. A creature that is neither good nor evil in alignment takes 6d6 Radiant damage upon touching the talisman. An evil creature takes 8d6 Radiant damage. Either sort of creature takes the damage again each time it ends its turn holding or carrying the talisman. The talisman has 7 charges. You can use an action to expend 1 charge and target one creature on the ground that you can see within 120 feet. If the target is of evil alignment, a flaming fissure opens and the target must succeed on a DC 20 Dexterity save or fall into the fissure and be destroyed."
+    },
+    {
+      "id": "talisman_of_ultimate_evil",
+      "name": "Talisman of Ultimate Evil",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a creature of evil alignment",
+      "description": "This item symbolizes unrepentant evil. A creature that is neither good nor evil in alignment takes 6d6 Necrotic damage upon touching the talisman. A good creature takes 8d6 Necrotic damage. The talisman has 6 charges. You can use an action to expend 1 charge and target one creature on the ground that you can see within 120 feet. If the target is of good alignment, a flaming fissure opens and the target must succeed on a DC 20 Dexterity save or fall into the fissure and be destroyed."
+    },
+    {
+      "id": "tome_of_the_stilled_tongue",
+      "name": "Tome of the Stilled Tongue",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a Wizard",
+      "description": "This thick leather-bound volume has a desiccated tongue pinned to the front cover. The tome was created by Vecna. If you attune to this item, you can use it as a spellbook and an arcane focus. You can use a Bonus Action to cast a spell from this spellbook without expending a spell slot or using verbal or somatic components. Once used, this property can't be used again until the next dawn."
+    },
+    {
+      "id": "universal_solvent",
+      "name": "Universal Solvent",
+      "type": "Wondrous Item",
+      "rarity": "Legendary",
+      "attunement": false,
+      "description": "This tube holds milky liquid with a strong alcohol smell. You can use an action to pour the contents of the tube onto a surface within reach. The liquid instantly dissolves up to 1 square foot of adhesive it touches, including Sovereign Glue."
+    },
+    {
+      "id": "vorpal_sword",
+      "name": "Vorpal Sword",
+      "type": "Weapon (any sword that deals slashing damage)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "description": "You gain a +3 bonus to attack and damage rolls made with this magic weapon. In addition, the weapon ignores Resistance to Slashing damage. When you attack a creature that has at least one head with this weapon and roll a 20 on the attack roll, you cut off one of the creature's heads. The creature dies if it can't survive without the lost head. A creature is immune to this effect if it is immune to Slashing damage, doesn't have or need a head, has legendary actions, or the DM decides that the creature is too big for its head to be cut off."
+    },
+    {
+      "id": "wave",
+      "name": "Wave",
+      "type": "Weapon (trident)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a creature that worships a god of the sea",
+      "description": "Held in the dungeon of White Plume Mountain, this trident is an exquisite weapon engraved with images of waves, shells, and sea creatures. You gain a +3 bonus to attack and damage rolls made with this magic weapon. The trident also functions as a Trident of Fish Command and a Weapon of Warning. It also has other abilities: Aqua Jet, Cube of Force. Sentient: Wave is a sentient neutral weapon with Int 14, Wis 10, Cha 18."
+    },
+    {
+      "id": "whelm",
+      "name": "Whelm",
+      "type": "Weapon (warhammer)",
+      "rarity": "Legendary",
+      "attunement": true,
+      "attunement_requirement": "by a Dwarf",
+      "description": "Whelm is a powerful warhammer forged by dwarves and lost in the dungeon of White Plume Mountain. You gain a +3 bonus to attack and damage rolls made with this magic weapon. The hammer also has: Shock Wave (stun nearby creatures), Detect Presence (nearby enemies, metals, gems), Thrown Weapon (60/180 ft., returns), Goblinoid Bane (+2d6 to Goblins). Sentient: Whelm is a sentient lawful neutral weapon with Int 15, Wis 12, Cha 15."
+    }
+  ]
+}

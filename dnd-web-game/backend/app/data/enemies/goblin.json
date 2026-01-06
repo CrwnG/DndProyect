@@ -1,0 +1,69 @@
+{
+  "id": "goblin",
+  "name": "Goblin",
+  "size": "small",
+  "type": "humanoid",
+  "alignment": "neutral evil",
+  "armor_class": 15,
+  "hit_dice": "2d6",
+  "hit_points_average": 7,
+  "speed": 30,
+  "abilities": {
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 8,
+    "charisma": 8
+  },
+  "skills": {
+    "stealth": 6
+  },
+  "senses": {
+    "darkvision": 60,
+    "passive_perception": 9
+  },
+  "languages": ["common", "goblin"],
+  "challenge_rating": 0.25,
+  "xp": 50,
+  "traits": [
+    {
+      "id": "nimble_escape",
+      "name": "Nimble Escape",
+      "description": "The goblin can take the Disengage or Hide action as a bonus action on each of its turns.",
+      "effect": {
+        "type": "bonus_action_options",
+        "options": ["disengage", "hide"]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "scimitar",
+      "name": "Scimitar",
+      "type": "melee_weapon",
+      "attack_bonus": 4,
+      "reach": 5,
+      "damage": "1d6+2",
+      "damage_type": "slashing"
+    },
+    {
+      "id": "shortbow",
+      "name": "Shortbow",
+      "type": "ranged_weapon",
+      "attack_bonus": 4,
+      "range": 80,
+      "long_range": 320,
+      "damage": "1d6+2",
+      "damage_type": "piercing"
+    }
+  ],
+  "ai_behavior": {
+    "preferred_range": "ranged",
+    "flee_threshold": 0.3,
+    "uses_cover": true,
+    "target_priority": ["lowest_hp", "spellcaster", "nearest"],
+    "tactics": "Goblins prefer to attack from range, using cover. They flee when badly wounded."
+  },
+  "sprite": "goblin.png"
+}

@@ -1,0 +1,309 @@
+{
+  "id": "druid",
+  "name": "Druid",
+  "source": "2024 Player's Handbook",
+  "description": "A priest of the Old Faith, wielding the powers of nature and adopting animal forms",
+  "hit_die": "d8",
+  "primary_ability": "wisdom",
+  "saving_throw_proficiencies": ["intelligence", "wisdom"],
+  "armor_proficiencies": ["light", "medium", "shields"],
+  "armor_restrictions": "Druids won't wear armor or use shields made of metal",
+  "weapon_proficiencies": ["simple"],
+  "tool_proficiencies": ["herbalism_kit"],
+  "skill_choices": {
+    "count": 2,
+    "options": ["arcana", "animal_handling", "insight", "medicine", "nature", "perception", "religion", "survival"]
+  },
+  "starting_equipment": {
+    "default": [
+      {"item": "leather_armor", "quantity": 1},
+      {"item": "shield", "quantity": 1},
+      {"item": "sickle", "quantity": 1},
+      {"item": "druidic_focus", "quantity": 1},
+      {"item": "explorers_pack", "quantity": 1},
+      {"item": "herbalism_kit", "quantity": 1}
+    ]
+  },
+  "multiclass_requirements": {
+    "wisdom": 13
+  },
+  "multiclass_proficiencies": ["light_armor", "medium_armor", "shields"],
+  "spellcasting": {
+    "ability": "wisdom",
+    "ritual_casting": true,
+    "focus": "druidic_focus",
+    "spell_preparation": "prepared_caster",
+    "cantrips_known": {
+      "1": 2, "2": 2, "3": 2, "4": 3, "5": 3, "6": 3, "7": 3, "8": 3, "9": 3, "10": 4,
+      "11": 4, "12": 4, "13": 4, "14": 4, "15": 4, "16": 4, "17": 4, "18": 4, "19": 4, "20": 4
+    },
+    "spells_prepared_formula": "wisdom_modifier + druid_level"
+  },
+  "class_features": [
+    {
+      "id": "druidic",
+      "name": "Druidic",
+      "level": 1,
+      "description": "You know Druidic, the secret language of druids. While learning this language, you also have learned to leave hidden messages in it. You and others who know Druidic automatically spot such a message. Others spot the message's presence with a successful DC 15 Intelligence (Investigation) check but can't decipher it without magic."
+    },
+    {
+      "id": "primal_order",
+      "name": "Primal Order",
+      "level": 1,
+      "description": "You have dedicated yourself to one of the following sacred roles of your choice: Magician (You know one extra cantrip from the Druid spell list. In addition, your mystical connection to nature gives you a bonus to your Intelligence (Arcana or Nature) checks. The bonus equals your Wisdom modifier, minimum of +1), Warden (Trained for battle, you gain proficiency with Martial weapons and training with Medium armor)."
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "level": 1,
+      "description": "You have learned to cast spells through studying the mystical forces of nature. The information below details how you use those rules with Druid spells, which appear in the Druid spell list later in the class's description."
+    },
+    {
+      "id": "wild_shape",
+      "name": "Wild Shape",
+      "level": 2,
+      "description": "The power of nature allows you to assume the form of an animal. As a Bonus Action, you shape-shift into a Beast form that you have learned for this feature. You stay in that form for a number of hours equal to half your Druid level (round down) or until you use Wild Shape again, have the Incapacitated condition, or die. You can also leave the form early as a Bonus Action. Number of Uses. You can use Wild Shape twice. You regain one expended use when you finish a Short Rest, and you regain all expended uses when you finish a Long Rest. Known Forms. You know a number of forms for this feature equal to 2 + half your Druid level (round down). The forms you know are: templates from the PHB Wild Shape section. At higher levels you learn new forms based on CR."
+    },
+    {
+      "id": "wild_companion",
+      "name": "Wild Companion",
+      "level": 2,
+      "description": "You can summon a nature spirit that assumes an animal form to aid you. As a Magic action, you can expend a spell slot or a use of Wild Shape to cast Find Familiar without Material components. When you cast the spell in this way, the familiar is Fey and disappears when you finish a Long Rest."
+    },
+    {
+      "id": "druid_subclass",
+      "name": "Druid Subclass",
+      "level": 3,
+      "description": "You gain a Druid subclass of your choice. The Circle of the Land, Circle of the Moon, Circle of the Sea, and Circle of the Stars subclasses are detailed after this class's description."
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify. You gain this feature again at Druid levels 8, 12, and 16."
+    },
+    {
+      "id": "wild_resurgence",
+      "name": "Wild Resurgence",
+      "level": 5,
+      "description": "If you have no uses of Wild Shape left, you can give yourself one use by expending a spell slot (no action required). You can do so only once per turn. In addition, you can expend one use of Wild Shape (no action required) to give yourself a level 1 spell slot, but you can't do so again until you finish a Long Rest."
+    },
+    {
+      "id": "elemental_fury",
+      "name": "Elemental Fury",
+      "level": 7,
+      "description": "The might of the elements flows through you. You gain one of the following options of your choice: Potent Spellcasting (Add your Wisdom modifier to the damage you deal with any Druid cantrip), Primal Strike (Once on each of your turns when you hit a creature with an attack roll using a weapon or a Beast form's attack in Wild Shape, you can cause the target to take an extra 1d8 Cold, Fire, Lightning, or Thunder damage, your choice)."
+    },
+    {
+      "id": "commune_with_nature",
+      "name": "Commune with Nature",
+      "level": 9,
+      "description": "You have become so attuned to nature that you always have the Commune with Nature spell prepared."
+    },
+    {
+      "id": "improved_elemental_fury",
+      "name": "Improved Elemental Fury",
+      "level": 14,
+      "description": "The option you chose for Elemental Fury grows more powerful. Potent Spellcasting (When you cast a Druid cantrip with a casting time of an action, you can cast it twice instead of once as part of the same action), Primal Strike (The extra damage of your Primal Strike increases to 2d8)."
+    },
+    {
+      "id": "beast_spells",
+      "name": "Beast Spells",
+      "level": 18,
+      "description": "While in a form from Wild Shape, you can cast spells in that form."
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "level": 19,
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Dimensional Travel is recommended."
+    },
+    {
+      "id": "archdruid",
+      "name": "Archdruid",
+      "level": 20,
+      "description": "The vitality of nature constantly blooms within you, granting you the following benefits: Evergreen Wild Shape (Whenever you roll Initiative and have no uses of Wild Shape left, you regain one expended use of it), Nature Magician (You can convert uses of Wild Shape into a spell slot, no action required. Choose a number of your Wild Shape uses to convert. The spell slot's level equals half that number, rounded down. For example, if you convert four uses, you get a level 2 spell slot), Longevity (The primal magic that you wield causes you to age more slowly. For every ten years that pass, your body ages only one year)."
+    }
+  ],
+  "wild_shape_forms": {
+    "level_2": ["beast_of_the_land"],
+    "level_4": ["beast_of_the_sea"],
+    "level_8": ["beast_of_the_sky"]
+  },
+  "subclasses": [
+    {
+      "id": "circle_of_the_land",
+      "name": "Circle of the Land",
+      "source": "2024 Player's Handbook",
+      "description": "The Circle of the Land connects you to the land and its creatures. Your magic is fueled by sacred sites such as standing stone circles in moorlands, groves of ancestral trees in ancient forests, and springs in sacred mountains.",
+      "features": [
+        {
+          "id": "land_theme",
+          "name": "Circle Spells",
+          "level": 3,
+          "description": "Whenever you finish a Long Rest, choose one type of land—arid, polar, temperate, or tropical—and consult the Circle of the Land Spells table. You have the spells listed for that land prepared.",
+          "land_spells": {
+            "arid": {"3": ["blur", "burning_hands", "fire_bolt"], "5": ["fireball"], "7": ["blight"], "9": ["wall_of_stone"]},
+            "polar": {"3": ["fog_cloud", "hold_person", "ray_of_frost"], "5": ["sleet_storm"], "7": ["ice_storm"], "9": ["cone_of_cold"]},
+            "temperate": {"3": ["misty_step", "shocking_grasp", "sleep"], "5": ["lightning_bolt"], "7": ["freedom_of_movement"], "9": ["tree_stride"]},
+            "tropical": {"3": ["acid_splash", "ray_of_sickness", "web"], "5": ["stinking_cloud"], "7": ["polymorph"], "9": ["insect_plague"]}
+          }
+        },
+        {
+          "id": "lands_aid",
+          "name": "Land's Aid",
+          "level": 3,
+          "description": "As a Magic action, you can expend a use of your Wild Shape and choose a point within 60 feet of yourself. Vitality-giving flowers and life-draining thorns appear for a moment in a 10-foot-radius Sphere centered on that point. Each creature of your choice in the Sphere must make a Constitution saving throw, taking 2d6 Necrotic damage on a failed save or half as much damage on a successful one. One creature of your choice in that area regains 2d6 Hit Points. The damage and healing increase by 1d6 when you reach Druid levels 10 (3d6) and 14 (4d6)."
+        },
+        {
+          "id": "natural_recovery",
+          "name": "Natural Recovery",
+          "level": 6,
+          "description": "You can cast one of the spells of level 1+ that you have prepared from your Circle Spells feature without expending a spell slot, and you must finish a Long Rest before you do so again. In addition, when you finish a Short Rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your Druid level (round up), and none of the slots can be level 6 or higher. For example, if you're a level 6 Druid, you can recover up to three levels worth of spell slots. You can recover a level 3 spell slot, a level 2 and a level 1 spell slot, or three level 1 spell slots. Once you use this feature, you can't use it again until you finish a Long Rest."
+        },
+        {
+          "id": "natures_ward",
+          "name": "Nature's Ward",
+          "level": 10,
+          "description": "You are immune to the Poisoned condition, and you have Resistance to a damage type associated with your current land type: Arid (Fire), Polar (Cold), Temperate (Lightning), Tropical (Poison)."
+        },
+        {
+          "id": "natures_sanctuary",
+          "name": "Nature's Sanctuary",
+          "level": 14,
+          "description": "As a Magic action, you can expend a use of your Wild Shape and cause spectral trees and vines to appear in a 15-foot Cube on ground within 120 feet of yourself. They last there for 1 minute, during which you can teleport as a Bonus Action to any unoccupied space in the Cube as if by the Dimension Door spell. The trees and vines affect your enemies. Any enemy that starts its turn in the Cube or enters it on a turn must succeed on a Dexterity saving throw or have the Restrained condition until the trees and vines disappear."
+        }
+      ]
+    },
+    {
+      "id": "circle_of_the_moon",
+      "name": "Circle of the Moon",
+      "source": "2024 Player's Handbook",
+      "description": "The Circle of the Moon draws on the magic of the moon to transform you. Druids of this circle often spend time in the wild, prowling as fearsome beasts.",
+      "features": [
+        {
+          "id": "combat_wild_shape",
+          "name": "Combat Wild Shape",
+          "level": 3,
+          "description": "You have learned to channel lunar magic to enhance your Wild Shape forms, granting you the following benefits: Challenge Rating (The maximum Challenge Rating for the form equals your Druid level divided by 3, round down), Armor Class (Your AC equals 13 plus your Wisdom modifier while in form), Temporary Hit Points (Whenever you assume a Wild Shape form, you gain a number of Temporary Hit Points equal to three times your Druid level)."
+        },
+        {
+          "id": "circle_forms",
+          "name": "Circle Forms",
+          "level": 3,
+          "description": "You can channel lunar magic when you assume a Wild Shape form, granting you the following benefits: Challenge Rating. The maximum Challenge Rating for the form equals your Druid level divided by 3 (round down)."
+        },
+        {
+          "id": "moonlight_step",
+          "name": "Moonlight Step",
+          "level": 6,
+          "description": "You have learned to magically transport yourself using the power of the moon. When you're in Dim Light or Darkness, you can take a Bonus Action to teleport up to 30 feet to an unoccupied space you can see that is also in Dim Light or Darkness. You can use this Bonus Action a number of times equal to your Proficiency Bonus, and you regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "improved_circle_forms",
+          "name": "Improved Circle Forms",
+          "level": 10,
+          "description": "While in a Wild Shape form, you gain the following benefits: Lunar Radiance (Each of your attacks in a Wild Shape form can deal its normal damage type or Radiant damage. You make this choice each time you hit with those attacks), Increased Toughness (You can add your Wisdom modifier to your Constitution saving throws)."
+        },
+        {
+          "id": "moonlight_form",
+          "name": "Moonlight Form",
+          "level": 14,
+          "description": "You have learned to infuse your shape-shifting with the power of the full moon. When you assume a Wild Shape form or as a Magic action while in a Wild Shape form, you can make yourself glow. While glowing, you emit Bright Light in a 10-foot radius and Dim Light for an additional 10 feet. In addition, you have Resistance to Bludgeoning, Piercing, and Slashing damage. You can glow in this way for up to 10 minutes (no action required to end it early). Once you use this feature, you can't use it again until you finish a Long Rest."
+        }
+      ]
+    },
+    {
+      "id": "circle_of_the_sea",
+      "name": "Circle of the Sea",
+      "source": "2024 Player's Handbook",
+      "description": "Druids of the Circle of the Sea draw on the power of oceanic regions. Their connection to water enables them to move nimbly over wet terrain, harness the power of the storm, and bring the sea's wrath down on their enemies.",
+      "features": [
+        {
+          "id": "wrath_of_the_sea",
+          "name": "Wrath of the Sea",
+          "level": 3,
+          "description": "As a Bonus Action, you can expend a use of your Wild Shape to manifest ocean spray that surrounds you. The spray lasts for 10 minutes and has these effects: Lashing Waves (When a creature enters a space within 10 feet of you for the first time on a turn or starts its turn there, you can force that creature to make a Constitution saving throw. On a failed save, the creature takes Cold damage equal to 1d6 plus your Wisdom modifier or half as much damage on a successful save. You can deal this damage a number of times equal to your Wisdom modifier, minimum of once. You regain all expended uses when you finish a Long Rest), Sea Legs (You have a Swim Speed equal to your Speed, and you gain a bonus to your AC equal to your Wisdom modifier)."
+        },
+        {
+          "id": "aquatic_affinity",
+          "name": "Aquatic Affinity",
+          "level": 6,
+          "description": "The size of the Sea creature forms you assume can increase by one size when you use Wild Shape (from Medium to Large, for example), and you can now assume a form of a sea-based creature with a Challenge Rating as high as 4. In addition, when you cast a spell with a range of Touch while your Wrath of the Sea is active, the spell can affect a creature up to 10 feet away from you."
+        },
+        {
+          "id": "stormborn",
+          "name": "Stormborn",
+          "level": 10,
+          "description": "Your Wrath of the Sea now deals Cold or Lightning damage (your choice each time you deal the damage). In addition, the speed of any Swim Speed you have while Wrath of the Sea is active increases by a number of feet equal to 10 times your Wisdom modifier (minimum of 10 feet)."
+        },
+        {
+          "id": "oceanic_gift",
+          "name": "Oceanic Gift",
+          "level": 14,
+          "description": "When your Wrath of the Sea is active, you gain the following additional benefit: Water Breathing (You can breathe underwater), Crashing Waves (Whenever you deal the damage of Lashing Waves to a creature, you can move that creature 15 feet away from you, and the creature is then knocked Prone if it fails the saving throw. If the creature is knocked into another creature, that other creature takes Cold or Lightning damage (your choice) equal to your Wisdom modifier)."
+        }
+      ]
+    },
+    {
+      "id": "circle_of_the_stars",
+      "name": "Circle of the Stars",
+      "source": "2024 Player's Handbook",
+      "description": "The Circle of the Stars allows druids to draw on the power of starlight. These druids track the stars and the constellations, discovering secrets hidden in patterns of stars. They use celestial power to enhance their connection to nature and magic.",
+      "features": [
+        {
+          "id": "star_map",
+          "name": "Star Map",
+          "level": 3,
+          "description": "You've created a star chart as part of your heavenly studies. It is a Tiny object, and you can use it as a Spellcasting Focus for your Druid spells. You determine its form by rolling on the Star Map table or by choosing one (crystal ball, small telescope, astrolabe, starry banner, journal of constellations, or a similar object). While holding the star map, you have the Guidance and Guiding Bolt spells prepared, and you can cast Guiding Bolt without expending a spell slot a number of times equal to your Wisdom modifier (minimum of once). You regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "starry_form",
+          "name": "Starry Form",
+          "level": 3,
+          "description": "As a Bonus Action, you can expend a use of your Wild Shape to take on a starry form rather than shape-shifting. While in your starry form, you retain your game statistics, but your body becomes luminous, your joints glimmer like stars, and glowing lines connect them as on a star chart. This form sheds Bright Light in a 10-foot radius and Dim Light for an additional 10 feet. The form lasts for 10 minutes. It ends early if you dismiss it (no action required), have the Incapacitated condition, or use this feature again. Whenever you assume your starry form, choose which of the following constellations glimmers on your body: Archer (A constellation of an archer appears on you. When you activate this form and as a Bonus Action on your subsequent turns while it lasts, you can make a ranged spell attack, hurling a luminous arrow that targets one creature within 60 feet of yourself. On a hit, the attack deals Radiant damage equal to 1d8 plus your Wisdom modifier), Chalice (A constellation of a life-giving goblet appears on you. Whenever you cast a spell using a spell slot that restores Hit Points to a creature, you or another creature within 30 feet of you can regain Hit Points equal to 1d8 plus your Wisdom modifier), Dragon (A constellation of a wise dragon appears on you. When you make an Intelligence or a Wisdom check or a Constitution saving throw to maintain Concentration, you can treat a roll of 9 or lower on the d20 as a 10)."
+        },
+        {
+          "id": "cosmic_omen",
+          "name": "Cosmic Omen",
+          "level": 6,
+          "description": "Whenever you finish a Long Rest, you can consult your Star Map for omens and roll a die. Until you finish your next Long Rest, you gain access to a special Reaction based on whether you rolled an even or an odd number on the die: Weal (Even) (Whenever a creature you can see within 30 feet of you is about to make a d20 Test, you can take a Reaction to roll 1d6 and add the number rolled to the total), Woe (Odd) (Whenever a creature you can see within 30 feet of you is about to make a d20 Test, you can take a Reaction to roll 1d6 and subtract the number rolled from the total). You can use this Reaction a number of times equal to your Wisdom modifier, and you regain all expended uses when you finish a Long Rest."
+        },
+        {
+          "id": "twinkling_constellations",
+          "name": "Twinkling Constellations",
+          "level": 10,
+          "description": "The constellations of your Starry Form improve. The 1d8 of the Archer and the Chalice becomes 2d8, and while the Dragon is active, you have a Fly Speed of 20 feet and can hover. Moreover, at the start of each of your turns while in your Starry Form, you can change which constellation glimmers on your body."
+        },
+        {
+          "id": "full_of_stars",
+          "name": "Full of Stars",
+          "level": 14,
+          "description": "While in your Starry Form, you become partially incorporeal, giving you Resistance to Bludgeoning, Piercing, and Slashing damage."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "proficiency_bonus": 2, "features": ["Druidic", "Primal Order", "Spellcasting"], "cantrips": 2, "wild_shape_uses": 0},
+    {"level": 2, "proficiency_bonus": 2, "features": ["Wild Shape", "Wild Companion"], "cantrips": 2, "wild_shape_uses": 2},
+    {"level": 3, "proficiency_bonus": 2, "features": ["Druid Subclass"], "cantrips": 2, "wild_shape_uses": 2},
+    {"level": 4, "proficiency_bonus": 2, "features": ["Ability Score Improvement"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 5, "proficiency_bonus": 3, "features": ["Wild Resurgence"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 6, "proficiency_bonus": 3, "features": ["Subclass Feature"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 7, "proficiency_bonus": 3, "features": ["Elemental Fury"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 8, "proficiency_bonus": 3, "features": ["Ability Score Improvement"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 9, "proficiency_bonus": 4, "features": ["Commune with Nature"], "cantrips": 3, "wild_shape_uses": 2},
+    {"level": 10, "proficiency_bonus": 4, "features": ["Subclass Feature"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 11, "proficiency_bonus": 4, "features": [], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 12, "proficiency_bonus": 4, "features": ["Ability Score Improvement"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 13, "proficiency_bonus": 5, "features": [], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 14, "proficiency_bonus": 5, "features": ["Subclass Feature", "Improved Elemental Fury"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 15, "proficiency_bonus": 5, "features": [], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 16, "proficiency_bonus": 5, "features": ["Ability Score Improvement"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 17, "proficiency_bonus": 6, "features": [], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 18, "proficiency_bonus": 6, "features": ["Beast Spells"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 19, "proficiency_bonus": 6, "features": ["Epic Boon"], "cantrips": 4, "wild_shape_uses": 2},
+    {"level": 20, "proficiency_bonus": 6, "features": ["Archdruid"], "cantrips": 4, "wild_shape_uses": 2}
+  ]
+}

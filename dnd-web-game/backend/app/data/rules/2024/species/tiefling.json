@@ -1,0 +1,63 @@
+{
+  "id": "tiefling",
+  "name": "Tiefling",
+  "source": "2024 Player's Handbook",
+  "description": "Tieflings are either born in the Lower Planes or have fiendish ancestors who originated there. A tiefling is linked to one of the fiendish planes of the multiverse.",
+  "creature_type": "Humanoid",
+  "size": "Medium or Small (chosen at character creation)",
+  "speed": 30,
+  "languages": ["Common"],
+  "language_choices": {
+    "choose": 1,
+    "from": "any"
+  },
+  "traits": [
+    {
+      "id": "darkvision_tiefling",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 60 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "fiendish_legacy",
+      "name": "Fiendish Legacy",
+      "description": "You are the recipient of a legacy that grants you supernatural abilities. Choose a legacy from the table below. You gain the 1st-level benefit of that legacy. When you reach 3rd level and 5th level, you learn a higher-level spell as shown on the table. You always have that spell prepared. You can cast it once without a spell slot, and you regain the ability to cast it in that way when you finish a Long Rest. You can also cast the spell using any spell slots you have of the appropriate level. Intelligence, Wisdom, or Charisma is your spellcasting ability for the spells you cast with this trait (choose when you select the legacy).",
+      "legacies": [
+        {
+          "id": "abyssal",
+          "name": "Abyssal",
+          "description": "A legacy tied to the chaotic demons of the Abyss",
+          "resistance": "Poison",
+          "cantrip": "Poison Spray",
+          "level_3_spell": "Ray of Sickness",
+          "level_5_spell": "Hold Person"
+        },
+        {
+          "id": "chthonic",
+          "name": "Chthonic",
+          "description": "A legacy tied to the shadowy realm of the dead",
+          "resistance": "Necrotic",
+          "cantrip": "Chill Touch",
+          "level_3_spell": "False Life",
+          "level_5_spell": "Ray of Enfeeblement"
+        },
+        {
+          "id": "infernal",
+          "name": "Infernal",
+          "description": "A legacy tied to the lawful devils of the Nine Hells",
+          "resistance": "Fire",
+          "cantrip": "Fire Bolt",
+          "level_3_spell": "Hellish Rebuke",
+          "level_5_spell": "Darkness"
+        }
+      ]
+    },
+    {
+      "id": "otherworldly_presence",
+      "name": "Otherworldly Presence",
+      "description": "You know the Thaumaturgy cantrip. When you cast it with this trait, the spell uses the same spellcasting ability you use for your Fiendish Legacy trait."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

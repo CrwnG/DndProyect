@@ -1,0 +1,354 @@
+{
+  "rarity": "Common",
+  "source": "2024 Dungeon Master's Guide",
+  "description": "Common magic items are minor magical trinkets. They can be found in many places, and most cost between 50-100 GP.",
+  "items": [
+    {
+      "id": "candle_of_the_deep",
+      "name": "Candle of the Deep",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "The flame of this candle isn't extinguished when immersed in water. It gives off light and heat like a normal candle."
+    },
+    {
+      "id": "charlatan_dice",
+      "name": "Charlatan's Die",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "Whenever you roll this six-sided die, you can control which number it rolls."
+    },
+    {
+      "id": "clockwork_amulet",
+      "name": "Clockwork Amulet",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This amulet contains tiny interlocking gears. While wearing this amulet, you can forgo rolling a d20 to get a 10 on the die instead. Once used, this property can't be used again until the next dawn."
+    },
+    {
+      "id": "clothes_of_mending",
+      "name": "Clothes of Mending",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This outfit magically mends itself and any tears, holes, or other damage repair themselves over the course of an hour."
+    },
+    {
+      "id": "dark_shard_amulet",
+      "name": "Dark Shard Amulet",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "attunement_requirement": "by a Warlock",
+      "description": "This amulet is fashioned from a single shard of resilite stone. While you are wearing it, you gain the following benefits: You can use the amulet as a spellcasting focus for your warlock spells. You can try to cast a cantrip you don't know (DC 10 Arcana check, or take 1d6 Psychic damage on failure)."
+    },
+    {
+      "id": "dread_helm",
+      "name": "Dread Helm",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This fearsome steel helm makes your eyes glow red while you wear it."
+    },
+    {
+      "id": "ear_horn_of_hearing",
+      "name": "Ear Horn of Hearing",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While held up to your ear, this cone-shaped horn suppresses the effects of the Deafened condition on you, allowing you to hear normally."
+    },
+    {
+      "id": "enduring_spellbook",
+      "name": "Enduring Spellbook",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This spellbook and its contents can't be damaged by fire or immersion in water. Pages can still be torn out or destroyed by other means."
+    },
+    {
+      "id": "ersatz_eye",
+      "name": "Ersatz Eye",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "description": "This artificial eye replaces a real eye that was lost or removed. While the ersatz eye is embedded in your eye socket, it can't be removed by anyone other than you, and you can see through the eye as if it were a normal eye."
+    },
+    {
+      "id": "hat_of_vermin",
+      "name": "Hat of Vermin",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This hat has 3 charges. While holding the hat, you can use an action to pull a bat, frog, or rat out of it. The creature is friendly and acts on your turn. The hat regains all charges at dawn."
+    },
+    {
+      "id": "hat_of_wizardry",
+      "name": "Hat of Wizardry",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "attunement_requirement": "by a Wizard",
+      "description": "This hat is adorned with a gold crescent moon and stars. While wearing it, you gain the following benefits: You can use the hat as a spellcasting focus. You can try to cast a cantrip you don't know (DC 10 Arcana check, or take 1d6 Psychic damage on failure)."
+    },
+    {
+      "id": "heward_handy_spice_pouch",
+      "name": "Heward's Handy Spice Pouch",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This pouch contains 10 charges. When you reach into the pouch as an action, you can pull out one of several spices or ingredients (salt, pepper, saffron, basil, oregano, paprika, or garlic). Using 1 charge produces enough for one meal."
+    },
+    {
+      "id": "horn_of_silent_alarm",
+      "name": "Horn of Silent Alarm",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This horn has 4 charges. When you use an action to blow it, one creature of your choice can hear the horn's blare, provided the creature is within 600 feet of the horn and not Deafened. No other creature hears sound coming from the horn. Regains 1d4 charges at dawn."
+    },
+    {
+      "id": "instrument_of_illusions",
+      "name": "Instrument of Illusions",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "description": "While playing this instrument, you can create harmless, illusory visual effects within a 5-foot-radius Sphere centered on the instrument. The images are purely visual and don't create sound, smell, or physical substance."
+    },
+    {
+      "id": "instrument_of_scribing",
+      "name": "Instrument of Scribing",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "description": "While playing this instrument, you can write a magical message by tracing it in the air. The message appears on a nonmagical surface within sight. Using the instrument to transcribe normally requires an hour of playing."
+    },
+    {
+      "id": "lock_of_trickery",
+      "name": "Lock of Trickery",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This lock appears to be an ordinary lock and comes with a single key. The tumblers in this lock magically adjust to thwart burglars. Dexterity checks made to pick the lock have Disadvantage."
+    },
+    {
+      "id": "moon_sickle_common",
+      "name": "Moon-Touched Sword",
+      "type": "Weapon (any sword)",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "In Darkness, the unsheathed blade of this sword sheds moonlight, creating Bright Light in a 15-foot radius and Dim Light for an additional 15 feet."
+    },
+    {
+      "id": "mystery_key",
+      "name": "Mystery Key",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "A question mark is worked into the head of this key. The key has a 5 percent chance of unlocking any lock into which it's inserted. Once it unlocks something, the key disappears."
+    },
+    {
+      "id": "orb_of_direction",
+      "name": "Orb of Direction",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While holding this orb, you can use an action to determine which way is north. This property only works on the Material Plane."
+    },
+    {
+      "id": "orb_of_time",
+      "name": "Orb of Time",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While holding this orb, you can use an action to determine the time of day to the nearest hour."
+    },
+    {
+      "id": "perfume_of_bewitching",
+      "name": "Perfume of Bewitching",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This tiny vial contains magic perfume. As an action, you can apply the perfume to yourself. For 1 hour, you have Advantage on all Charisma checks directed at humanoids of Challenge Rating 1 or lower. Those affected by the perfume perceive you as a trusted friend."
+    },
+    {
+      "id": "pipe_of_smoke_monsters",
+      "name": "Pipe of Smoke Monsters",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While smoking this pipe, you can use an action to exhale a puff of smoke that takes the form of a single creature (your choice). The form must be small enough to fit in a 1-foot cube and loses its shape after a few seconds, becoming an ordinary puff of smoke."
+    },
+    {
+      "id": "pole_of_angling",
+      "name": "Pole of Angling",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While holding this 10-foot pole, you can speak a command word to transform it into a fishing pole with a hook, line, and reel. Speaking the command word again changes it back into a pole."
+    },
+    {
+      "id": "pole_of_collapsing",
+      "name": "Pole of Collapsing",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "While holding this 10-foot pole, you can use an action to speak a command word and cause it to collapse into a 1-foot-long rod, for ease of storage. The pole's weight doesn't change. Another action and command word extends it back to 10 feet."
+    },
+    {
+      "id": "pot_of_awakening",
+      "name": "Pot of Awakening",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "If you plant an ordinary shrub in this 10-pound clay pot and let it grow for 30 days, the shrub magically transforms into an awakened shrub at the end of that time. It is friendly toward you. Once the shrub awakens, the pot can't be used again."
+    },
+    {
+      "id": "potion_of_climbing",
+      "name": "Potion of Climbing",
+      "type": "Potion",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "When you drink this potion, you gain a Climb Speed equal to your walking speed for 1 hour. During this time, you have Advantage on Strength (Athletics) checks you make to climb."
+    },
+    {
+      "id": "potion_of_healing",
+      "name": "Potion of Healing",
+      "type": "Potion",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "You regain 2d4 + 2 Hit Points when you drink this potion. The potion's red liquid glimmers when agitated."
+    },
+    {
+      "id": "rope_of_mending",
+      "name": "Rope of Mending",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "You can cut this 50-foot coil of hempen rope into any number of smaller pieces, and then use an action to speak a command word and cause the pieces to knit back together. The pieces must touch each other and can't be attached to anything else."
+    },
+    {
+      "id": "ruby_of_the_war_mage",
+      "name": "Ruby of the War Mage",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "attunement_requirement": "by a spellcaster",
+      "description": "Etched with eldritch runes, this 1-inch-diameter ruby allows you to use a simple or martial weapon as a spellcasting focus for your spells. For this, you must affix the ruby to the weapon by pressing it against the weapon for 10 minutes."
+    },
+    {
+      "id": "shield_of_expression",
+      "name": "Shield of Expression",
+      "type": "Armor (shield)",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "The front of this shield is shaped in the likeness of a face. While bearing the shield, you can use a Bonus Action to alter the face's expression."
+    },
+    {
+      "id": "spell_scroll_cantrip",
+      "name": "Spell Scroll (Cantrip)",
+      "type": "Scroll",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "A spell scroll bears the words of a single spell, written in a mystical cipher. If the spell is on your class's spell list, you can read the scroll and cast its spell without providing any material components. Otherwise, the scroll is unintelligible. Contains a cantrip."
+    },
+    {
+      "id": "spell_scroll_1st",
+      "name": "Spell Scroll (1st Level)",
+      "type": "Scroll",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "A spell scroll bears the words of a single spell, written in a mystical cipher. Contains a 1st-level spell. Spell save DC 13, spell attack bonus +5."
+    },
+    {
+      "id": "staff_of_adornment",
+      "name": "Staff of Adornment",
+      "type": "Staff",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "If you place an object weighing no more than 1 pound (such as a shard of crystal, an egg, or a stone) above the tip of the staff while holding it, the object floats an inch from the staff's tip and remains there until removed or the staff is no longer in your possession."
+    },
+    {
+      "id": "staff_of_birdcalls",
+      "name": "Staff of Birdcalls",
+      "type": "Staff",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This wooden staff is decorated with bird carvings. It has 10 charges. While holding it, you can use an action to expend 1 charge to create one of a variety of bird calls (owl hoot, crow caw, etc.). Regains 1d6 + 4 charges at dawn."
+    },
+    {
+      "id": "staff_of_flowers",
+      "name": "Staff of Flowers",
+      "type": "Staff",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This wooden staff has 10 charges. While holding it, you can use an action to expend 1 charge and cause a flower to sprout from a patch of earth or soil within 5 feet of you, or from the staff itself. The flower is harmless and nonmagical. Regains 1d6 + 4 charges at dawn."
+    },
+    {
+      "id": "talking_doll",
+      "name": "Talking Doll",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": true,
+      "description": "While this doll is within 5 feet of you, you can spend a Short Rest telling it to say up to six phrases. Each phrase must be no more than six words. You can set a condition under which each phrase is spoken."
+    },
+    {
+      "id": "tankard_of_sobriety",
+      "name": "Tankard of Sobriety",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This tankard has a stern face sculpted into its handle. You can drink ale, wine, or any other nonmagical alcoholic beverage poured into it without becoming inebriated. The beverage's taste is unchanged."
+    },
+    {
+      "id": "unbreakable_arrow",
+      "name": "Unbreakable Arrow",
+      "type": "Weapon (arrow)",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This arrow can't be broken, except when it is within an Antimagic Field."
+    },
+    {
+      "id": "veterans_cane",
+      "name": "Veteran's Cane",
+      "type": "Wondrous Item",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "When you grasp this walking cane and use a Bonus Action to speak the command word, it transforms into an ordinary longsword and ceases to be magical."
+    },
+    {
+      "id": "walloping_ammunition",
+      "name": "Walloping Ammunition",
+      "type": "Weapon (any ammunition)",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This ammunition packs a wallop. A creature hit by the ammunition must succeed on a DC 10 Strength saving throw or be knocked Prone."
+    },
+    {
+      "id": "wand_of_conducting",
+      "name": "Wand of Conducting",
+      "type": "Wand",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This wand has 3 charges. While holding it, you can use an action to create orchestral music by waving it around. The music can be heard out to 60 feet. The wand regains all charges at dawn."
+    },
+    {
+      "id": "wand_of_pyrotechnics",
+      "name": "Wand of Pyrotechnics",
+      "type": "Wand",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This wand has 7 charges. While holding it, you can use an action to fire a small bolt of flame at a target within 60 feet. On a hit, the target takes 1d6 Fire damage. The wand regains 1d6 + 1 charges at dawn."
+    },
+    {
+      "id": "wand_of_smiles",
+      "name": "Wand of Smiles",
+      "type": "Wand",
+      "rarity": "Common",
+      "attunement": false,
+      "description": "This wand has 3 charges. While holding it, you can use an action to point the wand at a humanoid you can see within 30 feet. The target must succeed on a DC 10 Charisma saving throw or be forced to smile for 1 minute. The wand regains all charges at dawn."
+    }
+  ]
+}

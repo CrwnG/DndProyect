@@ -1,0 +1,29 @@
+{
+  "id": "scribe",
+  "name": "Scribe",
+  "source": "2024 Player's Handbook",
+  "description": "You spent formative years in a scriptorium, copying books and taking dictation, so you have expertise in handwriting and documentation. Perhaps you served a monastery, a court, or a guild.",
+  "ability_score_increases": {
+    "options": [
+      {"dexterity": 2, "intelligence": 1},
+      {"dexterity": 1, "intelligence": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["investigation", "perception"],
+  "tool_proficiency": "Calligrapher's Supplies",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["calligraphers_supplies", "fine_clothes", "lamp", "oil_3_flasks", "parchment_12_sheets", "pouch"],
+    "gold": 23
+  },
+  "origin_feat": "Skilled",
+  "feature": {
+    "id": "official_records",
+    "name": "Official Records",
+    "description": "You understand the bureaucratic systems of the realm. You can usually gain access to official records, whether those records are public or secret, though this might require some social manipulation or a bribe. If the records are secured in a heavily fortified location, you know where the records are likely to be stored and who has access to them."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "artisan",
+  "name": "Artisan",
+  "source": "2024 Player's Handbook",
+  "description": "You began mopping floors and scrubbing counters in an artisan's workshop for a few coppers per day as soon as you were strong enough to carry a bucket. When you were finally old enough to apprentice, you learned to create basic goods of your trade.",
+  "ability_score_increases": {
+    "options": [
+      {"strength": 2, "intelligence": 1},
+      {"strength": 1, "intelligence": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["investigation", "persuasion"],
+  "tool_proficiency": "Artisan's Tools (one of your choice)",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["artisans_tools", "2_pouches", "travelers_clothes"],
+    "gold": 32
+  },
+  "origin_feat": "Crafter",
+  "feature": {
+    "id": "guild_membership",
+    "name": "Guild Membership",
+    "description": "As an established member of a guild, you can rely on certain benefits that membership provides. Your fellow guild members will provide you with lodging and food if necessary, and pay for your funeral if needed. In some cities, a guildhall offers a central place to meet other members of your profession."
+  }
+}

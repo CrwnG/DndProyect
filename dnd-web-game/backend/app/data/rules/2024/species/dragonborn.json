@@ -1,0 +1,58 @@
+{
+  "id": "dragonborn",
+  "name": "Dragonborn",
+  "source": "2024 Player's Handbook",
+  "description": "The ancestors of dragonborn hatched from dragon eggs. These humanoids often embrace their draconic heritage, the blood of various types of dragons running through their veins.",
+  "creature_type": "Humanoid",
+  "size": "Medium",
+  "speed": 30,
+  "languages": ["Common", "Draconic"],
+  "traits": [
+    {
+      "id": "draconic_ancestry",
+      "name": "Draconic Ancestry",
+      "description": "You descend from a particular kind of dragon. Choose the kind from the Draconic Ancestry table. Your Breath Weapon and damage Resistance are determined by the dragon type, as shown in the table.",
+      "ancestry_table": [
+        {"dragon": "Black", "damage_type": "Acid", "breath_shape": "30-foot Line (5 ft. wide)"},
+        {"dragon": "Blue", "damage_type": "Lightning", "breath_shape": "30-foot Line (5 ft. wide)"},
+        {"dragon": "Brass", "damage_type": "Fire", "breath_shape": "30-foot Line (5 ft. wide)"},
+        {"dragon": "Bronze", "damage_type": "Lightning", "breath_shape": "30-foot Line (5 ft. wide)"},
+        {"dragon": "Copper", "damage_type": "Acid", "breath_shape": "30-foot Line (5 ft. wide)"},
+        {"dragon": "Gold", "damage_type": "Fire", "breath_shape": "15-foot Cone"},
+        {"dragon": "Green", "damage_type": "Poison", "breath_shape": "15-foot Cone"},
+        {"dragon": "Red", "damage_type": "Fire", "breath_shape": "15-foot Cone"},
+        {"dragon": "Silver", "damage_type": "Cold", "breath_shape": "15-foot Cone"},
+        {"dragon": "White", "damage_type": "Cold", "breath_shape": "15-foot Cone"}
+      ]
+    },
+    {
+      "id": "breath_weapon",
+      "name": "Breath Weapon",
+      "description": "When you take the Attack action on your turn, you can replace one of your attacks with an exhalation of magical energy in a 15-foot Cone or 30-foot Line that is 5 feet wide (your choice of shape each time). Each creature in that area must make a Dexterity saving throw (DC 8 + your Constitution modifier + your proficiency bonus). On a failed save, a creature takes 1d10 damage of the type associated with your Draconic Ancestry. On a successful save, a creature takes half as much damage. This damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10). You can use your Breath Weapon a number of times equal to your proficiency bonus, and you regain all expended uses when you finish a Long Rest.",
+      "damage_scaling": {
+        "1": "1d10",
+        "5": "2d10",
+        "11": "3d10",
+        "17": "4d10"
+      }
+    },
+    {
+      "id": "damage_resistance_dragonborn",
+      "name": "Damage Resistance",
+      "description": "You have Resistance to the damage type associated with your Draconic Ancestry."
+    },
+    {
+      "id": "darkvision_dragonborn",
+      "name": "Darkvision",
+      "description": "You can see in Dim Light within 60 feet of you as if it were Bright Light, and in Darkness as if it were Dim Light. You discern colors in that Darkness only as shades of gray."
+    },
+    {
+      "id": "draconic_flight",
+      "name": "Draconic Flight",
+      "description": "When you reach 5th level, you can channel draconic magic to give yourself temporary flight. As a Bonus Action, you sprout spectral wings on your back. The wings last for 10 minutes or until you retract them (no action required). During that time, you have a Fly Speed equal to your Speed. Your wings appear to be made of energy of the type associated with your Draconic Ancestry. Once you use this trait, you can't use it again until you finish a Long Rest."
+    }
+  ],
+  "ability_score_increases": {
+    "notes_2024": "In 2024 rules, ability score increases come from your Background, not your Species."
+  }
+}

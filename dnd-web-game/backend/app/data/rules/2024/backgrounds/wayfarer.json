@@ -1,0 +1,29 @@
+{
+  "id": "wayfarer",
+  "name": "Wayfarer",
+  "source": "2024 Player's Handbook",
+  "description": "You grew up on the streets, surviving by your wits. You learned how to find food, shelter, and safety in the most unlikely places. You have a knack for getting by with nothing.",
+  "ability_score_increases": {
+    "options": [
+      {"dexterity": 2, "wisdom": 1},
+      {"dexterity": 1, "wisdom": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["insight", "stealth"],
+  "tool_proficiency": "Thieves' Tools",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["thieves_tools", "bedroll", "mess_kit", "mirror", "2_daggers", "pouch", "travelers_clothes"],
+    "gold": 16
+  },
+  "origin_feat": "Lucky",
+  "feature": {
+    "id": "wanderers_welcome",
+    "name": "Wanderer's Welcome",
+    "description": "You know the streets and slums of cities. You can find a place to hide, rest, or recuperate among other wayfarers, including those who might give you shelter. You can find such a haven if one exists. While there, you have access to information from the local network of vagrants and outcasts."
+  }
+}

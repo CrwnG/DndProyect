@@ -1,0 +1,296 @@
+{
+  "id": "wizard",
+  "name": "Wizard",
+  "source": "2024 Player's Handbook",
+  "description": "A scholarly magic-user capable of manipulating the structures of reality.",
+  "hit_die": "d6",
+  "primary_ability": "intelligence",
+  "saving_throw_proficiencies": ["intelligence", "wisdom"],
+  "armor_proficiencies": [],
+  "weapon_proficiencies": ["simple_weapons"],
+  "tool_proficiencies": [],
+  "skill_proficiencies": {
+    "choose": 2,
+    "from": ["arcana", "history", "insight", "investigation", "medicine", "religion"]
+  },
+  "starting_equipment": {
+    "options": [
+      ["quarterstaff", "component_pouch", "spellbook", "scholars_pack"],
+      ["quarterstaff", "arcane_focus", "spellbook", "explorers_pack"]
+    ],
+    "gold_alternative": "4d4 x 10 gp"
+  },
+  "multiclass_requirements": {
+    "ability_minimum": {"intelligence": 13}
+  },
+  "spellcasting": {
+    "ability": "intelligence",
+    "focus": ["arcane_focus", "component_pouch", "spellbook"],
+    "ritual_casting": true,
+    "prepared_caster": true,
+    "spellbook": {
+      "starting_spells": 6,
+      "spells_per_level": 2,
+      "copying_cost": "50 gp per spell level, 2 hours per spell level",
+      "notes": "Your spellbook contains the written incantations for your spells. You prepare spells from your spellbook each day."
+    },
+    "cantrips_known": {
+      "1": 3,
+      "4": 4,
+      "10": 5
+    },
+    "prepared_spells": "Intelligence modifier + Wizard level (minimum 1)",
+    "spell_slots": {
+      "1": {"1": 2},
+      "2": {"1": 3},
+      "3": {"1": 4, "2": 2},
+      "4": {"1": 4, "2": 3},
+      "5": {"1": 4, "2": 3, "3": 2},
+      "6": {"1": 4, "2": 3, "3": 3},
+      "7": {"1": 4, "2": 3, "3": 3, "4": 1},
+      "8": {"1": 4, "2": 3, "3": 3, "4": 2},
+      "9": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 1},
+      "10": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2},
+      "11": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+      "12": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1},
+      "13": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+      "14": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1},
+      "15": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+      "16": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1},
+      "17": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 2, "6": 1, "7": 1, "8": 1, "9": 1},
+      "18": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 1, "7": 1, "8": 1, "9": 1},
+      "19": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 1, "8": 1, "9": 1},
+      "20": {"1": 4, "2": 3, "3": 3, "4": 3, "5": 3, "6": 2, "7": 2, "8": 1, "9": 1}
+    }
+  },
+  "class_features": [
+    {
+      "id": "spellcasting_wizard",
+      "name": "Spellcasting",
+      "level": 1,
+      "description": "As a student of arcane magic, you have learned to cast spells. Intelligence is your spellcasting ability. You have a spellbook containing spells that show the first glimmerings of your true power."
+    },
+    {
+      "id": "ritual_casting_wizard",
+      "name": "Ritual Casting",
+      "level": 1,
+      "description": "You can cast a Wizard spell as a Ritual if that spell has the Ritual tag and you have the spell in your spellbook. You don't need to have the spell prepared."
+    },
+    {
+      "id": "arcane_recovery",
+      "name": "Arcane Recovery",
+      "level": 1,
+      "description": "You have learned to regain some of your magical energy by studying your spellbook. Once per day when you finish a Short Rest, you can choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your Wizard level (rounded up), and none of the slots can be 6th level or higher."
+    },
+    {
+      "id": "subclass_feature",
+      "name": "Wizard Subclass",
+      "level": 3,
+      "description": "You gain a Wizard subclass of your choice: Abjurer, Diviner, Evoker, or Illusionist. Each represents an arcane tradition that shapes your practice of magic."
+    },
+    {
+      "id": "ability_score_improvement_wizard",
+      "name": "Ability Score Improvement",
+      "level": 4,
+      "description": "You gain the Ability Score Improvement feat or another feat of your choice for which you qualify.",
+      "repeats_at": [8, 12, 16, 19]
+    },
+    {
+      "id": "memorize_spell",
+      "name": "Memorize Spell",
+      "level": 5,
+      "description": "Whenever you finish a Short Rest, you can study your spellbook and replace one of the spells you have prepared with another Wizard spell in your spellbook.",
+      "notes_2024": "This is a new 2024 feature that increases wizard flexibility."
+    },
+    {
+      "id": "spell_mastery",
+      "name": "Spell Mastery",
+      "level": 18,
+      "description": "You have achieved such mastery over certain spells that you can cast them at will. Choose one 1st-level Wizard spell and one 2nd-level Wizard spell that are in your spellbook. You can cast those spells at their lowest level without expending a spell slot when you have them prepared. If you want to cast either spell at a higher level, you must expend a spell slot as normal."
+    },
+    {
+      "id": "signature_spells",
+      "name": "Signature Spells",
+      "level": 20,
+      "description": "You gain mastery over two powerful spells and can cast them with little effort. Choose two 3rd-level Wizard spells in your spellbook as your signature spells. You always have these spells prepared, they don't count against the number of spells you can prepare, and you can cast each of them once at 3rd level without expending a spell slot. When you do so, you can't do so again until you finish a Short or Long Rest."
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "abjurer",
+      "name": "School of Abjuration",
+      "description": "The School of Abjuration emphasizes magic that blocks, banishes, or protects. Detractors of this school say that its tradition is about denial, negation rather than positive assertion. You understand, however, that ending harmful effects, protecting the weak, and banishing evil influences is anything but a philosophical void.",
+      "features": [
+        {
+          "id": "abjuration_savant",
+          "name": "Abjuration Savant",
+          "level": 3,
+          "description": "The gold and time you must spend to copy an Abjuration spell into your spellbook is halved."
+        },
+        {
+          "id": "arcane_ward",
+          "name": "Arcane Ward",
+          "level": 3,
+          "description": "You can weave magic around yourself for protection. When you cast an Abjuration spell of 1st level or higher, you can simultaneously use a strand of the spell's magic to create a magical ward on yourself that lasts until you finish a Long Rest. The ward has a Hit Point maximum equal to twice your Wizard level + your Intelligence modifier. Whenever you take damage, the ward takes the damage instead. If the ward is reduced to 0 HP, you take any remaining damage. When you cast an Abjuration spell of 1st level or higher, the ward regains HP equal to twice the spell's level."
+        },
+        {
+          "id": "projected_ward",
+          "name": "Projected Ward",
+          "level": 6,
+          "description": "When a creature that you can see within 30 feet of you takes damage, you can use your Reaction to cause your Arcane Ward to absorb that damage. If this damage reduces the ward to 0 HP, the warded creature takes any remaining damage."
+        },
+        {
+          "id": "improved_abjuration",
+          "name": "Improved Abjuration",
+          "level": 10,
+          "description": "When you cast an Abjuration spell that requires you to make an ability check as a part of casting that spell (as in Counterspell and Dispel Magic), you add your proficiency bonus to that ability check."
+        },
+        {
+          "id": "spell_resistance",
+          "name": "Spell Resistance",
+          "level": 14,
+          "description": "You have Advantage on saving throws against spells. Furthermore, you have Resistance against the damage of spells."
+        }
+      ]
+    },
+    {
+      "id": "diviner",
+      "name": "School of Divination",
+      "description": "The counsel of a diviner is sought by royalty and commoners alike, for all seek a clearer understanding of the past, present, and future. As a diviner, you strive to part the veils of space, time, and consciousness so that you can see clearly.",
+      "features": [
+        {
+          "id": "divination_savant",
+          "name": "Divination Savant",
+          "level": 3,
+          "description": "The gold and time you must spend to copy a Divination spell into your spellbook is halved."
+        },
+        {
+          "id": "portent",
+          "name": "Portent",
+          "level": 3,
+          "description": "Glimpses of the future begin to press in on your awareness. When you finish a Long Rest, roll two d20s and record the numbers rolled. You can replace any attack roll, saving throw, or ability check made by you or a creature that you can see with one of these foretelling rolls. You must choose to do so before the roll. Each foretelling roll can be used only once. When you finish a Long Rest, you lose any unused foretelling rolls."
+        },
+        {
+          "id": "expert_divination",
+          "name": "Expert Divination",
+          "level": 6,
+          "description": "Casting Divination spells comes so easily to you that it expends only a fraction of your spellcasting efforts. When you cast a Divination spell of 2nd level or higher using a spell slot, you regain one expended spell slot. The slot you regain must be of a level lower than the spell you cast and can't be higher than 5th level."
+        },
+        {
+          "id": "the_third_eye",
+          "name": "The Third Eye",
+          "level": 10,
+          "description": "You can use your Magic action to increase your powers of perception. When you do so, choose one of the following benefits, which lasts until you are Incapacitated or you take a Short or Long Rest. You can't use the feature again until you finish a Short or Long Rest.",
+          "options": [
+            {"name": "Darkvision", "description": "You gain Darkvision out to a range of 60 feet."},
+            {"name": "Ethereal Sight", "description": "You can see into the Ethereal Plane within 60 feet of you."},
+            {"name": "Greater Comprehension", "description": "You can read any language."},
+            {"name": "See Invisibility", "description": "You can see invisible creatures and objects within 10 feet of you that are within line of sight."}
+          ]
+        },
+        {
+          "id": "greater_portent",
+          "name": "Greater Portent",
+          "level": 14,
+          "description": "The visions in your dreams intensify and paint a more accurate picture in your mind of what is to come. You roll three d20s for your Portent feature, rather than two."
+        }
+      ]
+    },
+    {
+      "id": "evoker",
+      "name": "School of Evocation",
+      "description": "You focus your study on magic that creates powerful elemental effects such as bitter cold, searing flame, rolling thunder, crackling lightning, and burning acid. Some evokers find employment in military forces, serving as artillery to blast enemy armies from afar.",
+      "features": [
+        {
+          "id": "evocation_savant",
+          "name": "Evocation Savant",
+          "level": 3,
+          "description": "The gold and time you must spend to copy an Evocation spell into your spellbook is halved."
+        },
+        {
+          "id": "sculpt_spells",
+          "name": "Sculpt Spells",
+          "level": 3,
+          "description": "You can create pockets of relative safety within the effects of your evocation spells. When you cast an Evocation spell that affects other creatures that you can see, you can choose a number of them equal to 1 + the spell's level. The chosen creatures automatically succeed on their saving throws against the spell, and they take no damage if they would normally take half damage on a successful save."
+        },
+        {
+          "id": "potent_cantrip",
+          "name": "Potent Cantrip",
+          "level": 6,
+          "description": "Your damaging cantrips affect even creatures that avoid the brunt of the effect. When a creature succeeds on a saving throw against your cantrip, the creature takes half the cantrip's damage (if any) but suffers no additional effect from the cantrip."
+        },
+        {
+          "id": "empowered_evocation",
+          "name": "Empowered Evocation",
+          "level": 10,
+          "description": "You can add your Intelligence modifier to one damage roll of any Wizard Evocation spell you cast."
+        },
+        {
+          "id": "overchannel",
+          "name": "Overchannel",
+          "level": 14,
+          "description": "You can increase the power of your simpler spells. When you cast a Wizard spell of 1st through 5th level that deals damage, you can deal maximum damage with that spell. The first time you do so, you suffer no adverse effect. If you use this feature again before you finish a Long Rest, you take 2d12 Necrotic damage for each level of the spell, immediately after you cast it. Each time you use this feature again before finishing a Long Rest, the Necrotic damage per spell level increases by 1d12."
+        }
+      ]
+    },
+    {
+      "id": "illusionist",
+      "name": "School of Illusion",
+      "description": "You focus your studies on magic that dazzles the senses, befuddles the mind, and tricks even the wisest folk. Your magic is subtle, but the illusions crafted by your keen mind make the impossible seem real.",
+      "features": [
+        {
+          "id": "illusion_savant",
+          "name": "Illusion Savant",
+          "level": 3,
+          "description": "The gold and time you must spend to copy an Illusion spell into your spellbook is halved."
+        },
+        {
+          "id": "improved_minor_illusion",
+          "name": "Improved Minor Illusion",
+          "level": 3,
+          "description": "You learn the Minor Illusion cantrip. If you already know this cantrip, you learn a different Wizard cantrip of your choice. The cantrip doesn't count against your number of cantrips known. When you cast Minor Illusion, you can create both a sound and an image with a single casting of the spell."
+        },
+        {
+          "id": "malleable_illusions",
+          "name": "Malleable Illusions",
+          "level": 6,
+          "description": "When you cast an Illusion spell that has a duration of 1 minute or longer, you can use your action to change the nature of that illusion (using the spell's normal parameters for the illusion), provided that you can see the illusion."
+        },
+        {
+          "id": "illusory_self",
+          "name": "Illusory Self",
+          "level": 10,
+          "description": "You can create an illusory duplicate of yourself as an instant, almost instinctual reaction to danger. When a creature makes an attack roll against you, you can use your Reaction to interpose the illusory duplicate between the attacker and yourself. The attack automatically misses you, then the illusion dissipates. Once you use this feature, you can't use it again until you finish a Short or Long Rest."
+        },
+        {
+          "id": "illusory_reality",
+          "name": "Illusory Reality",
+          "level": 14,
+          "description": "You have learned the secret of weaving shadow magic into your illusions to give them a semi-reality. When you cast an Illusion spell of 1st level or higher, you can choose one inanimate, nonmagical object that is part of the illusion and make that object real. You can do this on your turn as a Bonus Action while the spell is ongoing. The object remains real for 1 minute. The object can't deal damage or otherwise directly harm anyone."
+        }
+      ]
+    }
+  ],
+  "level_progression": [
+    {"level": 1, "features": ["spellcasting_wizard", "ritual_casting_wizard", "arcane_recovery"], "cantrips": 3, "spellbook_spells": 6},
+    {"level": 2, "features": [], "cantrips": 3, "spellbook_spells": 8},
+    {"level": 3, "features": ["subclass_feature"], "cantrips": 3, "spellbook_spells": 10},
+    {"level": 4, "features": ["ability_score_improvement_wizard"], "cantrips": 4, "spellbook_spells": 12},
+    {"level": 5, "features": ["memorize_spell"], "cantrips": 4, "spellbook_spells": 14},
+    {"level": 6, "features": ["subclass_feature"], "cantrips": 4, "spellbook_spells": 16},
+    {"level": 7, "features": [], "cantrips": 4, "spellbook_spells": 18},
+    {"level": 8, "features": ["ability_score_improvement_wizard"], "cantrips": 4, "spellbook_spells": 20},
+    {"level": 9, "features": [], "cantrips": 4, "spellbook_spells": 22},
+    {"level": 10, "features": ["subclass_feature"], "cantrips": 5, "spellbook_spells": 24},
+    {"level": 11, "features": [], "cantrips": 5, "spellbook_spells": 26},
+    {"level": 12, "features": ["ability_score_improvement_wizard"], "cantrips": 5, "spellbook_spells": 28},
+    {"level": 13, "features": [], "cantrips": 5, "spellbook_spells": 30},
+    {"level": 14, "features": ["subclass_feature"], "cantrips": 5, "spellbook_spells": 32},
+    {"level": 15, "features": [], "cantrips": 5, "spellbook_spells": 34},
+    {"level": 16, "features": ["ability_score_improvement_wizard"], "cantrips": 5, "spellbook_spells": 36},
+    {"level": 17, "features": [], "cantrips": 5, "spellbook_spells": 38},
+    {"level": 18, "features": ["spell_mastery"], "cantrips": 5, "spellbook_spells": 40},
+    {"level": 19, "features": ["ability_score_improvement_wizard"], "cantrips": 5, "spellbook_spells": 42},
+    {"level": 20, "features": ["signature_spells"], "cantrips": 5, "spellbook_spells": 44}
+  ]
+}

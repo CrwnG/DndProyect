@@ -1,0 +1,29 @@
+{
+  "id": "guide",
+  "name": "Guide",
+  "source": "2024 Player's Handbook",
+  "description": "You came of age in the outdoors, far from settled lands. Your family might have been hermits, or perhaps they hunted and gathered, moving through the wilds in search of food and shelter.",
+  "ability_score_increases": {
+    "options": [
+      {"dexterity": 2, "wisdom": 1},
+      {"dexterity": 1, "wisdom": 2},
+      {"any_three": 1}
+    ]
+  },
+  "skill_proficiencies": ["stealth", "survival"],
+  "tool_proficiency": "Cartographer's Tools",
+  "languages": {
+    "choose": 1,
+    "from": "any"
+  },
+  "starting_equipment": {
+    "items": ["cartographers_tools", "bedroll", "quiver_with_20_arrows", "shortbow", "tent", "pouch", "travelers_clothes"],
+    "gold": 3
+  },
+  "origin_feat": "Magic Initiate (Druid)",
+  "feature": {
+    "id": "wanderers_path",
+    "name": "Wanderer's Path",
+    "description": "You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition, you can find food and fresh water for yourself and up to five other people each day, provided the land offers berries, small game, water, and so forth."
+  }
+}
