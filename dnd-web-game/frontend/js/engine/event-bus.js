@@ -241,12 +241,19 @@ export const EVENTS = {
     CAMPAIGN_LOADED: 'campaign:loaded',
     CAMPAIGN_ENDED: 'campaign:ended',
     CAMPAIGN_STATE_CHANGED: 'campaign:stateChanged',
+    CAMPAIGN_IMPORTED: 'campaign:imported',
+    OPEN_CAMPAIGN_CREATOR: 'campaign:openCreator',
     ENCOUNTER_STARTED: 'encounter:started',
     ENCOUNTER_ENDED: 'encounter:ended',
     STORY_DISPLAYED: 'story:displayed',
     STORY_CONTINUED: 'story:continued',
     REST_STARTED: 'rest:started',
     REST_COMPLETED: 'rest:completed',
+
+    // Consequence Events
+    CONSEQUENCE_TRIGGERED: 'consequence:triggered',
+    CHOICE_REMEMBERED: 'choice:remembered',
+    NPC_DISPOSITION_CHANGED: 'npc:dispositionChanged',
 
     // Choice Events (skill checks and branching)
     CHOICE_DISPLAYED: 'choice:displayed',
@@ -257,6 +264,12 @@ export const EVENTS = {
     // Menu Events
     OPEN_CAMPAIGN_MENU: 'menu:openCampaign',
     QUICK_COMBAT_REQUESTED: 'menu:quickCombat',
+
+    // Multiplayer Events
+    OPEN_MULTIPLAYER_LOBBY: 'multiplayer:openLobby',
+    MULTIPLAYER_GAME_START: 'multiplayer:gameStart',
+    MULTIPLAYER_CONNECTED: 'multiplayer:connected',
+    MULTIPLAYER_DISCONNECTED: 'multiplayer:disconnected',
 };
 
 // Export singleton instance

@@ -554,7 +554,7 @@ async def take_action(
     reaction_options = []
     if result.success and request.target_id and reactions_mgr:
         # Check if target can react (e.g., Shield, Uncanny Dodge)
-        if result.extra_data.get("hit"):
+        if result.extra_data and result.extra_data.get("hit"):
             target_abilities = engine.state.combatant_stats.get(
                 request.target_id, {}
             ).get("abilities", {})
@@ -1154,7 +1154,7 @@ def process_enemy_turn_advanced(
             target_id=target_id
         )
 
-        hit = result.extra_data.get("hit", False) if result.success else False
+        hit = result.extra_data.get("hit", False) if result.extra_data and result.success else False
         damage = result.damage_dealt if hit else 0
 
         # Extract attack details
@@ -1519,7 +1519,7 @@ def process_enemy_turn(engine: CombatEngine, grid: CombatGrid, enemy) -> Optiona
             action_type=ActionType.ATTACK,
             target_id=nearest_player.id
         )
-        hit = result.extra_data.get("hit", False) if result.success else False
+        hit = result.extra_data.get("hit", False) if result.extra_data and result.success else False
         damage = result.damage_dealt if hit else 0
 
         # Extract attack roll details for dice animation
@@ -2023,7 +2023,7 @@ class ClassFeatureResponse(BaseModel):
 @router.post("/{combat_id}/action-surge", response_model=ClassFeatureResponse)
 async def use_action_surge(
     combat_id: str,
-    combatant_id: str,
+    combatant_id: str = Query(..., description="The fighter using Action Surge"),
     combat_repo: CombatStateRepository = Depends(get_combat_repo),
 ):
     """

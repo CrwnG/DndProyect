@@ -265,11 +265,16 @@ async def create_session(
         print(f"[CREATE_SESSION] Received: name={member_data.name}, character_class='{member_data.character_class}', level={member_data.level}", file=sys.stderr, flush=True)
 
         member_id = str(uuid.uuid4())
+        # Build class_levels dict for multiclass support
+        class_name = member_data.character_class.lower() if member_data.character_class else "fighter"
+        class_levels = {class_name: member_data.level}
+
         member = PartyMember(
             id=member_id,
             name=member_data.name,
             character_class=member_data.character_class,
-            level=member_data.level,
+            class_levels=class_levels,
+            primary_class=class_name,
             character_id=member_data.character_id,  # Link to database Character
             gold=member_data.gold,  # Individual gold
             max_hp=member_data.max_hp,

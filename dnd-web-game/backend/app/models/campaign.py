@@ -474,6 +474,71 @@ class Chapter:
         )
 
 
+class ActTheme(str, Enum):
+    """Thematic focus for an act (BG3-style narrative structure)."""
+    MYSTERY = "mystery"           # Uncovering secrets, investigation
+    REVELATION = "revelation"     # Truth comes to light, plot twists
+    CONFRONTATION = "confrontation"  # Direct conflict, climactic battles
+    EXPLORATION = "exploration"   # Discovery, world-building
+    DESPAIR = "despair"          # Low point, loss, setbacks
+    TRIUMPH = "triumph"          # Victory, achievement, hope restored
+    INTRIGUE = "intrigue"        # Political maneuvering, deception
+
+
+@dataclass
+class Act:
+    """
+    Major story arc in a campaign (BG3 has 3 acts).
+
+    Acts provide high-level narrative structure:
+    - Act 1: Setup, introduce conflict, gather party
+    - Act 2: Rising action, complications, revelations
+    - Act 3: Climax, confrontation, resolution
+    """
+    id: str
+    name: str  # "Act 1: The Rising Shadow"
+    theme: ActTheme = ActTheme.MYSTERY
+    description: str = ""
+    emotional_arc: str = ""  # "hope -> despair -> determination"
+    chapters: List[str] = field(default_factory=list)  # Chapter IDs
+    act_climax_encounter: Optional[str] = None  # Boss/major encounter ID
+    key_npcs: List[str] = field(default_factory=list)  # NPCs introduced in this act
+    key_revelations: List[str] = field(default_factory=list)  # Major plot points revealed
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "theme": self.theme.value,
+            "description": self.description,
+            "emotional_arc": self.emotional_arc,
+            "chapters": self.chapters,
+            "act_climax_encounter": self.act_climax_encounter,
+            "key_npcs": self.key_npcs,
+            "key_revelations": self.key_revelations,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "Act":
+        theme_str = data.get("theme", "mystery")
+        try:
+            theme = ActTheme(theme_str)
+        except ValueError:
+            theme = ActTheme.MYSTERY
+
+        return cls(
+            id=data.get("id", str(uuid.uuid4())),
+            name=data.get("name", "Unnamed Act"),
+            theme=theme,
+            description=data.get("description", ""),
+            emotional_arc=data.get("emotional_arc", ""),
+            chapters=data.get("chapters", []),
+            act_climax_encounter=data.get("act_climax_encounter"),
+            key_npcs=data.get("key_npcs", []),
+            key_revelations=data.get("key_revelations", []),
+        )
+
+
 @dataclass
 class CampaignSettings:
     """Campaign configuration settings."""
@@ -513,22 +578,31 @@ class CampaignSettings:
 
 @dataclass
 class Campaign:
-    """A complete campaign definition."""
+    """A complete campaign definition with BG3-style act structure."""
     id: str
     name: str
     description: str = ""
     author: str = ""
     version: str = "1.0.0"
 
-    # Campaign structure
+    # Campaign structure (BG3-style: Acts contain Chapters contain Encounters)
     settings: CampaignSettings = field(default_factory=CampaignSettings)
+    acts: List[Act] = field(default_factory=list)  # BG3-style 3-act structure
     chapters: List[Chapter] = field(default_factory=list)
     encounters: Dict[str, Encounter] = field(default_factory=dict)  # Keyed by encounter ID
+
+    # NPCs in this campaign (keyed by NPC ID)
+    npcs: Dict[str, Dict[str, Any]] = field(default_factory=dict)
 
     # Starting configuration
     starting_encounter: Optional[str] = None
     starting_level: int = 1
     starting_gold: int = 0
+
+    # Campaign metadata for generation
+    central_conflict: str = ""  # Core dramatic tension
+    tone: str = "mixed"  # "dark", "heroic", "comedic", "mixed"
+    estimated_playtime: str = ""  # "short", "medium", "long"
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -539,9 +613,14 @@ class Campaign:
                 "author": self.author,
                 "version": self.version,
                 "settings": self.settings.to_dict(),
+                "central_conflict": self.central_conflict,
+                "tone": self.tone,
+                "estimated_playtime": self.estimated_playtime,
             },
+            "acts": [a.to_dict() for a in self.acts],
             "chapters": [c.to_dict() for c in self.chapters],
             "encounters": {k: v.to_dict() for k, v in self.encounters.items()},
+            "npcs": self.npcs,
             "starting_encounter": self.starting_encounter,
             "starting_level": self.starting_level,
             "starting_gold": self.starting_gold,
@@ -551,6 +630,9 @@ class Campaign:
     def from_dict(cls, data: Dict[str, Any]) -> "Campaign":
         """Load campaign from JSON dict structure."""
         campaign_data = data.get("campaign", data)  # Support both nested and flat
+
+        # Parse acts
+        acts = [Act.from_dict(a) for a in data.get("acts", [])]
 
         # Parse chapters
         chapters = [Chapter.from_dict(c) for c in data.get("chapters", [])]
@@ -564,9 +646,16 @@ class Campaign:
 
         # Determine starting encounter
         starting_enc = data.get("starting_encounter")
-        if not starting_enc and chapters:
-            # Default to first encounter of first chapter
-            if chapters[0].encounters:
+        if not starting_enc:
+            # Try to get from first act's first chapter's first encounter
+            if acts and acts[0].chapters:
+                first_chapter_id = acts[0].chapters[0]
+                for chapter in chapters:
+                    if chapter.id == first_chapter_id and chapter.encounters:
+                        starting_enc = chapter.encounters[0]
+                        break
+            # Fall back to first chapter's first encounter
+            if not starting_enc and chapters and chapters[0].encounters:
                 starting_enc = chapters[0].encounters[0]
 
         return cls(
@@ -576,12 +665,31 @@ class Campaign:
             author=campaign_data.get("author", ""),
             version=campaign_data.get("version", "1.0.0"),
             settings=CampaignSettings.from_dict(campaign_data.get("settings", {})),
+            acts=acts,
             chapters=chapters,
             encounters=encounters,
+            npcs=data.get("npcs", {}),
             starting_encounter=starting_enc,
             starting_level=data.get("starting_level", 1),
             starting_gold=data.get("starting_gold", 0),
+            central_conflict=campaign_data.get("central_conflict", ""),
+            tone=campaign_data.get("tone", "mixed"),
+            estimated_playtime=campaign_data.get("estimated_playtime", ""),
         )
+
+    def get_act(self, act_id: str) -> Optional[Act]:
+        """Get an act by ID."""
+        for act in self.acts:
+            if act.id == act_id:
+                return act
+        return None
+
+    def get_current_act(self, chapter_id: str) -> Optional[Act]:
+        """Get the act that contains a given chapter."""
+        for act in self.acts:
+            if chapter_id in act.chapters:
+                return act
+        return None
 
     def get_encounter(self, encounter_id: str) -> Optional[Encounter]:
         """Get an encounter by ID."""
@@ -632,11 +740,105 @@ class Campaign:
 
 
 @dataclass
+class ChoiceRecord:
+    """Record of a player choice for consequence tracking."""
+    choice_id: str
+    encounter_id: str
+    outcome: str  # "success", "failure", or specific outcome ID
+    timestamp: str = ""  # ISO timestamp
+    context: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "choice_id": self.choice_id,
+            "encounter_id": self.encounter_id,
+            "outcome": self.outcome,
+            "timestamp": self.timestamp,
+            "context": self.context,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "ChoiceRecord":
+        return cls(
+            choice_id=data.get("choice_id", ""),
+            encounter_id=data.get("encounter_id", ""),
+            outcome=data.get("outcome", ""),
+            timestamp=data.get("timestamp", ""),
+            context=data.get("context", {}),
+        )
+
+
+class ConsequenceEffectType(str, Enum):
+    """Types of effects consequences can trigger."""
+    SET_FLAG = "set_flag"
+    MODIFY_NPC = "modify_npc"  # Change NPC disposition
+    UNLOCK_DIALOGUE = "unlock_dialogue"
+    UNLOCK_ENCOUNTER = "unlock_encounter"
+    MODIFY_ENCOUNTER = "modify_encounter"  # Change encounter parameters
+    ADD_ENEMY = "add_enemy"  # Add enemy to future encounter
+    REMOVE_ENEMY = "remove_enemy"
+    GRANT_ITEM = "grant_item"
+    REMOVE_ITEM = "remove_item"
+    NARRATIVE = "narrative"  # Show text to player
+
+
+@dataclass
+class DelayedConsequence:
+    """A consequence that triggers later in the campaign (BG3-style ripple effects)."""
+    id: str
+    trigger_choice_id: str  # Which choice caused this
+    trigger_condition: Dict[str, Any]  # When to trigger: {"type": "encounter", "id": "xyz"} or {"chapters_delay": 2}
+    effect_type: ConsequenceEffectType = ConsequenceEffectType.SET_FLAG
+    effect_params: Dict[str, Any] = field(default_factory=dict)  # Parameters for the effect
+    narrative_text: str = ""  # Text shown to player when consequence manifests
+    triggered: bool = False
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "id": self.id,
+            "trigger_choice_id": self.trigger_choice_id,
+            "trigger_condition": self.trigger_condition,
+            "effect_type": self.effect_type.value,
+            "effect_params": self.effect_params,
+            "narrative_text": self.narrative_text,
+            "triggered": self.triggered,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "DelayedConsequence":
+        effect_type_str = data.get("effect_type", "set_flag")
+        try:
+            effect_type = ConsequenceEffectType(effect_type_str)
+        except ValueError:
+            effect_type = ConsequenceEffectType.SET_FLAG
+
+        return cls(
+            id=data.get("id", str(uuid.uuid4())),
+            trigger_choice_id=data.get("trigger_choice_id", ""),
+            trigger_condition=data.get("trigger_condition", {}),
+            effect_type=effect_type,
+            effect_params=data.get("effect_params", {}),
+            narrative_text=data.get("narrative_text", ""),
+            triggered=data.get("triggered", False),
+        )
+
+
+@dataclass
 class WorldState:
-    """Tracks campaign world state (flags, variables, time)."""
+    """Tracks campaign world state (flags, variables, time, consequences)."""
     flags: Dict[str, bool] = field(default_factory=dict)
     variables: Dict[str, Union[int, str, float]] = field(default_factory=dict)
     time: Dict[str, int] = field(default_factory=lambda: {"day": 1, "hour": 8})
+
+    # BG3-style consequence tracking
+    npc_dispositions: Dict[str, int] = field(default_factory=dict)  # NPC ID -> disposition (-100 to 100)
+    choice_history: List[ChoiceRecord] = field(default_factory=list)  # All choices made
+    pending_consequences: List[DelayedConsequence] = field(default_factory=list)  # Effects waiting to trigger
+
+    # Campaign progress tracking
+    current_act: int = 1
+    current_chapter: int = 1
+    encounters_completed: int = 0
 
     def has_flag(self, flag: str) -> bool:
         return self.flags.get(flag, False)
@@ -657,17 +859,68 @@ class WorldState:
             self.time["hour"] -= 24
             self.time["day"] += 1
 
+    def get_npc_disposition(self, npc_id: str, default: int = 0) -> int:
+        """Get NPC disposition (BG3-style approval rating)."""
+        return self.npc_dispositions.get(npc_id, default)
+
+    def modify_npc_disposition(self, npc_id: str, delta: int, reason: str = ""):
+        """Modify NPC disposition (positive = more friendly, negative = more hostile)."""
+        current = self.npc_dispositions.get(npc_id, 0)
+        self.npc_dispositions[npc_id] = max(-100, min(100, current + delta))
+
+    def record_choice(self, choice_id: str, encounter_id: str, outcome: str, context: Dict = None):
+        """Record a player choice for consequence tracking."""
+        from datetime import datetime
+        record = ChoiceRecord(
+            choice_id=choice_id,
+            encounter_id=encounter_id,
+            outcome=outcome,
+            timestamp=datetime.utcnow().isoformat(),
+            context=context or {},
+        )
+        self.choice_history.append(record)
+
+    def add_pending_consequence(self, consequence: DelayedConsequence):
+        """Add a consequence to trigger later."""
+        self.pending_consequences.append(consequence)
+
+    def has_made_choice(self, choice_id: str) -> bool:
+        """Check if player made a specific choice."""
+        return any(record.choice_id == choice_id for record in self.choice_history)
+
+    def get_choice_outcome(self, choice_id: str) -> Optional[str]:
+        """Get the outcome of a specific choice."""
+        for record in self.choice_history:
+            if record.choice_id == choice_id:
+                return record.outcome
+        return None
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "flags": self.flags,
             "variables": self.variables,
             "time": self.time,
+            "npc_dispositions": self.npc_dispositions,
+            "choice_history": [c.to_dict() for c in self.choice_history],
+            "pending_consequences": [c.to_dict() for c in self.pending_consequences],
+            "current_act": self.current_act,
+            "current_chapter": self.current_chapter,
+            "encounters_completed": self.encounters_completed,
         }
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "WorldState":
+        choice_history = [ChoiceRecord.from_dict(c) for c in data.get("choice_history", [])]
+        pending_consequences = [DelayedConsequence.from_dict(c) for c in data.get("pending_consequences", [])]
+
         return cls(
             flags=data.get("flags", {}),
             variables=data.get("variables", {}),
             time=data.get("time", {"day": 1, "hour": 8}),
+            npc_dispositions=data.get("npc_dispositions", {}),
+            choice_history=choice_history,
+            pending_consequences=pending_consequences,
+            current_act=data.get("current_act", 1),
+            current_chapter=data.get("current_chapter", 1),
+            encounters_completed=data.get("encounters_completed", 0),
         )

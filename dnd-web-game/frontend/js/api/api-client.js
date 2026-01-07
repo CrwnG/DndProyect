@@ -410,12 +410,12 @@ class APIClient {
 
     /**
      * Take a short rest to recover hit dice and some class resources
-     * @param {string} combatId - Combat session ID
-     * @param {string} combatantId - Combatant ID
+     * @param {string} sessionId - Campaign session ID
+     * @param {string} combatantId - Combatant ID (optional)
      * @param {number} hitDiceToSpend - Number of hit dice to spend for healing (optional)
      */
-    async shortRest(combatId, combatantId, hitDiceToSpend = 0) {
-        return this.post(`/class-features/${combatId}/rest/short`, {
+    async shortRest(sessionId, combatantId = null, hitDiceToSpend = 0) {
+        return this.post(`/campaign/session/${sessionId}/rest/short`, {
             combatant_id: combatantId,
             hit_dice_to_spend: hitDiceToSpend
         });
@@ -423,11 +423,11 @@ class APIClient {
 
     /**
      * Take a long rest to fully recover HP, spell slots, and all class resources
-     * @param {string} combatId - Combat session ID
-     * @param {string} combatantId - Combatant ID
+     * @param {string} sessionId - Campaign session ID
+     * @param {string} combatantId - Combatant ID (optional)
      */
-    async longRest(combatId, combatantId) {
-        return this.post(`/class-features/${combatId}/rest/long`, {
+    async longRest(sessionId, combatantId = null) {
+        return this.post(`/campaign/session/${sessionId}/rest/long`, {
             combatant_id: combatantId
         });
     }
@@ -1402,6 +1402,165 @@ class APIClient {
      */
     async healthCheck() {
         return this.get('/health');
+    }
+
+    // ==================== Campaign Generator Endpoints ====================
+
+    /**
+     * Generate a BG3-quality campaign from a concept
+     * @param {string} concept - Campaign concept/premise
+     * @param {number} levelStart - Starting party level (1-20)
+     * @param {number} levelEnd - Ending party level (1-20)
+     * @param {string} length - Campaign length: short, medium, long, epic
+     * @param {string} tone - Campaign tone: dark, heroic, comedic, mixed
+     */
+    async generateCampaign(concept, levelStart = 1, levelEnd = 10, length = 'medium', tone = 'mixed') {
+        return this.post('/campaign-generator/generate', {
+            concept,
+            level_start: levelStart,
+            level_end: levelEnd,
+            length,
+            tone,
+        });
+    }
+
+    /**
+     * Parse a PDF campaign document
+     * @param {File} file - PDF file to parse
+     * @param {string} enhancement - Enhancement level: minimal, moderate, full
+     */
+    async parseCampaignPDF(file, enhancement = 'moderate') {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('enhancement', enhancement);
+
+        const url = `${this.baseUrl}/campaign-generator/parse/pdf`;
+
+        if (CONFIG.DEBUG) {
+            console.log(`[API] Uploading campaign PDF to ${url}:`, file.name);
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new APIError(
+                    errorData.detail || `HTTP ${response.status}`,
+                    response.status,
+                    errorData
+                );
+            }
+
+            return await response.json();
+        } catch (error) {
+            if (error instanceof APIError) throw error;
+            throw new APIError(`Upload error: ${error.message}`, 0, null);
+        }
+    }
+
+    /**
+     * Parse text campaign content
+     * @param {string} content - Campaign text content
+     * @param {string} title - Campaign title
+     * @param {string} enhancement - Enhancement level: minimal, moderate, full
+     */
+    async parseCampaignText(content, title = 'Untitled Campaign', enhancement = 'moderate') {
+        return this.post('/campaign-generator/parse/text', {
+            content,
+            title,
+            enhancement,
+        });
+    }
+
+    /**
+     * Get campaign generator status
+     */
+    async getCampaignGeneratorStatus() {
+        return this.get('/campaign-generator/status');
+    }
+
+    /**
+     * Get parser status
+     */
+    async getCampaignParserStatus() {
+        return this.get('/campaign-generator/parse/status');
+    }
+
+    /**
+     * Get generated campaign by ID
+     * @param {string} campaignId - Campaign ID
+     */
+    async getGeneratedCampaign(campaignId) {
+        return this.get(`/campaign-generator/${campaignId}`);
+    }
+
+    /**
+     * Get campaign structure (acts and chapters)
+     * @param {string} campaignId - Campaign ID
+     */
+    async getCampaignStructure(campaignId) {
+        return this.get(`/campaign-generator/${campaignId}/structure`);
+    }
+
+    /**
+     * Generate an NPC for a campaign
+     * @param {Object} options - NPC generation options
+     */
+    async generateNPC(options = {}) {
+        return this.post('/campaign-generator/npc/generate', {
+            campaign_id: options.campaignId || null,
+            role: options.role || 'quest_giver',
+            importance: options.importance || 'major',
+            story_context: options.storyContext || '',
+            first_appearance: options.firstAppearance || 'Act 1',
+            tone: options.tone || 'mixed',
+        });
+    }
+
+    /**
+     * Record a player choice for consequence tracking
+     * @param {string} campaignId - Campaign ID
+     * @param {string} choiceId - Choice ID
+     * @param {string} encounterId - Encounter ID
+     * @param {string} outcome - Choice outcome
+     * @param {Object} context - Additional context
+     */
+    async recordChoice(campaignId, choiceId, encounterId, outcome, context = {}) {
+        return this.post('/campaign-generator/choice', {
+            campaign_id: campaignId,
+            choice_id: choiceId,
+            encounter_id: encounterId,
+            outcome,
+            context,
+        });
+    }
+
+    /**
+     * Check for triggered consequences
+     * @param {string} campaignId - Campaign ID
+     * @param {string} encounterId - Encounter ID
+     * @param {string} currentAct - Current act ID
+     * @param {string} currentChapter - Current chapter ID
+     */
+    async checkConsequences(campaignId, encounterId, currentAct = null, currentChapter = null) {
+        return this.post('/campaign-generator/consequences/check', {
+            campaign_id: campaignId,
+            encounter_id: encounterId,
+            current_act: currentAct,
+            current_chapter: currentChapter,
+        });
+    }
+
+    /**
+     * Delete a generated campaign
+     * @param {string} campaignId - Campaign ID
+     */
+    async deleteGeneratedCampaign(campaignId) {
+        return this.delete(`/campaign-generator/${campaignId}`);
     }
 }
 

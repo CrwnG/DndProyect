@@ -1,0 +1,102 @@
+# D&D Combat Engine - Test Environment
+# Docker Compose configuration for running tests
+
+version: '3.8'
+
+services:
+  # Backend API for testing
+  backend-test:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=sqlite:///./test_game.db
+      - JWT_SECRET_KEY=test-secret-key-for-testing-only
+      - JWT_REFRESH_SECRET_KEY=test-refresh-secret-key-for-testing-only
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-test-key}
+      - TESTING=true
+      - DEBUG=true
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    command: >
+      sh -c "
+        pip install pytest pytest-asyncio pytest-cov httpx &&
+        python -m pytest tests/ -v --tb=short
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Frontend testing with Jest
+  frontend-test:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: >
+      sh -c "
+        npm install &&
+        npm install --save-dev jest jest-environment-jsdom @babel/core @babel/preset-env babel-jest identity-obj-proxy &&
+        npm test -- --coverage
+      "
+    environment:
+      - CI=true
+
+  # E2E testing with Playwright
+  e2e-test:
+    image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    working_dir: /app
+    volumes:
+      - .:/app
+    depends_on:
+      backend-test:
+        condition: service_healthy
+    command: >
+      sh -c "
+        npm install @playwright/test &&
+        npx playwright install &&
+        npx playwright test --reporter=list
+      "
+    environment:
+      - CI=true
+      - PLAYWRIGHT_BASE_URL=http://backend-test:8000
+
+  # Database for integration tests
+  test-db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_password
+      - POSTGRES_DB=dnd_test
+    ports:
+      - "5433:5432"
+    volumes:
+      - test_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d dnd_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching tests (optional)
+  test-redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  test_db_data:
+
+# Network for test services
+networks:
+  default:
+    name: dnd-test-network

@@ -227,6 +227,17 @@ def _init_default_conditions():
                 "exhaustion_levels": True,
             },
         ),
+        # D&D 5e 2024 Weapon Mastery Conditions
+        ConditionData(
+            id="sapped",
+            name="Sapped",
+            description="Disadvantage on next attack roll (SAP weapon mastery).",
+            effects={
+                "attack_disadvantage": True,
+                "duration_type": "next_attack",  # Clears after making one attack
+                "source": "weapon_mastery",
+            },
+        ),
     ]
 
     for cond in defaults:

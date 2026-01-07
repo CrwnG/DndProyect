@@ -27,6 +27,73 @@ def utc_now() -> datetime:
 
 
 # =============================================================================
+# USER MODEL (Authentication)
+# =============================================================================
+
+class User(SQLModel, table=True):
+    """
+    User account for authentication.
+
+    Supports multiplayer sessions and character ownership.
+    """
+    __tablename__ = "users"
+
+    id: str = Field(default_factory=generate_uuid, primary_key=True)
+    username: str = Field(unique=True, index=True, min_length=3, max_length=32)
+    email: str = Field(unique=True, index=True)
+    password_hash: str
+
+    # Profile
+    display_name: Optional[str] = Field(default=None, max_length=64)
+    avatar_url: Optional[str] = None
+
+    # Account status
+    is_active: bool = Field(default=True)
+    is_verified: bool = Field(default=False)
+
+    # Timestamps
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
+    last_login: Optional[datetime] = None
+
+    # Token management (for logout/refresh)
+    token_version: int = Field(default=0)
+
+
+class UserCreate(SQLModel):
+    """Model for user registration."""
+    username: str = Field(min_length=3, max_length=32)
+    email: str
+    password: str = Field(min_length=8)
+    display_name: Optional[str] = None
+
+
+class UserLogin(SQLModel):
+    """Model for user login."""
+    username: str
+    password: str
+
+
+class UserUpdate(SQLModel):
+    """Model for updating user profile."""
+    display_name: Optional[str] = None
+    avatar_url: Optional[str] = None
+
+
+class TokenPair(BaseModel):
+    """JWT token pair response."""
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+    expires_in: int = 3600  # seconds
+
+
+class TokenRefresh(BaseModel):
+    """Token refresh request."""
+    refresh_token: str
+
+
+# =============================================================================
 # CHARACTER MODEL
 # =============================================================================
 

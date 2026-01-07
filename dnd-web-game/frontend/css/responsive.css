@@ -1,0 +1,587 @@
+/**
+ * D&D Combat Engine - Responsive CSS
+ * Mobile-first responsive design for tablet and mobile devices.
+ */
+
+/* ==================== CSS Variables for Breakpoints ==================== */
+:root {
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-wide: 1440px;
+
+    /* Mobile-specific spacing */
+    --mobile-padding: 12px;
+    --mobile-gap: 8px;
+    --touch-target-min: 44px;
+}
+
+/* ==================== Base Mobile Styles ==================== */
+
+/* Hide scrollbars on mobile for cleaner look */
+@media (max-width: 768px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        overflow-x: hidden;
+        touch-action: pan-y;
+    }
+
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* ==================== Tablet Styles (768px and below) ==================== */
+@media (max-width: 768px) {
+    /* Main Layout - Stack panels vertically */
+    .game-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .left-panel,
+    .center-panel,
+    .right-panel {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
+
+    .left-panel {
+        order: 2;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .center-panel {
+        order: 1;
+        flex: none;
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .right-panel {
+        order: 3;
+        max-height: none;
+    }
+
+    /* Combat Grid Canvas */
+    #combat-grid {
+        width: 100%;
+        height: 100%;
+        min-height: 280px;
+    }
+
+    /* Character Panel */
+    .character-panel {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: var(--mobile-padding);
+    }
+
+    .character-panel .portrait {
+        width: 60px;
+        height: 60px;
+    }
+
+    .character-info {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    /* Initiative Tracker - Horizontal scroll */
+    .initiative-tracker {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: var(--mobile-padding);
+        gap: var(--mobile-gap);
+    }
+
+    .initiative-entry {
+        flex-shrink: 0;
+        min-width: 100px;
+    }
+
+    /* Action Bar - Grid layout */
+    .action-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: var(--mobile-gap);
+        padding: var(--mobile-padding);
+    }
+
+    .action-btn {
+        min-height: var(--touch-target-min);
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .action-btn .action-label {
+        font-size: 0.75rem;
+    }
+
+    /* Combat Log - Collapsible */
+    .combat-log {
+        max-height: 150px;
+    }
+
+    .combat-log.collapsed {
+        max-height: 40px;
+        overflow: hidden;
+    }
+
+    /* Modals - Full screen on mobile */
+    .modal,
+    .spell-modal,
+    .inventory-modal,
+    .auth-modal,
+    .campaign-editor {
+        padding: 0 !important;
+    }
+
+    .modal-content,
+    .spell-modal-content,
+    .inventory-content,
+    .auth-content,
+    .editor-content {
+        width: 100% !important;
+        max-width: none !important;
+        height: 100vh !important;
+        max-height: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Spell List - 2 columns */
+    .spell-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Campaign Menu */
+    .campaign-menu-content {
+        width: 100%;
+        max-width: none;
+        height: 100vh;
+        border-radius: 0;
+    }
+
+    .menu-options {
+        padding: var(--mobile-padding);
+    }
+
+    .menu-option {
+        min-height: var(--touch-target-min);
+        padding: 14px;
+    }
+
+    /* Story Display */
+    .story-display-content {
+        width: 100%;
+        max-width: none;
+        padding: var(--mobile-padding);
+    }
+
+    /* Choice Display */
+    .choice-container {
+        padding: var(--mobile-padding);
+    }
+
+    .choice-btn {
+        min-height: var(--touch-target-min);
+        padding: 14px;
+    }
+
+    /* Victory Screen */
+    .victory-content {
+        width: 100%;
+        max-width: none;
+        padding: var(--mobile-padding);
+    }
+
+    /* Settings panels */
+    .settings-panel,
+    .audio-settings .settings-panel,
+    .narration-settings .nsettings-panel {
+        width: 100%;
+        max-width: none;
+        height: 100vh;
+        max-height: none;
+        border-radius: 0;
+    }
+}
+
+/* ==================== Mobile Styles (480px and below) ==================== */
+@media (max-width: 480px) {
+    /* Even more compact layout */
+    .game-container {
+        padding: 0;
+    }
+
+    .center-panel {
+        height: 45vh;
+        min-height: 250px;
+    }
+
+    /* Character Panel - Minimal */
+    .character-panel {
+        padding: 8px;
+    }
+
+    .character-panel .portrait {
+        width: 48px;
+        height: 48px;
+    }
+
+    .character-panel .stat-bar {
+        height: 6px;
+    }
+
+    .character-panel .stat-value {
+        font-size: 0.7rem;
+    }
+
+    /* Action Bar - Simplified */
+    .action-bar {
+        grid-template-columns: repeat(3, 1fr);
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .action-btn {
+        padding: 8px;
+        min-height: 50px;
+    }
+
+    .action-btn .action-icon {
+        font-size: 1.2rem;
+    }
+
+    .action-btn .action-label {
+        font-size: 0.65rem;
+    }
+
+    /* Initiative - Even more compact */
+    .initiative-entry {
+        min-width: 80px;
+        padding: 6px;
+    }
+
+    .initiative-entry .portrait {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Combat Log - Minimal by default */
+    .combat-log {
+        max-height: 100px;
+    }
+
+    /* Spell List - Single column */
+    .spell-list {
+        grid-template-columns: 1fr;
+    }
+
+    /* Headers and titles */
+    h1, .modal-title, .auth-title {
+        font-size: 1.3rem;
+    }
+
+    h2, .section-title {
+        font-size: 1.1rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    /* Form inputs */
+    .form-input,
+    .form-select,
+    .form-textarea {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Buttons */
+    .btn,
+    button {
+        min-height: var(--touch-target-min);
+        padding: 12px 16px;
+    }
+
+    /* Campaign Editor - Mobile optimized */
+    .editor-body {
+        flex-direction: column;
+    }
+
+    .editor-sidebar {
+        width: 100%;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid #3a3a5c;
+    }
+
+    .editor-preview {
+        display: none; /* Hide preview on mobile */
+    }
+
+    .editor-main {
+        padding: var(--mobile-padding);
+    }
+
+    /* Hide non-essential elements */
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+/* ==================== Landscape Mobile ==================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .game-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .center-panel {
+        width: 60%;
+        height: 100vh;
+        order: 1;
+    }
+
+    .left-panel {
+        width: 40%;
+        height: 50vh;
+        order: 2;
+    }
+
+    .right-panel {
+        width: 40%;
+        height: 50vh;
+        order: 3;
+    }
+
+    /* Keep modals smaller in landscape */
+    .modal-content,
+    .auth-content {
+        height: auto !important;
+        max-height: 95vh !important;
+    }
+}
+
+/* ==================== Touch-Friendly Adjustments ==================== */
+@media (pointer: coarse) {
+    /* Larger touch targets */
+    .action-btn,
+    .menu-option,
+    .choice-btn,
+    .spell-card,
+    .item-slot,
+    .tab-btn,
+    .initiative-entry {
+        min-height: var(--touch-target-min);
+    }
+
+    /* Larger close buttons */
+    .close-btn,
+    .modal-close,
+    .auth-close,
+    .settings-close {
+        width: 44px;
+        height: 44px;
+        font-size: 28px;
+    }
+
+    /* Scrollable areas with momentum */
+    .spell-list,
+    .inventory-grid,
+    .chapter-tree,
+    .combat-log-content {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Larger range input thumbs */
+    input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Checkbox/toggle larger */
+    .toggle-switch {
+        width: 56px;
+        height: 30px;
+    }
+}
+
+/* ==================== Safe Area Insets (Notched Phones) ==================== */
+@supports (padding: max(0px)) {
+    .game-container {
+        padding-left: max(var(--mobile-padding), env(safe-area-inset-left));
+        padding-right: max(var(--mobile-padding), env(safe-area-inset-right));
+        padding-bottom: max(var(--mobile-padding), env(safe-area-inset-bottom));
+    }
+
+    .action-bar {
+        padding-bottom: max(var(--mobile-padding), env(safe-area-inset-bottom));
+    }
+
+    /* Modal bottoms */
+    .modal-content,
+    .auth-content {
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+}
+
+/* ==================== Mobile Navigation Bar ==================== */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);
+    border-top: 1px solid #d4af37;
+    padding: 8px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    z-index: 9000;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    /* Add bottom padding to content to account for nav */
+    .game-container {
+        padding-bottom: 70px;
+    }
+}
+
+.mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 0.7rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    min-width: 60px;
+}
+
+.mobile-nav-btn:active,
+.mobile-nav-btn.active {
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+}
+
+.mobile-nav-btn .nav-icon {
+    font-size: 1.3rem;
+}
+
+/* ==================== Floating Action Button ==================== */
+.fab {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(180deg, #d4af37 0%, #b8972e 100%);
+    border: none;
+    border-radius: 50%;
+    color: #1a1a2e;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 8999;
+    transition: all 0.2s;
+}
+
+@media (max-width: 768px) {
+    .fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.fab:active {
+    transform: scale(0.95);
+}
+
+/* ==================== Swipe Indicator ==================== */
+.swipe-indicator {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    background: #666;
+    border-radius: 2px;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .swipe-indicator {
+        display: block;
+    }
+}
+
+/* ==================== Pull to Refresh Indicator ==================== */
+.pull-indicator {
+    position: fixed;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background: rgba(212, 175, 55, 0.9);
+    color: #1a1a2e;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.85rem;
+    transition: top 0.3s;
+    z-index: 10000;
+}
+
+.pull-indicator.visible {
+    top: 0;
+}
+
+/* ==================== Loading States ==================== */
+.skeleton {
+    background: linear-gradient(90deg, #2a2a4e 25%, #3a3a5e 50%, #2a2a4e 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ==================== Print Styles ==================== */
+@media print {
+    .mobile-nav,
+    .fab,
+    .action-bar,
+    .modal,
+    .backdrop {
+        display: none !important;
+    }
+
+    .game-container {
+        flex-direction: column;
+    }
+}

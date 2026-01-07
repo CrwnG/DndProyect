@@ -2465,6 +2465,12 @@ class ActionBar {
                 // Reset action for this turn (Action Surge grants a new action)
                 state.set('turn.actionUsed', false);
 
+                // Reset attacks for the new action granted by Action Surge
+                const currentTurn = state.getState().turn || {};
+                const maxAttacks = currentTurn.maxAttacks || 2;  // Level 5+ fighters get 2
+                state.set('turn.attacksRemaining', maxAttacks);
+                state.set('turn.attacks_made', 0);
+
                 // Update combat state
                 if (response.combat_state) {
                     state.updateCombatState(response.combat_state);

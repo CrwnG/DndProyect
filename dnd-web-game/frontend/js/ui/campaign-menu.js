@@ -67,7 +67,8 @@ class CampaignMenu {
                         </div>
                         <div class="menu-actions">
                             <button class="menu-btn secondary" id="btn-back-main">Back</button>
-                            <button class="menu-btn" id="btn-import-campaign">Import Campaign</button>
+                            <button class="menu-btn" id="btn-create-campaign">Create Campaign</button>
+                            <button class="menu-btn" id="btn-import-campaign">Import JSON</button>
                             <button class="menu-btn primary" id="btn-select-campaign" disabled>Select</button>
                         </div>
                     </div>
@@ -168,6 +169,7 @@ class CampaignMenu {
         // Campaign selection
         document.getElementById('btn-back-main')?.addEventListener('click', () => this.showMainMenu());
         document.getElementById('btn-select-campaign')?.addEventListener('click', () => this.showPartySetup());
+        document.getElementById('btn-create-campaign')?.addEventListener('click', () => this.openCampaignCreator());
         document.getElementById('btn-import-campaign')?.addEventListener('click', () => this.showCampaignImport());
 
         // Campaign import
@@ -358,6 +360,11 @@ class CampaignMenu {
         if (textInput) textInput.value = '';
         if (nameInput) nameInput.value = '';
         if (fileInput) fileInput.value = '';
+    }
+
+    openCampaignCreator() {
+        // Emit event to open the campaign creator modal
+        eventBus.emit(EVENTS.OPEN_CAMPAIGN_CREATOR);
     }
 
     switchCampaignImportTab(tabId) {

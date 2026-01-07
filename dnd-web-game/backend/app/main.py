@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import get_settings
+from app.middleware.error_handler import setup_error_handlers
 import traceback
 
 # ============================================================================
@@ -14,7 +15,7 @@ startup_time = datetime.now().strftime("%H:%M:%S")
 print("\n" + "="*70, flush=True)
 print(f"  D&D COMBAT ENGINE - STARTED AT {startup_time}", flush=True)
 print("  [OK] DEBUG MODE - Error details will show in responses", flush=True)
-print("  [OK] Character endpoint has try/catch error handling", flush=True)
+print("  [OK] Structured error handling enabled", flush=True)
 print("="*70 + "\n", flush=True)
 
 settings = get_settings()
@@ -76,20 +77,8 @@ app.add_middleware(
 )
 
 
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    """Log all unhandled exceptions to console for debugging."""
-    print("\n" + "="*70, flush=True)
-    print(f"[ERROR] Unhandled exception on {request.method} {request.url.path}", flush=True)
-    print(f"[ERROR] Exception type: {type(exc).__name__}", flush=True)
-    print(f"[ERROR] Exception message: {str(exc)}", flush=True)
-    print("[ERROR] Full traceback:", flush=True)
-    traceback.print_exc()
-    print("="*70 + "\n", flush=True)
-    return JSONResponse(
-        status_code=500,
-        content={"detail": f"Internal server error: {str(exc)}"}
-    )
+# Setup structured error handlers (replaces the old global exception handler)
+setup_error_handlers(app, debug=settings.DEBUG)
 
 
 @app.get("/")
@@ -117,10 +106,12 @@ async def api_health_check():
 
 
 # Routes
-from app.api.routes import combat, character, campaign, spells, equipment, character_creation, loot, class_features, skill_checks, progression, dm, shop, map_generation, social, random_encounters, export
+from app.api.routes import combat, character, campaign, spells, equipment, character_creation, loot, class_features, skill_checks, progression, dm, shop, map_generation, social, random_encounters, export, campaign_generator, multiplayer, auth, campaign_editor
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(combat.router, prefix="/api/combat", tags=["combat"])
 app.include_router(character.router, prefix="/api/character", tags=["character"])
 app.include_router(campaign.router, prefix="/api/campaign", tags=["campaign"])
+app.include_router(campaign_generator.router, prefix="/api/campaign-generator", tags=["campaign-generator"])
 app.include_router(spells.router, prefix="/api/spells", tags=["spells"])
 app.include_router(equipment.router, prefix="/api", tags=["equipment"])
 app.include_router(character_creation.router, prefix="/api/creation", tags=["character-creation"])
@@ -134,6 +125,8 @@ app.include_router(map_generation.router, prefix="/api", tags=["map_generation"]
 app.include_router(social.router, prefix="/api/social", tags=["social"])
 app.include_router(random_encounters.router, prefix="/api/encounters", tags=["encounters"])
 app.include_router(export.router, prefix="/api", tags=["export"])
+app.include_router(multiplayer.router, prefix="/api/multiplayer", tags=["multiplayer"])
+app.include_router(campaign_editor.router, tags=["campaign-editor"])
 
 
 if __name__ == "__main__":

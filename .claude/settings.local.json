@@ -47,7 +47,14 @@
       "Bash(ls -la \"c:\\\\Users\\\\gaelc\\\\OneDrive\\\\Desktop\\\\Proyect_Dnd\\\\backend\\\\app\\\\core\"\" 2>/dev/null || echo \"Path not found, checking alternative \")",
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(dir \"c:\\\\Users\\\\gaelo\\\\dproy\")",
+      "Bash(dir \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\")",
+      "Bash(dir /b \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\api\")",
+      "Bash(test:*)",
+      "Bash(dir /b \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\")",
+      "Bash(for file in \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\services\\\\auth_service.py\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\api\\\\routes\\\\auth.py\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\middleware\\\\auth.py\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\services\\\\campaign_editor.py\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\backend\\\\app\\\\api\\\\routes\\\\campaign_editor.py\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\frontend\\\\js\\\\audio\\\\audio-manager.js\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\frontend\\\\js\\\\audio\\\\sound-library.js\" \"c:\\\\Users\\\\gaelo\\\\dproy\\\\dnd-web-game\\\\frontend\\\\js\\\\audio\\\\audio-triggers.js\")",
+      "Bash(timeout /t 8 /nobreak)"
     ]
   }
 }

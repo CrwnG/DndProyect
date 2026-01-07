@@ -457,6 +457,7 @@ class StateManager {
     toggleThreatZoneDisplay(show = null) {
         this.state.grid.showThreatZones = show !== null ? show : !this.state.grid.showThreatZones;
         this.notifySubscribers();
+        return this.state.grid.showThreatZones;
     }
 
     /**

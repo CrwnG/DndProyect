@@ -14,9 +14,12 @@ import InitiativeTracker from './ui/initiative-tracker.js';
 import ActionBar from './ui/action-bar.js';
 import { characterImportUI } from './ui/character-import.js';
 import { campaignMenu } from './ui/campaign-menu.js';
+import { campaignCreator } from './ui/campaign-creator.js';
 import { storyDisplay } from './ui/story-display.js';
 import { choiceDisplay } from './ui/choice-display.js';
+import { consequenceDisplay } from './ui/consequence-display.js';
 import { inventoryModal } from './ui/inventory-modal.js';
+import { characterSheetModal } from './ui/character-sheet-modal.js';
 import lootModal from './ui/loot-modal.js';
 import { victoryScreen } from './ui/victory-screen.js';
 import characterCreationWizard from './ui/character-creation/creation-wizard.js';
@@ -29,6 +32,18 @@ import { channelDivinityModal } from './ui/channel-divinity-modal.js';
 import { bardicInspirationModal } from './ui/bardic-inspiration-modal.js';
 import { metamagicModal } from './ui/metamagic-modal.js';
 import { reactionPrompt } from './ui/reaction-prompt.js';
+import { errorHandler } from './core/error-handler.js';
+import errorDisplay from './ui/error-display.js';
+import { authService } from './services/auth.js';
+import { authModal } from './ui/auth-modal.js';
+import { campaignEditor } from './ui/campaign-editor.js';
+import { audioManager } from './audio/audio-manager.js';
+import { audioTriggers } from './audio/audio-triggers.js';
+import { audioSettings } from './ui/settings-audio.js';
+import { narrationManager } from './audio/narration.js';
+import { narrationSettings } from './ui/settings-narration.js';
+import { touchHandler } from './input/touch-handler.js';
+import { mobileNav } from './ui/mobile-nav.js';
 
 class Game {
     constructor() {
@@ -40,8 +55,10 @@ class Game {
 
         // Campaign components
         this.campaignMenu = campaignMenu;
+        this.campaignCreator = campaignCreator;
         this.storyDisplay = storyDisplay;
         this.choiceDisplay = choiceDisplay;
+        this.consequenceDisplay = consequenceDisplay;
         this.currentSessionId = null;
 
         // Equipment/Inventory
@@ -110,7 +127,7 @@ class Game {
             console.log('[Game] Initialization complete!');
         } catch (error) {
             console.error('[Game] Initialization failed:', error);
-            this.showError('Failed to initialize game. Is the server running?');
+            errorHandler.handle(error, { component: 'Game', phase: 'initialization' });
         }
     }
 
@@ -307,10 +324,10 @@ class Game {
             }
         });
 
-        // Error events
-        eventBus.on(EVENTS.ERROR_OCCURRED, (error) => {
+        // Error events - use centralized error handler
+        eventBus.on(EVENTS.ERROR_OCCURRED, ({ error, context }) => {
             console.error('[Game] Error:', error);
-            this.showError(error.message || 'An error occurred');
+            // Error handler will show appropriate UI
         });
 
         // Log entries
@@ -348,6 +365,14 @@ class Game {
         if (inventoryBtn) {
             inventoryBtn.addEventListener('click', () => {
                 this.inventoryModal.toggle();
+            });
+        }
+
+        // Character Sheet button click
+        const sheetBtn = document.getElementById('btn-character-sheet');
+        if (sheetBtn) {
+            sheetBtn.addEventListener('click', () => {
+                characterSheetModal.toggle();
             });
         }
 
