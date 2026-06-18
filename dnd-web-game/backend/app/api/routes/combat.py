@@ -45,6 +45,7 @@ from app.core.combat_storage import (
     persist_combat_state,
     create_combat_state,
     end_combat_state,
+    rehydrate_combat,
 )
 from app.database.dependencies import get_combat_repo
 from app.database.repositories import CombatStateRepository
@@ -447,9 +448,14 @@ async def end_combat(
 
 
 @router.get("/{combat_id}/state", response_model=CombatStateResponse)
-async def get_combat_state(combat_id: str):
-    """Get the current state of a combat encounter."""
+async def get_combat_state(
+    combat_id: str,
+    combat_repo: CombatStateRepository = Depends(get_combat_repo),
+):
+    """Get the current state of a combat encounter (reloads from DB on cache miss)."""
     engine = active_combats.get(combat_id)
+    if not engine:
+        engine = await rehydrate_combat(combat_id, combat_repo)
     grid = active_grids.get(combat_id)
 
     if not engine:

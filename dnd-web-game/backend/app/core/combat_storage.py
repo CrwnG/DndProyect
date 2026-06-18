@@ -45,6 +45,7 @@ async def persist_combat_state(
             positions=state.get("positions", {}),
             initiative_order=state.get("initiative_order", []),
             active_effects=state.get("active_effects", []),
+            engine_snapshot=engine.to_dict(),
         )
         return True
     except Exception as e:
@@ -147,7 +148,31 @@ async def load_combat_from_db(
             "is_active": combat_state.is_active,
             "result": combat_state.result,
             "xp_awarded": combat_state.xp_awarded,
+            "engine_snapshot": combat_state.engine_snapshot,
         }
     except Exception as e:
         print(f"[CombatStorage] Failed to load combat state: {e}")
         return None
+
+
+async def rehydrate_combat(combat_id: str, repo: Any) -> Optional[Any]:
+    """Reconstruct a CombatEngine from its persisted snapshot and cache it in
+    active_combats, so a combat survives a backend restart. Returns the engine,
+    or None if there is no usable snapshot.
+
+    Note: the snapshot captures core state (phase, initiative, turn, positions,
+    combatant_stats, event log). The tactical grid and recharge/legendary
+    bookkeeping are not serialized and reset on reload.
+    """
+    existing = active_combats.get(combat_id)
+    if existing is not None:
+        return existing
+
+    loaded = await load_combat_from_db(combat_id, repo)
+    if not loaded or not loaded.get("engine_snapshot"):
+        return None
+
+    from app.core.combat_engine import CombatEngine
+    engine = CombatEngine.from_dict(loaded["engine_snapshot"])
+    active_combats[combat_id] = engine
+    return engine

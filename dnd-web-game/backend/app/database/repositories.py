@@ -295,10 +295,10 @@ class CombatStateRepository:
         positions: Dict[str, Any],
         initiative_order: List[Dict[str, Any]],
         active_effects: List[Dict[str, Any]],
+        engine_snapshot: Optional[Dict[str, Any]] = None,
     ) -> Optional[CombatState]:
         """Update full combat state."""
-        return await self.update(
-            combat_id,
+        kwargs = dict(
             phase=phase,
             round_number=round_number,
             current_turn_index=current_turn_index,
@@ -308,6 +308,9 @@ class CombatStateRepository:
             initiative_order=initiative_order,
             active_effects=active_effects,
         )
+        if engine_snapshot is not None:
+            kwargs["engine_snapshot"] = engine_snapshot
+        return await self.update(combat_id, **kwargs)
 
     async def end_combat(
         self,

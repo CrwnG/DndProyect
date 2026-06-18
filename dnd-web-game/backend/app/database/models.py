@@ -316,6 +316,9 @@ class CombatState(SQLModel, table=True):
     # Active effects (buffs, debuffs, concentration)
     active_effects: List[Dict[str, Any]] = Field(default_factory=list, sa_column=Column(JSON))
 
+    # Full CombatEngine.to_dict() snapshot for exact reconstruction on restart
+    engine_snapshot: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
+
     # Combat result
     result: Optional[str] = None  # victory, defeat, fled, none
     xp_awarded: int = Field(default=0)
