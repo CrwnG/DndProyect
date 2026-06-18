@@ -49,6 +49,28 @@ def test_breath_weapon_evasion_records_extra_data():
     assert result.extra_data["rogue_evasion"] == "half_damage"
 
 
+def test_subclass_ids_unified_across_level_up_and_registry():
+    """One subclass-ID namespace: every option level_up offers must (a) be a JSON ID
+    and (b) resolve in the subclass registry, for all 12 classes."""
+    from app.core.level_up import _get_subclass_options
+    from app.core.subclass_registry import get_subclass_registry
+    from app.services.rules_loader import get_rules_loader
+
+    registry = get_subclass_registry()
+    loader = get_rules_loader()
+    classes = ["barbarian", "bard", "cleric", "druid", "fighter", "monk",
+               "paladin", "ranger", "rogue", "sorcerer", "warlock", "wizard"]
+    for class_id in classes:
+        json_ids = {s["id"] for s in loader.get_class(class_id).get("subclasses", [])}
+        options = _get_subclass_options(class_id)
+        assert options, f"{class_id} has no subclass options"
+        for opt in options:
+            sid = opt["id"]
+            assert sid in json_ids, f"{class_id}: level_up offers {sid!r} not in JSON {json_ids}"
+            assert registry.get_subclass(class_id, sid) is not None, \
+                f"{class_id}: registry cannot resolve {sid!r}"
+
+
 def _make_combatant(cid, ctype, **overrides):
     base = {
         "id": cid, "name": cid, "type": ctype,
