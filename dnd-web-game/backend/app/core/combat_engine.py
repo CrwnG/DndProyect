@@ -4681,6 +4681,42 @@ class CombatEngine:
         if hasattr(target, "current_hp"):
             target.current_hp = new_hp
 
+    @staticmethod
+    def _aoe_includes(shape, origin, direction, target, length_ft, width_ft=5):
+        """Whether `target` falls inside an AoE of `shape` cast from `origin` aimed
+        at `direction`. Positions are (x, y) grid squares (5 ft each); length_ft and
+        width_ft are in feet.
+
+        - sphere: omnidirectional within length_ft.
+        - cone (5e): in front, within length_ft, and within the cone whose half-width
+          at distance d equals d/2 (the 2024 cone rule: width == distance from origin).
+        - line: within length_ft along the aim axis and within width_ft/2 of it.
+        """
+        ox, oy = origin
+        tx, ty = target
+        wx, wy = tx - ox, ty - oy
+        dist_ft = (wx * wx + wy * wy) ** 0.5 * 5
+
+        if shape == "sphere":
+            return dist_ft <= length_ft
+
+        dpx, dpy = direction
+        vx, vy = dpx - ox, dpy - oy
+        dlen = (vx * vx + vy * vy) ** 0.5
+        if dlen == 0:
+            # No usable direction -> fall back to a range check so AoE still fires.
+            return dist_ft <= length_ft
+        ux, uy = vx / dlen, vy / dlen
+        proj = wx * ux + wy * uy          # grid squares along the aim axis
+        perp = abs(wx * uy - wy * ux)     # grid squares perpendicular to it
+        if proj <= 0 or proj * 5 > length_ft:
+            return False                  # behind the origin or beyond range
+        if shape == "cone":
+            return perp <= proj / 2
+        if shape == "line":
+            return perp * 5 <= width_ft / 2
+        return False
+
     def _get_targets_in_ability_area(
         self,
         attacker_id: str,
@@ -4700,8 +4736,19 @@ class CombatEngine:
         """
         from app.core.monster_abilities import AreaShape
 
+        def _xy(pos):
+            if isinstance(pos, dict):
+                return pos.get("x", 0), pos.get("y", 0)
+            return pos
+
         targets = []
         attacker_pos = self.state.positions.get(attacker_id, (0, 0))
+        ax, ay = _xy(attacker_pos)
+
+        # Cones/lines are aimed at the primary target; default to the attacker's
+        # own square (the helper then degrades to a range check).
+        aim_pos = self.state.positions.get(primary_target_id, attacker_pos)
+        aim = _xy(aim_pos)
 
         # Get all enemies of the attacker
         attacker = self.state.initiative_tracker.get_combatant(attacker_id)
@@ -4716,17 +4763,7 @@ class CombatEngine:
                 continue
 
             target_pos = self.state.positions.get(combatant.id, (0, 0))
-
-            # Calculate distance
-            if isinstance(attacker_pos, dict):
-                ax, ay = attacker_pos.get("x", 0), attacker_pos.get("y", 0)
-            else:
-                ax, ay = attacker_pos
-
-            if isinstance(target_pos, dict):
-                tx, ty = target_pos.get("x", 0), target_pos.get("y", 0)
-            else:
-                tx, ty = target_pos
+            tx, ty = _xy(target_pos)
 
             distance = ((tx - ax) ** 2 + (ty - ay) ** 2) ** 0.5 * 5  # Grid squares to feet
 
@@ -4735,12 +4772,17 @@ class CombatEngine:
                 if distance <= (ability.area_size or 30):
                     targets.append(combatant.id)
             elif ability.area_shape == AreaShape.CONE:
-                # Simplified: targets in front within range
-                if distance <= (ability.area_size or 30):
+                # Directional cone aimed at the primary target (5e width == distance).
+                if self._aoe_includes(
+                    "cone", (ax, ay), aim, (tx, ty), ability.area_size or 30
+                ):
                     targets.append(combatant.id)
             elif ability.area_shape == AreaShape.LINE:
-                # Simplified: targets in a line within range
-                if distance <= (ability.area_size or 60):
+                # Directional line aimed at the primary target.
+                if self._aoe_includes(
+                    "line", (ax, ay), aim, (tx, ty),
+                    ability.area_size or 60, ability.area_width or 5,
+                ):
                     targets.append(combatant.id)
             else:
                 # Single target or unknown - just use primary target

@@ -52,3 +52,24 @@ def test_jwt_secret_warnings_flag_dev_defaults():
     assert check_jwt_secrets("dev-secret-key-change-in-production", "strong")   # flagged
     assert check_jwt_secrets("strong", "")                                      # empty refresh flagged
     assert check_jwt_secrets("strong-secret", "strong-refresh") == []           # secure -> no warnings
+
+
+def test_aoe_cone_and_line_respect_direction():
+    """R13: cones/lines must be directional, not omnidirectional spheres."""
+    from app.core.combat_engine import CombatEngine
+
+    f = CombatEngine._aoe_includes
+    origin, direction = (0, 0), (10, 0)  # aimed east
+    # Cone (30 ft = 6 squares): straight ahead and slightly off-axis are in;
+    # behind, perpendicular, and beyond range are out.
+    assert f("cone", origin, direction, (3, 0), 30)
+    assert f("cone", origin, direction, (4, 1), 30)
+    assert not f("cone", origin, direction, (-3, 0), 30)
+    assert not f("cone", origin, direction, (0, 5), 30)
+    assert not f("cone", origin, direction, (7, 0), 30)
+    # Line (60 ft, 5 ft wide): on the ray is in; off-width / behind are out.
+    assert f("line", origin, direction, (5, 0), 60, 5)
+    assert not f("line", origin, direction, (5, 2), 60, 5)
+    assert not f("line", origin, direction, (-1, 0), 60, 5)
+    # Sphere is omnidirectional within range.
+    assert f("sphere", origin, direction, (0, 4), 30)
