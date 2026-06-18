@@ -27,9 +27,9 @@ Severity legend: 🔴 blocks play · 🟠 breaks a system · 🟡 polish.
 ## Phase 2 — Harden combat & spells ⚔️ (in progress — crash bugs fixed 2026-06-18)
 **Goal:** monster turns and spells produce correct, crash-free mechanics.
 - ✅ Added `roll_dice()` to `core/dice.py` (general roller). Fixes the unimportable `surfaces`/`falling`/`throwing` modules and the monster Multiattack / save-AoE crash. Tested.
-- ✅ Fixed `attack_roll.natural_roll` → `natural_20`/`natural_1` (`combat_engine.py`); added `extra_data` field to `AbilityResult` (breath weapons vs Evasion). extra_data is tested; the monster single-attack path still needs a combat-engine integration test (follow-up).
-- 🟠 Give spells structured combat fields (`damage/type/heal/save/scaling`) and consume them instead of prose regex; fix upcasting; make `cast_spell` consume the persisted slot.
-- 🟠 Fix monster damage resist/immunity key mismatch; cache `subclass_id` (Champion crit/Assassinate).
+- ✅ Fixed `attack_roll.natural_roll` → `natural_20`/`natural_1` (`combat_engine.py`); added `extra_data` field to `AbilityResult` (breath weapons vs Evasion). A combat-engine integration test now covers the monster single-attack path.
+- ✅ Fixed monster damage resist/immunity key mismatch (`_apply_damage_to_target` now reads the cached `resistances/immunities/vulnerabilities`); `subclass_id` is now cached in `_cache_combatant_stats` and carried through `to_combatant_data`/the builder adapter (Champion crit / Assassinate can fire). Tested.
+- 🟠 Give spells structured combat fields (`damage/type/heal/save/scaling`) and consume them instead of prose regex; fix upcasting; make `cast_spell` consume the persisted slot. **(next big item)**
 - 🟠 Unify the three subclass-ID namespaces on the JSON IDs (invariant #2).
 - ✅ **Exit test:** per-effect-type spell tests; a multiattack boss fight runs without exceptions.
 

@@ -53,6 +53,7 @@ def builder_to_combatant_data(char: Dict[str, Any]) -> Dict[str, Any]:
         "ac": char.get("armor_class", char.get("ac", 10)),
         "speed": char.get("speed", 30),
         "class": char.get("class", "fighter"),
+        "subclass_id": char.get("subclass_id"),
         "level": char.get("level", 1),
         "proficiency_bonus": char.get("proficiency_bonus", 2),
         "features": char.get("features", []),
@@ -157,6 +158,7 @@ def to_combatant_data(character: Dict[str, Any]) -> Dict[str, Any]:
         # Include class and level at TOP LEVEL for easy frontend access
         'class': char_class,
         'character_class': char_class,
+        'subclass_id': character.get('subclass_id'),
         'level': char_level,
         'hp': character.get('hp', 10),
         'max_hp': character.get('max_hp', 10),
