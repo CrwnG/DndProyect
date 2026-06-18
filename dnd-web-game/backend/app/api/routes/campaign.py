@@ -59,6 +59,31 @@ async def _persist_session_state(
     )
 
 
+async def _get_or_load_session_engine(
+    session_id: str,
+    session_repo: GameSessionRepository,
+) -> Optional[CampaignEngine]:
+    """Return the live engine for a session, reconstructing it from the DB on an
+    in-memory cache miss so a session survives a backend restart."""
+    engine = active_sessions.get(session_id)
+    if engine is not None:
+        return engine
+
+    db_session = await session_repo.get_by_id(session_id)
+    if not db_session or not db_session.state:
+        return None
+
+    campaign_id = db_session.state.get("campaign_id") or db_session.campaign_id
+    campaign = loaded_campaigns.get(campaign_id) or load_campaign(campaign_id)
+    if not campaign:
+        return None
+    loaded_campaigns[campaign_id] = campaign
+
+    engine = CampaignEngine.from_save(campaign, db_session.state)
+    active_sessions[session_id] = engine
+    return engine
+
+
 async def _sync_party_to_characters(
     char_repo: CharacterRepository,
     session: GameSession,
@@ -326,15 +351,17 @@ async def create_session(
 
 
 @router.get("/session/{session_id}/state")
-async def get_session_state(session_id: str):
-    """Get current state of a game session."""
-    if session_id not in active_sessions:
+async def get_session_state(
+    session_id: str,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
+    """Get current state of a game session (reloads from DB on cache miss)."""
+    engine = await _get_or_load_session_engine(session_id, session_repo)
+    if engine is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Session not found: {session_id}"
         )
-
-    engine = active_sessions[session_id]
     return {"state": engine.get_state().to_dict()}
 
 
@@ -345,13 +372,12 @@ async def advance_session(
     session_repo: GameSessionRepository = Depends(get_session_repo),
 ):
     """Advance the campaign state. State is auto-saved after each advance."""
-    if session_id not in active_sessions:
+    engine = await _get_or_load_session_engine(session_id, session_repo)
+    if engine is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Session not found: {session_id}"
         )
-
-    engine = active_sessions[session_id]
 
     # Validate action
     try:

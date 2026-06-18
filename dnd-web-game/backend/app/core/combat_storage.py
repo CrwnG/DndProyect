@@ -74,11 +74,12 @@ async def create_combat_state(
         from app.database.models import CombatStateCreate
 
         data = CombatStateCreate(
+            id=combat_id,
             session_id=session_id,
             combatants=combatants,
         )
 
-        # Create with specific ID
+        # Create with the API combat_id as the DB primary key
         combat_state = await repo.create(data)
         return combat_state
     except Exception as e:

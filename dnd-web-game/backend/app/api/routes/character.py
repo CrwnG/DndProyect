@@ -19,6 +19,7 @@ from app.services.character_service import (
     to_combatant_data,
     validate_character,
     create_demo_combatant,
+    db_character_to_combatant,
 )
 from app.database.dependencies import get_character_repo
 from app.database.repositories import CharacterRepository
@@ -358,8 +359,9 @@ async def get_character(
             "spellcasting": db_char.spellcasting,
         }
 
-        # Generate combatant data
-        combatant = to_combatant_data(character)
+        # Generate combatant data. Use the DB-row adapter so flat ability scores
+        # become a valid combatant (derived mods) rather than the 0-mod fallback.
+        combatant = db_character_to_combatant(db_char)
 
         # Cache for future requests
         imported_characters[character_id] = {

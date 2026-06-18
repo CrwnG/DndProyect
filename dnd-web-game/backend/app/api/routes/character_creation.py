@@ -3,7 +3,7 @@ Character Creation API Routes.
 
 Provides endpoints for step-by-step character creation using D&D 2024 rules.
 """
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel, Field
 from typing import Dict, List, Optional, Any
 
@@ -14,6 +14,8 @@ from app.core.character_builder import (
     ValidationResult,
     CreationStep,
 )
+from app.database.dependencies import get_character_repo
+from app.database.repositories import CharacterRepository
 
 router = APIRouter()
 
@@ -547,7 +549,10 @@ async def validate_build(build_id: str):
 
 
 @router.post("/build/{build_id}/finalize")
-async def finalize_build(build_id: str):
+async def finalize_build(
+    build_id: str,
+    char_repo: CharacterRepository = Depends(get_character_repo),
+):
     """Finalize the build and create the character."""
     build = _builder.get_build(build_id)
     if not build:
@@ -563,7 +568,7 @@ async def finalize_build(build_id: str):
     # combat-ready (correct ability mods / HP / AC) rather than the 10/10/+0
     # fallback produced by storing the raw builder dict as the combatant.
     from app.api.routes.character import imported_characters
-    from app.services.character_service import builder_to_combatant_data
+    from app.services.character_service import builder_to_combatant_data, persist_created_character
     combatant = builder_to_combatant_data(result)
     imported_characters[result["id"]] = {
         "raw": result,
@@ -571,6 +576,11 @@ async def finalize_build(build_id: str):
         "source": "character_builder",
         "build_id": build_id
     }
+    # Persist to the DB so the character survives a restart (non-fatal on failure).
+    try:
+        await persist_created_character(result, char_repo)
+    except Exception as e:
+        print(f"[CharacterCreation] Failed to persist created character: {e}")
 
     return {
         "success": True,
