@@ -20,3 +20,14 @@ def test_multiattack_name_matching_normalizes_plurals():
     assert CombatEngine._match_attack(attack_map, "claws") == "CLAW_ATK"
     assert CombatEngine._match_attack(attack_map, "bite") == "BITE_ATK"
     assert CombatEngine._match_attack(attack_map, "tail") is None
+
+
+def test_shops_build_without_missing_module():
+    """R2: shop factories imported a nonexistent app.data.items -> every shop 500'd."""
+    from app.models.shop import create_general_store, create_potion_shop, create_weapon_shop
+
+    for factory in (create_general_store, create_potion_shop, create_weapon_shop):
+        shop = factory()
+        assert len(shop.inventory) > 0
+        for item in shop.inventory:
+            assert item.price >= 0  # numeric value-derived price
