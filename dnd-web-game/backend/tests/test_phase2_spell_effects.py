@@ -65,6 +65,40 @@ def test_regex_resistant_damage_spells_get_explicit_fields():
     SpellRegistry.reset()
 
 
+def test_upcast_preserves_flat_modifier_and_per_slot_scaling():
+    """Upcasting must keep NdM+K flats and apply the per-slot scaling (incl. its flat).
+
+    Magic Missile is 3d4+3 and gains one dart (1d4+1) per slot above 1st.
+    The old upcast collapsed NdM+K -> NdM, dropping every flat.
+    """
+    reg = _registry()
+    mm = reg.get_spell("magic_missile")
+    # base 1st-level slot is unchanged
+    assert SpellEffectResolver._calculate_spell_damage(mm, caster_level=9, slot_level=1) == "3d4+3"
+    # 2nd-level slot: +1 dart (1d4+1) -> 4d4+4
+    assert SpellEffectResolver._calculate_spell_damage(mm, caster_level=9, slot_level=2) == "4d4+4"
+    # 3rd-level slot: +2 darts -> 5d4+5
+    assert SpellEffectResolver._calculate_spell_damage(mm, caster_level=9, slot_level=3) == "5d4+5"
+    # Fireball (same-die scaling, no flat) still works
+    fb = reg.get_spell("fireball")
+    assert SpellEffectResolver._calculate_spell_damage(fb, caster_level=9, slot_level=5) == "10d6"
+    SpellRegistry.reset()
+
+
+def test_healing_upcasts_via_scaling():
+    """Healing must upcast using the structured scaling field, not a flat +1 die.
+
+    Cure Wounds is 2d8 and scales by 2d8 per slot above 1st.
+    """
+    reg = _registry()
+    cw = reg.get_spell("cure_wounds")
+    r1 = SpellEffectResolver.resolve_healing_spell(cw, ability_mod=0, slot_level=1)
+    assert r1["healing_dice"] == "2d8"
+    r3 = SpellEffectResolver.resolve_healing_spell(cw, ability_mod=0, slot_level=3)
+    assert r3["healing_dice"] == "6d8"   # base 2d8 + 2 levels * 2d8
+    SpellRegistry.reset()
+
+
 def test_cast_spell_consumes_slot_on_caster_data():
     """cast_spell must persist slot consumption back to caster_data.
 

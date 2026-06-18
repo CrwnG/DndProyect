@@ -523,6 +523,7 @@
       "effect_type": "damage",
       "damage_dice": "3d4+3",
       "damage_type": "force",
+      "scaling": "1d4+1",
       "name": "Magic Missile",
       "school": "Evocation",
       "casting_time": "Action",

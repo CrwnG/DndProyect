@@ -778,14 +778,12 @@ class SpellEffectResolver:
         """
         healing_dice = spell.healing_dice or "1d8"
 
-        # Handle upcasting for healing
+        # Handle upcasting for healing (same structured scaling path as damage).
         if slot_level and slot_level > spell.level:
-            extra_dice = slot_level - spell.level
-            base_match = re.match(r'(\d+)d(\d+)', healing_dice)
-            if base_match:
-                num_dice = int(base_match.group(1)) + extra_dice
-                die_size = base_match.group(2)
-                healing_dice = f"{num_dice}d{die_size}"
+            healing_dice = SpellEffectResolver._upcast_dice(
+                healing_dice, getattr(spell, "scaling", None),
+                spell.higher_levels, slot_level - spell.level,
+            )
 
         healing_result = roll_damage(healing_dice)
         total_healing = healing_result.total + ability_mod
@@ -795,6 +793,49 @@ class SpellEffectResolver:
             "healing_dice": healing_dice,
             "ability_mod_added": ability_mod,
         }
+
+    @staticmethod
+    def _upcast_dice(dice_str: str, scaling: Optional[str], higher_levels: Optional[str], extra_levels: int) -> str:
+        """Apply per-slot scaling to an `NdM(+K)` dice string (extra_levels >= 1).
+
+        Prefers an explicit structured `scaling` field (e.g. "1d6" or "1d4+1");
+        otherwise falls back to the prose higher_levels hint. Same-die dice are
+        combined; differing dice are kept as a separate term so a die size is
+        never silently changed. Flat modifiers are preserved.
+        """
+        base = re.match(r'(\d+)d(\d+)([+-]\d+)?', dice_str)
+        if not base:
+            return dice_str
+        base_count = int(base.group(1))
+        base_die = base.group(2)
+        base_flat = int(base.group(3)) if base.group(3) else 0
+
+        added_count = 0
+        added_die = base_die
+        added_flat = 0
+        sc = re.match(r'(\d+)d(\d+)([+-]\d+)?', scaling) if scaling else None
+        if sc:
+            added_count = int(sc.group(1)) * extra_levels
+            added_die = sc.group(2)
+            added_flat = (int(sc.group(3)) if sc.group(3) else 0) * extra_levels
+        elif higher_levels and "1d" in higher_levels.lower():
+            added_count = extra_levels
+        elif higher_levels and "2d" in higher_levels.lower():
+            added_count = extra_levels * 2
+
+        if added_count and added_die == base_die:
+            dice = f"{base_count + added_count}d{base_die}"
+        elif added_count:
+            dice = f"{base_count}d{base_die}+{added_count}d{added_die}"
+        else:
+            dice = f"{base_count}d{base_die}"
+
+        total_flat = base_flat + added_flat
+        if total_flat > 0:
+            dice += f"+{total_flat}"
+        elif total_flat < 0:
+            dice += str(total_flat)
+        return dice
 
     @staticmethod
     def _calculate_spell_damage(
@@ -829,25 +870,10 @@ class SpellEffectResolver:
 
         # Upcasting (leveled spells)
         elif slot_level and slot_level > spell.level:
-            extra_levels = slot_level - spell.level
-            base_match = re.match(r'(\d+)d(\d+)', damage_dice)
-
-            if base_match:
-                num_dice = int(base_match.group(1))
-                die_size = base_match.group(2)
-
-                # Prefer an explicit per-slot scaling field (e.g. "1d6"); fall back to
-                # the prose higher_levels hint. Works even when higher_levels is null.
-                scaling = getattr(spell, "scaling", None)
-                scaling_match = re.match(r'(\d+)d(\d+)', scaling) if scaling else None
-                if scaling_match:
-                    num_dice += int(scaling_match.group(1)) * extra_levels
-                elif spell.higher_levels and "1d" in spell.higher_levels.lower():
-                    num_dice += extra_levels
-                elif spell.higher_levels and "2d" in spell.higher_levels.lower():
-                    num_dice += extra_levels * 2
-
-                damage_dice = f"{num_dice}d{die_size}"
+            damage_dice = SpellEffectResolver._upcast_dice(
+                damage_dice, getattr(spell, "scaling", None),
+                spell.higher_levels, slot_level - spell.level,
+            )
 
         return damage_dice
 
