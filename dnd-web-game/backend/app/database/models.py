@@ -176,6 +176,7 @@ class Character(SQLModel, table=True):
 class CharacterCreate(SQLModel):
     """Model for creating a new character."""
     name: str
+    id: Optional[str] = None  # optionally reuse a caller-provided id (e.g. the build/character id)
     species: str = "human"
     character_class: str = "fighter"
     subclass: Optional[str] = None

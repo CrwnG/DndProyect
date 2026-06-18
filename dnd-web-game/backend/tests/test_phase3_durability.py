@@ -45,6 +45,33 @@ def test_load_campaign_resolves_by_internal_id_and_filename():
     assert by_id.id == by_file.id
 
 
+async def test_created_character_persisted_to_db(db_session):
+    """A finalized builder character must be saved to the DB (under its own id)
+    so it survives a restart, not just live in the in-memory dict."""
+    from app.services.character_service import persist_created_character
+    from app.database.repositories import CharacterRepository
+
+    repo = CharacterRepository(db_session)
+    result = {
+        "id": "char-xyz-1",
+        "name": "Durable Wizard",
+        "species_id": "elf", "class_id": "wizard", "subclass_id": "evoker",
+        "level": 3, "background_id": "sage",
+        "ability_scores": {"strength": 8, "dexterity": 14, "constitution": 13,
+                           "intelligence": 16, "wisdom": 12, "charisma": 10},
+    }
+    created = await persist_created_character(result, repo)
+    assert created.id == "char-xyz-1"
+
+    fetched = await repo.get_by_id("char-xyz-1")
+    assert fetched is not None
+    assert fetched.name == "Durable Wizard"
+    assert fetched.character_class == "wizard"
+    assert fetched.subclass == "evoker"
+    assert fetched.level == 3
+    assert fetched.abilities["intelligence"] == 16
+
+
 async def test_combat_state_persisted_under_api_combat_id(db_session):
     """create_combat_state must use the API combat_id as the DB primary key, so
     persist/load round-trip by that id."""

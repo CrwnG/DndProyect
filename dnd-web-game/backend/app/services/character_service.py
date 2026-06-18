@@ -66,6 +66,27 @@ def builder_to_combatant_data(char: Dict[str, Any]) -> Dict[str, Any]:
     return to_combatant_data(import_shape)
 
 
+async def persist_created_character(char: Dict[str, Any], repo: Any) -> Any:
+    """Persist a CharacterBuilder.finalize_character output to the DB so the
+    created character survives a restart (not just the in-memory dict).
+
+    Returns the created Character row. `repo` is a CharacterRepository.
+    """
+    from app.database.models import CharacterCreate
+
+    data = CharacterCreate(
+        id=char.get("id"),
+        name=char.get("name", "Unknown Character"),
+        species=char.get("species_id") or char.get("species") or "human",
+        character_class=char.get("class_id") or char.get("class") or "fighter",
+        subclass=char.get("subclass_id"),
+        level=char.get("level", 1),
+        background=char.get("background_id") or char.get("background"),
+        abilities=char.get("ability_scores") or None,
+    )
+    return await repo.create(data)
+
+
 def to_combatant_data(character: Dict[str, Any]) -> Dict[str, Any]:
     """
     Convert parsed character data to CombatantData format.

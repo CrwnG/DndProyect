@@ -52,6 +52,8 @@ class CharacterRepository:
                 "charisma": 10,
             },
         )
+        if data.id:
+            character.id = data.id  # honor a caller-provided id
         self.session.add(character)
         await self.session.flush()
         return character
