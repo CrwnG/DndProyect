@@ -796,7 +796,7 @@ async def convert_sorcery_points(combat_id: str, request: SorceryPointRequest):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="slot_level required for conversion"
             )
-        success, message = convert_slot_to_points(sp_state, request.slot_level)
+        success, points_gained, message = convert_slot_to_points(sp_state, request.slot_level)
     elif request.operation == "points_to_slot":
         if not request.slot_level:
             raise HTTPException(

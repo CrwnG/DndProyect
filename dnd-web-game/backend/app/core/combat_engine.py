@@ -932,7 +932,7 @@ class CombatEngine:
             from app.core.rules_engine import resolve_attack, DamageType
 
             target_stats = self.state.combatant_stats.get(target_id, {})
-            target_ac = target_stats.get("armor_class", 10)
+            target_ac = target_stats.get("ac", target_stats.get("armor_class", 10))
 
             # Get attack bonus and damage from action description
             description = action_data.get("description", "")
@@ -4496,8 +4496,8 @@ class CombatEngine:
         for attack_name in multiattack.multiattack_pattern or []:
             attack_name_lower = attack_name.lower()
 
-            # Find matching attack
-            attack = attack_map.get(attack_name_lower)
+            # Find matching attack (tolerate plural/qualified names, e.g. claw/claws)
+            attack = self._match_attack(attack_map, attack_name_lower)
             if not attack and attack_name_lower == "attack":
                 # Generic attack - use first available
                 attack = next(iter(attack_map.values()), None)
@@ -4544,6 +4544,22 @@ class CombatEngine:
             }
         )
 
+    @staticmethod
+    def _match_attack(attack_map: Dict[str, Any], token: str) -> Any:
+        """Find the attack for a multiattack pattern token, tolerating plural or
+        qualified action names (e.g. token 'claw' matching the 'claws' key)."""
+        if not token:
+            return None
+        token = token.lower()
+        if token in attack_map:
+            return attack_map[token]
+        norm = token.rstrip("s")
+        for key, val in attack_map.items():
+            k = str(key).lower()
+            if k.rstrip("s") == norm or norm in k:
+                return val
+        return None
+
     def _execute_single_monster_attack(
         self,
         combatant,
@@ -4563,7 +4579,7 @@ class CombatEngine:
         Returns:
             Dict with attack result {hit, damage, critical, attack_roll, etc.}
         """
-        from app.core.dice import roll_dice, roll_d20
+        from app.core.dice import roll_dice, roll_d20, dice_only
 
         target = self.state.initiative_tracker.get_combatant(target_id)
         target_stats = self.state.combatant_stats.get(target_id, {})
@@ -4592,13 +4608,13 @@ class CombatEngine:
             if attack.damage_dice:
                 damage = roll_dice(attack.damage_dice)
                 if is_crit:
-                    damage += roll_dice(attack.damage_dice)  # Double dice on crit
+                    damage += roll_dice(dice_only(attack.damage_dice))  # double dice only, not the flat
 
             # Extra damage (like acid on dragon bite)
             if attack.extra_damage_dice:
                 extra = roll_dice(attack.extra_damage_dice)
                 if is_crit:
-                    extra += roll_dice(attack.extra_damage_dice)
+                    extra += roll_dice(dice_only(attack.extra_damage_dice))
                 damage += extra
 
             # Apply damage to target

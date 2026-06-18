@@ -371,7 +371,7 @@ async def collect_loot(
     return LootResponse(
         success=True,
         loot=collected,
-        message=f"Loot collected by {character.name}: {len(new_inventory_items)} items, {gold_gained} gp"
+        message=f"Loot collected by {character.name}: {len(new_inventory_items)} items, {total_gold} gp"
     )
 
 
@@ -662,7 +662,7 @@ async def give_item_to_character(
     Adds the specified item to the character's inventory.
     """
     # Get character
-    character = await char_repo.get(request.character_id)
+    character = await char_repo.get_by_id(request.character_id)
     if not character:
         raise HTTPException(status_code=404, detail="Character not found")
 
