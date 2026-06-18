@@ -267,6 +267,11 @@
     },
     {
       "id": "fireball",
+      "effect_type": "damage",
+      "damage_dice": "8d6",
+      "damage_type": "fire",
+      "save_type": "dex",
+      "scaling": "1d6",
       "name": "Fireball",
       "level": 3,
       "school": "Evocation",

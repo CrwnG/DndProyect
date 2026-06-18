@@ -147,6 +147,9 @@
     },
     {
       "id": "cure_wounds",
+      "effect_type": "healing",
+      "healing_dice": "2d8",
+      "scaling": "2d8",
       "name": "Cure Wounds",
       "school": "Abjuration",
       "casting_time": "Action",

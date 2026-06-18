@@ -195,37 +195,56 @@ class SpellRegistry:
             spell.combat_usable = data["combat_usable"]
         if data.get("trigger"):
             spell.trigger = data["trigger"]
+        if data.get("healing_dice"):
+            spell.healing_dice = data["healing_dice"]
+        if data.get("scaling"):
+            spell.scaling = data["scaling"]
+        if data.get("effect_type"):
+            effect_map = {
+                "damage": SpellEffectType.DAMAGE, "healing": SpellEffectType.HEALING,
+                "control": SpellEffectType.CONTROL, "buff": SpellEffectType.BUFF,
+                "debuff": SpellEffectType.DEBUFF, "utility": SpellEffectType.UTILITY,
+            }
+            mapped = effect_map.get(str(data["effect_type"]).lower())
+            if mapped is not None:
+                spell.effect_type = mapped
 
-        # Detect effect type
-        if "damage" in description or "hit" in description:
-            spell.effect_type = SpellEffectType.DAMAGE
-        elif "heal" in description or "regain" in description or "restore" in description:
-            spell.effect_type = SpellEffectType.HEALING
-        elif any(word in description for word in ["charmed", "frightened", "restrained", "paralyzed", "stunned"]):
-            spell.effect_type = SpellEffectType.CONTROL
-        elif "advantage" in description or "bonus" in description:
-            spell.effect_type = SpellEffectType.BUFF
-        elif "disadvantage" in description or "penalty" in description:
-            spell.effect_type = SpellEffectType.DEBUFF
-        else:
-            spell.effect_type = SpellEffectType.UTILITY
+        # Detect effect type from prose ONLY when not set explicitly.
+        # (Check healing before damage, and do NOT match "hit" — it hits "Hit Points".)
+        if spell.effect_type is None:
+            if "heal" in description or "regain" in description or "restore" in description:
+                spell.effect_type = SpellEffectType.HEALING
+            elif "damage" in description:
+                spell.effect_type = SpellEffectType.DAMAGE
+            elif any(word in description for word in ["charmed", "frightened", "restrained", "paralyzed", "stunned"]):
+                spell.effect_type = SpellEffectType.CONTROL
+            elif "advantage" in description or "bonus" in description:
+                spell.effect_type = SpellEffectType.BUFF
+            elif "disadvantage" in description or "penalty" in description:
+                spell.effect_type = SpellEffectType.DEBUFF
+            else:
+                spell.effect_type = SpellEffectType.UTILITY
 
-        # Extract damage dice
-        damage_match = re.search(r'(\d+d\d+)\s+(acid|fire|cold|lightning|thunder|force|necrotic|radiant|poison|psychic|bludgeoning|piercing|slashing)', description)
-        if damage_match:
-            spell.damage_dice = damage_match.group(1)
-            spell.damage_type = damage_match.group(2)
+        # Extract damage dice from prose only if not provided explicitly.
+        if not spell.damage_dice:
+            damage_match = re.search(r'(\d+d\d+)\s+(acid|fire|cold|lightning|thunder|force|necrotic|radiant|poison|psychic|bludgeoning|piercing|slashing)', description)
+            if damage_match:
+                spell.damage_dice = damage_match.group(1)
+                if not spell.damage_type:
+                    spell.damage_type = damage_match.group(2)
 
-        # Extract healing dice
-        healing_match = re.search(r'regain[s]?\s+(?:hit points equal to\s+)?(\d+d\d+)', description)
-        if healing_match:
-            spell.healing_dice = healing_match.group(1)
+        # Extract healing dice from prose only if not provided explicitly.
+        if not spell.healing_dice:
+            healing_match = re.search(r'regain[s]?\s+(?:hit points equal to\s+)?(\d+d\d+)', description)
+            if healing_match:
+                spell.healing_dice = healing_match.group(1)
 
-        # Detect save type
-        for save_type in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
-            if f"{save_type} saving throw" in description:
-                spell.save_type = save_type
-                break
+        # Detect save type from prose only if not provided explicitly.
+        if not spell.save_type:
+            for save_type in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
+                if f"{save_type} saving throw" in description:
+                    spell.save_type = save_type
+                    break
 
         # Detect attack type
         if "spell attack" in description:
@@ -809,8 +828,7 @@ class SpellEffectResolver:
                 damage_dice = f"{num_dice}d{die_size}"
 
         # Upcasting (leveled spells)
-        elif slot_level and slot_level > spell.level and spell.higher_levels:
-            # Parse higher level scaling from description
+        elif slot_level and slot_level > spell.level:
             extra_levels = slot_level - spell.level
             base_match = re.match(r'(\d+)d(\d+)', damage_dice)
 
@@ -818,11 +836,15 @@ class SpellEffectResolver:
                 num_dice = int(base_match.group(1))
                 die_size = base_match.group(2)
 
-                # Most spells add 1 die per slot level
-                # Check for different scaling patterns
-                if "1d" in spell.higher_levels.lower():
+                # Prefer an explicit per-slot scaling field (e.g. "1d6"); fall back to
+                # the prose higher_levels hint. Works even when higher_levels is null.
+                scaling = getattr(spell, "scaling", None)
+                scaling_match = re.match(r'(\d+)d(\d+)', scaling) if scaling else None
+                if scaling_match:
+                    num_dice += int(scaling_match.group(1)) * extra_levels
+                elif spell.higher_levels and "1d" in spell.higher_levels.lower():
                     num_dice += extra_levels
-                elif "2d" in spell.higher_levels.lower():
+                elif spell.higher_levels and "2d" in spell.higher_levels.lower():
                     num_dice += extra_levels * 2
 
                 damage_dice = f"{num_dice}d{die_size}"
