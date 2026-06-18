@@ -558,11 +558,16 @@ async def finalize_build(build_id: str):
     if not success:
         raise HTTPException(status_code=400, detail=result.get("errors", ["Unknown error"]))
 
-    # Store the created character (could be moved to character storage)
+    # Store the created character (could be moved to character storage).
+    # Adapt the builder output into CombatantData so the character is actually
+    # combat-ready (correct ability mods / HP / AC) rather than the 10/10/+0
+    # fallback produced by storing the raw builder dict as the combatant.
     from app.api.routes.character import imported_characters
+    from app.services.character_service import builder_to_combatant_data
+    combatant = builder_to_combatant_data(result)
     imported_characters[result["id"]] = {
         "raw": result,
-        "combatant": result,
+        "combatant": combatant,
         "source": "character_builder",
         "build_id": build_id
     }
@@ -571,6 +576,8 @@ async def finalize_build(build_id: str):
         "success": True,
         "character_id": result["id"],
         "character": result,
+        # Combat-ready form so the client can drop the new character into a fight.
+        "combatant": combatant,
         "message": f"Successfully created {result['name']}"
     }
 

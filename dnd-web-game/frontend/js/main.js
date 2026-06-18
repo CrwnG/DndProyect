@@ -440,7 +440,15 @@ class Game {
         // Quick combat requested (skip campaign, go straight to demo)
         eventBus.on(EVENTS.QUICK_COMBAT_REQUESTED, async () => {
             console.log('[Game] Quick combat requested');
-            await this.loadDemoCombat();
+            // If the player just created/imported a character, drop them into the
+            // fight as player-1 (reuses the demo encounter's positions/initiative);
+            // otherwise fall back to the hardcoded demo party.
+            const imported = this.importedCharacter;
+            const combatant = imported && (imported.combatant || imported.character);
+            const playerOverride = combatant
+                ? [{ ...combatant, id: 'player-1', type: 'player' }]
+                : null;
+            await this.loadDemoCombat(playerOverride);
         });
 
         // Open character import from campaign menu
@@ -676,12 +684,13 @@ class Game {
     /**
      * Load a demo combat for testing
      */
-    async loadDemoCombat() {
-        console.log('[Game] Loading demo combat...');
+    async loadDemoCombat(playerOverride = null) {
+        console.log('[Game] Loading demo combat...', playerOverride ? '(with created character)' : '');
 
         // Create demo players (using backend CombatantData format)
-        // Phase 9 Test: Fighter Level 5 for Extra Attack, with multiple weapon options
-        const demoPlayers = [
+        // Phase 9 Test: Fighter Level 5 for Extra Attack, with multiple weapon options.
+        // A created/imported character is passed in via playerOverride (see QUICK_COMBAT_REQUESTED).
+        const demoPlayers = playerOverride || [
             {
                 id: 'player-1',
                 name: 'Thorin',

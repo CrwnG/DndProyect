@@ -588,6 +588,9 @@ class CombatEngine:
             # Class and level for Extra Attack calculation
             "class": char_class,
             "level": level,
+            # Subclass for Champion expanded-crit / Assassinate (stored as "" when absent
+            # so downstream .lower() is always safe).
+            "subclass_id": (combatant_data.get("subclass_id") or ""),
             # Store full abilities dict for class features
             "abilities": abilities,
             # Store stats dict for SpellCaster DC calculation (matches campaign_engine format)
@@ -4571,8 +4574,8 @@ class CombatEngine:
         # Roll attack
         attack_bonus = attack.attack_bonus or 0
         attack_roll = roll_d20(modifier=attack_bonus)
-        is_crit = attack_roll.natural_roll == 20
-        is_miss = attack_roll.natural_roll == 1
+        is_crit = attack_roll.natural_20
+        is_miss = attack_roll.natural_1
 
         # Get target AC
         target_ac = target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10)
@@ -4638,18 +4641,19 @@ class CombatEngine:
         if not target:
             return
 
-        # Check immunities
-        immunities = target_stats.get("damage_immunities", [])
+        # Check immunities (cache stores these as immunities/resistances/vulnerabilities;
+        # accept the legacy damage_* keys too).
+        immunities = target_stats.get("immunities", target_stats.get("damage_immunities", []))
         if damage_type.lower() in [i.lower() for i in immunities]:
             return  # No damage
 
         # Check resistances
-        resistances = target_stats.get("damage_resistances", [])
+        resistances = target_stats.get("resistances", target_stats.get("damage_resistances", []))
         if damage_type.lower() in [r.lower() for r in resistances]:
             damage = damage // 2
 
         # Check vulnerabilities
-        vulnerabilities = target_stats.get("damage_vulnerabilities", [])
+        vulnerabilities = target_stats.get("vulnerabilities", target_stats.get("damage_vulnerabilities", []))
         if damage_type.lower() in [v.lower() for v in vulnerabilities]:
             damage = damage * 2
 

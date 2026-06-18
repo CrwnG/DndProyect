@@ -12,3 +12,8 @@ pytest>=8.0.0
 pytest-asyncio>=0.23.0
 pdfplumber>=0.10.0
 python-multipart>=0.0.6
+# Auth stack (imported by app/services/auth_service.py). bcrypt pinned <4.1
+# because passlib 1.7.4's bcrypt backend breaks with bcrypt>=4.1.
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+bcrypt<4.1

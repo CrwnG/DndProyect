@@ -192,22 +192,48 @@ class CharacterBuilder:
 
         build.class_id = class_id
 
-        # Get skill choices info
-        skill_choices = class_data.get("skill_choices", {})
+        # Get skill choices info (normalized across both JSON schemas)
+        skill_options, skill_count = self._get_skill_options(class_data)
 
         return ValidationResult(
             valid=True,
             data={
                 "class": class_data,
                 "hit_die": class_data.get("hit_die", "d8"),
-                "skill_options": skill_choices.get("options", []),
-                "skill_count": skill_choices.get("count", 2),
+                "skill_options": skill_options,
+                "skill_count": skill_count,
                 "armor_proficiencies": class_data.get("armor_proficiencies", []),
                 "weapon_proficiencies": class_data.get("weapon_proficiencies", []),
                 "features_at_level_1": self.rules.get_class_features_at_level(class_id, 1),
                 "equipment_choices": self.rules.get_class_equipment_choices(class_id)
             }
         )
+
+    @staticmethod
+    def _get_skill_options(class_data: Dict) -> tuple:
+        """Return (options, count) from either class-JSON skill schema.
+
+        Most classes use ``skill_choices {options, count}``; rogue/sorcerer/
+        warlock/wizard use ``skill_proficiencies {from, choose}``.
+        """
+        skill_choices = class_data.get("skill_choices")
+        if isinstance(skill_choices, dict) and skill_choices.get("options"):
+            return skill_choices.get("options", []), skill_choices.get("count", 2)
+        skill_profs = class_data.get("skill_proficiencies")
+        if isinstance(skill_profs, dict):
+            return skill_profs.get("from", []), skill_profs.get("choose", 2)
+        return [], 2
+
+    @staticmethod
+    def _hp_for_level(hit_die_max: int, con_mod: int, level: int) -> int:
+        """Max HP per 5e: full hit die + CON at level 1, then average
+        (rounded up = die//2 + 1) + CON for each level beyond the first."""
+        hp = max(1, hit_die_max + con_mod)
+        if level > 1:
+            avg_per_level = hit_die_max // 2 + 1
+            # 5e: a character always gains at least 1 HP per level.
+            hp += (level - 1) * max(1, avg_per_level + con_mod)
+        return hp
 
     def set_skill_choices(self, build: CharacterBuild, skills: List[str]) -> ValidationResult:
         """Set skill proficiency choices for the class."""
@@ -218,9 +244,7 @@ class CharacterBuilder:
             )
 
         class_data = self.rules.get_class(build.class_id)
-        skill_choices = class_data.get("skill_choices", {})
-        allowed_skills = skill_choices.get("options", [])
-        required_count = skill_choices.get("count", 2)
+        allowed_skills, required_count = self._get_skill_options(class_data)
 
         errors = []
 
@@ -602,7 +626,7 @@ class CharacterBuilder:
         # Calculate HP
         hit_die = class_data.get("hit_die", "d8")
         hit_die_max = int(hit_die[1:])  # Extract number from "d10" -> 10
-        hp = hit_die_max + modifiers.get("constitution", 0)
+        hp = self._hp_for_level(hit_die_max, modifiers.get("constitution", 0), build.level)
 
         # Calculate AC (base 10 + DEX mod, no armor)
         ac = 10 + modifiers.get("dexterity", 0)
@@ -662,7 +686,7 @@ class CharacterBuilder:
             "speed": species.get("speed", 30),
             "size": build.size or species.get("size", "Medium"),
             "hit_die": hit_die,
-            "hit_dice_remaining": 1,
+            "hit_dice_remaining": build.level,
 
             # Proficiencies
             "proficiency_bonus": self.rules.get_proficiency_bonus(build.level),

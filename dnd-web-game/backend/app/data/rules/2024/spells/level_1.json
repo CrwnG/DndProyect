@@ -77,6 +77,10 @@
     },
     {
       "id": "chromatic_orb",
+      "effect_type": "damage",
+      "damage_dice": "3d8",
+      "damage_type": "fire",
+      "scaling": "1d8",
       "name": "Chromatic Orb",
       "school": "Evocation",
       "casting_time": "Action",
@@ -147,6 +151,9 @@
     },
     {
       "id": "cure_wounds",
+      "effect_type": "healing",
+      "healing_dice": "2d8",
+      "scaling": "2d8",
       "name": "Cure Wounds",
       "school": "Abjuration",
       "casting_time": "Action",
@@ -513,6 +520,10 @@
     },
     {
       "id": "magic_missile",
+      "effect_type": "damage",
+      "damage_dice": "3d4+3",
+      "damage_type": "force",
+      "scaling": "1d4+1",
       "name": "Magic Missile",
       "school": "Evocation",
       "casting_time": "Action",

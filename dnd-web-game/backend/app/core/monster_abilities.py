@@ -479,6 +479,7 @@ class AbilityResult:
     damage_dealt: Dict[str, int] = field(default_factory=dict)  # {target_id: damage}
     conditions_applied: Dict[str, List[str]] = field(default_factory=dict)  # {target_id: [conditions]}
     on_cooldown: bool = False
+    extra_data: Dict[str, Any] = field(default_factory=dict)  # e.g. {"<target>_evasion": "half_damage"}
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -491,6 +492,7 @@ class AbilityResult:
             "damage_dealt": self.damage_dealt,
             "conditions_applied": self.conditions_applied,
             "on_cooldown": self.on_cooldown,
+            "extra_data": self.extra_data,
         }
 
 

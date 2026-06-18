@@ -203,6 +203,23 @@ def roll_damage(notation: str, modifier: int = 0, critical: bool = False) -> Dam
     )
 
 
+def roll_dice(notation: str) -> int:
+    """Roll a dice-notation string (e.g. "2d6+3", "1d20", "3") and return the total.
+
+    General-purpose roller used by monster attacks, surfaces, falling and
+    throwing. Unlike roll_damage(), it does NOT force a minimum of 1, so it can
+    represent raw rolls such as a d20 for a saving throw.
+    """
+    total = 0
+    for count, sides, flat_mod in parse_dice_notation(notation):
+        if sides > 0:
+            for _ in range(abs(count)):
+                roll = roll_die(sides)
+                total += roll if count >= 0 else -roll
+        total += flat_mod
+    return total
+
+
 def roll_initiative(dexterity_modifier: int = 0) -> int:
     """
     Roll initiative (d20 + DEX modifier).

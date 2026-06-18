@@ -4,7 +4,7 @@ import json
 import tempfile
 import os
 
-BASE_URL = "http://localhost:8001/api"
+BASE_URL = "http://localhost:8000/api"
 
 def test_feature_6_export_json():
     """Feature 6: Character Export JSON"""

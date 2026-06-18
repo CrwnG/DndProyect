@@ -7,7 +7,7 @@ Endpoints for managing combat encounters:
 - Handle reactions
 - Query combat state
 """
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Query
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 

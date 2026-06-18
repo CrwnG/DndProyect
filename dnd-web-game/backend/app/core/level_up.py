@@ -808,41 +808,25 @@ def _get_subclass_name(class_name: str) -> str:
 
 
 def _get_subclass_options(class_name: str) -> List[Dict[str, Any]]:
-    """Get available subclass options for a class."""
-    # Simplified - would load from JSON in production
-    subclasses = {
-        "fighter": [
-            {"id": "champion", "name": "Champion", "description": "Improved critical hits and athletic prowess"},
-            {"id": "battle_master", "name": "Battle Master", "description": "Combat maneuvers and tactical superiority"},
-            {"id": "eldritch_knight", "name": "Eldritch Knight", "description": "Blend martial skill with arcane magic"},
-        ],
-        "rogue": [
-            {"id": "thief", "name": "Thief", "description": "Master of stealth and second-story work"},
-            {"id": "assassin", "name": "Assassin", "description": "Deadly strikes and infiltration"},
-            {"id": "arcane_trickster", "name": "Arcane Trickster", "description": "Illusion and enchantment magic"},
-        ],
-        "wizard": [
-            {"id": "evocation", "name": "School of Evocation", "description": "Master of damaging spells"},
-            {"id": "abjuration", "name": "School of Abjuration", "description": "Protective magic specialist"},
-            {"id": "divination", "name": "School of Divination", "description": "See the future, manipulate fate"},
-        ],
-        "cleric": [
-            {"id": "life", "name": "Life Domain", "description": "Master healer"},
-            {"id": "light", "name": "Light Domain", "description": "Radiant damage and fire"},
-            {"id": "war", "name": "War Domain", "description": "Divine warrior"},
-        ],
-        "barbarian": [
-            {"id": "berserker", "name": "Path of the Berserker", "description": "Unstoppable fury"},
-            {"id": "totem_warrior", "name": "Path of the Totem Warrior", "description": "Spirit animal powers"},
-            {"id": "zealot", "name": "Path of the Zealot", "description": "Divine fury"},
-        ],
-        "paladin": [
-            {"id": "devotion", "name": "Oath of Devotion", "description": "Classic holy knight"},
-            {"id": "vengeance", "name": "Oath of Vengeance", "description": "Punish the wicked"},
-            {"id": "ancients", "name": "Oath of the Ancients", "description": "Protect light and life"},
-        ],
-    }
-    return subclasses.get(class_name.lower(), [])
+    """Get available subclass options for a class, sourced from the class JSON.
+
+    IDs come straight from the data so level-up selections resolve in the
+    subclass registry. This keeps one subclass-ID namespace (the JSON IDs)
+    instead of the previous hardcoded list that covered only 6 classes with
+    IDs that did not match the data.
+    """
+    from app.services.rules_loader import get_rules_loader
+
+    class_data = get_rules_loader().get_class(class_name.lower()) or {}
+    return [
+        {
+            "id": sub.get("id"),
+            "name": sub.get("name"),
+            "description": sub.get("description", ""),
+        }
+        for sub in class_data.get("subclasses", [])
+        if sub.get("id")
+    ]
 
 
 def _get_features_for_level(class_name: str, level: int) -> List[LevelUpBenefit]:

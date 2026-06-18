@@ -123,6 +123,11 @@
     },
     {
       "id": "disintegrate",
+      "effect_type": "damage",
+      "damage_dice": "10d6+40",
+      "damage_type": "force",
+      "scaling": "3d6",
+      "half_damage_on_save": false,
       "name": "Disintegrate",
       "level": 6,
       "school": "Transmutation",

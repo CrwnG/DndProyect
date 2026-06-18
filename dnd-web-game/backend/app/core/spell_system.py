@@ -79,11 +79,14 @@ class SpellRegistry:
             with open(filepath, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            level = data.get("level", 0)
+            # Cantrips/L1/L2 files key the level as file-level "level";
+            # L3-L9 files use file-level "spell_level" plus a per-spell "level".
+            file_level = data.get("level", data.get("spell_level", 0))
             spells_data = data.get("spells", [])
 
             for spell_data in spells_data:
-                spell = self._parse_spell(spell_data, level)
+                spell_level = spell_data.get("level", file_level)
+                spell = self._parse_spell(spell_data, spell_level)
                 self._index_spell(spell)
 
         except Exception as e:
@@ -120,7 +123,7 @@ class SpellRegistry:
             concentration=data.get("concentration", False) or "concentration" in data.get("duration", "").lower(),
             ritual=data.get("ritual", False),
             description=data.get("description", ""),
-            higher_levels=data.get("higher_levels"),
+            higher_levels=data.get("higher_levels") or data.get("at_higher_levels"),
             classes=data.get("classes", []),
         )
 
@@ -192,37 +195,58 @@ class SpellRegistry:
             spell.combat_usable = data["combat_usable"]
         if data.get("trigger"):
             spell.trigger = data["trigger"]
+        if data.get("healing_dice"):
+            spell.healing_dice = data["healing_dice"]
+        if data.get("scaling"):
+            spell.scaling = data["scaling"]
+        if data.get("half_damage_on_save") is not None:
+            spell.half_damage_on_save = data["half_damage_on_save"]
+        if data.get("effect_type"):
+            effect_map = {
+                "damage": SpellEffectType.DAMAGE, "healing": SpellEffectType.HEALING,
+                "control": SpellEffectType.CONTROL, "buff": SpellEffectType.BUFF,
+                "debuff": SpellEffectType.DEBUFF, "utility": SpellEffectType.UTILITY,
+            }
+            mapped = effect_map.get(str(data["effect_type"]).lower())
+            if mapped is not None:
+                spell.effect_type = mapped
 
-        # Detect effect type
-        if "damage" in description or "hit" in description:
-            spell.effect_type = SpellEffectType.DAMAGE
-        elif "heal" in description or "regain" in description or "restore" in description:
-            spell.effect_type = SpellEffectType.HEALING
-        elif any(word in description for word in ["charmed", "frightened", "restrained", "paralyzed", "stunned"]):
-            spell.effect_type = SpellEffectType.CONTROL
-        elif "advantage" in description or "bonus" in description:
-            spell.effect_type = SpellEffectType.BUFF
-        elif "disadvantage" in description or "penalty" in description:
-            spell.effect_type = SpellEffectType.DEBUFF
-        else:
-            spell.effect_type = SpellEffectType.UTILITY
+        # Detect effect type from prose ONLY when not set explicitly.
+        # (Check healing before damage, and do NOT match "hit" — it hits "Hit Points".)
+        if spell.effect_type is None:
+            if "heal" in description or "regain" in description or "restore" in description:
+                spell.effect_type = SpellEffectType.HEALING
+            elif "damage" in description:
+                spell.effect_type = SpellEffectType.DAMAGE
+            elif any(word in description for word in ["charmed", "frightened", "restrained", "paralyzed", "stunned"]):
+                spell.effect_type = SpellEffectType.CONTROL
+            elif "advantage" in description or "bonus" in description:
+                spell.effect_type = SpellEffectType.BUFF
+            elif "disadvantage" in description or "penalty" in description:
+                spell.effect_type = SpellEffectType.DEBUFF
+            else:
+                spell.effect_type = SpellEffectType.UTILITY
 
-        # Extract damage dice
-        damage_match = re.search(r'(\d+d\d+)\s+(acid|fire|cold|lightning|thunder|force|necrotic|radiant|poison|psychic|bludgeoning|piercing|slashing)', description)
-        if damage_match:
-            spell.damage_dice = damage_match.group(1)
-            spell.damage_type = damage_match.group(2)
+        # Extract damage dice from prose only if not provided explicitly.
+        if not spell.damage_dice:
+            damage_match = re.search(r'(\d+d\d+)\s+(acid|fire|cold|lightning|thunder|force|necrotic|radiant|poison|psychic|bludgeoning|piercing|slashing)', description)
+            if damage_match:
+                spell.damage_dice = damage_match.group(1)
+                if not spell.damage_type:
+                    spell.damage_type = damage_match.group(2)
 
-        # Extract healing dice
-        healing_match = re.search(r'regain[s]?\s+(?:hit points equal to\s+)?(\d+d\d+)', description)
-        if healing_match:
-            spell.healing_dice = healing_match.group(1)
+        # Extract healing dice from prose only if not provided explicitly.
+        if not spell.healing_dice:
+            healing_match = re.search(r'regain[s]?\s+(?:hit points equal to\s+)?(\d+d\d+)', description)
+            if healing_match:
+                spell.healing_dice = healing_match.group(1)
 
-        # Detect save type
-        for save_type in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
-            if f"{save_type} saving throw" in description:
-                spell.save_type = save_type
-                break
+        # Detect save type from prose only if not provided explicitly.
+        if not spell.save_type:
+            for save_type in ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]:
+                if f"{save_type} saving throw" in description:
+                    spell.save_type = save_type
+                    break
 
         # Detect attack type
         if "spell attack" in description:
@@ -729,7 +753,9 @@ class SpellEffectResolver:
                 # Cantrips (level 0) deal NO damage on successful save
                 # Higher-level spells typically deal half damage on save
                 # Check for explicit half_damage_on_save property, else use level-based default
-                half_damage = getattr(spell, 'half_damage_on_save', spell.level > 0)
+                half_damage = spell.half_damage_on_save
+                if half_damage is None:
+                    half_damage = spell.level > 0
                 if half_damage:
                     result["damage"] = damage_result.total // 2
                 else:
@@ -756,14 +782,12 @@ class SpellEffectResolver:
         """
         healing_dice = spell.healing_dice or "1d8"
 
-        # Handle upcasting for healing
+        # Handle upcasting for healing (same structured scaling path as damage).
         if slot_level and slot_level > spell.level:
-            extra_dice = slot_level - spell.level
-            base_match = re.match(r'(\d+)d(\d+)', healing_dice)
-            if base_match:
-                num_dice = int(base_match.group(1)) + extra_dice
-                die_size = base_match.group(2)
-                healing_dice = f"{num_dice}d{die_size}"
+            healing_dice = SpellEffectResolver._upcast_dice(
+                healing_dice, getattr(spell, "scaling", None),
+                spell.higher_levels, slot_level - spell.level,
+            )
 
         healing_result = roll_damage(healing_dice)
         total_healing = healing_result.total + ability_mod
@@ -773,6 +797,49 @@ class SpellEffectResolver:
             "healing_dice": healing_dice,
             "ability_mod_added": ability_mod,
         }
+
+    @staticmethod
+    def _upcast_dice(dice_str: str, scaling: Optional[str], higher_levels: Optional[str], extra_levels: int) -> str:
+        """Apply per-slot scaling to an `NdM(+K)` dice string (extra_levels >= 1).
+
+        Prefers an explicit structured `scaling` field (e.g. "1d6" or "1d4+1");
+        otherwise falls back to the prose higher_levels hint. Same-die dice are
+        combined; differing dice are kept as a separate term so a die size is
+        never silently changed. Flat modifiers are preserved.
+        """
+        base = re.match(r'(\d+)d(\d+)([+-]\d+)?', dice_str)
+        if not base:
+            return dice_str
+        base_count = int(base.group(1))
+        base_die = base.group(2)
+        base_flat = int(base.group(3)) if base.group(3) else 0
+
+        added_count = 0
+        added_die = base_die
+        added_flat = 0
+        sc = re.match(r'(\d+)d(\d+)([+-]\d+)?', scaling) if scaling else None
+        if sc:
+            added_count = int(sc.group(1)) * extra_levels
+            added_die = sc.group(2)
+            added_flat = (int(sc.group(3)) if sc.group(3) else 0) * extra_levels
+        elif higher_levels and "1d" in higher_levels.lower():
+            added_count = extra_levels
+        elif higher_levels and "2d" in higher_levels.lower():
+            added_count = extra_levels * 2
+
+        if added_count and added_die == base_die:
+            dice = f"{base_count + added_count}d{base_die}"
+        elif added_count:
+            dice = f"{base_count}d{base_die}+{added_count}d{added_die}"
+        else:
+            dice = f"{base_count}d{base_die}"
+
+        total_flat = base_flat + added_flat
+        if total_flat > 0:
+            dice += f"+{total_flat}"
+        elif total_flat < 0:
+            dice += str(total_flat)
+        return dice
 
     @staticmethod
     def _calculate_spell_damage(
@@ -806,23 +873,11 @@ class SpellEffectResolver:
                 damage_dice = f"{num_dice}d{die_size}"
 
         # Upcasting (leveled spells)
-        elif slot_level and slot_level > spell.level and spell.higher_levels:
-            # Parse higher level scaling from description
-            extra_levels = slot_level - spell.level
-            base_match = re.match(r'(\d+)d(\d+)', damage_dice)
-
-            if base_match:
-                num_dice = int(base_match.group(1))
-                die_size = base_match.group(2)
-
-                # Most spells add 1 die per slot level
-                # Check for different scaling patterns
-                if "1d" in spell.higher_levels.lower():
-                    num_dice += extra_levels
-                elif "2d" in spell.higher_levels.lower():
-                    num_dice += extra_levels * 2
-
-                damage_dice = f"{num_dice}d{die_size}"
+        elif slot_level and slot_level > spell.level:
+            damage_dice = SpellEffectResolver._upcast_dice(
+                damage_dice, getattr(spell, "scaling", None),
+                spell.higher_levels, slot_level - spell.level,
+            )
 
         return damage_dice
 
@@ -1406,9 +1461,13 @@ def cast_spell(
     if concentration_ended:
         result.concentration_ended = concentration_ended
 
-    # Use spell slot
+    # Use spell slot, then persist the updated spellcasting (slots + concentration)
+    # back onto caster_data. Previously use_slot mutated this local SpellCaster and
+    # was never written back, so any caller outside the combat route consumed zero
+    # slots (and concentration set here was lost).
     if spell.level > 0:
         spell_caster.spellcasting.use_slot(cast_level)
+    caster_data["spellcasting"] = spell_caster.to_dict()
 
     return result
 

@@ -108,6 +108,9 @@
     },
     {
       "id": "finger_of_death",
+      "effect_type": "damage",
+      "damage_dice": "7d8+30",
+      "damage_type": "necrotic",
       "name": "Finger of Death",
       "level": 7,
       "school": "Necromancy",

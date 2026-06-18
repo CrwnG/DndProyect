@@ -115,9 +115,10 @@ class AuthError(GameError):
         self,
         code: ErrorCode = ErrorCode.AUTH_UNAUTHORIZED,
         message: str = "Authentication required",
+        http_status: int = 401,
         **kwargs
     ):
-        super().__init__(code=code, message=message, http_status=401, **kwargs)
+        super().__init__(code=code, message=message, http_status=http_status, **kwargs)
 
 
 class InvalidCredentialsError(AuthError):
