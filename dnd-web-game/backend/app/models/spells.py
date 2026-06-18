@@ -110,6 +110,7 @@ class Spell(BaseModel):
     healing_dice: Optional[str] = None
     scaling: Optional[str] = None  # extra dice per slot level above base, e.g. "1d6"
     save_type: Optional[str] = None  # "dexterity", "wisdom", etc.
+    half_damage_on_save: Optional[bool] = None  # None -> half for leveled spells; False -> none on save
     attack_type: Optional[str] = None  # "melee_spell", "ranged_spell"
     area_size: Optional[int] = None
     max_targets: Optional[int] = None

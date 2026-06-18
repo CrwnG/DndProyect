@@ -85,6 +85,35 @@ def test_upcast_preserves_flat_modifier_and_per_slot_scaling():
     SpellRegistry.reset()
 
 
+def test_save_damage_spells_apply_damage():
+    """Save-based damage spells that defeated the regex must deal damage.
+
+    Disintegrate (10d6+40, nothing on save) and Finger of Death (7d8+30, half
+    on save) parsed to no damage before enrichment.
+    """
+    reg = _registry()
+    dis = reg.get_spell("disintegrate")
+    assert dis.damage_dice == "10d6+40"
+    assert dis.half_damage_on_save is False
+    # upcast at a 7th-level slot: +3d6 -> 13d6+40
+    assert SpellEffectResolver._calculate_spell_damage(dis, caster_level=12, slot_level=7) == "13d6+40"
+    # forced-fail save (DC 100) deals full damage; forced-success (DC 1) deals nothing
+    failed = SpellEffectResolver.resolve_save_spell(dis, spell_save_dc=100, target_save_bonus=0,
+                                                    caster_level=12, slot_level=6)
+    assert not failed["saved"] and failed["damage"] > 0
+    saved = SpellEffectResolver.resolve_save_spell(dis, spell_save_dc=1, target_save_bonus=0,
+                                                   caster_level=12, slot_level=6)
+    assert saved["saved"] and saved["damage"] == 0
+
+    fod = reg.get_spell("finger_of_death")
+    assert fod.damage_dice == "7d8+30"
+    # half on save -> still > 0
+    fod_saved = SpellEffectResolver.resolve_save_spell(fod, spell_save_dc=1, target_save_bonus=0,
+                                                       caster_level=13, slot_level=7)
+    assert fod_saved["saved"] and fod_saved["damage"] > 0
+    SpellRegistry.reset()
+
+
 def test_healing_upcasts_via_scaling():
     """Healing must upcast using the structured scaling field, not a flat +1 die.
 

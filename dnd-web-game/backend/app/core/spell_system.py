@@ -199,6 +199,8 @@ class SpellRegistry:
             spell.healing_dice = data["healing_dice"]
         if data.get("scaling"):
             spell.scaling = data["scaling"]
+        if data.get("half_damage_on_save") is not None:
+            spell.half_damage_on_save = data["half_damage_on_save"]
         if data.get("effect_type"):
             effect_map = {
                 "damage": SpellEffectType.DAMAGE, "healing": SpellEffectType.HEALING,
@@ -751,7 +753,9 @@ class SpellEffectResolver:
                 # Cantrips (level 0) deal NO damage on successful save
                 # Higher-level spells typically deal half damage on save
                 # Check for explicit half_damage_on_save property, else use level-based default
-                half_damage = getattr(spell, 'half_damage_on_save', spell.level > 0)
+                half_damage = spell.half_damage_on_save
+                if half_damage is None:
+                    half_damage = spell.level > 0
                 if half_damage:
                     result["damage"] = damage_result.total // 2
                 else:
