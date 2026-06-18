@@ -72,6 +72,29 @@ async def test_created_character_persisted_to_db(db_session):
     assert fetched.abilities["intelligence"] == 16
 
 
+async def test_persisted_character_retrieves_as_valid_combatant(db_session):
+    """A character loaded back from the DB must convert to a VALID combatant
+    (real ability mods), not the 0-mod fallback. The DB stores flat scores and
+    no modifiers, so the adapter must derive mods from scores."""
+    from app.services.character_service import persist_created_character, db_character_to_combatant
+    from app.database.repositories import CharacterRepository
+
+    repo = CharacterRepository(db_session)
+    result = {
+        "id": "c1", "name": "Restored Wizard", "class_id": "wizard", "level": 1,
+        "ability_scores": {"strength": 8, "dexterity": 14, "constitution": 13,
+                           "intelligence": 16, "wisdom": 12, "charisma": 10},
+    }
+    await persist_created_character(result, repo)
+    db_char = await repo.get_by_id("c1")
+    assert db_char is not None
+
+    combatant = db_character_to_combatant(db_char)
+    assert combatant["int_mod"] == 3       # (16-10)//2, not 0
+    assert combatant["dex_mod"] == 2
+    assert combatant["abilities"]["int_score"] == 16
+
+
 async def test_combat_state_persisted_under_api_combat_id(db_session):
     """create_combat_state must use the API combat_id as the DB primary key, so
     persist/load round-trip by that id."""

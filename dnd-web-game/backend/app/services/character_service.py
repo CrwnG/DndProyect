@@ -28,10 +28,11 @@ def builder_to_combatant_data(char: Dict[str, Any]) -> Dict[str, Any]:
     mods = char.get("ability_modifiers", {})
     abilities: Dict[str, Any] = {}
     for full, abbr in _ABILITY_FULL_TO_ABBR.items():
-        abilities[abbr] = {
-            "score": scores.get(full, scores.get(abbr, 10)),
-            "mod": mods.get(full, mods.get(abbr, 0)),
-        }
+        score = scores.get(full, scores.get(abbr, 10))
+        mod = mods.get(full, mods.get(abbr))
+        if mod is None:
+            mod = (score - 10) // 2  # derive from score (e.g. DB rows store scores only)
+        abilities[abbr] = {"score": score, "mod": mod}
 
     sc = char.get("spellcasting")
     spellcasting = None
@@ -85,6 +86,31 @@ async def persist_created_character(char: Dict[str, Any], repo: Any) -> Any:
         abilities=char.get("ability_scores") or None,
     )
     return await repo.create(data)
+
+
+def db_character_to_combatant(db_char: Any) -> Dict[str, Any]:
+    """Convert a persisted Character DB row into combat-ready CombatantData.
+
+    The DB stores flat ability scores (no modifiers); builder_to_combatant_data
+    derives the modifiers from the scores, so a character reloaded after a
+    restart is a valid combatant rather than the 0-mod fallback.
+    """
+    payload: Dict[str, Any] = {
+        "id": getattr(db_char, "id", None),
+        "name": db_char.name,
+        "class": db_char.character_class,
+        "subclass_id": db_char.subclass,
+        "level": db_char.level,
+        "ability_scores": db_char.abilities or {},
+        "spellcasting": getattr(db_char, "spellcasting", None),
+    }
+    hp = getattr(db_char, "current_hp", None)
+    max_hp = getattr(db_char, "max_hp", None)
+    if hp:
+        payload["hit_points"] = hp
+    if max_hp:
+        payload["max_hit_points"] = max_hp
+    return builder_to_combatant_data(payload)
 
 
 def to_combatant_data(character: Dict[str, Any]) -> Dict[str, Any]:
