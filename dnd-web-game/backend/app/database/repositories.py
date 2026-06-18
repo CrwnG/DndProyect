@@ -241,10 +241,13 @@ class CombatStateRepository:
 
     async def create(self, data: CombatStateCreate) -> CombatState:
         """Create a new combat state."""
-        combat_state = CombatState(
-            session_id=data.session_id,
-            combatants=data.combatants,
-        )
+        create_kwargs = {
+            "session_id": data.session_id,
+            "combatants": data.combatants,
+        }
+        if data.id:
+            create_kwargs["id"] = data.id  # honor the caller-provided combat_id
+        combat_state = CombatState(**create_kwargs)
         self.session.add(combat_state)
         await self.session.flush()
         return combat_state
