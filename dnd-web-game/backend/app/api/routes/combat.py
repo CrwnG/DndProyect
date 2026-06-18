@@ -912,6 +912,60 @@ async def use_legendary_action(
     )
 
 
+def _first_level_slot_available(stats: dict) -> bool:
+    """Whether the combatant has an unspent 1st-level spell slot (Shield)."""
+    slots = stats.get("spell_slots", {}) or {}
+    used = stats.get("spell_slots_used", {}) or {}
+    total = slots.get(1, slots.get("1", 0))
+    spent = used.get(1, used.get("1", 0))
+    return total - spent > 0
+
+
+def apply_defensive_reaction(engine, reactor_id, reaction_type, result, incoming_damage):
+    """Apply the mechanical effect of a defensive reaction to combat state.
+
+    The triggering attack's damage is already reflected in the reactor's HP by the
+    time this runs, so a successful reaction credits HP back to the reactor:
+    Uncanny Dodge restores the prevented half; Shield, when its +5 AC turns the hit
+    into a miss, undoes the whole hit and (always) spends a 1st-level slot.
+
+    Returns ``{"hp_restored", "slot_spent"}`` describing what changed.
+    """
+    from app.core.reactions import ReactionType
+
+    info = {"hp_restored": 0, "slot_spent": False}
+    if not result or not getattr(result, "success", False):
+        return info
+    stats = engine.state.combatant_stats.get(reactor_id)
+    if stats is None:
+        return info
+
+    hp_restored = 0
+    if reaction_type == ReactionType.UNCANNY_DODGE:
+        hp_restored = getattr(result, "damage_prevented", 0) or 0
+    elif reaction_type == ReactionType.SHIELD:
+        slots = stats.get("spell_slots", {}) or {}
+        used = stats.setdefault("spell_slots_used", {})
+        key = 1 if 1 in slots else ("1" if "1" in slots else 1)
+        used[key] = used.get(key, 0) + 1
+        info["slot_spent"] = True
+        if (result.extra_data or {}).get("attack_would_miss"):
+            hp_restored = incoming_damage or 0
+
+    if hp_restored:
+        max_hp = stats.get("max_hp", stats.get("current_hp", 0) + hp_restored)
+        new_hp = min(max_hp, stats.get("current_hp", 0) + hp_restored)
+        stats["current_hp"] = new_hp
+        combatant = engine.state.initiative_tracker.get_combatant(reactor_id)
+        if combatant:
+            combatant.current_hp = new_hp
+            if new_hp > 0:
+                combatant.is_active = True
+        info["hp_restored"] = hp_restored
+
+    return info
+
+
 @router.post("/reaction", response_model=ReactionResponse)
 async def use_reaction(
     request: ReactionRequest,
@@ -991,13 +1045,11 @@ async def use_reaction(
             caster_name=reactor.name if reactor else "Unknown",
             attack_roll=attack_roll,
             current_ac=reactor_stats.get("ac", 10),
-            has_spell_slot=reactor_stats.get("abilities", {}).get(
-                "spell_slots_1st", 0
-            ) > 0
+            has_spell_slot=_first_level_slot_available(reactor_stats),
         )
 
     elif reaction_type == ReactionType.UNCANNY_DODGE:
-        damage = request.extra_data.get("damage", 0)
+        damage = request.extra_data.get("damage", request.extra_data.get("incoming_damage", 0))
         result = resolve_uncanny_dodge(
             rogue_id=reactor_id,
             rogue_name=reactor.name if reactor else "Unknown",
@@ -1030,6 +1082,14 @@ async def use_reaction(
     if result:
         # Mark reaction as used
         reactions_mgr.use_reaction(reactor_id)
+
+        # Apply defensive reaction effects (Shield slot/credit-back, Uncanny Dodge
+        # halving). The triggering attack's damage is already in the reactor's HP.
+        if reaction_type in (ReactionType.SHIELD, ReactionType.UNCANNY_DODGE):
+            incoming = request.extra_data.get(
+                "incoming_damage", request.extra_data.get("damage", 0)
+            )
+            apply_defensive_reaction(engine, reactor_id, reaction_type, result, incoming)
 
         # Apply damage to target if opportunity attack or riposte hit
         damage_reactions = [ReactionType.OPPORTUNITY_ATTACK, ReactionType.RIPOSTE]

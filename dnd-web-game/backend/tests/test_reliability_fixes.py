@@ -73,3 +73,84 @@ def test_aoe_cone_and_line_respect_direction():
     assert not f("line", origin, direction, (-1, 0), 60, 5)
     # Sphere is omnidirectional within range.
     assert f("sphere", origin, direction, (0, 4), 30)
+
+
+def _engine_with(reactor_id, **player_over):
+    """A started combat with one player (the reactor) and a dummy enemy."""
+    from app.core.combat_engine import CombatEngine, CombatState
+
+    player = {
+        "id": reactor_id, "name": reactor_id, "type": "player",
+        "hp": 30, "max_hp": 30, "ac": 15, "speed": 30,
+        "str_mod": 0, "dex_mod": 3, "con_mod": 2,
+        "attack_bonus": 5, "damage_dice": "1d8", "damage_type": "piercing",
+        "abilities": {"strength": 10, "dexterity": 16, "constitution": 14,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "rogue", "level": 5, "conditions": [],
+    }
+    player.update(player_over)
+    enemy = {
+        "id": "enemy-1", "name": "Bandit", "type": "enemy",
+        "hp": 16, "max_hp": 16, "ac": 12, "speed": 30,
+        "str_mod": 2, "dex_mod": 1, "con_mod": 1,
+        "attack_bonus": 4, "damage_dice": "1d6", "damage_type": "slashing",
+        "abilities": {"strength": 14, "dexterity": 12, "constitution": 12,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "fighter", "level": 2, "conditions": [],
+    }
+    engine = CombatEngine(combat_state=CombatState())
+    engine.start_combat([player], [enemy])
+    return engine
+
+
+def test_uncanny_dodge_credits_half_damage_back():
+    """R14: Uncanny Dodge must actually restore the prevented (halved) damage."""
+    from app.api.routes.combat import apply_defensive_reaction
+    from app.core.reactions import ReactionType, resolve_uncanny_dodge
+
+    engine = _engine_with("rogue-1")
+    engine.state.combatant_stats["rogue-1"]["current_hp"] = 10   # took 20 of 30
+    result = resolve_uncanny_dodge("rogue-1", "Rogue", 20)
+
+    info = apply_defensive_reaction(engine, "rogue-1", ReactionType.UNCANNY_DODGE, result, 20)
+
+    assert info["hp_restored"] == 10
+    assert engine.state.combatant_stats["rogue-1"]["current_hp"] == 20
+    assert engine.state.initiative_tracker.get_combatant("rogue-1").current_hp == 20
+
+
+def test_shield_spends_slot_and_negates_damage_on_miss():
+    """R14: Shield must spend a 1st-level slot and, when its +5 AC turns the hit
+    into a miss, undo the damage the attack already applied."""
+    from app.api.routes.combat import apply_defensive_reaction
+    from app.core.reactions import ReactionType, resolve_shield_spell
+
+    engine = _engine_with("wiz-1", spell_slots={1: 2})
+    engine.state.combatant_stats["wiz-1"]["current_hp"] = 18     # took 12 of 30
+    # roll 16 hits AC 15, but 16 < 15+5 -> Shield makes it miss
+    result = resolve_shield_spell("wiz-1", "Wizard", attack_roll=16, current_ac=15, has_spell_slot=True)
+    assert result.extra_data["attack_would_miss"] is True
+
+    info = apply_defensive_reaction(engine, "wiz-1", ReactionType.SHIELD, result, 12)
+
+    assert info["slot_spent"] is True
+    assert info["hp_restored"] == 12
+    assert engine.state.combatant_stats["wiz-1"]["current_hp"] == 30
+    assert engine.state.combatant_stats["wiz-1"]["spell_slots_used"].get(1, 0) == 1
+
+
+def test_shield_spends_slot_but_keeps_damage_when_attack_still_hits():
+    """R14: a slot is still spent, but no HP is credited back if the attack hits anyway."""
+    from app.api.routes.combat import apply_defensive_reaction
+    from app.core.reactions import ReactionType, resolve_shield_spell
+
+    engine = _engine_with("wiz-2", spell_slots={1: 1})
+    engine.state.combatant_stats["wiz-2"]["current_hp"] = 18
+    result = resolve_shield_spell("wiz-2", "Wizard", attack_roll=25, current_ac=15, has_spell_slot=True)
+    assert result.extra_data["attack_would_miss"] is False
+
+    info = apply_defensive_reaction(engine, "wiz-2", ReactionType.SHIELD, result, 12)
+
+    assert info["slot_spent"] is True
+    assert info["hp_restored"] == 0
+    assert engine.state.combatant_stats["wiz-2"]["current_hp"] == 18

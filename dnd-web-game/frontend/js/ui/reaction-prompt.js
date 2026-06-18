@@ -466,11 +466,18 @@ class ReactionPrompt {
 
         try {
             const gameState = state.getState();
+            // Forward the trigger context so the backend can reverse (Shield) or
+            // halve (Uncanny Dodge) the hit that already landed.
+            const trigger = this.currentTrigger || {};
             const response = await api.useReaction(
                 gameState.combat?.id,
                 gameState.playerId,
                 reaction.id,
-                this.currentTrigger.trigger_source_id
+                trigger.trigger_source_id,
+                {
+                    incoming_damage: trigger.incoming_damage ?? 0,
+                    attack_roll: trigger.attack_roll ?? 0
+                }
             );
 
             if (response.success) {
