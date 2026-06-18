@@ -4571,8 +4571,8 @@ class CombatEngine:
         # Roll attack
         attack_bonus = attack.attack_bonus or 0
         attack_roll = roll_d20(modifier=attack_bonus)
-        is_crit = attack_roll.natural_roll == 20
-        is_miss = attack_roll.natural_roll == 1
+        is_crit = attack_roll.natural_20
+        is_miss = attack_roll.natural_1
 
         # Get target AC
         target_ac = target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10)

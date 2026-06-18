@@ -24,10 +24,10 @@ Severity legend: 🔴 blocks play · 🟠 breaks a system · 🟡 polish.
 - ✅ **Exit test (backend):** `tests/test_phase1_character_combat.py` + `tests/test_spell_levels.py` green; full suite **1136 passed**.
 - ✅ **Codex GPT-5.5 review (2026-06-18):** reconciled — applied the valid HP-clamp fix (min 1 HP/level on negative CON); rejected a false-positive (demo has one player); deferred two low-impact notes (empty-at-creation spell fields; missing-level data-lint). **Residual: Task E frontend rendering needs a browser smoke-test** (backend combat acceptance is sound by construction).
 
-## Phase 2 — Harden combat & spells ⚔️
+## Phase 2 — Harden combat & spells ⚔️ (in progress — crash bugs fixed 2026-06-18)
 **Goal:** monster turns and spells produce correct, crash-free mechanics.
-- 🔴 Add `roll_dice()` to `core/dice.py` (its absence crashes every monster Multiattack / save-AoE and makes `surfaces` unimportable).
-- 🔴 Fix `attack_roll.natural_roll` typo (`combat_engine.py:4574`) and `AbilityResult.extra_data` (breath weapons).
+- ✅ Added `roll_dice()` to `core/dice.py` (general roller). Fixes the unimportable `surfaces`/`falling`/`throwing` modules and the monster Multiattack / save-AoE crash. Tested.
+- ✅ Fixed `attack_roll.natural_roll` → `natural_20`/`natural_1` (`combat_engine.py`); added `extra_data` field to `AbilityResult` (breath weapons vs Evasion). extra_data is tested; the monster single-attack path still needs a combat-engine integration test (follow-up).
 - 🟠 Give spells structured combat fields (`damage/type/heal/save/scaling`) and consume them instead of prose regex; fix upcasting; make `cast_spell` consume the persisted slot.
 - 🟠 Fix monster damage resist/immunity key mismatch; cache `subclass_id` (Champion crit/Assassinate).
 - 🟠 Unify the three subclass-ID namespaces on the JSON IDs (invariant #2).
