@@ -400,11 +400,9 @@ async def cast_spell_in_combat(
                             combatant.current_hp = new_hp
                             break
 
-        # Update caster's spell slots
-        spell_caster = SpellCaster(caster_data)
-        if result.slot_used:
-            spell_caster.spellcasting.use_slot(result.slot_used)
-            combat_engine.state.combatant_stats[request.caster_id]["spellcasting"] = spell_caster.to_dict()
+        # Spell-slot consumption is handled inside cast_spell(), which persists the
+        # updated spellcasting back onto caster_data (the same object as
+        # combatant_stats[caster_id]). Deducting again here would double-count.
 
         # Handle concentration
         if result.concentration_started:

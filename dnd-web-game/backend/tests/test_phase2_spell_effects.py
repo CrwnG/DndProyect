@@ -6,7 +6,7 @@ Hit Points equal to 2d8") and Fireball never upcast (higher_levels is null).
 The fix: read explicit structured fields from the spell JSON and let them win
 over prose, plus a `scaling` field that drives upcasting.
 """
-from app.core.spell_system import SpellRegistry, SpellEffectResolver
+from app.core.spell_system import SpellRegistry, SpellEffectResolver, SpellCaster, cast_spell
 
 
 def _registry():
@@ -62,4 +62,32 @@ def test_regex_resistant_damage_spells_get_explicit_fields():
     mm = reg.get_spell("magic_missile")
     assert mm.damage_dice == "3d4+3"                  # three darts of 1d4+1, auto-hit
     assert mm.damage_type == "force"
+    SpellRegistry.reset()
+
+
+def test_cast_spell_consumes_slot_on_caster_data():
+    """cast_spell must persist slot consumption back to caster_data.
+
+    Previously use_slot ran on a local SpellCaster that was discarded, so any
+    caller outside the combat route consumed zero slots.
+    """
+    SpellRegistry.reset()
+    caster = {
+        "id": "wiz", "name": "Wizard", "class": "wizard", "level": 5,
+        "stats": {"intelligence": 16},
+        "spellcasting": {
+            "ability": "intelligence", "spell_save_dc": 14, "spell_attack_bonus": 6,
+            "spell_slots_max": {1: 2, 2: 2}, "spell_slots_used": {},
+            "cantrips_known": [], "spells_known": ["magic_missile"],
+            "prepared_spells": ["magic_missile"],
+        },
+    }
+    target = {"id": "t1", "name": "Goblin", "current_hp": 20, "max_hp": 20,
+              "ac": 12, "position": {"x": 0, "y": 0}}
+
+    before = SpellCaster(caster).spellcasting.get_available_slots(1)
+    result = cast_spell(caster, "magic_missile", 1, [target])
+    assert result.success, result.description
+    after = SpellCaster(caster).spellcasting.get_available_slots(1)
+    assert after == before - 1, f"slot not consumed on caster_data: {before} -> {after}"
     SpellRegistry.reset()

@@ -1431,9 +1431,13 @@ def cast_spell(
     if concentration_ended:
         result.concentration_ended = concentration_ended
 
-    # Use spell slot
+    # Use spell slot, then persist the updated spellcasting (slots + concentration)
+    # back onto caster_data. Previously use_slot mutated this local SpellCaster and
+    # was never written back, so any caller outside the combat route consumed zero
+    # slots (and concentration set here was lost).
     if spell.level > 0:
         spell_caster.spellcasting.use_slot(cast_level)
+    caster_data["spellcasting"] = spell_caster.to_dict()
 
     return result
 
