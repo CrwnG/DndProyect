@@ -428,6 +428,7 @@ class TestLogout:
     def mock_user(self):
         user = MagicMock()
         user.id = "user-123"
+        user.username = "testuser"
         user.token_version = 1
         return user
 

@@ -9,6 +9,62 @@ from typing import Dict, Any, List, Optional
 import uuid
 
 
+_ABILITY_FULL_TO_ABBR = {
+    "strength": "str", "dexterity": "dex", "constitution": "con",
+    "intelligence": "int", "wisdom": "wis", "charisma": "cha",
+}
+
+
+def builder_to_combatant_data(char: Dict[str, Any]) -> Dict[str, Any]:
+    """Adapt a CharacterBuilder.finalize_character output into CombatantData.
+
+    The builder emits flat, full-name `ability_scores`/`ability_modifiers` and
+    `hit_points`/`armor_class`, while `to_combatant_data` expects nested
+    `abilities {abbr: {score, mod}}` and `hp`/`ac`. This reshapes the builder
+    output and reuses `to_combatant_data` so created characters become valid
+    combatants instead of the 10/10/+0 fallback.
+    """
+    scores = char.get("ability_scores", {})
+    mods = char.get("ability_modifiers", {})
+    abilities: Dict[str, Any] = {}
+    for full, abbr in _ABILITY_FULL_TO_ABBR.items():
+        abilities[abbr] = {
+            "score": scores.get(full, scores.get(abbr, 10)),
+            "mod": mods.get(full, mods.get(abbr, 0)),
+        }
+
+    sc = char.get("spellcasting")
+    spellcasting = None
+    if sc:
+        spellcasting = {
+            "ability": sc.get("ability", "intelligence"),
+            "spell_save_dc": sc.get("spell_save_dc", 10),
+            "spell_attack_bonus": sc.get("spell_attack_bonus", 0),
+            "spell_slots": sc.get("spell_slots_max", sc.get("spell_slots", {})),
+            "cantrips": sc.get("cantrips_known", sc.get("cantrips", [])),
+            "prepared_spells": sc.get("prepared_spells", []),
+        }
+
+    import_shape = {
+        "name": char.get("name", "Unknown Character"),
+        "abilities": abilities,
+        "hp": char.get("hit_points", char.get("hp", 10)),
+        "max_hp": char.get("max_hit_points", char.get("max_hp", char.get("hit_points", 10))),
+        "ac": char.get("armor_class", char.get("ac", 10)),
+        "speed": char.get("speed", 30),
+        "class": char.get("class", "fighter"),
+        "level": char.get("level", 1),
+        "proficiency_bonus": char.get("proficiency_bonus", 2),
+        "features": char.get("features", []),
+        "skills": {s: {"proficient": True} for s in char.get("skill_proficiencies", [])},
+        "saving_throws": {s: {"proficient": True} for s in char.get("saving_throw_proficiencies", [])},
+        "gold": char.get("gold", 0),
+        "weapons": char.get("weapons", []),
+        "spellcasting": spellcasting,
+    }
+    return to_combatant_data(import_shape)
+
+
 def to_combatant_data(character: Dict[str, Any]) -> Dict[str, Any]:
     """
     Convert parsed character data to CombatantData format.

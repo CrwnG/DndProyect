@@ -79,11 +79,14 @@ class SpellRegistry:
             with open(filepath, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
-            level = data.get("level", 0)
+            # Cantrips/L1/L2 files key the level as file-level "level";
+            # L3-L9 files use file-level "spell_level" plus a per-spell "level".
+            file_level = data.get("level", data.get("spell_level", 0))
             spells_data = data.get("spells", [])
 
             for spell_data in spells_data:
-                spell = self._parse_spell(spell_data, level)
+                spell_level = spell_data.get("level", file_level)
+                spell = self._parse_spell(spell_data, spell_level)
                 self._index_spell(spell)
 
         except Exception as e:

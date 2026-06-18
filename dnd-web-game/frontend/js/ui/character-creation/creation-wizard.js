@@ -490,6 +490,7 @@ class CharacterCreationWizard {
                 // Emit event for character created
                 eventBus.emit(EVENTS.CHARACTER_IMPORTED, {
                     character: result.character,
+                    combatant: result.combatant,  // combat-ready form for "fight with this character"
                     source: 'creation'
                 });
 

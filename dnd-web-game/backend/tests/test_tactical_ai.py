@@ -33,8 +33,8 @@ class TestActionTypeEnum:
         assert ActionType.NONE.value == "none"
 
     def test_action_type_count(self):
-        """Should have 13 action types."""
-        assert len(ActionType) == 13
+        """Should have 14 action types (incl. RANGED_ATTACK and SHOVE)."""
+        assert len(ActionType) == 14
 
 
 class TestTacticalDecision:
