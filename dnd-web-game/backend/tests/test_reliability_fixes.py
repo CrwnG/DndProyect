@@ -31,3 +31,24 @@ def test_shops_build_without_missing_module():
         assert len(shop.inventory) > 0
         for item in shop.inventory:
             assert item.price >= 0  # numeric value-derived price
+
+
+async def test_dm_narration_falls_back_without_api_key():
+    """R8: DM narration must return template content even with no API key (the
+    routes used to short-circuit before reaching the service fallbacks)."""
+    from app.services.ai_dm import get_ai_dm
+
+    dm = get_ai_dm()
+    content = await dm.generate_scene_description(
+        {"name": "Goblin Cave", "story": {"intro_text": "A dark cave mouth."}}, [], {}
+    )
+    assert content is not None and len(str(content).strip()) > 0
+
+
+def test_jwt_secret_warnings_flag_dev_defaults():
+    """R6: dev/default/empty JWT secrets must be flagged (warning, not a crash)."""
+    from app.config import check_jwt_secrets
+
+    assert check_jwt_secrets("dev-secret-key-change-in-production", "strong")   # flagged
+    assert check_jwt_secrets("strong", "")                                      # empty refresh flagged
+    assert check_jwt_secrets("strong-secret", "strong-refresh") == []           # secure -> no warnings

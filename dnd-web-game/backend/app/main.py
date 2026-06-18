@@ -29,6 +29,12 @@ async def lifespan(app: FastAPI):
     await init_db()
     print("[Startup] Database initialized")
 
+    # Surface (do not block on) weak/default JWT secrets.
+    from app.config import check_jwt_secrets
+    from app.services.auth_service import SECRET_KEY, REFRESH_SECRET_KEY
+    for _w in check_jwt_secrets(SECRET_KEY, REFRESH_SECRET_KEY):
+        print(f"[SECURITY WARNING] {_w}", flush=True)
+
     yield  # Application runs here
 
     # Shutdown: Close database connections

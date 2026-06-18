@@ -184,12 +184,7 @@ async def generate_scene_description(
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "content": None,
-        }
+    # Narration falls back to templates when no API key is set (handled in the service).
 
     content = await dm.generate_scene_description(encounter, party, world_state)
 
@@ -208,12 +203,7 @@ async def generate_npc_dialogue(request: NPCDialogueRequest):
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "content": None,
-        }
+    # Narration falls back to templates when no API key is set (handled in the service).
 
     content = await dm.generate_npc_dialogue(
         request.npc_name,
@@ -238,12 +228,7 @@ async def generate_combat_narration(request: CombatNarrationRequest):
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "content": None,
-        }
+    # Narration falls back to templates when no API key is set (handled in the service).
 
     content = await dm.generate_combat_narration(
         request.action_result,
@@ -266,12 +251,7 @@ async def generate_skill_check_narration(request: SkillCheckNarrationRequest):
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "content": None,
-        }
+    # Narration falls back to templates when no API key is set (handled in the service).
 
     content = await dm.generate_skill_check_result(
         request.character_name,
@@ -298,12 +278,7 @@ async def suggest_encounter(request: EncounterSuggestionRequest):
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "suggestion": None,
-        }
+    # Suggestions fall back to templates when no API key is set (handled in the service).
 
     party_status = {
         "avg_level": request.avg_level,
@@ -329,12 +304,7 @@ async def generate_narrative(request: NarrativeRequest):
     """
     dm = get_ai_dm()
 
-    if not dm.is_ai_enabled:
-        return {
-            "generated": False,
-            "reason": "AI is disabled or human DM is in control",
-            "content": None,
-        }
+    # Narration falls back to templates when no API key is set (handled in the service).
 
     context_type = request.context_type.lower()
     data = request.context_data
