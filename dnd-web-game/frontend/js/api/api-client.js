@@ -31,6 +31,17 @@ class APIClient {
             },
         };
 
+        // Attach the stored access token (set by AuthService under this key) so
+        // gameplay calls are authenticated once the backend enforces auth.
+        if (!mergedOptions.headers['Authorization']) {
+            const token = (typeof localStorage !== 'undefined')
+                ? localStorage.getItem('dnd_access_token')
+                : null;
+            if (token) {
+                mergedOptions.headers['Authorization'] = `Bearer ${token}`;
+            }
+        }
+
         if (CONFIG.DEBUG) {
             console.log(`[API] ${options.method || 'GET'} ${url}`, options.body ? JSON.parse(options.body) : '');
         }

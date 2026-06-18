@@ -114,7 +114,7 @@ class AuthService {
      * Register a new user
      */
     async register(username, email, password, displayName = null) {
-        const response = await this._request('/api/auth/register', {
+        const response = await this._request('/auth/register', {
             method: 'POST',
             body: JSON.stringify({
                 username,
@@ -134,7 +134,7 @@ class AuthService {
      * Login with username/email and password
      */
     async login(username, password) {
-        const response = await this._request('/api/auth/login', {
+        const response = await this._request('/auth/login', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
         });
@@ -150,7 +150,7 @@ class AuthService {
      */
     async logout() {
         try {
-            await this._request('/api/auth/logout', {
+            await this._request('/auth/logout', {
                 method: 'POST',
             });
         } catch (error) {
@@ -187,7 +187,7 @@ class AuthService {
 
     async _doRefresh() {
         try {
-            const response = await this._request('/api/auth/refresh', {
+            const response = await this._request('/auth/refresh', {
                 method: 'POST',
                 body: JSON.stringify({ refresh_token: this.refreshToken }),
                 skipAuth: true, // Don't use access token for refresh
@@ -219,7 +219,7 @@ class AuthService {
         }
 
         try {
-            const response = await this._request('/api/auth/verify');
+            const response = await this._request('/auth/verify');
             this.user = response.user;
             localStorage.setItem(USER_KEY, JSON.stringify(response.user));
             return true;
@@ -233,7 +233,7 @@ class AuthService {
      * Get current user profile
      */
     async getProfile() {
-        const response = await this._request('/api/auth/me');
+        const response = await this._request('/auth/me');
         this.user = response;
         localStorage.setItem(USER_KEY, JSON.stringify(response));
         return response;
@@ -243,7 +243,7 @@ class AuthService {
      * Update user profile
      */
     async updateProfile(updates) {
-        const response = await this._request('/api/auth/profile', {
+        const response = await this._request('/auth/profile', {
             method: 'PUT',
             body: JSON.stringify(updates),
         });
@@ -259,7 +259,7 @@ class AuthService {
      * Change password
      */
     async changePassword(oldPassword, newPassword) {
-        const response = await this._request('/api/auth/change-password', {
+        const response = await this._request('/auth/change-password', {
             method: 'POST',
             body: JSON.stringify({
                 old_password: oldPassword,
