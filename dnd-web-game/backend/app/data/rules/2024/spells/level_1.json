@@ -77,6 +77,10 @@
     },
     {
       "id": "chromatic_orb",
+      "effect_type": "damage",
+      "damage_dice": "3d8",
+      "damage_type": "fire",
+      "scaling": "1d8",
       "name": "Chromatic Orb",
       "school": "Evocation",
       "casting_time": "Action",
@@ -516,6 +520,9 @@
     },
     {
       "id": "magic_missile",
+      "effect_type": "damage",
+      "damage_dice": "3d4+3",
+      "damage_type": "force",
       "name": "Magic Missile",
       "school": "Evocation",
       "casting_time": "Action",

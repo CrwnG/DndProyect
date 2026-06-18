@@ -46,3 +46,20 @@ def test_at_higher_levels_key_enables_upcasting():
     # 5th-level slot on a 3rd-level spell -> +2d6 = 10d6
     assert SpellEffectResolver._calculate_spell_damage(lb, caster_level=9, slot_level=5) == "10d6"
     SpellRegistry.reset()
+
+
+def test_regex_resistant_damage_spells_get_explicit_fields():
+    """Spells whose prose defeats the damage regex need explicit fields.
+
+    Chromatic Orb ("3d8 damage of the chosen type") and Magic Missile
+    ("1d4 + 1 Force") both parsed to no damage before enrichment.
+    """
+    reg = _registry()
+    co = reg.get_spell("chromatic_orb")
+    assert co.damage_dice == "3d8"
+    assert co.attack_type == "ranged_spell"          # from prose ("ranged spell attack")
+    assert SpellEffectResolver._calculate_spell_damage(co, caster_level=9, slot_level=3) == "5d8"
+    mm = reg.get_spell("magic_missile")
+    assert mm.damage_dice == "3d4+3"                  # three darts of 1d4+1, auto-hit
+    assert mm.damage_type == "force"
+    SpellRegistry.reset()
