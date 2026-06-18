@@ -154,3 +154,48 @@ def test_shield_spends_slot_but_keeps_damage_when_attack_still_hits():
     assert info["slot_spent"] is True
     assert info["hp_restored"] == 0
     assert engine.state.combatant_stats["wiz-2"]["current_hp"] == 18
+
+
+async def test_leader_decides_vote_defaults_leader_when_unset():
+    """R11: a leader/consensus vote with no leader_id could never resolve."""
+    from app.core.multiplayer_choices import MultiplayerChoiceHandler, DecisionMode
+
+    h = MultiplayerChoiceHandler()
+    session = await h.initiate_choice(
+        "game-1", "c1", "Pick", [{"id": "a"}, {"id": "b"}],
+        ["p1", "p2"], mode=DecisionMode.LEADER_DECIDES, leader_id=None,
+    )
+    # With a defaulted leader (p1), p1's vote resolves immediately.
+    result = await h.record_vote(session.id, "p1", "a")
+    assert result.resolved
+    assert result.winning_choice == "a"
+
+
+async def test_disconnect_does_not_deadlock_vote():
+    """R11: a player leaving an active vote must shrink the quorum, not deadlock it."""
+    from app.core.multiplayer_choices import MultiplayerChoiceHandler, DecisionMode
+
+    h = MultiplayerChoiceHandler()
+    session = await h.initiate_choice(
+        "game-2", "c1", "Pick", [{"id": "a"}, {"id": "b"}],
+        ["p1", "p2", "p3"], mode=DecisionMode.VOTING,
+    )
+    await h.record_vote(session.id, "p1", "a")
+    await h.record_vote(session.id, "p2", "a")          # 2/3 — not resolved yet
+    assert h.get_active_for_game("game-2") is not None
+
+    result = await h.remove_player("game-2", "p3")        # p3 never votes, leaves
+    assert result is not None and result.resolved         # quorum now 2/2
+    assert result.winning_choice == "a"
+
+
+async def test_remove_last_player_cancels_vote():
+    """R11: removing the final voter cancels the vote rather than resolving to nothing."""
+    from app.core.multiplayer_choices import MultiplayerChoiceHandler, DecisionMode
+
+    h = MultiplayerChoiceHandler()
+    session = await h.initiate_choice(
+        "game-3", "c1", "Pick", [{"id": "a"}], ["p1"], mode=DecisionMode.VOTING,
+    )
+    await h.remove_player("game-3", "p1")
+    assert h.get_active_for_game("game-3") is None

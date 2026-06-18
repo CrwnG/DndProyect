@@ -103,6 +103,19 @@ class ConnectionManager:
             "timestamp": datetime.utcnow().isoformat(),
         })
 
+        # Drop the player from any active vote so their absence can't deadlock the
+        # quorum; broadcast the resolution if the removal completed the vote.
+        choice_handler = get_multiplayer_choice_handler()
+        result = await choice_handler.remove_player(session_id, player_id)
+        if result and result.resolved:
+            await self.broadcast_to_session(session_id, {
+                "type": "choice_resolved",
+                "choice_session_id": result.choice_session_id,
+                "winning_choice": result.winning_choice,
+                "tie": result.tie,
+                "timestamp": datetime.utcnow().isoformat(),
+            })
+
     async def send_to_player(
         self,
         session_id: str,
@@ -364,17 +377,21 @@ async def cast_vote(request: VoteRequest):
     choice_handler = get_multiplayer_choice_handler()
 
     try:
+        # Capture the game session id BEFORE voting: a deciding vote resolves and
+        # removes the session from the active map, so looking it up afterwards
+        # returns None and the resolution would never be broadcast.
+        pre = choice_handler.get_active_session(request.choice_session_id)
+        game_session_id = pre.session_id if pre else None
+
         result = await choice_handler.record_vote(
             request.choice_session_id,
             request.player_id,
             request.choice_id,
         )
 
-        # Get the session to find game session ID
-        session = choice_handler.get_active_session(request.choice_session_id)
-        if session:
+        if game_session_id:
             # Broadcast vote update
-            await manager.broadcast_to_session(session.session_id, {
+            await manager.broadcast_to_session(game_session_id, {
                 "type": "vote_update",
                 "choice_session_id": request.choice_session_id,
                 "voter": request.player_id,
@@ -383,7 +400,7 @@ async def cast_vote(request: VoteRequest):
             })
 
             if result.resolved:
-                await manager.broadcast_to_session(session.session_id, {
+                await manager.broadcast_to_session(game_session_id, {
                     "type": "choice_resolved",
                     "choice_session_id": request.choice_session_id,
                     "winning_choice": result.winning_choice,
