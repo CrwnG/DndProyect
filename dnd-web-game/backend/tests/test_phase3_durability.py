@@ -31,6 +31,20 @@ async def db_session():
     await engine.dispose()
 
 
+def test_load_campaign_resolves_by_internal_id_and_filename():
+    """Saved sessions store the internal campaign id (e.g. 'tutorial-campaign'),
+    but load_campaign only resolved by filename stem ('tutorial') -> 404 on load.
+    It must resolve by both."""
+    from app.core.campaign_engine import load_campaign
+
+    by_file = load_campaign("tutorial")          # filename stem
+    assert by_file is not None
+    # the internal id is what saved games persist; this 404'd before the fix
+    by_id = load_campaign(by_file.id)
+    assert by_id is not None
+    assert by_id.id == by_file.id
+
+
 async def test_combat_state_persisted_under_api_combat_id(db_session):
     """create_combat_state must use the API combat_id as the DB primary key, so
     persist/load round-trip by that id."""

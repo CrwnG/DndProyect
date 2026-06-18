@@ -1208,20 +1208,37 @@ class CampaignEngine:
 # Campaign loader functions
 
 def load_campaign(campaign_id: str) -> Optional[Campaign]:
-    """Load a campaign from the data directory."""
+    """Load a campaign by filename stem (e.g. "tutorial") OR by its internal
+    campaign id (e.g. "tutorial-campaign", which is what saved sessions store)."""
     campaigns_path = Path(__file__).parent.parent / "data" / "campaigns"
+
+    # 1) Direct filename match.
     campaign_file = campaigns_path / f"{campaign_id}.json"
+    if campaign_file.exists():
+        try:
+            with open(campaign_file, encoding="utf-8") as f:
+                data = json.load(f)
+            return Campaign.from_dict(data)
+        except Exception as e:
+            print(f"[CampaignEngine] Failed to load campaign {campaign_id}: {e}")
+            return None
 
-    if not campaign_file.exists():
-        return None
+    # 2) Fall back to scanning for a campaign whose internal id matches.
+    for path in campaigns_path.glob("*.json"):
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            continue
+        internal_id = (data.get("campaign") or {}).get("id") or data.get("id")
+        if internal_id == campaign_id:
+            try:
+                return Campaign.from_dict(data)
+            except Exception as e:
+                print(f"[CampaignEngine] Failed to load campaign {campaign_id}: {e}")
+                return None
 
-    try:
-        with open(campaign_file, encoding="utf-8") as f:
-            data = json.load(f)
-        return Campaign.from_dict(data)
-    except Exception as e:
-        print(f"[CampaignEngine] Failed to load campaign {campaign_id}: {e}")
-        return None
+    return None
 
 
 def list_campaigns() -> List[Dict[str, str]]:
