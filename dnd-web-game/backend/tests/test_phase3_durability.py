@@ -95,6 +95,35 @@ async def test_persisted_character_retrieves_as_valid_combatant(db_session):
     assert combatant["abilities"]["int_score"] == 16
 
 
+async def test_campaign_session_reloads_from_db_on_cache_miss(db_session):
+    """A campaign session must be reconstructable from the DB after a restart,
+    not 404 because the in-memory active_sessions cache is empty."""
+    from app.core.campaign_engine import CampaignEngine, load_campaign
+    from app.models.game_session import PartyMember
+    from app.api.routes.campaign import _get_or_load_session_engine, active_sessions
+    from app.database.repositories import GameSessionRepository
+    from app.database.models import GameSession
+
+    campaign = load_campaign("tutorial")
+    assert campaign is not None
+    engine = CampaignEngine.create_new(campaign, [PartyMember(id="p1", name="Hero")])
+    sid = engine.session.id
+    state = engine.session.to_dict()
+
+    repo = GameSessionRepository(db_session)
+    row = GameSession(id=sid, campaign_id=campaign.id, state=state,
+                      party=[m.to_dict() for m in engine.session.party])
+    db_session.add(row)
+    await db_session.flush()
+
+    active_sessions.pop(sid, None)  # simulate a restart (empty cache)
+    reconstructed = await _get_or_load_session_engine(sid, repo)
+    assert reconstructed is not None
+    assert reconstructed.session.id == sid
+    assert reconstructed.get_state() is not None
+    active_sessions.pop(sid, None)
+
+
 async def test_combat_state_persisted_under_api_combat_id(db_session):
     """create_combat_state must use the API combat_id as the DB primary key, so
     persist/load round-trip by that id."""
