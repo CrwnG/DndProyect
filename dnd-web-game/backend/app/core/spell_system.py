@@ -123,7 +123,7 @@ class SpellRegistry:
             concentration=data.get("concentration", False) or "concentration" in data.get("duration", "").lower(),
             ritual=data.get("ritual", False),
             description=data.get("description", ""),
-            higher_levels=data.get("higher_levels"),
+            higher_levels=data.get("higher_levels") or data.get("at_higher_levels"),
             classes=data.get("classes", []),
         )
 

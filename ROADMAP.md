@@ -29,7 +29,7 @@ Severity legend: 🔴 blocks play · 🟠 breaks a system · 🟡 polish.
 - ✅ Added `roll_dice()` to `core/dice.py` (general roller). Fixes the unimportable `surfaces`/`falling`/`throwing` modules and the monster Multiattack / save-AoE crash. Tested.
 - ✅ Fixed `attack_roll.natural_roll` → `natural_20`/`natural_1` (`combat_engine.py`); added `extra_data` field to `AbilityResult` (breath weapons vs Evasion). A combat-engine integration test now covers the monster single-attack path.
 - ✅ Fixed monster damage resist/immunity key mismatch (`_apply_damage_to_target` now reads the cached `resistances/immunities/vulnerabilities`); `subclass_id` is now cached in `_cache_combatant_stats` and carried through `to_combatant_data`/the builder adapter (Champion crit / Assassinate can fire). Tested.
-- 🟠 Give spells structured combat fields (`damage/type/heal/save/scaling`) and consume them instead of prose regex; fix upcasting; make `cast_spell` consume the persisted slot. **(next big item)**
+- 🟡 Spell effects — *enabler done*: explicit JSON combat fields (`damage_dice/damage_type/healing_dice/save_type/scaling/effect_type`) now win over prose regex; healing/effect-type detection fixed; upcasting works via `scaling` AND via the `at_higher_levels` key (~85 spells were silently not upcasting). Fireball/Cure Wounds/Lightning Bolt verified. **Remaining:** explicit fields for the spells whose prose defeats the regex (Magic Missile, Chromatic Orb, …); make `cast_spell` consume the persisted slot (dead-code consumption).
 - 🟠 Unify the three subclass-ID namespaces on the JSON IDs (invariant #2).
 - ✅ **Exit test:** per-effect-type spell tests; a multiattack boss fight runs without exceptions.
 

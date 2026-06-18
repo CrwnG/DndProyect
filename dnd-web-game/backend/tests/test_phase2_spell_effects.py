@@ -31,3 +31,18 @@ def test_fireball_upcasts_via_scaling_field():
     assert SpellEffectResolver._calculate_spell_damage(fb, caster_level=9, slot_level=3) == "8d6"
     assert SpellEffectResolver._calculate_spell_damage(fb, caster_level=9, slot_level=5) == "10d6"
     SpellRegistry.reset()
+
+
+def test_at_higher_levels_key_enables_upcasting():
+    """Spells keyed `at_higher_levels` (not `higher_levels`) must still upcast.
+
+    Lightning Bolt uses `at_higher_levels` ("increases by 1d6 ..."), which the
+    loader ignored, so its damage never scaled.
+    """
+    reg = _registry()
+    lb = reg.get_spell("lightning_bolt")
+    assert lb is not None
+    assert lb.damage_dice == "8d6"
+    # 5th-level slot on a 3rd-level spell -> +2d6 = 10d6
+    assert SpellEffectResolver._calculate_spell_damage(lb, caster_level=9, slot_level=5) == "10d6"
+    SpellRegistry.reset()
