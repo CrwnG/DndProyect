@@ -3,6 +3,8 @@ Shop/Vendor API Routes
 
 Handles buying and selling items from shops.
 """
+import re
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Dict, Any, List, Optional
@@ -11,6 +13,26 @@ from app.models.shop import get_shop, Shop
 from app.api.routes.loot import active_combats
 
 router = APIRouter(prefix="/shop", tags=["shop"])
+
+# Inventory ids get a numeric suffix (e.g. "potion_of_healing_2") from buy_item.
+_ID_SUFFIX_RE = re.compile(r"_\d+$")
+
+
+def _base_item_id(item_id: str) -> str:
+    """Strip a trailing numeric instance suffix ("_2") to get the base item id."""
+    return _ID_SUFFIX_RE.sub("", item_id or "")
+
+
+def _inventory_item_matches(inventory_id: str, request_id: str) -> bool:
+    """Whether an inventory item matches the requested id.
+
+    Matches an exact instance id, or an inventory instance against its requested
+    BASE id. Only the inventory id is suffix-stripped — stripping the request too
+    would over-strip a base id that legitimately ends in a digit (e.g.
+    "armor_plus_1") and would let a request for one instance match another.
+    """
+    request_id = request_id or ""
+    return inventory_id == request_id or _base_item_id(inventory_id) == request_id
 
 
 # =============================================================================
@@ -196,8 +218,8 @@ async def sell_item(request: SellRequest):
 
     for i, inv_item in enumerate(inventory):
         item_id = inv_item.get("id", inv_item.get("item_id", ""))
-        # Match by exact ID or base ID (without suffix)
-        if item_id == request.item_id or item_id.split("_")[0] == request.item_id.split("_")[0]:
+        # Match by exact id or full base id (suffix stripped) — NOT the first token.
+        if _inventory_item_matches(item_id, request.item_id):
             item_index = i
             item_data = inv_item
             break

@@ -1257,11 +1257,13 @@ class APIClient {
      * @param {Array} itemIds - Specific item IDs to collect (empty = all)
      * @param {boolean} takeCoins - Whether to take coins
      */
-    async collectLoot(combatId, characterId, itemIds = [], takeCoins = true) {
+    async collectLoot(combatId, characterId, itemIds = [], takeCoins = true, partyCharacterIds = []) {
         return this.post(`/loot/combat/${combatId}/collect`, {
             character_id: characterId,
             item_ids: itemIds,
             take_coins: takeCoins,
+            // Divide coin loot across the party (empty = all gold to the collector).
+            party_character_ids: partyCharacterIds,
         });
     }
 

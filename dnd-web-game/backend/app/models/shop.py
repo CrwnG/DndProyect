@@ -63,8 +63,12 @@ class Shop:
         return None
 
     def get_sell_price(self, item_data: Dict[str, Any]) -> int:
-        """Get the price the shop will pay for an item."""
-        base_value = item_data.get("value", 0)
+        """Get the price the shop will pay for an item.
+
+        Shop-stocked items carry `value`; looted items carry `value_gp` — accept
+        either so looted gear doesn't sell for 0 gp.
+        """
+        base_value = item_data.get("value", item_data.get("value_gp", 0))
         return int(base_value * self.sell_rate)
 
     def can_buy(self, item_id: str) -> bool:
