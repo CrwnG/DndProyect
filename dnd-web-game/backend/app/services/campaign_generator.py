@@ -36,6 +36,22 @@ from app.services.prompts.campaign_prompts import (
 logger = logging.getLogger(__name__)
 
 
+def sanitize_combat_encounters(campaign: Campaign) -> None:
+    """Ensure no COMBAT encounter is left with empty/None combat.
+
+    The LLM (and lenient parsing) can produce a `type=combat` encounter that omits
+    the combat block or lists zero enemies, which soft-locks the session. Attach a
+    default fight in place so the encounter stays winnable and can advance. Mutates
+    the campaign. (Unknown enemy templates are fine — the engine resolves them.)"""
+    for encounter in campaign.encounters.values():
+        if encounter.type == EncounterType.COMBAT and (
+            encounter.combat is None or not encounter.combat.enemies
+        ):
+            encounter.combat = CombatSetup(
+                enemies=[EnemySpawn(template="goblin", count=2)],
+            )
+
+
 class CampaignGeneratorService:
     """
     Generates BG3-quality campaigns from prompts.
@@ -137,6 +153,14 @@ class CampaignGeneratorService:
 
         # Step 4: Generate NPCs
         await self._populate_npcs(campaign)
+
+        # Gate the generated campaign the same way the import path does: ensure no
+        # COMBAT encounter is left with empty/None combat (the LLM often omits the
+        # combat block or names enemies the engine can't load), then validate.
+        sanitize_combat_encounters(campaign)
+        errors = campaign.validate()
+        if errors:
+            logger.warning(f"Generated campaign '{campaign.name}' has validation issues: {errors}")
 
         logger.info(f"Campaign generated: {campaign.name}")
         return campaign

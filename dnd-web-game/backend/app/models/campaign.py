@@ -732,6 +732,14 @@ class Campaign:
                 if target and target not in self.encounters:
                     errors.append(f"Encounter {enc_id} references unknown transition: {target}")
 
+            # COMBAT encounters must have a non-empty combat — a combat=None / 0-enemy
+            # COMBAT encounter soft-locks the session (no winnable fight, no advance).
+            # (Unknown enemy templates are NOT an error: the engine resolves them to a
+            # CR-appropriate shipped template at spawn time.)
+            if encounter.type == EncounterType.COMBAT:
+                if encounter.combat is None or not encounter.combat.enemies:
+                    errors.append(f"Combat encounter {enc_id} has no enemies (combat is None or empty)")
+
         # Check starting encounter exists
         if self.starting_encounter and self.starting_encounter not in self.encounters:
             errors.append(f"Starting encounter not found: {self.starting_encounter}")

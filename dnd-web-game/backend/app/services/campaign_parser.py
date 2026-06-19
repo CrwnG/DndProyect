@@ -753,14 +753,30 @@ class CampaignParserService:
             for enemy_data in enc_data.get("enemies", []):
                 enemies.append(EnemySpawn(
                     template=enemy_data.get("name", "goblin").lower().replace(" ", "_"),
-                    count=1,
+                    count=enemy_data.get("count", 1),
                 ))
 
-            if enemies:
-                combat = CombatSetup(
-                    enemies=enemies,
-                    environment=GridEnvironment(),
-                )
+            # A COMBAT section with no parseable stat blocks (e.g. prose: "six
+            # bandits ambush the party") would otherwise leave combat=None while
+            # type stays COMBAT -> the engine soft-locks. Recover spawns from the
+            # prose, then fall back to a default, so combat is never None here.
+            if not enemies:
+                for rec in self._entity_extractor.extract_encounters(enc_data.get("description", "")):
+                    for e in rec.get("enemies", []):
+                        enemies.append(EnemySpawn(
+                            template=e.get("type", "enemy").strip().lower().replace(" ", "_"),
+                            count=e.get("count", 1),
+                        ))
+            if not enemies:
+                enemies.append(EnemySpawn(
+                    template="goblin", count=2,
+                    name_override=enc_data.get("name", "Enemy"),
+                ))
+
+            combat = CombatSetup(
+                enemies=enemies,
+                environment=GridEnvironment(),
+            )
 
         elif enc_type in [EncounterType.SOCIAL, EncounterType.EXPLORATION, EncounterType.CHOICE]:
             # Create choices from skill checks
