@@ -14,6 +14,7 @@ from app.database.repositories import (
     CombatStateRepository,
     CombatLogRepository,
     CampaignProgressRepository,
+    CampaignRepository,
     SaveGameRepository,
 )
 
@@ -54,6 +55,13 @@ async def get_progress_repo(
     """Dependency for CampaignProgressRepository."""
     print(f"[DEPS] get_progress_repo called, session={session}", flush=True)
     return CampaignProgressRepository(session)
+
+
+async def get_campaign_repo(
+    session: AsyncSession = Depends(get_session)
+) -> CampaignRepository:
+    """Dependency for CampaignRepository (editable campaigns)."""
+    return CampaignRepository(session)
 
 
 async def get_db_session(
