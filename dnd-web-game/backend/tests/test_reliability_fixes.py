@@ -241,3 +241,218 @@ async def test_remove_last_player_cancels_vote():
     )
     await h.remove_player("game-3", "p1")
     assert h.get_active_for_game("game-3") is None
+
+
+# ---------------------------------------------------------------------------
+# Next-tier reliability hunt (post-merge): bugs found auditing the play loop.
+# ---------------------------------------------------------------------------
+
+def test_single_class_level_up_does_not_crash_on_readonly_level():
+    """N1: PartyMember.level is a read-only @property (alias for total_level), so
+    `member.level = new_level` in apply_level_up raised AttributeError on EVERY
+    single-class level-up. Must update the backing fields instead."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="p1", name="Hero", character_class="fighter",
+        class_levels={"fighter": 4}, _level=4,
+        constitution=14, max_hp=30, current_hp=30,
+        hit_die_size=10, hit_dice_total=4, hit_dice_remaining=4,
+        xp=6500,   # enough for level 5
+    )
+    result = apply_level_up(member, new_level=5, hp_choice="average")
+
+    assert result.new_level == 5
+    assert member.level == 5          # property reflects the new level, no crash
+    assert member.class_levels["fighter"] == 5
+
+
+def test_level_up_delta_does_not_corrupt_multiclass_totals():
+    """QA-F1: advancing one class adds the level delta to THAT class, not the new
+    total level, so a multiclass character's total isn't inflated."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="mc", name="Multi", character_class="wizard",
+        class_levels={"wizard": 4, "fighter": 1}, _level=5,
+        constitution=14, max_hp=40, current_hp=40,
+        hit_die_size=6, hit_dice_total=5, hit_dice_remaining=5,
+        xp=14000,   # enough for total level 6
+    )
+    apply_level_up(member, new_level=6, hp_choice="average")
+
+    assert member.class_levels["wizard"] == 5     # 4 + delta(1)
+    assert member.class_levels["fighter"] == 1    # untouched
+    assert member.level == 6
+
+
+def test_monster_actions_reach_combat_stats_cache():
+    """N2: _cache_combatant_stats dropped monster actions/legendary, and the
+    request schema lacked the fields, so multiattack/abilities/legendary never
+    fired via the API even though the engine logic supports them."""
+    from app.core.combat_engine import CombatEngine, CombatState
+
+    monster = {
+        "id": "drake", "name": "Drake", "type": "enemy",
+        "hp": 50, "max_hp": 50, "ac": 15, "speed": 40,
+        "str_mod": 4, "attack_bonus": 6, "damage_dice": "2d6", "damage_type": "slashing",
+        "abilities": {"strength": 18, "dexterity": 12, "constitution": 16,
+                      "intelligence": 6, "wisdom": 12, "charisma": 8},
+        "actions": [{"name": "Multiattack", "description": "makes two claw attacks"},
+                    {"name": "Claw", "attack_bonus": 6, "damage": "2d6"}],
+        "legendary_actions": [{"name": "Tail Swipe"}],
+        "legendary_actions_per_round": 3,
+    }
+    player = {
+        "id": "hero", "name": "Hero", "type": "player",
+        "hp": 30, "max_hp": 30, "ac": 16, "speed": 30,
+        "str_mod": 3, "attack_bonus": 5, "damage_dice": "1d8", "damage_type": "slashing",
+        "abilities": {"strength": 16, "dexterity": 12, "constitution": 14,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "fighter", "level": 3, "conditions": [],
+    }
+    engine = CombatEngine(combat_state=CombatState())
+    engine.start_combat([player], [monster])
+
+    cached = engine.state.combatant_stats["drake"]
+    assert cached.get("actions"), "monster actions were dropped by the cache"
+    assert cached.get("legendary_actions")
+    assert cached.get("legendary_actions_per_round") == 3
+
+
+def test_combatant_data_schema_carries_monster_actions():
+    """N2: the /combat/start request schema must keep monster action fields so
+    model_dump() doesn't strip them before start_combat."""
+    from app.api.routes.combat import CombatantData
+
+    cd = CombatantData(
+        name="Drake",
+        actions=[{"name": "Multiattack"}],
+        legendary_actions=[{"name": "Tail Swipe"}],
+        legendary_actions_per_round=3,
+    )
+    dumped = cd.model_dump()
+    assert dumped["actions"] and dumped["legendary_actions"]
+    assert dumped["legendary_actions_per_round"] == 3
+
+
+def test_healing_ability_mod_tolerates_abbreviated_ability():
+    """N3 (B1): healing read stats[spellcasting.ability] without normalizing, so an
+    abbreviated/uppercase ability ('CHA') missed the full-name stats key
+    ('charisma') and healing silently lost the +ability bonus."""
+    from app.core.spell_system import _ability_modifier_from_stats
+
+    stats = {"charisma": 18, "wisdom": 16}
+    assert _ability_modifier_from_stats(stats, "CHA") == 4
+    assert _ability_modifier_from_stats(stats, "cha") == 4
+    assert _ability_modifier_from_stats(stats, "charisma") == 4
+    assert _ability_modifier_from_stats(stats, "wis") == 3
+    assert _ability_modifier_from_stats(stats, "str") == 0   # absent -> 10 -> +0
+
+
+def test_level_up_does_not_refill_expended_spell_slots():
+    """N4 (C2): leveling a caster overwrote remaining slots with the new max,
+    silently refilling slots already spent this adventuring day. Only the newly
+    gained slots should be added; expended slots must stay expended."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="w1", name="Mage", character_class="wizard",
+        class_levels={"wizard": 4}, _level=4,
+        constitution=12, max_hp=22, current_hp=22,
+        hit_die_size=6, hit_dice_total=4, hit_dice_remaining=4,
+        spell_slots={1: 0, 2: 0}, spell_slots_max={1: 4, 2: 3},  # all expended
+        xp=6500,
+    )
+    apply_level_up(member, new_level=5, hp_choice="average")
+
+    # Previously-expended level-1/2 slots stay expended (not refilled to max)...
+    assert member.spell_slots[1] == 0
+    assert member.spell_slots[2] == 0
+    # ...but a newly gained level-3 slot is granted.
+    assert member.spell_slots.get(3, 0) > 0
+    assert member.spell_slots_max.get(3, 0) > 0
+
+
+def test_distance_ft_between_combatants():
+    """N5 (A4): 5e grid distance — 5 ft/square, diagonals count as one square
+    (Chebyshev), and unknown positions return inf (no fabricated adjacency)."""
+    import math
+    from app.core.combat_engine import CombatEngine, CombatState
+
+    engine = CombatEngine(combat_state=CombatState())
+    engine.state.positions["a"] = (0, 0)
+    engine.state.positions["b"] = (3, 4)        # max(3,4)=4 squares
+    assert engine._distance_ft("a", "b") == 20.0
+    engine.state.positions["c"] = {"x": 1, "y": 1}   # diagonally adjacent
+    assert engine._distance_ft("a", "c") == 5.0
+    assert engine._distance_ft("a", "missing") == math.inf
+
+
+def test_condition_registry_includes_core_conditions():
+    """N5-root: load_conditions only loaded conditions.json (7 entries), so
+    paralyzed/unconscious/blinded/etc. (defined only in the built-in defaults)
+    were absent and their attack effects silently never applied."""
+    from app.core.condition_effects import load_conditions, get_attack_modifiers
+
+    conds = load_conditions()
+    for cid in ("paralyzed", "unconscious", "blinded", "incapacitated", "prone"):
+        assert cid in conds, f"{cid} missing from condition registry"
+
+    # The effect is actually wired: a paralyzed target attacked in melee within
+    # 5 ft grants advantage and auto-crit.
+    m = get_attack_modifiers(
+        attacker_conditions=[], target_conditions=["paralyzed"],
+        is_melee=True, distance_ft=5,
+    )
+    assert m.advantage and m.auto_critical
+
+
+def test_monster_attack_auto_crits_paralyzed_adjacent_target():
+    """N5 (A4): monster attacks ignored target conditions — a hit on a paralyzed
+    target within 5 ft must be a critical (and the attack has advantage)."""
+    from app.core.combat_engine import CombatEngine, CombatState
+    from app.core.monster_abilities import MonsterAbility, AbilityType
+
+    monster = {
+        "id": "ogre", "name": "Ogre", "type": "enemy",
+        "hp": 59, "max_hp": 59, "ac": 11, "speed": 40,
+        "str_mod": 4, "attack_bonus": 6, "damage_dice": "2d8", "damage_type": "bludgeoning",
+        "abilities": {"strength": 19, "dexterity": 8, "constitution": 16,
+                      "intelligence": 5, "wisdom": 7, "charisma": 7},
+        "class": "monster", "level": 1, "conditions": [],
+    }
+    player = {
+        "id": "victim", "name": "Victim", "type": "player",
+        "hp": 40, "max_hp": 40, "ac": 1, "speed": 30,   # AC 1 so any non-nat1 roll hits
+        "str_mod": 0, "attack_bonus": 2, "damage_dice": "1d6", "damage_type": "slashing",
+        "abilities": {"strength": 10, "dexterity": 10, "constitution": 10,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "fighter", "level": 1, "conditions": ["paralyzed"],
+    }
+    engine = CombatEngine(combat_state=CombatState())
+    engine.start_combat([player], [monster])
+    # Place them adjacent (within 5 ft).
+    engine.state.positions["ogre"] = (0, 0)
+    engine.state.positions["victim"] = (1, 0)
+
+    attack = MonsterAbility(
+        id="slam", name="Slam", original_description="Melee Weapon Attack",
+        ability_type=AbilityType.MELEE_ATTACK,
+        attack_bonus=6, damage_dice="2d8", damage_type="bludgeoning",
+    )
+    ogre = engine.state.initiative_tracker.get_combatant("ogre")
+    ogre_stats = engine.state.combatant_stats["ogre"]
+
+    hit_seen = False
+    for _ in range(40):
+        # reset victim HP so repeated hits don't end combat / go to 0
+        engine.state.combatant_stats["victim"]["current_hp"] = 40
+        res = engine._execute_single_monster_attack(ogre, ogre_stats, attack, "victim")
+        if res["hit"]:
+            hit_seen = True
+            assert res["critical"], "hit on a paralyzed adjacent target must be a crit"
+    assert hit_seen, "expected at least one hit across 40 attacks"

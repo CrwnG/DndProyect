@@ -80,6 +80,12 @@ class CombatantData(BaseModel):
     immunities: List[str] = Field(default_factory=list)
     vulnerabilities: List[str] = Field(default_factory=list)
     abilities: Dict[str, Any] = Field(default_factory=dict)
+    # Monster action data — needed by the engine's multiattack / monster-ability /
+    # legendary-action handlers. Without these the engine caches no actions and
+    # monster offense never fires.
+    actions: List[Dict[str, Any]] = Field(default_factory=list)
+    legendary_actions: List[Dict[str, Any]] = Field(default_factory=list)
+    legendary_actions_per_round: int = 0
 
 
 class StartCombatRequest(BaseModel):

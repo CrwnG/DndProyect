@@ -16,6 +16,23 @@ from app.core.dice import roll_d20, D20Result
 from app.core.rules_engine import roll_damage
 
 
+_ABILITY_FULL_NAMES = {
+    "str": "strength", "dex": "dexterity", "con": "constitution",
+    "int": "intelligence", "wis": "wisdom", "cha": "charisma",
+}
+
+
+def _ability_modifier_from_stats(stats: dict, ability: str) -> int:
+    """Resolve an ability modifier from a `stats` dict keyed by full lowercase
+    ability names ('charisma'), tolerating abbreviated/uppercase identifiers
+    ('CHA', 'cha'). Mirrors the DC path's normalization so healing spells don't
+    silently drop the casting-ability bonus."""
+    key = (ability or "").lower()
+    full = _ABILITY_FULL_NAMES.get(key, key)
+    score = (stats or {}).get(full) or (stats or {}).get(key) or 10
+    return (score - 10) // 2
+
+
 class SpellRegistry:
     """
     Singleton that loads and indexes all spells from JSON files.
@@ -1412,7 +1429,9 @@ def cast_spell(
 
     elif spell.healing_dice and targets:
         # Healing spell
-        ability_mod = (caster_data.get("stats", {}).get(spell_caster.spellcasting.ability, 10) - 10) // 2
+        ability_mod = _ability_modifier_from_stats(
+            caster_data.get("stats", {}), spell_caster.spellcasting.ability
+        )
         healing_result = SpellEffectResolver.resolve_healing_spell(
             spell, ability_mod, caster_level, cast_level
         )
