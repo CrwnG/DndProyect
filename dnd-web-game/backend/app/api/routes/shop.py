@@ -24,10 +24,15 @@ def _base_item_id(item_id: str) -> str:
 
 
 def _inventory_item_matches(inventory_id: str, request_id: str) -> bool:
-    """Whether an inventory item matches the requested id. Compares the FULL base
-    id (not just the first '_'-token), so "potion_of_climbing" can't match
-    "potion_of_healing"."""
-    return inventory_id == request_id or _base_item_id(inventory_id) == _base_item_id(request_id)
+    """Whether an inventory item matches the requested id.
+
+    Matches an exact instance id, or an inventory instance against its requested
+    BASE id. Only the inventory id is suffix-stripped — stripping the request too
+    would over-strip a base id that legitimately ends in a digit (e.g.
+    "armor_plus_1") and would let a request for one instance match another.
+    """
+    request_id = request_id or ""
+    return inventory_id == request_id or _base_item_id(inventory_id) == request_id
 
 
 # =============================================================================

@@ -37,3 +37,8 @@ def test_sell_item_matching_does_not_collide_on_first_token():
     # Different items that share only the first token -> NO match.
     assert not _inventory_item_matches("potion_of_climbing_1", "potion_of_healing")
     assert not _inventory_item_matches("potion_of_climbing", "potion_of_healing")
+    # A base id that legitimately ends in a digit (e.g. "armor_plus_1") must match
+    # its instances and not be over-stripped (QA: only strip the inventory id).
+    assert _inventory_item_matches("armor_plus_1_7", "armor_plus_1")
+    # Requesting one specific instance must NOT match a different instance.
+    assert not _inventory_item_matches("potion_of_healing_1", "potion_of_healing_2")
