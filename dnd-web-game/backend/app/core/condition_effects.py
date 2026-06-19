@@ -48,6 +48,14 @@ def load_conditions() -> Dict[str, ConditionData]:
     if _condition_cache:
         return _condition_cache
 
+    # Seed the full built-in set first so every core condition (paralyzed,
+    # unconscious, blinded, incapacitated, …) is always present; conditions.json
+    # only overlays/extends it. Previously the defaults were a fallback used
+    # solely when the JSON failed to load, so the conditions the JSON omitted
+    # were silently missing from the registry (and their attack/save effects
+    # never applied).
+    _init_default_conditions()
+
     conditions_path = Path(__file__).parent.parent / "data" / "conditions.json"
     try:
         with open(conditions_path, encoding="utf-8") as f:
@@ -65,8 +73,6 @@ def load_conditions() -> Dict[str, ConditionData]:
 
     except Exception as e:
         print(f"[ConditionEffects] Failed to load conditions.json: {e}")
-        # Fallback with built-in conditions
-        _init_default_conditions()
 
     return _condition_cache
 

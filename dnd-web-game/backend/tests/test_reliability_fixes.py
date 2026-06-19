@@ -355,3 +355,81 @@ def test_level_up_does_not_refill_expended_spell_slots():
     # ...but a newly gained level-3 slot is granted.
     assert member.spell_slots.get(3, 0) > 0
     assert member.spell_slots_max.get(3, 0) > 0
+
+
+def test_distance_ft_between_combatants():
+    """N5 (A4): grid distance helper — 5 ft per square."""
+    from app.core.combat_engine import CombatEngine, CombatState
+
+    engine = CombatEngine(combat_state=CombatState())
+    engine.state.positions["a"] = (0, 0)
+    engine.state.positions["b"] = (3, 4)        # 5 squares away
+    assert engine._distance_ft("a", "b") == 25.0
+    engine.state.positions["c"] = {"x": 1, "y": 0}
+    assert engine._distance_ft("a", "c") == 5.0
+
+
+def test_condition_registry_includes_core_conditions():
+    """N5-root: load_conditions only loaded conditions.json (7 entries), so
+    paralyzed/unconscious/blinded/etc. (defined only in the built-in defaults)
+    were absent and their attack effects silently never applied."""
+    from app.core.condition_effects import load_conditions, get_attack_modifiers
+
+    conds = load_conditions()
+    for cid in ("paralyzed", "unconscious", "blinded", "incapacitated", "prone"):
+        assert cid in conds, f"{cid} missing from condition registry"
+
+    # The effect is actually wired: a paralyzed target attacked in melee within
+    # 5 ft grants advantage and auto-crit.
+    m = get_attack_modifiers(
+        attacker_conditions=[], target_conditions=["paralyzed"],
+        is_melee=True, distance_ft=5,
+    )
+    assert m.advantage and m.auto_critical
+
+
+def test_monster_attack_auto_crits_paralyzed_adjacent_target():
+    """N5 (A4): monster attacks ignored target conditions — a hit on a paralyzed
+    target within 5 ft must be a critical (and the attack has advantage)."""
+    from app.core.combat_engine import CombatEngine, CombatState
+    from app.core.monster_abilities import MonsterAbility, AbilityType
+
+    monster = {
+        "id": "ogre", "name": "Ogre", "type": "enemy",
+        "hp": 59, "max_hp": 59, "ac": 11, "speed": 40,
+        "str_mod": 4, "attack_bonus": 6, "damage_dice": "2d8", "damage_type": "bludgeoning",
+        "abilities": {"strength": 19, "dexterity": 8, "constitution": 16,
+                      "intelligence": 5, "wisdom": 7, "charisma": 7},
+        "class": "monster", "level": 1, "conditions": [],
+    }
+    player = {
+        "id": "victim", "name": "Victim", "type": "player",
+        "hp": 40, "max_hp": 40, "ac": 1, "speed": 30,   # AC 1 so any non-nat1 roll hits
+        "str_mod": 0, "attack_bonus": 2, "damage_dice": "1d6", "damage_type": "slashing",
+        "abilities": {"strength": 10, "dexterity": 10, "constitution": 10,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "fighter", "level": 1, "conditions": ["paralyzed"],
+    }
+    engine = CombatEngine(combat_state=CombatState())
+    engine.start_combat([player], [monster])
+    # Place them adjacent (within 5 ft).
+    engine.state.positions["ogre"] = (0, 0)
+    engine.state.positions["victim"] = (1, 0)
+
+    attack = MonsterAbility(
+        id="slam", name="Slam", original_description="Melee Weapon Attack",
+        ability_type=AbilityType.MELEE_ATTACK,
+        attack_bonus=6, damage_dice="2d8", damage_type="bludgeoning",
+    )
+    ogre = engine.state.initiative_tracker.get_combatant("ogre")
+    ogre_stats = engine.state.combatant_stats["ogre"]
+
+    hit_seen = False
+    for _ in range(40):
+        # reset victim HP so repeated hits don't end combat / go to 0
+        engine.state.combatant_stats["victim"]["current_hp"] = 40
+        res = engine._execute_single_monster_attack(ogre, ogre_stats, attack, "victim")
+        if res["hit"]:
+            hit_seen = True
+            assert res["critical"], "hit on a paralyzed adjacent target must be a crit"
+    assert hit_seen, "expected at least one hit across 40 attacks"

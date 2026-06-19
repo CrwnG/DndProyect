@@ -4565,6 +4565,17 @@ class CombatEngine:
                 return val
         return None
 
+    def _distance_ft(self, id_a: str, id_b: str) -> float:
+        """Distance in feet between two combatants (5 ft per grid square)."""
+        def _xy(pos):
+            if isinstance(pos, dict):
+                return pos.get("x", 0), pos.get("y", 0)
+            return pos if pos else (0, 0)
+
+        ax, ay = _xy(self.state.positions.get(id_a))
+        bx, by = _xy(self.state.positions.get(id_b))
+        return ((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5 * 5
+
     def _execute_single_monster_attack(
         self,
         combatant,
@@ -4592,10 +4603,25 @@ class CombatEngine:
         if not target:
             return {"hit": False, "damage": 0, "reason": "Invalid target"}
 
-        # Roll attack
+        # Roll attack with condition-based advantage/disadvantage (prone,
+        # restrained, paralyzed, frightened, …) — monster attacks previously
+        # ignored these and never got auto-crit vs paralyzed/unconscious targets.
         attack_bonus = attack.attack_bonus or 0
-        attack_roll = roll_d20(modifier=attack_bonus)
-        is_crit = attack_roll.natural_20
+        attacker_conditions = stats.get("conditions", getattr(combatant, "conditions", []))
+        target_conditions = target_stats.get("conditions", getattr(target, "conditions", []))
+        distance_ft = self._distance_ft(combatant.id, target_id)
+        is_melee = distance_ft <= 5
+        cmods = get_attack_modifiers(
+            attacker_conditions=attacker_conditions,
+            target_conditions=target_conditions,
+            is_melee=is_melee,
+            distance_ft=distance_ft,
+        )
+        attack_roll = roll_d20(
+            modifier=attack_bonus,
+            advantage=cmods.advantage,
+            disadvantage=cmods.disadvantage,
+        )
         is_miss = attack_roll.natural_1
 
         # Get target AC
@@ -4603,14 +4629,14 @@ class CombatEngine:
         # are honored; fall back to the combatant attribute only if absent.
         target_ac = target_stats.get("ac", target.armor_class if hasattr(target, "armor_class") else 10)
 
-        hit = False
+        # A natural 20 always hits; otherwise meet AC. A natural 1 always misses.
+        hit = (not is_miss) and (attack_roll.natural_20 or attack_roll.total >= target_ac)
+        # Nat 20 always crits; a hit on a paralyzed/unconscious target within 5 ft is
+        # also a crit. auto_critical upgrades a hit, it never forces one.
+        is_crit = attack_roll.natural_20 or (hit and cmods.auto_critical)
         damage = 0
 
-        if is_miss:
-            hit = False
-        elif is_crit or attack_roll.total >= target_ac:
-            hit = True
-
+        if hit:
             # Roll damage
             if attack.damage_dice:
                 damage = roll_dice(attack.damage_dice)
