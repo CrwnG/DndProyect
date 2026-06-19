@@ -4566,15 +4566,23 @@ class CombatEngine:
         return None
 
     def _distance_ft(self, id_a: str, id_b: str) -> float:
-        """Distance in feet between two combatants (5 ft per grid square)."""
+        """5e grid distance in feet between two combatants (5 ft per square, with
+        diagonals counted as one square — Chebyshev — so a diagonally adjacent
+        creature is within 5 ft for melee reach). Returns inf if either position
+        is unknown, so reach/auto-crit effects don't fabricate adjacency."""
+        pos_a = self.state.positions.get(id_a)
+        pos_b = self.state.positions.get(id_b)
+        if not pos_a or not pos_b:
+            return float("inf")
+
         def _xy(pos):
             if isinstance(pos, dict):
                 return pos.get("x", 0), pos.get("y", 0)
-            return pos if pos else (0, 0)
+            return pos
 
-        ax, ay = _xy(self.state.positions.get(id_a))
-        bx, by = _xy(self.state.positions.get(id_b))
-        return ((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5 * 5
+        ax, ay = _xy(pos_a)
+        bx, by = _xy(pos_b)
+        return max(abs(ax - bx), abs(ay - by)) * 5
 
     def _execute_single_monster_attack(
         self,
@@ -4626,8 +4634,12 @@ class CombatEngine:
 
         # Get target AC
         # Read the live cache AC ("ac") first so mid-combat AC changes (e.g. Shield)
-        # are honored; fall back to the combatant attribute only if absent.
-        target_ac = target_stats.get("ac", target.armor_class if hasattr(target, "armor_class") else 10)
+        # are honored; fall back to a legacy "armor_class" cache key, then the
+        # combatant attribute.
+        target_ac = target_stats.get(
+            "ac",
+            target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10),
+        )
 
         # A natural 20 always hits; otherwise meet AC. A natural 1 always misses.
         hit = (not is_miss) and (attack_roll.natural_20 or attack_roll.total >= target_ac)

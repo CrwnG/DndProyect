@@ -725,9 +725,11 @@ def apply_level_up(
     }
 
     # Apply level increase. `member.level` is a read-only property (alias for
-    # total_level), so update the backing fields: the class's entry in
-    # class_levels (the source of truth) and the legacy `_level` fallback.
-    member.class_levels[class_name] = new_level
+    # total_level), so update the backing fields. Add the level delta to the
+    # class being advanced (not by overwriting it with the new TOTAL level, which
+    # would corrupt a multiclass character) and update the legacy `_level`.
+    level_delta = new_level - old_level
+    member.class_levels[class_name] = member.class_levels.get(class_name, 0) + level_delta
     member._level = new_level
     member.hit_dice_total = new_level
     member.hit_dice_remaining = min(member.hit_dice_remaining + 1, new_level)

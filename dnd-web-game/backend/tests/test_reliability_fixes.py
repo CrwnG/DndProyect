@@ -268,6 +268,26 @@ def test_single_class_level_up_does_not_crash_on_readonly_level():
     assert member.class_levels["fighter"] == 5
 
 
+def test_level_up_delta_does_not_corrupt_multiclass_totals():
+    """QA-F1: advancing one class adds the level delta to THAT class, not the new
+    total level, so a multiclass character's total isn't inflated."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="mc", name="Multi", character_class="wizard",
+        class_levels={"wizard": 4, "fighter": 1}, _level=5,
+        constitution=14, max_hp=40, current_hp=40,
+        hit_die_size=6, hit_dice_total=5, hit_dice_remaining=5,
+        xp=14000,   # enough for total level 6
+    )
+    apply_level_up(member, new_level=6, hp_choice="average")
+
+    assert member.class_levels["wizard"] == 5     # 4 + delta(1)
+    assert member.class_levels["fighter"] == 1    # untouched
+    assert member.level == 6
+
+
 def test_monster_actions_reach_combat_stats_cache():
     """N2: _cache_combatant_stats dropped monster actions/legendary, and the
     request schema lacked the fields, so multiattack/abilities/legendary never
@@ -358,15 +378,18 @@ def test_level_up_does_not_refill_expended_spell_slots():
 
 
 def test_distance_ft_between_combatants():
-    """N5 (A4): grid distance helper — 5 ft per square."""
+    """N5 (A4): 5e grid distance — 5 ft/square, diagonals count as one square
+    (Chebyshev), and unknown positions return inf (no fabricated adjacency)."""
+    import math
     from app.core.combat_engine import CombatEngine, CombatState
 
     engine = CombatEngine(combat_state=CombatState())
     engine.state.positions["a"] = (0, 0)
-    engine.state.positions["b"] = (3, 4)        # 5 squares away
-    assert engine._distance_ft("a", "b") == 25.0
-    engine.state.positions["c"] = {"x": 1, "y": 0}
+    engine.state.positions["b"] = (3, 4)        # max(3,4)=4 squares
+    assert engine._distance_ft("a", "b") == 20.0
+    engine.state.positions["c"] = {"x": 1, "y": 1}   # diagonally adjacent
     assert engine._distance_ft("a", "c") == 5.0
+    assert engine._distance_ft("a", "missing") == math.inf
 
 
 def test_condition_registry_includes_core_conditions():
