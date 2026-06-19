@@ -22,6 +22,7 @@ from app.models.campaign import (
     RestType,
     CombatSetup,
     EnemySpawn,
+    GridEnvironment,
     ChoiceSetup,
     Choice,
 )
@@ -711,8 +712,23 @@ class CampaignEngine:
     def _start_combat(self) -> Dict[str, Any]:
         """Initialize combat for current encounter."""
         encounter = self.session.get_current_encounter()
-        if not encounter or not encounter.combat:
+        if not encounter:
             return {"error": "No combat setup for this encounter"}
+        if not encounter.combat or not encounter.combat.enemies:
+            # Defense-in-depth: a COMBAT encounter must never reach gameplay with no
+            # resolvable combat (that strands the session — there is no CONTINUE
+            # escape from a failed START_COMBAT). Upstream (parser/generator +
+            # Campaign.validate()) should prevent this; as a last resort, synthesize
+            # a default fight so the encounter stays winnable and can advance.
+            if encounter.type == EncounterType.COMBAT:
+                print(f"[CampaignEngine] COMBAT encounter '{encounter.id}' had no enemies; "
+                      f"synthesizing a default spawn to avoid a soft-lock", flush=True)
+                encounter.combat = CombatSetup(
+                    enemies=[EnemySpawn(template="goblin", count=2)],
+                    environment=(encounter.combat.environment if encounter.combat else GridEnvironment()),
+                )
+            else:
+                return {"error": "No combat setup for this encounter"}
 
         # Build player dicts directly from party members
         players_dicts = []
@@ -957,15 +973,41 @@ class CampaignEngine:
             "combat_state": combat_state,
         }
 
+    # Hints for mapping an unknown enemy name to one of the 3 shipped templates.
+    _UNDEAD_HINTS = ("skeleton", "zombie", "undead", "ghoul", "ghost", "wraith",
+                     "lich", "bone", "skull", "specter", "spectre", "wight", "shade")
+    _TOUGH_HINTS = ("orc", "ogre", "troll", "brute", "boss", "captain", "knight",
+                    "warrior", "hobgoblin", "bugbear", "berserker", "gnoll")
+
+    def _resolve_fallback_template(self, spawn: EnemySpawn) -> str:
+        """Pick the nearest shipped enemy template (goblin/orc/skeleton) for an
+        unknown spawn so it is never dropped. Selection is name-based: undead-ish
+        -> skeleton, tougher humanoids -> orc, otherwise goblin (generic CR 1/4)."""
+        name = f"{spawn.template} {spawn.name_override or ''}".lower()
+        if any(h in name for h in self._UNDEAD_HINTS):
+            return "skeleton"
+        if any(h in name for h in self._TOUGH_HINTS):
+            return "orc"
+        return "goblin"
+
+    def _load_enemy_template_or_fallback(self, spawn: EnemySpawn) -> Dict[str, Any]:
+        """Load the spawn's template, substituting a CR-appropriate shipped template
+        on a miss (keeping the requested narrative name) so a spawn is never silently
+        dropped — the root cause of empty COMBAT encounters soft-locking a campaign."""
+        template = self._load_enemy_template(spawn.template)
+        if template:
+            return template
+        fallback = self._load_enemy_template(self._resolve_fallback_template(spawn)) or {}
+        # Preserve the requested identity; the fallback only supplies the stats.
+        narrative_name = spawn.name_override or spawn.template.replace("_", " ").title()
+        return {**fallback, "name": narrative_name}
+
     def _create_enemy_dicts(self, combat_setup: CombatSetup) -> List[Dict[str, Any]]:
         """Create enemy dicts directly from combat setup for the combat engine."""
         enemies = []
 
         for spawn in combat_setup.enemies:
-            template = self._load_enemy_template(spawn.template)
-            if not template:
-                print(f"[CampaignEngine] Warning: Could not load template '{spawn.template}'")
-                continue
+            template = self._load_enemy_template_or_fallback(spawn)
 
             for i in range(spawn.count):
                 name = spawn.name_override or template.get("name", spawn.template)
@@ -1007,9 +1049,7 @@ class CampaignEngine:
         enemies = []
 
         for spawn in combat_setup.enemies:
-            template = self._load_enemy_template(spawn.template)
-            if not template:
-                continue
+            template = self._load_enemy_template_or_fallback(spawn)
 
             for i in range(spawn.count):
                 name = spawn.name_override or template.get("name", spawn.template)

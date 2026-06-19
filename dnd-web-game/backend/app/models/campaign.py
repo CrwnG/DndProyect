@@ -222,6 +222,15 @@ class EnemySpawn:
     position: Optional[List[int]] = None  # [x, y] spawn position
     name_override: Optional[str] = None   # Custom name for this enemy
 
+    def __post_init__(self):
+        # A spawn must yield at least one combatant — a 0/negative/malformed count
+        # would pass "non-empty enemy list" checks yet spawn nothing (range(0)),
+        # which still soft-locks the encounter.
+        try:
+            self.count = max(1, int(self.count))
+        except (TypeError, ValueError):
+            self.count = 1
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "template": self.template,
@@ -731,6 +740,14 @@ class Campaign:
             for target in [trans.on_victory, trans.on_flee]:
                 if target and target not in self.encounters:
                     errors.append(f"Encounter {enc_id} references unknown transition: {target}")
+
+            # COMBAT encounters must have a non-empty combat — a combat=None / 0-enemy
+            # COMBAT encounter soft-locks the session (no winnable fight, no advance).
+            # (Unknown enemy templates are NOT an error: the engine resolves them to a
+            # CR-appropriate shipped template at spawn time.)
+            if encounter.type == EncounterType.COMBAT:
+                if encounter.combat is None or not encounter.combat.enemies:
+                    errors.append(f"Combat encounter {enc_id} has no enemies (combat is None or empty)")
 
         # Check starting encounter exists
         if self.starting_encounter and self.starting_encounter not in self.encounters:
