@@ -39,6 +39,12 @@ class SetClassRequest(BaseModel):
     skill_choices: Optional[List[str]] = None
 
 
+class SetSkillsRequest(BaseModel):
+    """Request to set class skill proficiency choices."""
+    build_id: str
+    skills: List[str]
+
+
 class SetBackgroundRequest(BaseModel):
     """Request to set character background."""
     build_id: str
@@ -361,13 +367,13 @@ async def set_class(request: SetClassRequest):
 
 
 @router.post("/build/skills")
-async def set_skill_choices(build_id: str, skills: List[str]):
-    """Set skill proficiency choices."""
-    build = _builder.get_build(build_id)
+async def set_skill_choices(request: SetSkillsRequest):
+    """Set class skill proficiency choices."""
+    build = _builder.get_build(request.build_id)
     if not build:
-        raise HTTPException(status_code=404, detail=f"Build not found: {build_id}")
+        raise HTTPException(status_code=404, detail=f"Build not found: {request.build_id}")
 
-    result = _builder.set_skill_choices(build, skills)
+    result = _builder.set_skill_choices(build, request.skills)
 
     if not result.valid:
         raise HTTPException(status_code=400, detail=result.errors)

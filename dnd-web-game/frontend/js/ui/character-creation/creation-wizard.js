@@ -19,6 +19,7 @@ import api from '../../api/api-client.js';
 const CREATION_STEPS = [
     { id: 'species', name: 'Species', icon: '🧝' },
     { id: 'class', name: 'Class', icon: '⚔️' },
+    { id: 'skills', name: 'Skills', icon: '🎯' },
     { id: 'background', name: 'Background', icon: '📜' },
     { id: 'abilities', name: 'Abilities', icon: '💪' },
     { id: 'feat', name: 'Feat', icon: '✨' },
@@ -58,6 +59,8 @@ class CharacterCreationWizard {
             ability_bonuses: {},
             origin_feat_id: null,
             skill_choices: [],
+            skill_options: [],
+            skill_count: 0,
             equipment_choices: [],
             fighting_style: null,
             weapon_masteries: [],
@@ -200,6 +203,8 @@ class CharacterCreationWizard {
             ability_bonuses: {},
             origin_feat_id: null,
             skill_choices: [],
+            skill_options: [],
+            skill_count: 0,
             equipment_choices: [],
             fighting_style: null,
             weapon_masteries: [],
@@ -273,6 +278,9 @@ class CharacterCreationWizard {
                 break;
             case 'class':
                 this.renderClassStep(container);
+                break;
+            case 'skills':
+                this.renderSkillsStep(container);
                 break;
             case 'background':
                 this.renderBackgroundStep(container);
@@ -382,6 +390,15 @@ class CharacterCreationWizard {
                     return false;
                 }
                 break;
+            case 'skills': {
+                const required = this.build.skill_count || 0;
+                // Classes with no class-skill choices (required === 0) pass straight through.
+                if (required > 0 && (this.build.skill_choices || []).length !== required) {
+                    this.showError(`Please select exactly ${required} skill${required === 1 ? '' : 's'}`);
+                    return false;
+                }
+                break;
+            }
             case 'background':
                 if (!this.build.background_id) {
                     this.showError('Please select a background');
@@ -427,11 +444,24 @@ class CharacterCreationWizard {
                         size: this.build.size
                     });
                     break;
-                case 'class':
-                    await api.post('/creation/build/class', {
+                case 'class': {
+                    // Skills are saved by the dedicated Skills step (single writer);
+                    // the class save only sets the class and reads back its options.
+                    const classResp = await api.post('/creation/build/class', {
                         build_id: this.buildId,
-                        class_id: this.build.class_id,
-                        skill_choices: this.build.skill_choices
+                        class_id: this.build.class_id
+                    });
+                    // Capture the (normalized) skill list + count so the Skills step
+                    // can render the right options — incl. Bard's "any" expanded to
+                    // the full skill list by the backend.
+                    this.build.skill_options = classResp?.data?.skill_options || [];
+                    this.build.skill_count = classResp?.data?.skill_count || 0;
+                    break;
+                }
+                case 'skills':
+                    await api.post('/creation/build/skills', {
+                        build_id: this.buildId,
+                        skills: this.build.skill_choices
                     });
                     break;
                 case 'background':
@@ -625,8 +655,69 @@ class CharacterCreationWizard {
     }
 
     selectClass(classId) {
+        // Changing class invalidates any skills picked from the old class list.
+        if (this.build.class_id !== classId) {
+            this.build.skill_choices = [];
+            this.build.skill_options = [];
+            this.build.skill_count = 0;
+        }
         this.build.class_id = classId;
         this.selectedClass = this.classData.find(c => c.id === classId);
+        this.renderCurrentStep();
+    }
+
+    renderSkillsStep(container) {
+        const options = this.build.skill_options || [];
+        const count = this.build.skill_count || 0;
+        const chosen = this.build.skill_choices || [];
+        const fmt = s => s.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+        if (options.length === 0) {
+            container.innerHTML = `
+                <div class="step-content skills-step">
+                    <h3 class="step-title">Choose Your Skills</h3>
+                    <p class="step-description step-warning">Select a class first, then return here to choose your skill proficiencies.</p>
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="step-content skills-step">
+                <h3 class="step-title">Choose Your Skills</h3>
+                <p class="step-description">
+                    Pick exactly ${count} skill proficienc${count === 1 ? 'y' : 'ies'} from your class list
+                    (<strong>${chosen.length}/${count}</strong> selected).
+                </p>
+                <div class="selection-grid skills-grid">
+                    ${options.map(skill => {
+                        const sel = chosen.includes(skill);
+                        const atMax = !sel && chosen.length >= count;
+                        return `
+                            <div class="selection-card skill-card ${sel ? 'selected' : ''} ${atMax ? 'disabled' : ''}"
+                                 data-skill="${skill}">
+                                <span class="skill-check">${sel ? '☑' : '☐'}</span>
+                                <span class="card-title">${fmt(skill)}</span>
+                            </div>`;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+
+        container.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('click', () => this.toggleSkill(card.dataset.skill));
+        });
+    }
+
+    toggleSkill(skill) {
+        const chosen = this.build.skill_choices || [];
+        const count = this.build.skill_count || 0;
+        const idx = chosen.indexOf(skill);
+        if (idx >= 0) {
+            chosen.splice(idx, 1);              // deselect
+        } else if (chosen.length < count) {
+            chosen.push(skill);                 // select (respecting the cap)
+        }
+        this.build.skill_choices = chosen;
         this.renderCurrentStep();
     }
 

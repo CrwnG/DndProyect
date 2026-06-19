@@ -210,18 +210,34 @@ class CharacterBuilder:
         )
 
     @staticmethod
+    def _all_skills() -> List[str]:
+        """The 18 canonical 5e skill ids (snake_case), matching the class JSON."""
+        from app.core.skill_checks import SKILL_ABILITIES
+        return [s.value for s in SKILL_ABILITIES]
+
+    @staticmethod
     def _get_skill_options(class_data: Dict) -> tuple:
         """Return (options, count) from either class-JSON skill schema.
 
         Most classes use ``skill_choices {options, count}``; rogue/sorcerer/
-        warlock/wizard use ``skill_proficiencies {from, choose}``.
+        warlock/wizard use ``skill_proficiencies {from, choose}``. An options/from
+        value of ``"any"`` (Bard) means "choose from all skills" — expand it to the
+        full skill list rather than leaving the literal string (which made
+        ``skill not in "any"`` a substring test that rejected every real skill).
         """
+        def _expand(options):
+            if options in ("any", ["any"]):
+                return CharacterBuilder._all_skills()
+            return options or []
+
         skill_choices = class_data.get("skill_choices")
-        if isinstance(skill_choices, dict) and skill_choices.get("options"):
-            return skill_choices.get("options", []), skill_choices.get("count", 2)
+        if isinstance(skill_choices, dict) and (
+            skill_choices.get("options") or "count" in skill_choices
+        ):
+            return _expand(skill_choices.get("options")), skill_choices.get("count", 2)
         skill_profs = class_data.get("skill_proficiencies")
         if isinstance(skill_profs, dict):
-            return skill_profs.get("from", []), skill_profs.get("choose", 2)
+            return _expand(skill_profs.get("from")), skill_profs.get("choose", 2)
         return [], 2
 
     @staticmethod
@@ -588,11 +604,13 @@ class CharacterBuilder:
                 if "or" in size.lower() and not build.size:
                     errors.append("Size choice is required for this species")
 
-        # Validate skill choices if class is set
+        # Validate skill choices if class is set. Use the normalized count so the
+        # four skill_proficiencies-schema classes (rogue/sorcerer/warlock/wizard)
+        # are enforced too — checking skill_choices.count alone left them at 0.
         if build.class_id and not build.skill_choices:
             class_data = self.rules.get_class(build.class_id)
-            skill_choices = class_data.get("skill_choices", {})
-            if skill_choices.get("count", 0) > 0:
+            _, required_count = self._get_skill_options(class_data)
+            if required_count > 0:
                 errors.append("Skill proficiencies must be selected")
 
         # Warnings for optional fields
