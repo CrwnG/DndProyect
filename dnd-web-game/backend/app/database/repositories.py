@@ -19,8 +19,10 @@ from app.database.models import (
     CombatStateCreate,
     CombatLog,
     CampaignProgress,
+    CampaignDB,
     SaveGameDB,
     SaveGameCreate,
+    utc_now,
 )
 
 
@@ -327,6 +329,65 @@ class CombatStateRepository:
             xp_awarded=xp_awarded,
             ended_at=datetime.utcnow(),
         )
+
+
+# =============================================================================
+# CAMPAIGN REPOSITORY (editable campaigns)
+# =============================================================================
+
+class CampaignRepository:
+    """Repository for editable campaigns (full Campaign.to_dict() stored as JSON)."""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def get_by_id(self, campaign_id: str) -> Optional[CampaignDB]:
+        """Get a stored campaign by id."""
+        result = await self.session.execute(
+            select(CampaignDB).where(CampaignDB.id == campaign_id)
+        )
+        return result.scalar_one_or_none()
+
+    async def get_all(self, limit: int = 100) -> List[CampaignDB]:
+        """List stored campaigns (most recently updated first)."""
+        result = await self.session.execute(
+            select(CampaignDB).order_by(CampaignDB.updated_at.desc()).limit(limit)
+        )
+        return list(result.scalars().all())
+
+    async def upsert(
+        self,
+        campaign_id: str,
+        name: str,
+        author: str,
+        description: str,
+        data: Dict[str, Any],
+    ) -> CampaignDB:
+        """Create a campaign row, or update it in place if the id already exists."""
+        row = await self.get_by_id(campaign_id)
+        if row is None:
+            row = CampaignDB(
+                id=campaign_id, name=name, author=author,
+                description=description, data=data,
+            )
+            self.session.add(row)
+        else:
+            row.name = name
+            row.author = author
+            row.description = description
+            row.data = data
+            row.updated_at = utc_now()
+        await self.session.flush()
+        return row
+
+    async def delete(self, campaign_id: str) -> bool:
+        """Delete a stored campaign. Returns True if a row was removed."""
+        row = await self.get_by_id(campaign_id)
+        if not row:
+            return False
+        await self.session.delete(row)
+        await self.session.flush()
+        return True
 
 
 # =============================================================================

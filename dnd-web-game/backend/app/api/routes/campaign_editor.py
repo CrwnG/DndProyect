@@ -1,154 +1,185 @@
 """
-D&D Combat Engine - Campaign Editor API Routes
-Endpoints for modifying campaigns before playing.
+Campaign Editor API Routes.
+
+DB-backed editing of the real `Campaign` model. Each operation loads the campaign
+from the `CampaignRepository` (seeding from the shipped JSON campaigns on first
+edit), applies a `CampaignEditorService` operation, and persists the updated
+`Campaign.to_dict()` back. Edits are durable across restarts.
 """
 from typing import List, Dict, Any, Optional
+
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel, Field
 
 from app.services.campaign_editor import campaign_editor
-from app.services.campaign_generator import campaign_generator
-from app.core.errors import GameError, CampaignError, ErrorCode
+from app.core.campaign_engine import load_campaign
+from app.models.campaign import Campaign
+from app.database.dependencies import get_campaign_repo
+from app.database.repositories import CampaignRepository
 from app.middleware.auth import get_current_user_optional
 
 router = APIRouter(prefix="/api/campaign", tags=["campaign-editor"])
 
 
-# ==================== Request/Response Models ====================
+# ==================== Request Models ====================
 
 class UpdateEncounterRequest(BaseModel):
-    """Request to update an encounter."""
     name: Optional[str] = None
-    description: Optional[str] = None
+    type: Optional[str] = None
     difficulty: Optional[str] = None
-    enemies: Optional[List[Dict[str, Any]]] = None
+    story: Optional[Dict[str, Any]] = None
+    combat: Optional[Dict[str, Any]] = None
+    choices: Optional[Dict[str, Any]] = None
     rewards: Optional[Dict[str, Any]] = None
-    choices: Optional[List[Dict[str, Any]]] = None
-    story_text: Optional[str] = None
-    outcome_text: Optional[str] = None
-    triggers: Optional[Dict[str, Any]] = None
-
-
-class ReorderEncountersRequest(BaseModel):
-    """Request to reorder encounters."""
-    encounter_ids: List[str] = Field(..., description="Encounter IDs in new order")
+    transitions: Optional[Dict[str, Any]] = None
+    requires_flags: Optional[List[str]] = None
 
 
 class AddEncounterRequest(BaseModel):
-    """Request to add a new encounter."""
     id: Optional[str] = None
     name: str = "New Encounter"
     type: str = "combat"
-    description: str = ""
-    difficulty: Optional[str] = "medium"
-    enemies: Optional[List[Dict[str, Any]]] = None
+    difficulty: Optional[str] = None
+    story: Optional[Dict[str, Any]] = None
+    combat: Optional[Dict[str, Any]] = None
+    choices: Optional[Dict[str, Any]] = None
     rewards: Optional[Dict[str, Any]] = None
-    choices: Optional[List[Dict[str, Any]]] = None
-    story_text: Optional[str] = None
-    outcome_text: Optional[str] = None
     position: Optional[int] = None
 
 
+class ReorderEncountersRequest(BaseModel):
+    encounter_ids: List[str] = Field(..., description="Encounter IDs in new order")
+
+
 class UpdateNPCRequest(BaseModel):
-    """Request to update an NPC."""
-    name: Optional[str] = None
-    role: Optional[str] = None
-    disposition: Optional[int] = None
-    personality: Optional[Dict[str, Any]] = None
+    fields: Dict[str, Any] = Field(default_factory=dict, description="NPC fields to set")
 
 
 class UpdateCampaignMetadataRequest(BaseModel):
-    """Request to update campaign metadata."""
     name: Optional[str] = None
     description: Optional[str] = None
-    theme: Optional[str] = None
+    author: Optional[str] = None
+    tone: Optional[str] = None
     difficulty: Optional[str] = None
-    party_level_range: Optional[List[int]] = None
+    starting_level: Optional[int] = None
+    starting_gold: Optional[int] = None
 
 
 class DuplicateCampaignRequest(BaseModel):
-    """Request to duplicate a campaign."""
     new_name: Optional[str] = None
 
 
-# ==================== Load Campaign for Editing ====================
+# ==================== Helpers ====================
+
+async def _load_or_seed(campaign_id: str, repo: CampaignRepository) -> Campaign:
+    """Load an editable campaign from the DB, seeding from the shipped JSON
+    campaign on first edit. Raises 404 if neither source has it."""
+    row = await repo.get_by_id(campaign_id)
+    if row is not None:
+        return Campaign.from_dict(row.data)
+
+    seeded = load_campaign(campaign_id)
+    if seeded is not None:
+        return seeded
+
+    raise HTTPException(status_code=404, detail=f"Campaign not found: {campaign_id}")
+
+
+async def _persist(campaign: Campaign, repo: CampaignRepository) -> None:
+    """Persist a campaign and commit the transaction."""
+    await repo.upsert(
+        campaign.id, campaign.name, campaign.author, campaign.description,
+        campaign.to_dict(),
+    )
+    await repo.session.commit()
+
+
+def _ok(campaign: Campaign, **extra) -> Dict[str, Any]:
+    """Standard response: success + the full campaign + any extra payload."""
+    return {"success": True, "campaign": campaign.to_dict(), **extra}
+
+
+# ==================== Load / Get ====================
 
 @router.post("/{campaign_id}/edit")
 async def load_campaign_for_editing(
     campaign_id: str,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """
-    Load a campaign into the editor.
-    Must be called before other edit operations.
-    """
-    try:
-        # Get campaign from generator's memory or database
-        # For now, we'll use the campaign generator's stored campaigns
-        campaign = await campaign_generator.get_campaign(campaign_id)
-
-        if not campaign:
-            raise CampaignError(
-                code=ErrorCode.CAMPAIGN_NOT_FOUND,
-                message=f"Campaign {campaign_id} not found"
-            )
-
-        # Load into editor
-        campaign_editor.load_campaign(campaign_id, campaign)
-
-        return {
-            "success": True,
-            "message": "Campaign loaded for editing",
-            "campaign": campaign_editor.get_editable_campaign(campaign_id)
-        }
-
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    """Load a campaign into the editor (seeding + persisting on first edit)."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    await _persist(campaign, repo)   # materialize the editable copy in the DB
+    return _ok(campaign, message="Campaign loaded for editing")
 
 
 @router.get("/{campaign_id}/edit")
 async def get_editable_campaign(
     campaign_id: str,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """Get a campaign in editable format."""
-    try:
-        return {
-            "success": True,
-            "campaign": campaign_editor.get_editable_campaign(campaign_id)
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    """Get the current editable campaign."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    return _ok(campaign)
 
 
 # ==================== Encounter Operations ====================
+
+@router.post("/{campaign_id}/chapter/{chapter_id}/encounter")
+async def add_encounter(
+    campaign_id: str,
+    chapter_id: str,
+    request: AddEncounterRequest,
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
+):
+    """Add a new encounter to a chapter."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    data = {k: v for k, v in request.model_dump().items() if v is not None}
+    position = data.pop("position", None)
+    try:
+        encounter = campaign_editor.add_encounter(campaign, data, chapter_id, position)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    await _persist(campaign, repo)
+    return _ok(campaign, encounter=encounter.to_dict())
+
 
 @router.put("/{campaign_id}/encounter/{encounter_id}")
 async def update_encounter(
     campaign_id: str,
     encounter_id: str,
     request: UpdateEncounterRequest,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
     """Update an encounter's properties."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    updates = {k: v for k, v in request.model_dump().items() if v is not None}
     try:
-        # Filter out None values
-        data = {k: v for k, v in request.model_dump().items() if v is not None}
+        encounter = campaign_editor.update_encounter(campaign, encounter_id, updates)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    if encounter is None:
+        raise HTTPException(status_code=404, detail=f"Encounter not found: {encounter_id}")
+    await _persist(campaign, repo)
+    return _ok(campaign, encounter=encounter.to_dict())
 
-        encounter = campaign_editor.update_encounter(campaign_id, encounter_id, data)
 
-        return {
-            "success": True,
-            "encounter": encounter
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@router.delete("/{campaign_id}/encounter/{encounter_id}")
+async def remove_encounter(
+    campaign_id: str,
+    encounter_id: str,
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
+):
+    """Remove an encounter and purge all references to it."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    if not campaign_editor.remove_encounter(campaign, encounter_id):
+        raise HTTPException(status_code=404, detail=f"Encounter not found: {encounter_id}")
+    await _persist(campaign, repo)
+    return _ok(campaign)
 
 
 @router.put("/{campaign_id}/chapter/{chapter_id}/reorder")
@@ -156,78 +187,19 @@ async def reorder_encounters(
     campaign_id: str,
     chapter_id: str,
     request: ReorderEncountersRequest,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """Reorder encounters within a chapter."""
+    """Reorder the encounters within a chapter."""
+    campaign = await _load_or_seed(campaign_id, repo)
     try:
-        chapter = campaign_editor.reorder_encounters(
-            campaign_id,
-            chapter_id,
-            request.encounter_ids
-        )
-
-        return {
-            "success": True,
-            "chapter": chapter
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/{campaign_id}/chapter/{chapter_id}/encounter")
-async def add_encounter(
-    campaign_id: str,
-    chapter_id: str,
-    request: AddEncounterRequest,
-    user=Depends(get_current_user_optional)
-):
-    """Add a new encounter to a chapter."""
-    try:
-        data = request.model_dump()
-        position = data.pop("position", None)
-
-        encounter = campaign_editor.add_encounter(
-            campaign_id,
-            chapter_id,
-            data,
-            position
-        )
-
-        return {
-            "success": True,
-            "encounter": encounter
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.delete("/{campaign_id}/chapter/{chapter_id}/encounter/{encounter_id}")
-async def remove_encounter(
-    campaign_id: str,
-    chapter_id: str,
-    encounter_id: str,
-    user=Depends(get_current_user_optional)
-):
-    """Remove an encounter from a chapter."""
-    try:
-        chapter = campaign_editor.remove_encounter(
-            campaign_id,
-            chapter_id,
-            encounter_id
-        )
-
-        return {
-            "success": True,
-            "chapter": chapter
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        ok = campaign_editor.reorder_encounters(campaign, chapter_id, request.encounter_ids)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    if not ok:
+        raise HTTPException(status_code=404, detail=f"Chapter not found: {chapter_id}")
+    await _persist(campaign, repo)
+    return _ok(campaign)
 
 
 # ==================== NPC Operations ====================
@@ -237,22 +209,14 @@ async def update_npc(
     campaign_id: str,
     npc_id: str,
     request: UpdateNPCRequest,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """Update an NPC's properties."""
-    try:
-        data = {k: v for k, v in request.model_dump().items() if v is not None}
-
-        npc = campaign_editor.update_npc(campaign_id, npc_id, data)
-
-        return {
-            "success": True,
-            "npc": npc
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    """Create or update an NPC."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    npc = campaign_editor.update_npc(campaign, npc_id, request.fields)
+    await _persist(campaign, repo)
+    return _ok(campaign, npc=npc)
 
 
 # ==================== Campaign Operations ====================
@@ -261,135 +225,53 @@ async def update_npc(
 async def update_campaign_metadata(
     campaign_id: str,
     request: UpdateCampaignMetadataRequest,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """Update campaign metadata (name, description, etc.)."""
+    """Update campaign metadata (name, description, difficulty, …)."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    updates = {k: v for k, v in request.model_dump().items() if v is not None}
     try:
-        data = {k: v for k, v in request.model_dump().items() if v is not None}
+        campaign_editor.update_metadata(campaign, **updates)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    await _persist(campaign, repo)
+    return _ok(campaign)
 
-        metadata = campaign_editor.update_campaign_metadata(campaign_id, data)
 
-        return {
-            "success": True,
-            "campaign": metadata
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+@router.get("/{campaign_id}/validate")
+async def validate_campaign(
+    campaign_id: str,
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
+):
+    """Validate a campaign's structure; returns the list of errors (empty = valid)."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    errors = campaign_editor.validate(campaign)
+    return {"success": True, "valid": len(errors) == 0, "errors": errors}
 
 
 @router.post("/{campaign_id}/duplicate")
 async def duplicate_campaign(
     campaign_id: str,
     request: DuplicateCampaignRequest,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """Create a copy of a campaign."""
-    try:
-        new_campaign = campaign_editor.duplicate_campaign(
-            campaign_id,
-            request.new_name
-        )
-
-        return {
-            "success": True,
-            "campaign": new_campaign
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    """Create an independent copy of a campaign under a new id."""
+    campaign = await _load_or_seed(campaign_id, repo)
+    copy = campaign_editor.duplicate(campaign, request.new_name)
+    await _persist(copy, repo)
+    return _ok(copy, message="Campaign duplicated")
 
 
-@router.post("/{campaign_id}/save")
-async def save_campaign(
+@router.delete("/{campaign_id}")
+async def delete_campaign(
     campaign_id: str,
-    user=Depends(get_current_user_optional)
+    repo: CampaignRepository = Depends(get_campaign_repo),
+    user=Depends(get_current_user_optional),
 ):
-    """
-    Save changes made to a campaign.
-    Persists the edited campaign back to storage.
-    """
-    try:
-        campaign = campaign_editor.save_campaign(campaign_id)
-
-        # In a full implementation, this would save to database
-        # For now, update the campaign generator's memory
-        await campaign_generator.store_campaign(campaign)
-
-        return {
-            "success": True,
-            "message": "Campaign saved successfully",
-            "campaign_id": campaign.id
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/{campaign_id}/discard")
-async def discard_changes(
-    campaign_id: str,
-    user=Depends(get_current_user_optional)
-):
-    """Discard all unsaved changes to a campaign."""
-    try:
-        campaign_editor.discard_changes(campaign_id)
-
-        return {
-            "success": True,
-            "message": "Changes discarded"
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ==================== Edit History Operations ====================
-
-@router.get("/{campaign_id}/history")
-async def get_edit_history(
-    campaign_id: str,
-    user=Depends(get_current_user_optional)
-):
-    """Get the edit history for a campaign."""
-    try:
-        history = campaign_editor.get_edit_history(campaign_id)
-
-        return {
-            "success": True,
-            "history": history
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@router.post("/{campaign_id}/undo")
-async def undo_last_change(
-    campaign_id: str,
-    user=Depends(get_current_user_optional)
-):
-    """Undo the last change to a campaign."""
-    try:
-        change = campaign_editor.undo_last_change(campaign_id)
-
-        if not change:
-            return {
-                "success": False,
-                "message": "No changes to undo"
-            }
-
-        return {
-            "success": True,
-            "undone_change": change,
-            "campaign": campaign_editor.get_editable_campaign(campaign_id)
-        }
-    except GameError:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    """Delete a stored (edited) campaign. The shipped JSON original is untouched."""
+    deleted = await repo.delete(campaign_id)
+    await repo.session.commit()
+    return {"success": deleted}

@@ -20,7 +20,7 @@ The **logic** of the core loop is complete and correct — a static trace of the
 | Character creation & progression | ~50% | Progression math solid; skill selection broken for 4 classes; no subclass step; output shape ≠ combatant |
 | Spells & spellcasting | 52% | Slot/DC/scaling tables correct; ~54% of spells deal 0 effect (prose regex); upcast broken; metamagic cosmetic |
 | Campaign engine & AI DM | 62% | State machine + graceful no-key fallback solid; cutscene rewards dropped; save/load broken; consequence/pacing modules unwired |
-| Campaign generator/parser/editor | 45% | Import path plausibly works; **editor coded against a non-existent schema (broken)** |
+| Campaign generator/parser/editor | 60% | Import path plausibly works; **editor rebuilt 2026-06-19 — DB-backed + schema-correct (R1)** |
 | Multiplayer | 38% | Real WS + voting UI, but no auth, deadlocking timeouts, not wired to gameplay — demo scaffold |
 | Loot/equipment/shops | 55% | Loot + equip affect combat (verified); **shops 500 (missing module)**; split gold economy |
 | Map/dungeon generation | 45% | Single-room OK but orphaned; multi-room spawns 0 enemies (verified) |

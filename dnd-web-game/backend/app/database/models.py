@@ -371,6 +371,31 @@ class CampaignProgress(SQLModel, table=True):
 
 
 # =============================================================================
+# CAMPAIGN MODEL (editable campaigns)
+# =============================================================================
+
+class CampaignDB(SQLModel, table=True):
+    """A persisted, editable campaign.
+
+    Stores the full `Campaign.to_dict()` snapshot as JSON so the editor can
+    round-trip the real domain model without per-field column mapping. Name /
+    author / description are mirrored into columns for cheap listing.
+    """
+    __tablename__ = "campaigns"
+
+    id: str = Field(default_factory=generate_uuid, primary_key=True)
+    name: str = Field(default="Untitled Campaign")
+    author: str = Field(default="")
+    description: str = Field(default="")
+
+    # Full Campaign.to_dict() snapshot.
+    data: Dict[str, Any] = Field(default_factory=dict, sa_column=Column(JSON))
+
+    created_at: datetime = Field(default_factory=utc_now)
+    updated_at: datetime = Field(default_factory=utc_now)
+
+
+# =============================================================================
 # SAVE GAME MODEL
 # =============================================================================
 
