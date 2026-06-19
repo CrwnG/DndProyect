@@ -390,12 +390,15 @@ class CharacterCreationWizard {
                     return false;
                 }
                 break;
-            case 'skills':
-                if ((this.build.skill_choices || []).length !== this.build.skill_count) {
-                    this.showError(`Please select exactly ${this.build.skill_count} skill${this.build.skill_count === 1 ? '' : 's'}`);
+            case 'skills': {
+                const required = this.build.skill_count || 0;
+                // Classes with no class-skill choices (required === 0) pass straight through.
+                if (required > 0 && (this.build.skill_choices || []).length !== required) {
+                    this.showError(`Please select exactly ${required} skill${required === 1 ? '' : 's'}`);
                     return false;
                 }
                 break;
+            }
             case 'background':
                 if (!this.build.background_id) {
                     this.showError('Please select a background');
@@ -442,10 +445,11 @@ class CharacterCreationWizard {
                     });
                     break;
                 case 'class': {
+                    // Skills are saved by the dedicated Skills step (single writer);
+                    // the class save only sets the class and reads back its options.
                     const classResp = await api.post('/creation/build/class', {
                         build_id: this.buildId,
-                        class_id: this.build.class_id,
-                        skill_choices: this.build.skill_choices
+                        class_id: this.build.class_id
                     });
                     // Capture the (normalized) skill list + count so the Skills step
                     // can render the right options — incl. Bard's "any" expanded to
