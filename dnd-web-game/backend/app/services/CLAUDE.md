@@ -19,10 +19,10 @@
 | `campaign_generator.py` | concept → `Campaign` via Claude | needs key; ⚠️ never sets `starting_encounter` → generated campaign won't start |
 | `campaign_parser.py` | text/PDF → `Campaign` | works on regex-friendly input; strict stat-block regex → real PDFs often yield combats with **0 enemies** |
 | `entity_extractor.py`, `npc_generator.py` | regex entities, NPCs | OK (NPC has AI + deterministic fallback) |
-| `campaign_editor.py` + `api/routes/campaign_editor.py` | edit/validate campaigns | 🔴 **broken — coded against a schema that doesn't exist** |
+| `campaign_editor.py` + `api/routes/campaign_editor.py` | edit/validate campaigns | ✅ **rebuilt 2026-06-19 — DB-backed, schema-correct** |
 | `pdf_parser.py`, `json_parser.py` | D&D Beyond **character-sheet** parsers | not part of the campaign-import path despite the name |
 
-🔴 **The editor is non-functional.** `campaign_editor.py` reads `chapter.name` (model field is `title`), treats `chapter.encounters` as `Encounter` objects (they're `List[str]` IDs), reads `encounter.description/enemies/story_text` (model has `story/combat/choices/rewards`), iterates `campaign.npcs` as objects (it's a `Dict`), and reads `campaign.world_state` (doesn't exist). The routes also call `campaign_generator.get_campaign/store_campaign` which **don't exist** → AttributeError/TypeError on every load/save/duplicate. The frontend editor uses a *third* flat schema. **Reconcile to ONE campaign schema** (the `models/campaign.py` shape the [campaign engine](../core/CLAUDE.md) consumes) before doing editor work.
+✅ **Editor rebuilt (R1).** `campaign_editor.py` now operates on the real `models/campaign.py` `Campaign` (encounters dict + chapter encounter-id lists + plain `npcs` dict) — `CampaignEditorService` is stateless (mutates a passed-in `Campaign`). Persistence is a new `CampaignDB` table (full `Campaign.to_dict()` JSON) via `CampaignRepository` (`get_campaign_repo` dependency); routes do **load-or-seed** (seed from the shipped JSON campaign on first edit) → edit → persist, so edits are durable across restarts. Covered by `tests/test_campaign_editor.py`. The old stateful undo/history/discard endpoints were dropped. (The frontend editor's third flat schema is still unreconciled — wire it to these endpoints when the editor UI is connected.)
 
 ## Auth (`auth_service.py`)
 
