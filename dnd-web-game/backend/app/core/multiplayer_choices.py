@@ -139,6 +139,13 @@ class MultiplayerChoiceHandler:
         """
         session_id = str(uuid.uuid4())
 
+        # Leader/consensus modes resolve on (or fall back to) the leader's vote;
+        # with no leader they could never resolve. Default to the first player.
+        if leader_id is None and player_ids and mode in (
+            DecisionMode.LEADER_DECIDES, DecisionMode.CONSENSUS
+        ):
+            leader_id = player_ids[0]
+
         # Determine current "face" for rotating mode
         current_face = None
         if mode == DecisionMode.ROTATING:
@@ -462,6 +469,44 @@ class MultiplayerChoiceHandler:
         del self._active_sessions[choice_session_id]
 
         return result
+
+    async def remove_player(
+        self, game_session_id: str, player_id: str
+    ) -> Optional[VoteResult]:
+        """Drop a (disconnected) player from this game's active vote.
+
+        Their absence must not deadlock the quorum: shrink ``required_players``
+        (and discard any vote they cast), then re-check resolution. If no players
+        remain, the vote is cancelled rather than resolved to a bogus choice.
+
+        Returns the VoteResult if the removal resolved the vote, else None.
+        """
+        session = self.get_active_for_game(game_session_id)
+        if not session or session.status != VoteStatus.IN_PROGRESS:
+            return None
+
+        changed = False
+        if player_id in session.required_players:
+            session.required_players.discard(player_id)
+            changed = True
+        if player_id in session.votes:
+            del session.votes[player_id]
+            changed = True
+        if not changed:
+            return None
+
+        if not session.required_players:
+            await self.cancel_choice(session.id)
+            return None
+
+        # If the leader/face left a mode that resolves on them, hand off so the
+        # vote can still complete.
+        if session.leader_id == player_id:
+            session.leader_id = next(iter(session.required_players))
+        if session.current_face_id == player_id:
+            session.current_face_id = next(iter(session.required_players))
+
+        return await self.check_resolution(session.id)
 
     async def cancel_choice(self, choice_session_id: str) -> bool:
         """Cancel an active choice session."""

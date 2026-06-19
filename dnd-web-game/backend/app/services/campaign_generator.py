@@ -127,6 +127,14 @@ class CampaignGeneratorService:
         # Step 3: Generate detailed encounters for each chapter
         await self._populate_encounters(campaign, party_level_range[0])
 
+        # Ensure the campaign has an opening encounter so a new session can start
+        # (GameSession.create_new reads campaign.starting_encounter).
+        if not campaign.starting_encounter:
+            campaign.starting_encounter = next(
+                (eid for ch in campaign.chapters for eid in (ch.encounters or [])),
+                None,
+            ) or next(iter(campaign.encounters), None)
+
         # Step 4: Generate NPCs
         await self._populate_npcs(campaign)
 

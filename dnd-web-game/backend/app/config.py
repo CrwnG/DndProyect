@@ -32,3 +32,24 @@ class Settings:
 def get_settings() -> Settings:
     """Get cached settings instance."""
     return Settings()
+
+
+_DEV_JWT_DEFAULTS = {
+    "",
+    "dev-secret-key-change-in-production",
+    "dev-refresh-secret-key-change-in-production",
+}
+
+
+def check_jwt_secrets(jwt_secret: str, jwt_refresh_secret: str) -> list:
+    """Return security warnings for weak/default JWT secrets.
+
+    Does NOT raise (local/dev startup is never blocked); the app logs these at
+    startup. Set strong JWT_SECRET_KEY/JWT_REFRESH_SECRET_KEY before deploying.
+    """
+    warnings = []
+    if jwt_secret in _DEV_JWT_DEFAULTS:
+        warnings.append("JWT_SECRET_KEY is unset or the public dev default — set a strong secret before any non-local deployment.")
+    if jwt_refresh_secret in _DEV_JWT_DEFAULTS:
+        warnings.append("JWT_REFRESH_SECRET_KEY is unset or the public dev default — set a strong secret before any non-local deployment.")
+    return warnings

@@ -31,6 +31,17 @@ class APIClient {
             },
         };
 
+        // Attach the stored access token (set by AuthService under this key) so
+        // gameplay calls are authenticated once the backend enforces auth.
+        if (!mergedOptions.headers['Authorization']) {
+            const token = (typeof localStorage !== 'undefined')
+                ? localStorage.getItem('dnd_access_token')
+                : null;
+            if (token) {
+                mergedOptions.headers['Authorization'] = `Bearer ${token}`;
+            }
+        }
+
         if (CONFIG.DEBUG) {
             console.log(`[API] ${options.method || 'GET'} ${url}`, options.body ? JSON.parse(options.body) : '');
         }
@@ -166,8 +177,11 @@ class APIClient {
      * @param {string} reactorId - ID of the combatant using their reaction
      * @param {string} reactionType - Type of reaction (opportunity_attack, shield, uncanny_dodge)
      * @param {string} triggerSourceId - ID of the combatant that triggered the reaction
+     * @param {Object} [extra] - Trigger context (e.g. { incoming_damage, attack_roll })
+     *   needed by defensive reactions: Shield uses attack_roll, Uncanny Dodge uses
+     *   incoming_damage. Without it the backend can't reverse/halve the hit.
      */
-    async useReaction(combatId, reactorId, reactionType, triggerSourceId) {
+    async useReaction(combatId, reactorId, reactionType, triggerSourceId, extra = {}) {
         // Validate all required parameters to prevent 422 errors
         if (!combatId || typeof combatId !== 'string') {
             throw new APIError(`useReaction: Invalid combat_id: ${combatId}`, 400, null);
@@ -187,6 +201,7 @@ class APIClient {
             reaction_type: reactionType,
             trigger_source_id: triggerSourceId,
             extra_data: {
+                ...extra,
                 reactor_id: reactorId
             }
         };

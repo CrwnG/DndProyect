@@ -220,6 +220,16 @@ def roll_dice(notation: str) -> int:
     return total
 
 
+def dice_only(notation: str) -> str:
+    """Return only the dice terms of a notation, dropping flat modifiers.
+
+    e.g. "2d10+6" -> "2d10", "3d6+2d4+5" -> "3d6+2d4", "7" -> "0".
+    Used for critical hits, which double the dice but NOT the flat modifier.
+    """
+    terms = re.findall(r'[+-]?\d*d\d+', notation.replace(" ", ""))
+    return "".join(terms) or "0"
+
+
 def roll_initiative(dexterity_modifier: int = 0) -> int:
     """
     Roll initiative (d20 + DEX modifier).
