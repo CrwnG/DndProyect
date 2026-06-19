@@ -4704,8 +4704,10 @@ class CombatEngine:
         vx, vy = dpx - ox, dpy - oy
         dlen = (vx * vx + vy * vy) ** 0.5
         if dlen == 0:
-            # No usable direction -> fall back to a range check so AoE still fires.
-            return dist_ft <= length_ft
+            # No usable aim direction: a cone/line can't be oriented. Do NOT fall
+            # back to a range check (that was the R13 sphere bug). The caller's
+            # primary-target fallback still ensures the intended target is hit.
+            return False
         ux, uy = vx / dlen, vy / dlen
         proj = wx * ux + wy * uy          # grid squares along the aim axis
         perp = abs(wx * uy - wy * ux)     # grid squares perpendicular to it

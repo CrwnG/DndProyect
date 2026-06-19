@@ -467,17 +467,22 @@ class ReactionPrompt {
         try {
             const gameState = state.getState();
             // Forward the trigger context so the backend can reverse (Shield) or
-            // halve (Uncanny Dodge) the hit that already landed.
+            // halve (Uncanny Dodge) the hit that already landed. Only include keys
+            // the trigger actually carries — a fabricated attack_roll of 0 would
+            // make Shield resolve as an automatic miss.
             const trigger = this.currentTrigger || {};
+            const extra = {};
+            const incoming = trigger.incoming_damage ?? trigger.damage;
+            if (incoming != null) extra.incoming_damage = incoming;
+            if (trigger.attack_roll != null) extra.attack_roll = trigger.attack_roll;
+            if (trigger.pre_hit_hp != null) extra.pre_hit_hp = trigger.pre_hit_hp;
+            if (trigger.is_critical != null) extra.is_critical = trigger.is_critical;
             const response = await api.useReaction(
                 gameState.combat?.id,
                 gameState.playerId,
                 reaction.id,
                 trigger.trigger_source_id,
-                {
-                    incoming_damage: trigger.incoming_damage ?? 0,
-                    attack_roll: trigger.attack_roll ?? 0
-                }
+                extra
             );
 
             if (response.success) {

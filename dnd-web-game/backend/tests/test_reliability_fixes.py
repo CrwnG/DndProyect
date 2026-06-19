@@ -73,6 +73,9 @@ def test_aoe_cone_and_line_respect_direction():
     assert not f("line", origin, direction, (-1, 0), 60, 5)
     # Sphere is omnidirectional within range.
     assert f("sphere", origin, direction, (0, 4), 30)
+    # QA-F5: with no aim direction a cone/line must NOT fall back to a sphere.
+    assert not f("cone", origin, origin, (1, 0), 30)
+    assert not f("line", origin, origin, (1, 0), 60, 5)
 
 
 def _engine_with(reactor_id, **player_over):
@@ -136,7 +139,8 @@ def test_shield_spends_slot_and_negates_damage_on_miss():
     assert info["slot_spent"] is True
     assert info["hp_restored"] == 12
     assert engine.state.combatant_stats["wiz-1"]["current_hp"] == 30
-    assert engine.state.combatant_stats["wiz-1"]["spell_slots_used"].get(1, 0) == 1
+    # Slot spent by decrementing spell_slots (matches the engine's accounting), 2 -> 1.
+    assert engine.state.combatant_stats["wiz-1"]["spell_slots"][1] == 1
 
 
 def test_shield_spends_slot_but_keeps_damage_when_attack_still_hits():
@@ -154,6 +158,44 @@ def test_shield_spends_slot_but_keeps_damage_when_attack_still_hits():
     assert info["slot_spent"] is True
     assert info["hp_restored"] == 0
     assert engine.state.combatant_stats["wiz-2"]["current_hp"] == 18
+    assert engine.state.combatant_stats["wiz-2"]["spell_slots"][1] == 0     # 1 -> 0
+
+
+def test_uncanny_dodge_does_not_overheal_on_lethal_hit():
+    """R14/QA-F1: a hit that clamped HP to 0 must not let Uncanny Dodge restore
+    above what the halved damage allows. Rogue at 10 HP hit for 20 -> takes 10 -> 0."""
+    from app.api.routes.combat import apply_defensive_reaction
+    from app.core.reactions import ReactionType, resolve_uncanny_dodge
+
+    engine = _engine_with("rogue-2")
+    engine.state.combatant_stats["rogue-2"]["current_hp"] = 0   # 10 HP, took 20 -> clamped
+    result = resolve_uncanny_dodge("rogue-2", "Rogue", 20)
+
+    info = apply_defensive_reaction(
+        engine, "rogue-2", ReactionType.UNCANNY_DODGE, result, 20, pre_hit_hp=10
+    )
+
+    assert engine.state.combatant_stats["rogue-2"]["current_hp"] == 0   # 10 - 10, not 10
+    assert info["hp_restored"] == 0
+
+
+def test_shield_negation_uses_pre_hit_hp_on_lethal_hit():
+    """R14/QA-F1: Shield turning a lethal hit into a miss restores to the pre-hit HP,
+    not to current+incoming (which could exceed it)."""
+    from app.api.routes.combat import apply_defensive_reaction
+    from app.core.reactions import ReactionType, resolve_shield_spell
+
+    engine = _engine_with("wiz-3", spell_slots={1: 1})
+    engine.state.combatant_stats["wiz-3"]["current_hp"] = 0     # 8 HP, took 25 -> clamped
+    result = resolve_shield_spell("wiz-3", "Wizard", attack_roll=16, current_ac=15, has_spell_slot=True)
+    assert result.extra_data["attack_would_miss"] is True
+
+    info = apply_defensive_reaction(
+        engine, "wiz-3", ReactionType.SHIELD, result, 25, pre_hit_hp=8
+    )
+
+    assert engine.state.combatant_stats["wiz-3"]["current_hp"] == 8   # back to pre-hit, not 25
+    assert info["hp_restored"] == 8
 
 
 async def test_leader_decides_vote_defaults_leader_when_unset():
