@@ -56,6 +56,23 @@ def test_create_enemy_dicts_never_drops_unknown_template():
         assert d["max_hp"] > 1                      # real stats, not a 1-HP stub
 
 
+def test_enemy_spawn_count_is_clamped_to_at_least_one():
+    """QA-F1: a 0/negative/malformed count must not yield 0 enemies (which would
+    pass the 'non-empty list' checks yet still soft-lock)."""
+    assert EnemySpawn(template="bandit", count=0).count == 1
+    assert EnemySpawn(template="bandit", count=-3).count == 1
+    assert EnemySpawn(template="bandit", count="oops").count == 1
+    assert EnemySpawn(template="bandit", count=4).count == 4
+
+
+def test_create_enemy_dicts_handles_zero_count_spawn():
+    """QA-F1: a zero-count spawn still produces at least one combatant."""
+    eng = _engine_stub()
+    setup = CombatSetup(enemies=[EnemySpawn(template="bandit", count=0)],
+                        environment=GridEnvironment())
+    assert len(eng._create_enemy_dicts(setup)) >= 1
+
+
 def test_create_enemy_dicts_keeps_narrative_name():
     eng = _engine_stub()
     setup = CombatSetup(enemies=[EnemySpawn(template="cultist", count=1)],

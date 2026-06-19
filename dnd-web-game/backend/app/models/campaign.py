@@ -222,6 +222,15 @@ class EnemySpawn:
     position: Optional[List[int]] = None  # [x, y] spawn position
     name_override: Optional[str] = None   # Custom name for this enemy
 
+    def __post_init__(self):
+        # A spawn must yield at least one combatant — a 0/negative/malformed count
+        # would pass "non-empty enemy list" checks yet spawn nothing (range(0)),
+        # which still soft-locks the encounter.
+        try:
+            self.count = max(1, int(self.count))
+        except (TypeError, ValueError):
+            self.count = 1
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "template": self.template,
