@@ -138,7 +138,10 @@ async def add_encounter(
     campaign = await _load_or_seed(campaign_id, repo)
     data = {k: v for k, v in request.model_dump().items() if v is not None}
     position = data.pop("position", None)
-    encounter = campaign_editor.add_encounter(campaign, data, chapter_id, position)
+    try:
+        encounter = campaign_editor.add_encounter(campaign, data, chapter_id, position)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     await _persist(campaign, repo)
     return _ok(campaign, encounter=encounter.to_dict())
 
@@ -154,7 +157,10 @@ async def update_encounter(
     """Update an encounter's properties."""
     campaign = await _load_or_seed(campaign_id, repo)
     updates = {k: v for k, v in request.model_dump().items() if v is not None}
-    encounter = campaign_editor.update_encounter(campaign, encounter_id, updates)
+    try:
+        encounter = campaign_editor.update_encounter(campaign, encounter_id, updates)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     if encounter is None:
         raise HTTPException(status_code=404, detail=f"Encounter not found: {encounter_id}")
     await _persist(campaign, repo)
@@ -186,7 +192,11 @@ async def reorder_encounters(
 ):
     """Reorder the encounters within a chapter."""
     campaign = await _load_or_seed(campaign_id, repo)
-    if not campaign_editor.reorder_encounters(campaign, chapter_id, request.encounter_ids):
+    try:
+        ok = campaign_editor.reorder_encounters(campaign, chapter_id, request.encounter_ids)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    if not ok:
         raise HTTPException(status_code=404, detail=f"Chapter not found: {chapter_id}")
     await _persist(campaign, repo)
     return _ok(campaign)
@@ -221,7 +231,10 @@ async def update_campaign_metadata(
     """Update campaign metadata (name, description, difficulty, …)."""
     campaign = await _load_or_seed(campaign_id, repo)
     updates = {k: v for k, v in request.model_dump().items() if v is not None}
-    campaign_editor.update_metadata(campaign, **updates)
+    try:
+        campaign_editor.update_metadata(campaign, **updates)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     await _persist(campaign, repo)
     return _ok(campaign)
 

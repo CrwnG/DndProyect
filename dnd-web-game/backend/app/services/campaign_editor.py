@@ -58,23 +58,33 @@ class CampaignEditorService:
         chapter_id: Optional[str] = None,
         position: Optional[int] = None,
     ) -> Encounter:
-        """Create an encounter and (optionally) place its id in a chapter's order."""
+        """Create an encounter and (optionally) place its id in a chapter's order.
+
+        Validates preconditions BEFORE mutating: a supplied id must not already
+        exist, and a supplied chapter_id must resolve — otherwise raises ValueError
+        (so the route can 400/404 without leaving an orphaned encounter)."""
         data = dict(encounter_data)
         enc_id = data.get("id") or str(uuid.uuid4())
+        if enc_id in campaign.encounters:
+            raise ValueError(f"Encounter id already exists: {enc_id}")
+
+        chapter = None
+        if chapter_id:
+            chapter = self._chapter(campaign, chapter_id)
+            if chapter is None:
+                raise ValueError(f"Chapter not found: {chapter_id}")
+
         data["id"] = enc_id
         data.setdefault("type", "combat")
         data.setdefault("name", "New Encounter")
-
         encounter = Encounter.from_dict(data)
         campaign.encounters[enc_id] = encounter
 
-        if chapter_id:
-            chapter = self._chapter(campaign, chapter_id)
-            if chapter is not None:
-                if position is None or position >= len(chapter.encounters):
-                    chapter.encounters.append(enc_id)
-                else:
-                    chapter.encounters.insert(max(0, position), enc_id)
+        if chapter is not None:
+            if position is None or position >= len(chapter.encounters):
+                chapter.encounters.append(enc_id)
+            else:
+                chapter.encounters.insert(max(0, position), enc_id)
         return encounter
 
     def update_encounter(
@@ -115,11 +125,18 @@ class CampaignEditorService:
     def reorder_encounters(
         self, campaign: Campaign, chapter_id: str, encounter_ids: List[str]
     ) -> bool:
-        """Set a chapter's encounter order, keeping only ids that still exist."""
+        """Set a chapter's encounter order. `encounter_ids` must be an exact
+        permutation of the chapter's current encounters — no missing, unknown, or
+        duplicate ids (silently dropping ids would lose data). Returns False if the
+        chapter doesn't exist; raises ValueError on a non-permutation."""
         chapter = self._chapter(campaign, chapter_id)
         if chapter is None:
             return False
-        chapter.encounters = [e for e in encounter_ids if e in campaign.encounters]
+        if sorted(encounter_ids) != sorted(chapter.encounters):
+            raise ValueError(
+                "encounter_ids must be a permutation of the chapter's current encounters"
+            )
+        chapter.encounters = list(encounter_ids)
         return True
 
     # ------------------------------------------------------------------ chapters

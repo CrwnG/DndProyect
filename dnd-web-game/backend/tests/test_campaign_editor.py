@@ -105,6 +105,42 @@ def test_add_encounter_inserts_into_encounters_and_chapter():
     assert c.chapters[0].encounters == ["enc1", enc.id, "enc2"]
 
 
+def test_add_encounter_rejects_unknown_chapter_without_orphaning():
+    """QA-F1: a bad chapter_id must not leave an encounter orphaned in the pool."""
+    from app.services.campaign_editor import CampaignEditorService
+
+    svc = CampaignEditorService()
+    c = _sample_campaign()
+    before = set(c.encounters.keys())
+    with pytest.raises(ValueError):
+        svc.add_encounter(c, {"name": "Orphan"}, chapter_id="no-such-chapter")
+    assert set(c.encounters.keys()) == before   # nothing added
+
+
+def test_add_encounter_rejects_duplicate_id():
+    """QA-F2: supplying an existing encounter id must not overwrite it."""
+    from app.services.campaign_editor import CampaignEditorService
+
+    svc = CampaignEditorService()
+    c = _sample_campaign()
+    with pytest.raises(ValueError):
+        svc.add_encounter(c, {"id": "enc1", "name": "Dup"}, chapter_id="ch1")
+    assert c.encounters["enc1"].name == "Goblin Ambush"   # original intact
+
+
+def test_reorder_rejects_non_permutation():
+    """QA-F3: reorder must be an exact permutation — no dropped/unknown ids."""
+    from app.services.campaign_editor import CampaignEditorService
+
+    svc = CampaignEditorService()
+    c = _sample_campaign()
+    with pytest.raises(ValueError):
+        svc.reorder_encounters(c, "ch1", ["enc1"])               # missing enc2
+    with pytest.raises(ValueError):
+        svc.reorder_encounters(c, "ch1", ["enc1", "enc2", "x"])  # unknown id
+    assert c.chapters[0].encounters == ["enc1", "enc2"]          # unchanged
+
+
 def test_update_encounter_merges_fields():
     from app.services.campaign_editor import CampaignEditorService
 
@@ -217,3 +253,23 @@ async def test_route_unknown_campaign_404(db_session):
     with pytest.raises(HTTPException) as exc:
         await get_editable_campaign("does-not-exist", repo=repo, user=None)
     assert exc.value.status_code == 404
+
+
+async def test_route_bad_difficulty_returns_400_not_500(db_session):
+    """QA-F4: invalid enum input must be a 400, not an uncaught 500."""
+    from fastapi import HTTPException
+    from app.api.routes.campaign_editor import (
+        update_campaign_metadata, UpdateCampaignMetadataRequest,
+    )
+    from app.database.repositories import CampaignRepository
+
+    repo = CampaignRepository(db_session)
+    c = _sample_campaign()
+    await repo.upsert(c.id, c.name, c.author, c.description, c.to_dict())
+    await db_session.commit()
+
+    with pytest.raises(HTTPException) as exc:
+        await update_campaign_metadata(
+            "demo", UpdateCampaignMetadataRequest(difficulty="bogus"), repo=repo, user=None,
+        )
+    assert exc.value.status_code == 400
