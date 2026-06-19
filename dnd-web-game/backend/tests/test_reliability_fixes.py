@@ -316,3 +316,42 @@ def test_combatant_data_schema_carries_monster_actions():
     dumped = cd.model_dump()
     assert dumped["actions"] and dumped["legendary_actions"]
     assert dumped["legendary_actions_per_round"] == 3
+
+
+def test_healing_ability_mod_tolerates_abbreviated_ability():
+    """N3 (B1): healing read stats[spellcasting.ability] without normalizing, so an
+    abbreviated/uppercase ability ('CHA') missed the full-name stats key
+    ('charisma') and healing silently lost the +ability bonus."""
+    from app.core.spell_system import _ability_modifier_from_stats
+
+    stats = {"charisma": 18, "wisdom": 16}
+    assert _ability_modifier_from_stats(stats, "CHA") == 4
+    assert _ability_modifier_from_stats(stats, "cha") == 4
+    assert _ability_modifier_from_stats(stats, "charisma") == 4
+    assert _ability_modifier_from_stats(stats, "wis") == 3
+    assert _ability_modifier_from_stats(stats, "str") == 0   # absent -> 10 -> +0
+
+
+def test_level_up_does_not_refill_expended_spell_slots():
+    """N4 (C2): leveling a caster overwrote remaining slots with the new max,
+    silently refilling slots already spent this adventuring day. Only the newly
+    gained slots should be added; expended slots must stay expended."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="w1", name="Mage", character_class="wizard",
+        class_levels={"wizard": 4}, _level=4,
+        constitution=12, max_hp=22, current_hp=22,
+        hit_die_size=6, hit_dice_total=4, hit_dice_remaining=4,
+        spell_slots={1: 0, 2: 0}, spell_slots_max={1: 4, 2: 3},  # all expended
+        xp=6500,
+    )
+    apply_level_up(member, new_level=5, hp_choice="average")
+
+    # Previously-expended level-1/2 slots stay expended (not refilled to max)...
+    assert member.spell_slots[1] == 0
+    assert member.spell_slots[2] == 0
+    # ...but a newly gained level-3 slot is granted.
+    assert member.spell_slots.get(3, 0) > 0
+    assert member.spell_slots_max.get(3, 0) > 0

@@ -767,8 +767,11 @@ def apply_level_up(
         new_slots = get_spell_slots_for_level(class_name, new_level)
         if new_slots:
             for level, slots in new_slots.items():
-                member.spell_slots[level] = slots
+                # Raise the maximum and grant only the newly gained slots; don't
+                # refill slots the party already expended this adventuring day.
+                gained = slots - member.spell_slots_max.get(level, 0)
                 member.spell_slots_max[level] = slots
+                member.spell_slots[level] = member.spell_slots.get(level, 0) + max(0, gained)
     except ImportError as e:
         import logging
         logging.warning(f"Could not load spell slots module for {class_name}: {e}")
