@@ -619,6 +619,11 @@ class CombatEngine:
             "weapon_stats": weapon_stats,
             # Inventory for consumables (potions, scrolls, etc.)
             "inventory": combatant_data.get("inventory", []),
+            # Monster action data consumed by the multiattack / monster-ability /
+            # legendary-action handlers (no-ops if these are missing).
+            "actions": combatant_data.get("actions", []),
+            "legendary_actions": combatant_data.get("legendary_actions", []),
+            "legendary_actions_per_round": combatant_data.get("legendary_actions_per_round", 0),
         }
 
     # =========================================================================
@@ -4386,7 +4391,7 @@ class CombatEngine:
 
                 for t_id in targets:
                     t_stats = self.state.combatant_stats.get(t_id, {})
-                    save_mod = t_stats.get(f"{save_type}_save", 0)
+                    save_mod = t_stats.get(f"{save_type}_save", t_stats.get(f"{save_type}_mod", 0))
                     save_roll = random.randint(1, 20) + save_mod
 
                     if save_roll >= ability.save_dc:
@@ -4594,7 +4599,9 @@ class CombatEngine:
         is_miss = attack_roll.natural_1
 
         # Get target AC
-        target_ac = target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10)
+        # Read the live cache AC ("ac") first so mid-combat AC changes (e.g. Shield)
+        # are honored; fall back to the combatant attribute only if absent.
+        target_ac = target_stats.get("ac", target.armor_class if hasattr(target, "armor_class") else 10)
 
         hit = False
         damage = 0

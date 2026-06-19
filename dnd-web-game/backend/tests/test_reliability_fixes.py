@@ -241,3 +241,78 @@ async def test_remove_last_player_cancels_vote():
     )
     await h.remove_player("game-3", "p1")
     assert h.get_active_for_game("game-3") is None
+
+
+# ---------------------------------------------------------------------------
+# Next-tier reliability hunt (post-merge): bugs found auditing the play loop.
+# ---------------------------------------------------------------------------
+
+def test_single_class_level_up_does_not_crash_on_readonly_level():
+    """N1: PartyMember.level is a read-only @property (alias for total_level), so
+    `member.level = new_level` in apply_level_up raised AttributeError on EVERY
+    single-class level-up. Must update the backing fields instead."""
+    from app.models.game_session import PartyMember
+    from app.core.level_up import apply_level_up
+
+    member = PartyMember(
+        id="p1", name="Hero", character_class="fighter",
+        class_levels={"fighter": 4}, _level=4,
+        constitution=14, max_hp=30, current_hp=30,
+        hit_die_size=10, hit_dice_total=4, hit_dice_remaining=4,
+        xp=6500,   # enough for level 5
+    )
+    result = apply_level_up(member, new_level=5, hp_choice="average")
+
+    assert result.new_level == 5
+    assert member.level == 5          # property reflects the new level, no crash
+    assert member.class_levels["fighter"] == 5
+
+
+def test_monster_actions_reach_combat_stats_cache():
+    """N2: _cache_combatant_stats dropped monster actions/legendary, and the
+    request schema lacked the fields, so multiattack/abilities/legendary never
+    fired via the API even though the engine logic supports them."""
+    from app.core.combat_engine import CombatEngine, CombatState
+
+    monster = {
+        "id": "drake", "name": "Drake", "type": "enemy",
+        "hp": 50, "max_hp": 50, "ac": 15, "speed": 40,
+        "str_mod": 4, "attack_bonus": 6, "damage_dice": "2d6", "damage_type": "slashing",
+        "abilities": {"strength": 18, "dexterity": 12, "constitution": 16,
+                      "intelligence": 6, "wisdom": 12, "charisma": 8},
+        "actions": [{"name": "Multiattack", "description": "makes two claw attacks"},
+                    {"name": "Claw", "attack_bonus": 6, "damage": "2d6"}],
+        "legendary_actions": [{"name": "Tail Swipe"}],
+        "legendary_actions_per_round": 3,
+    }
+    player = {
+        "id": "hero", "name": "Hero", "type": "player",
+        "hp": 30, "max_hp": 30, "ac": 16, "speed": 30,
+        "str_mod": 3, "attack_bonus": 5, "damage_dice": "1d8", "damage_type": "slashing",
+        "abilities": {"strength": 16, "dexterity": 12, "constitution": 14,
+                      "intelligence": 10, "wisdom": 10, "charisma": 10},
+        "class": "fighter", "level": 3, "conditions": [],
+    }
+    engine = CombatEngine(combat_state=CombatState())
+    engine.start_combat([player], [monster])
+
+    cached = engine.state.combatant_stats["drake"]
+    assert cached.get("actions"), "monster actions were dropped by the cache"
+    assert cached.get("legendary_actions")
+    assert cached.get("legendary_actions_per_round") == 3
+
+
+def test_combatant_data_schema_carries_monster_actions():
+    """N2: the /combat/start request schema must keep monster action fields so
+    model_dump() doesn't strip them before start_combat."""
+    from app.api.routes.combat import CombatantData
+
+    cd = CombatantData(
+        name="Drake",
+        actions=[{"name": "Multiattack"}],
+        legendary_actions=[{"name": "Tail Swipe"}],
+        legendary_actions_per_round=3,
+    )
+    dumped = cd.model_dump()
+    assert dumped["actions"] and dumped["legendary_actions"]
+    assert dumped["legendary_actions_per_round"] == 3

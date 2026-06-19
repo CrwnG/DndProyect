@@ -724,8 +724,11 @@ def apply_level_up(
         "gained": hp_gained,
     }
 
-    # Apply level increase
-    member.level = new_level
+    # Apply level increase. `member.level` is a read-only property (alias for
+    # total_level), so update the backing fields: the class's entry in
+    # class_levels (the source of truth) and the legacy `_level` fallback.
+    member.class_levels[class_name] = new_level
+    member._level = new_level
     member.hit_dice_total = new_level
     member.hit_dice_remaining = min(member.hit_dice_remaining + 1, new_level)
 
