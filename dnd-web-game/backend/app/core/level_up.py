@@ -781,8 +781,12 @@ def apply_level_up(
         logging.warning(f"Could not load spell slots module for {class_name}: {e}")
         # Spell slots will need to be set manually or remain unchanged
 
-    # Get features gained and record them on the member.
-    features = _get_features_for_level(class_name, new_level)
+    # Get features gained and record them on the member. Collect across the full
+    # gained range so a multi-level jump (a bulk XP reward) doesn't skip the
+    # intermediate levels' features.
+    features = []
+    for lvl in range(old_level + 1, new_level + 1):
+        features.extend(_get_features_for_level(class_name, lvl))
     features_gained = [f.name for f in features]
     _record_class_features(member, features)
 
@@ -852,11 +856,14 @@ def _get_features_for_level(class_name: str, level: int) -> List[LevelUpBenefit]
     class_data = get_rules_loader().get_class(class_name.lower()) or {}
     for feature in class_data.get("class_features", []):
         if feature.get("level") == level:
+            # Fall back to a slug of the name so a feature missing an id is still
+            # recorded (keeps features_gained and member.class_features consistent).
+            feature_id = feature.get("id") or feature.get("name", "feature").lower().replace(" ", "_")
             features.append(LevelUpBenefit(
                 benefit_type="feature",
                 name=feature.get("name", feature.get("id", "Feature")),
                 description=feature.get("description", ""),
-                value=feature.get("id"),
+                value=feature_id,
             ))
 
     # Proficiency bonus increase

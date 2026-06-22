@@ -36,6 +36,24 @@ def test_level_up_records_class_features_on_member():
     assert "tactical_mind" in member.class_features
 
 
+def test_level_up_records_features_across_skipped_levels():
+    """QA: a multi-level jump (a bulk XP reward can level 1 -> 3 in one call) must
+    record features from the intermediate levels too, not just the final level."""
+    member = PartyMember(
+        id="f2", name="Fighter", character_class="fighter",
+        class_levels={"fighter": 1}, _level=1,
+        constitution=14, max_hp=12, current_hp=12,
+        hit_die_size=10, hit_dice_total=1, hit_dice_remaining=1,
+        xp=900,    # qualifies for level 3
+    )
+    result = apply_level_up(member, new_level=3, subclass_choice="champion")
+
+    assert result.success, result.errors
+    # Level-2 features (Action Surge, Tactical Mind) must not be skipped.
+    assert "action_surge" in member.class_features
+    assert "tactical_mind" in member.class_features
+
+
 def test_class_features_field_serializes():
     member = PartyMember(id="x", name="X", character_class="fighter")
     member.class_features = ["action_surge"]
