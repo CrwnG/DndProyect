@@ -918,6 +918,15 @@ async def use_legendary_action(
     )
 
 
+def _spell_total_damage(result) -> int:
+    """Sum a SpellCastResult's per-target ``damage_dealt`` (a {target_id: amount}
+    dict) into a scalar. Tolerates a legacy int or None."""
+    dd = getattr(result, "damage_dealt", 0)
+    if isinstance(dd, dict):
+        return sum(dd.values())
+    return dd or 0
+
+
 def _first_level_slot_available(stats: dict) -> bool:
     """Whether the combatant has a 1st-level spell slot left (Shield)."""
     slots = stats.get("spell_slots", {}) or {}
@@ -1402,8 +1411,13 @@ def process_enemy_turn_advanced(
             "spellcasting": {
                 "spell_attack_bonus": enemy_stats.get("spell_attack", 5),
                 "spell_save_dc": enemy_stats.get("spell_dc", 13),
-                "slots": enemy_stats.get("spell_slots", {}),
+                # The caster reads "spell_slots" (not "slots"); supplying the wrong
+                # key made it ignore the monster's slots and fall back to defaults.
+                "spell_slots": enemy_stats.get("spell_slots", {}),
+                "spell_slots_used": enemy_stats.get("spell_slots_used", {}),
                 "spells_known": enemy_stats.get("spells", []),
+                # Without cantrips_known the caster can't cast any enemy cantrip.
+                "cantrips_known": enemy_stats.get("cantrips", []),
             },
         }
 
@@ -1427,14 +1441,38 @@ def process_enemy_turn_advanced(
         # Cast the spell
         result = cast_spell(caster_data, spell_id, slot_level, targets)
 
-        # Apply damage if any
+        # Apply damage if any. result.damage_dealt is a {target_id: amount} dict;
+        # apply PER target (an AoE must not dump everyone's damage on one target)
+        # rather than subtracting the dict (which TypeError'd).
         total_damage = 0
         if result.damage_dealt and result.success:
-            total_damage = result.damage_dealt
-            if decision.target_id and decision.target_id in engine.state.combatant_stats:
-                target_stats = engine.state.combatant_stats[decision.target_id]
-                current_hp = target_stats.get("current_hp", 0)
-                target_stats["current_hp"] = max(0, current_hp - total_damage)
+            per_target = (result.damage_dealt if isinstance(result.damage_dealt, dict)
+                          else {decision.target_id: result.damage_dealt})
+            for tid, amount in per_target.items():
+                total_damage += amount
+                tstats = engine.state.combatant_stats.get(tid)
+                if tstats is None:
+                    continue
+                new_hp = max(0, tstats.get("current_hp", 0) - amount)
+                tstats["current_hp"] = new_hp
+                # Mirror onto the Combatant object so it doesn't "come back to life".
+                tcomb = engine.state.initiative_tracker.get_combatant(tid)
+                if tcomb:
+                    tcomb.current_hp = new_hp
+                    if new_hp <= 0:
+                        tcomb.is_active = False
+
+        # Apply control-spell conditions (e.g. a monster casting Hold Person).
+        engine.apply_spell_conditions(getattr(result, "conditions_applied", None))
+
+        # Persist consumed spell slots back to the monster's stats — caster_data is
+        # a fresh copy, so cast_spell's slot mutation would otherwise be lost and
+        # the enemy could reuse slots every turn.
+        sc = caster_data.get("spellcasting", {})
+        if "spell_slots_used" in sc:
+            enemy_stats["spell_slots_used"] = sc["spell_slots_used"]
+        if "spell_slots" in sc:
+            enemy_stats["spell_slots"] = sc["spell_slots"]
 
         return EnemyAction(
             enemy_id=enemy.id,

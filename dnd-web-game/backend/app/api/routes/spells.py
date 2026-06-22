@@ -400,6 +400,10 @@ async def cast_spell_in_combat(
                             combatant.current_hp = new_hp
                             break
 
+        # Apply conditions from save/control spells (Hold Person, Web, Faerie Fire,
+        # …) so they actually take effect rather than being cosmetic.
+        combat_engine.apply_spell_conditions(result.conditions_applied)
+
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
         # combatant_stats[caster_id]). Deducting again here would double-count.
