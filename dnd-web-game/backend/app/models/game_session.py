@@ -90,6 +90,7 @@ class PartyMember:
 
     # Class resources
     class_resources: Dict[str, int] = field(default_factory=dict)  # e.g. {"second_wind": 1}
+    class_features: List[str] = field(default_factory=list)  # feature ids gained from class levels + feats
 
     # Subclasses per class (multiclass support)
     subclasses: Dict[str, str] = field(default_factory=dict)  # {"fighter": "champion", "rogue": "thief"}
@@ -638,6 +639,7 @@ class PartyMember:
             "pact_magic_slot_level": self.pact_magic_slot_level,
             # Resources
             "class_resources": self.class_resources,
+            "class_features": self.class_features,
             "xp": self.xp,
             "equipment_data": self.equipment_data,
             "weapons": self.weapons,
@@ -724,6 +726,7 @@ class PartyMember:
             pact_magic_slot_level=data.get("pact_magic_slot_level", 0),
             # Resources
             class_resources=data.get("class_resources", {}),
+            class_features=data.get("class_features", []),
             xp=data.get("xp", 0),
             equipment_data=data.get("equipment_data"),
             weapons=data.get("weapons", []),
