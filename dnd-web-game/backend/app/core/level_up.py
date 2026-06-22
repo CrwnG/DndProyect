@@ -756,10 +756,11 @@ def apply_level_up(
         else:
             errors.append("ASI or feat choice required but not provided")
 
-    # Apply subclass
+    # Apply subclass. Route through set_subclass so the per-class dict AND the
+    # legacy `member.subclass` field (which combat reads) stay consistent.
     if gets_subclass_at_level(class_name, new_level) and not member.subclass:
         if subclass_choice:
-            member.subclass = subclass_choice
+            member.set_subclass(class_name, subclass_choice)
             choices_applied["subclass"] = subclass_choice
         else:
             errors.append("Subclass choice required but not provided")
@@ -1199,7 +1200,7 @@ def apply_multiclass_level_up(
             member.subclasses = {}
         if class_name not in member.subclasses:
             if subclass_choice:
-                member.subclasses[class_name] = subclass_choice
+                member.set_subclass(class_name, subclass_choice)
                 choices_applied["subclass"] = subclass_choice
             else:
                 errors.append(f"Subclass choice required for {class_name} but not provided")

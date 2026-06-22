@@ -815,6 +815,11 @@ class CampaignEngine:
                 "class": member.character_class,
                 "character_class": member.character_class,
                 "level": member.level,
+                # Pass the member's subclass so subclass combat features (Champion
+                # crit, Assassinate, …) actually trigger in play.
+                "subclass_id": (member.subclass
+                                or member.get_subclass(member.character_class or "")
+                                or ""),
                 "current_hp": member.current_hp,
                 "max_hp": member.max_hp,
                 "ac": member.ac,
