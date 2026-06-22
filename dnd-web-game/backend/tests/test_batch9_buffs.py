@@ -88,6 +88,33 @@ def test_buff_inactive_once_caster_stops_concentrating():
     assert eng._attack_buff_bonus(stats) == 0
 
 
+def test_effective_ac_adds_active_ac_buffs():
+    """Shield of Faith / Haste (+2 AC) raise the defender's effective AC."""
+    eng = _engine()
+    stats = eng.state.combatant_stats["hero"]
+    assert eng._effective_ac(stats, 15) == 15                  # no buffs
+
+    stats["active_buffs"] = [{"ac_bonus": 2}]
+    assert eng._effective_ac(stats, 15) == 17                  # +2
+
+    stats["active_buffs"] = [{"ac_bonus": 2}, {"ac_bonus": 2}]
+    assert eng._effective_ac(stats, 15) == 19                  # stack
+
+    stats["active_buffs"] = [{"attack_bonus_dice": "1d4"}]     # non-AC buff
+    assert eng._effective_ac(stats, 15) == 15
+
+
+def test_ac_buff_respects_concentration():
+    eng = _engine()
+    stats = eng.state.combatant_stats["hero"]
+    stats["spellcasting"] = {"concentrating_on": "shield_of_faith"}
+    stats["active_buffs"] = [{"source": "hero", "spell_id": "shield_of_faith", "ac_bonus": 2}]
+    assert eng._effective_ac(stats, 15) == 17                  # active while concentrating
+
+    stats["spellcasting"]["concentrating_on"] = None
+    assert eng._effective_ac(stats, 15) == 15                  # gone when concentration ends
+
+
 def test_remove_buffs_from_caster_on_concentration_end():
     eng = _engine()
     eng.apply_spell_buffs("cleric", {"attack_bonus_dice": "1d4"}, ["hero"])

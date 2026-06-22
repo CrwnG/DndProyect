@@ -939,7 +939,7 @@ class CombatEngine:
             from app.core.rules_engine import resolve_attack, DamageType
 
             target_stats = self.state.combatant_stats.get(target_id, {})
-            target_ac = target_stats.get("ac", target_stats.get("armor_class", 10))
+            target_ac = self._effective_ac(target_stats, target_stats.get("ac", target_stats.get("armor_class", 10)))
 
             # Get attack bonus and damage from action description
             description = action_data.get("description", "")
@@ -1592,7 +1592,7 @@ class CombatEngine:
             # D&D 5e attack bonus formula
             attack_bonus = ability_mod + proficiency_bonus + weapon_bonus
 
-        target_ac = target_stats.get("ac", target.armor_class)
+        target_ac = self._effective_ac(target_stats, target_stats.get("ac", target.armor_class))
 
         # Resolve attack - NO modifier on damage for off-hand (D&D 5e rule)
         damage_dice = weapon_data.get("damage", "1d4") if weapon_data else "1d4"
@@ -2086,7 +2086,7 @@ class CombatEngine:
         attack_bonus = ability_mod + proficiency
 
         target_stats = self.state.combatant_stats.get(target_id, {})
-        target_ac = target_stats.get("ac", target.armor_class)
+        target_ac = self._effective_ac(target_stats, target_stats.get("ac", target.armor_class))
 
         attack_result = resolve_attack(
             attack_bonus=attack_bonus,
@@ -2229,7 +2229,7 @@ class CombatEngine:
         attack_bonus = ability_mod + proficiency
 
         target_stats = self.state.combatant_stats.get(target_id, {})
-        target_ac = target_stats.get("ac", target.armor_class)
+        target_ac = self._effective_ac(target_stats, target_stats.get("ac", target.armor_class))
 
         total_damage = 0
         hits = 0
@@ -3037,7 +3037,7 @@ class CombatEngine:
             ability_mod = attacker_stats.get("str_mod", 0)
 
         # Get target AC
-        target_ac = target_stats.get("ac", target.armor_class)
+        target_ac = self._effective_ac(target_stats, target_stats.get("ac", target.armor_class))
 
         # ============================================================
         # ELEVATION BONUS (High Ground)
@@ -4633,6 +4633,16 @@ class CombatEngine:
                 total += roll_dice(dice)
         return total
 
+    def _effective_ac(self, target_stats: Dict[str, Any], base_ac: int) -> int:
+        """Base AC plus any active AC buffs (Shield of Faith +2, Haste +2, …) on
+        the defender. Returns base_ac unchanged when there are no AC buffs."""
+        bonus = 0
+        for buff in ((target_stats or {}).get("active_buffs") or []):
+            ac = buff.get("ac_bonus")
+            if ac and self._buff_is_active(buff):
+                bonus += ac
+        return base_ac + bonus
+
     def remove_buffs_from_caster(self, caster_id: str) -> None:
         """Remove every buff granted by a caster (e.g. when their concentration
         ends — Bless and friends are concentration spells)."""
@@ -4712,9 +4722,12 @@ class CombatEngine:
         # Read the live cache AC ("ac") first so mid-combat AC changes (e.g. Shield)
         # are honored; fall back to a legacy "armor_class" cache key, then the
         # combatant attribute.
-        target_ac = target_stats.get(
-            "ac",
-            target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10),
+        target_ac = self._effective_ac(
+            target_stats,
+            target_stats.get(
+                "ac",
+                target_stats.get("armor_class", target.armor_class if hasattr(target, "armor_class") else 10),
+            ),
         )
 
         # A natural 20 always hits; otherwise meet AC. A natural 1 always misses.
@@ -5240,9 +5253,12 @@ class CombatEngine:
         damage_mod = max(str_mod, dex_mod)
 
         # Get target AC
-        target_ac = target_stats.get("ac", 10)
-        if target_ac == 0:
-            target_ac = target.armor_class if target.armor_class else 10
+        # Resolve the base AC first (0 is treated as missing), THEN add buffs —
+        # otherwise a +2 buff turns a 0 base into 2 and skips this fallback.
+        base_ac = target_stats.get("ac", 10)
+        if base_ac == 0:
+            base_ac = target.armor_class if target.armor_class else 10
+        target_ac = self._effective_ac(target_stats, base_ac)
 
         # Roll attack
         attack_roll = roll_d20()
