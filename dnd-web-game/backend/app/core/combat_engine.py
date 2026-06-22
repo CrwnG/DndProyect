@@ -1240,6 +1240,9 @@ class CombatEngine:
             # Break concentration
             spellcasting["concentrating_on"] = None
             result["concentration_broken"] = True
+            # Concentration spells end when concentration drops — remove any buffs
+            # this caster was sustaining (e.g. Bless).
+            self.remove_buffs_from_caster(target_id)
 
             self.state.add_event(
                 "concentration_broken",
@@ -3143,6 +3146,9 @@ class CombatEngine:
                 if assassinate_result["auto_crit"]:
                     auto_crit = True
 
+        # Add any active attack-roll buff (e.g. Bless +1d4) to the bonus.
+        attack_bonus += self._attack_buff_bonus(attacker_stats)
+
         # Resolve the attack with advantage/disadvantage
         attack_result = resolve_attack(
             attack_bonus=attack_bonus,
@@ -4586,6 +4592,54 @@ class CombatEngine:
                 for cond in conditions:
                     if cond not in combatant.conditions:
                         combatant.conditions.append(cond)
+
+    def apply_spell_buffs(self, caster_id: str, buff_effects, target_ids, spell_id=None) -> None:
+        """Store a buff spell's effects (Bless's +1d4, …) on each target so combat
+        resolution can honor them. Tagged with the source caster + spell so it can
+        be removed when concentration ends. Re-casting the same spell, or the same
+        spell from another caster, replaces rather than stacks (5e: same-name
+        effects don't stack; a caster sustains only one concentration spell)."""
+        if not buff_effects or not target_ids:
+            return
+        for tid in target_ids:
+            stats = self.state.combatant_stats.get(tid)
+            if stats is None:
+                continue
+            buffs = stats.setdefault("active_buffs", [])
+            buffs[:] = [b for b in buffs
+                        if b.get("source") != caster_id
+                        and (not spell_id or b.get("spell_id") != spell_id)]
+            buffs.append({"source": caster_id, "spell_id": spell_id, **buff_effects})
+
+    def _buff_is_active(self, buff: Dict[str, Any]) -> bool:
+        """A concentration buff is only active while its caster is still
+        concentrating on the spell that granted it — this lazily invalidates buffs
+        on ANY way concentration ends (broken, switched, dropped, caster down)."""
+        spell_id = buff.get("spell_id")
+        source = buff.get("source")
+        if not spell_id or not source:
+            return True  # untagged / non-concentration buff: always active
+        caster = self.state.combatant_stats.get(source, {})
+        return (caster.get("spellcasting") or {}).get("concentrating_on") == spell_id
+
+    def _attack_buff_bonus(self, attacker_stats: Dict[str, Any]) -> int:
+        """Roll + sum any active attack-roll bonus dice (e.g. Bless +1d4) from a
+        combatant's active buffs. 0 when there are none."""
+        from app.core.dice import roll_dice
+        total = 0
+        for buff in (attacker_stats.get("active_buffs") or []):
+            dice = buff.get("attack_bonus_dice")
+            if dice and self._buff_is_active(buff):
+                total += roll_dice(dice)
+        return total
+
+    def remove_buffs_from_caster(self, caster_id: str) -> None:
+        """Remove every buff granted by a caster (e.g. when their concentration
+        ends — Bless and friends are concentration spells)."""
+        for stats in self.state.combatant_stats.values():
+            buffs = stats.get("active_buffs")
+            if buffs:
+                stats["active_buffs"] = [b for b in buffs if b.get("source") != caster_id]
 
     def _distance_ft(self, id_a: str, id_b: str) -> float:
         """5e grid distance in feet between two combatants (5 ft per square, with

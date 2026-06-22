@@ -404,6 +404,13 @@ async def cast_spell_in_combat(
         # …) so they actually take effect rather than being cosmetic.
         combat_engine.apply_spell_conditions(result.conditions_applied)
 
+        # Apply buff spells (Bless's +1d4, …) to their targets so they take effect.
+        if getattr(result, "buff_effects", None):
+            combat_engine.apply_spell_buffs(
+                request.caster_id, result.buff_effects, request.target_ids,
+                spell_id=request.spell_id,
+            )
+
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
         # combatant_stats[caster_id]). Deducting again here would double-count.
