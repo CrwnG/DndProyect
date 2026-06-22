@@ -918,6 +918,15 @@ async def use_legendary_action(
     )
 
 
+def _spell_total_damage(result) -> int:
+    """Sum a SpellCastResult's per-target ``damage_dealt`` (a {target_id: amount}
+    dict) into a scalar. Tolerates a legacy int or None."""
+    dd = getattr(result, "damage_dealt", 0)
+    if isinstance(dd, dict):
+        return sum(dd.values())
+    return dd or 0
+
+
 def _first_level_slot_available(stats: dict) -> bool:
     """Whether the combatant has a 1st-level spell slot left (Shield)."""
     slots = stats.get("spell_slots", {}) or {}
@@ -1402,8 +1411,13 @@ def process_enemy_turn_advanced(
             "spellcasting": {
                 "spell_attack_bonus": enemy_stats.get("spell_attack", 5),
                 "spell_save_dc": enemy_stats.get("spell_dc", 13),
-                "slots": enemy_stats.get("spell_slots", {}),
+                # The caster reads "spell_slots" (not "slots"); supplying the wrong
+                # key made it ignore the monster's slots and fall back to defaults.
+                "spell_slots": enemy_stats.get("spell_slots", {}),
+                "spell_slots_used": enemy_stats.get("spell_slots_used", {}),
                 "spells_known": enemy_stats.get("spells", []),
+                # Without cantrips_known the caster can't cast any enemy cantrip.
+                "cantrips_known": enemy_stats.get("cantrips", []),
             },
         }
 
@@ -1427,14 +1441,22 @@ def process_enemy_turn_advanced(
         # Cast the spell
         result = cast_spell(caster_data, spell_id, slot_level, targets)
 
-        # Apply damage if any
+        # Apply damage if any. result.damage_dealt is a {target_id: amount} dict;
+        # summing it (not subtracting the dict) avoids an int - dict TypeError.
         total_damage = 0
         if result.damage_dealt and result.success:
-            total_damage = result.damage_dealt
+            total_damage = _spell_total_damage(result)
             if decision.target_id and decision.target_id in engine.state.combatant_stats:
                 target_stats = engine.state.combatant_stats[decision.target_id]
                 current_hp = target_stats.get("current_hp", 0)
-                target_stats["current_hp"] = max(0, current_hp - total_damage)
+                new_hp = max(0, current_hp - total_damage)
+                target_stats["current_hp"] = new_hp
+                # Mirror onto the Combatant object so it doesn't "come back to life".
+                target_combatant = engine.state.initiative_tracker.get_combatant(decision.target_id)
+                if target_combatant:
+                    target_combatant.current_hp = new_hp
+                    if new_hp <= 0:
+                        target_combatant.is_active = False
 
         return EnemyAction(
             enemy_id=enemy.id,

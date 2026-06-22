@@ -22,6 +22,30 @@ from app.core.combat_storage import active_combats
 router = APIRouter()
 
 
+def _apply_spell_conditions(combat_engine, conditions_applied) -> None:
+    """Apply a spell result's ``{target_id: [conditions]}`` to combat state.
+
+    Save/control spells (Hold Person, Web, Faerie Fire, …) compute conditions in
+    the core but were never written to the combat state, so they had no effect.
+    Apply them to both the stats cache and the Combatant object (deduped) — the
+    condition registry + attack-modifier logic then honor them mechanically.
+    """
+    if not conditions_applied:
+        return
+    for target_id, conditions in conditions_applied.items():
+        stats = combat_engine.state.combatant_stats.get(target_id)
+        if stats is not None:
+            existing = stats.setdefault("conditions", [])
+            for cond in conditions:
+                if cond not in existing:
+                    existing.append(cond)
+        combatant = combat_engine.state.initiative_tracker.get_combatant(target_id)
+        if combatant is not None:
+            for cond in conditions:
+                if cond not in combatant.conditions:
+                    combatant.conditions.append(cond)
+
+
 # ==================== Spell Database Endpoints ====================
 
 @router.get("/", response_model=SpellListResponse)
@@ -399,6 +423,10 @@ async def cast_spell_in_combat(
                         if combatant.id == target_id:
                             combatant.current_hp = new_hp
                             break
+
+        # Apply conditions from save/control spells (Hold Person, Web, Faerie Fire,
+        # …) so they actually take effect rather than being cosmetic.
+        _apply_spell_conditions(combat_engine, result.conditions_applied)
 
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
