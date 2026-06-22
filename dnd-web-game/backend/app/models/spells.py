@@ -231,6 +231,7 @@ class SpellCastResult(BaseModel):
     healing_done: Optional[Dict[str, int]] = None    # {target_id: healing}
     conditions_applied: Optional[Dict[str, List[str]]] = None  # {target_id: [conditions]}
     debuffs_applied: Optional[Dict[str, Dict[str, Any]]] = None  # {target_id: penalty_effects} (Bane, failed saves only)
+    pending_smite: Optional[Dict[str, Any]] = None  # smite-spell rider stowed on the caster for the next weapon hit
 
     # Concentration
     concentration_started: bool = False
