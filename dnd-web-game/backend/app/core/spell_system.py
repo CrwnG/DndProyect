@@ -58,6 +58,12 @@ _CONDITION_FALSE_POSITIVES = {
     # (renders participants Unconscious) genuinely impose those — left untouched.
 }
 
+# save_type is prose-extracted from "<ability> saving throw" anywhere in the text,
+# which false-positives on buff spells that merely GRANT advantage on a save (the
+# spell itself requires none). A spurious save_type mis-routes the spell to the save
+# branch in cast_spell. Clear it for these.
+_SAVE_FALSE_POSITIVES = {"haste"}
+
 
 class SpellRegistry:
     """
@@ -290,6 +296,10 @@ class SpellRegistry:
                 if f"{save_type} saving throw" in description:
                     spell.save_type = save_type
                     break
+
+        # A buff that only GRANTS advantage on saves (Haste) requires no save itself.
+        if spell.id in _SAVE_FALSE_POSITIVES:
+            spell.save_type = None
 
         # Detect attack type
         if "spell attack" in description:
