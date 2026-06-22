@@ -1240,6 +1240,9 @@ class CombatEngine:
             # Break concentration
             spellcasting["concentrating_on"] = None
             result["concentration_broken"] = True
+            # Concentration spells end when concentration drops — remove any buffs
+            # this caster was sustaining (e.g. Bless).
+            self.remove_buffs_from_caster(target_id)
 
             self.state.add_event(
                 "concentration_broken",
@@ -3143,6 +3146,9 @@ class CombatEngine:
                 if assassinate_result["auto_crit"]:
                     auto_crit = True
 
+        # Add any active attack-roll buff (e.g. Bless +1d4) to the bonus.
+        attack_bonus += self._attack_buff_bonus(attacker_stats)
+
         # Resolve the attack with advantage/disadvantage
         attack_result = resolve_attack(
             attack_bonus=attack_bonus,
@@ -4586,6 +4592,38 @@ class CombatEngine:
                 for cond in conditions:
                     if cond not in combatant.conditions:
                         combatant.conditions.append(cond)
+
+    def apply_spell_buffs(self, caster_id: str, buff_effects, target_ids) -> None:
+        """Store a buff spell's effects (Bless's +1d4, …) on each target so combat
+        resolution can honor them. Tagged with the source caster so the buff is
+        removed when that caster's concentration ends."""
+        if not buff_effects or not target_ids:
+            return
+        for tid in target_ids:
+            stats = self.state.combatant_stats.get(tid)
+            if stats is None:
+                continue
+            buffs = stats.setdefault("active_buffs", [])
+            buffs.append({"source": caster_id, **buff_effects})
+
+    def _attack_buff_bonus(self, attacker_stats: Dict[str, Any]) -> int:
+        """Roll + sum any attack-roll bonus dice (e.g. Bless +1d4) from a
+        combatant's active buffs. 0 when there are none."""
+        from app.core.dice import roll_dice
+        total = 0
+        for buff in (attacker_stats.get("active_buffs") or []):
+            dice = buff.get("attack_bonus_dice")
+            if dice:
+                total += roll_dice(dice)
+        return total
+
+    def remove_buffs_from_caster(self, caster_id: str) -> None:
+        """Remove every buff granted by a caster (e.g. when their concentration
+        ends — Bless and friends are concentration spells)."""
+        for stats in self.state.combatant_stats.values():
+            buffs = stats.get("active_buffs")
+            if buffs:
+                stats["active_buffs"] = [b for b in buffs if b.get("source") != caster_id]
 
     def _distance_ft(self, id_a: str, id_b: str) -> float:
         """5e grid distance in feet between two combatants (5 ft per square, with
