@@ -827,6 +827,9 @@ class CampaignEngine:
                 "max_hp": member.max_hp,
                 "ac": member.ac,
                 "speed": member.speed,
+                # Carry the member's gold so mid-combat shop purchases compose with
+                # it (and persist back to the member when combat ends).
+                "gold": member.gold,
                 # CRITICAL: Include all ability modifiers for attack/damage calculations
                 "str_mod": (member.strength - 10) // 2,
                 "dex_mod": (member.dexterity - 10) // 2,
@@ -1129,8 +1132,11 @@ class CampaignEngine:
         defeated_enemies = []
         if self.combat_engine:
             combat_state = self.combat_engine.get_combat_state()
+            combatant_stats = combat_state.get("combatant_stats", {})
 
-            # Sync player HP
+            # Sync player HP + gold back to the party member. Shop buy/sell during
+            # combat mutate the in-combat combatant_stats['gold']; without this
+            # writeback every purchase/sale is reverted when combat ends.
             for combatant_data in combat_state.get("combatants", []):
                 if combatant_data.get("type") == "player":
                     member = next(
@@ -1140,10 +1146,12 @@ class CampaignEngine:
                     if member:
                         member.current_hp = combatant_data.get("current_hp", member.current_hp)
                         member.is_active = combatant_data.get("is_active", True)
+                        stats = combatant_stats.get(combatant_data["id"], {})
+                        if "gold" in stats:
+                            member.gold = stats["gold"]
 
             # Extract defeated enemies for XP and loot
             if victory:
-                combatant_stats = combat_state.get("combatant_stats", {})
                 for combatant_data in combat_state.get("combatants", []):
                     cid = combatant_data.get("id", "")
                     stats = combatant_stats.get(cid, {})
