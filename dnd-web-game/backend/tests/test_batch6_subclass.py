@@ -63,13 +63,14 @@ def test_campaign_combat_passes_member_subclass_to_combatant():
         id="hero", name="Hero", character_class="fighter",
         class_levels={"fighter": 3}, _level=3,
         strength=16, dexterity=12, constitution=14, max_hp=28, current_hp=28,
-        subclass="champion",
+        subclass="stale_legacy",                      # disagreeing legacy field
     )
-    member.set_subclass("fighter", "champion")
+    member.subclasses = {"fighter": "champion"}       # per-class source of truth
 
     engine = CampaignEngine.create_new(campaign, [member])
     engine.session.current_encounter_id = "c1"
     engine._start_combat()
 
     cached = engine.combat_engine.state.combatant_stats["hero"]
+    # The per-class dict (champion) wins over the stale legacy field.
     assert cached.get("subclass_id") == "champion"

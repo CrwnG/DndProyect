@@ -816,9 +816,12 @@ class CampaignEngine:
                 "character_class": member.character_class,
                 "level": member.level,
                 # Pass the member's subclass so subclass combat features (Champion
-                # crit, Assassinate, …) actually trigger in play.
-                "subclass_id": (member.subclass
-                                or member.get_subclass(member.character_class or "")
+                # crit, Assassinate, …) actually trigger in play. Prefer the
+                # per-class dict (source of truth) over the legacy field, which can
+                # be stale in old saves. (Combat models a combatant as its primary
+                # class, so only that class's subclass is relevant here.)
+                "subclass_id": (member.get_subclass(member.character_class or "")
+                                or member.subclass
                                 or ""),
                 "current_hp": member.current_hp,
                 "max_hp": member.max_hp,
