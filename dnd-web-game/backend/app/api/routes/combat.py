@@ -1051,15 +1051,16 @@ async def use_reaction(
     result = None
 
     if reaction_type == ReactionType.OPPORTUNITY_ATTACK:
+        oa_target_stats = engine.state.combatant_stats.get(
+            request.trigger_source_id, {}
+        )
         result = resolve_opportunity_attack(
             attacker_id=reactor_id,
             attacker_name=reactor.name if reactor else "Unknown",
             target_id=request.trigger_source_id,
             target_name=trigger_source.name if trigger_source else "Unknown",
             attack_bonus=reactor_stats.get("attack_bonus", 0),
-            target_ac=engine.state.combatant_stats.get(
-                request.trigger_source_id, {}
-            ).get("ac", 10),
+            target_ac=engine._effective_ac(oa_target_stats, oa_target_stats.get("ac", 10)),
             damage_dice=reactor_stats.get("damage_dice", "1d6"),
             damage_modifier=reactor_stats.get("str_mod", 0)
         )
@@ -1070,7 +1071,7 @@ async def use_reaction(
             caster_id=reactor_id,
             caster_name=reactor.name if reactor else "Unknown",
             attack_roll=attack_roll,
-            current_ac=reactor_stats.get("ac", 10),
+            current_ac=engine._effective_ac(reactor_stats, reactor_stats.get("ac", 10)),
             has_spell_slot=_first_level_slot_available(reactor_stats),
         )
         # A natural 20 always hits in 5e — Shield's +5 AC cannot turn a crit into
@@ -1100,7 +1101,7 @@ async def use_reaction(
             target_id=request.trigger_source_id,
             target_name=trigger_source.name if trigger_source else "Unknown",
             attack_bonus=reactor_stats.get("attack_bonus", 0),
-            target_ac=trigger_source_stats.get("ac", 10),
+            target_ac=engine._effective_ac(trigger_source_stats, trigger_source_stats.get("ac", 10)),
             damage_dice=reactor_stats.get("damage_dice", "1d6"),
             damage_modifier=reactor_stats.get("str_mod", 0),
             superiority_die=superiority_die
