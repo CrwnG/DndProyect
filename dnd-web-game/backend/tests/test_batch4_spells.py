@@ -47,10 +47,8 @@ def _engine_with_target():
 
 
 def test_apply_spell_conditions_updates_stats_and_combatant():
-    from app.api.routes.spells import _apply_spell_conditions
-
     engine = _engine_with_target()
-    _apply_spell_conditions(engine, {"ogre-1": ["restrained", "prone"]})
+    engine.apply_spell_conditions({"ogre-1": ["restrained", "prone"]})
 
     cached = engine.state.combatant_stats["ogre-1"]["conditions"]
     assert "restrained" in cached and "prone" in cached
@@ -58,14 +56,12 @@ def test_apply_spell_conditions_updates_stats_and_combatant():
     assert "restrained" in combatant.conditions
 
     # Idempotent: re-applying the same condition doesn't duplicate it.
-    _apply_spell_conditions(engine, {"ogre-1": ["restrained"]})
+    engine.apply_spell_conditions({"ogre-1": ["restrained"]})
     assert cached.count("restrained") == 1
 
 
 def test_apply_spell_conditions_tolerates_empty_and_unknown_target():
-    from app.api.routes.spells import _apply_spell_conditions
-
     engine = _engine_with_target()
-    _apply_spell_conditions(engine, None)                     # no-op
-    _apply_spell_conditions(engine, {})                       # no-op
-    _apply_spell_conditions(engine, {"ghost": ["stunned"]})   # unknown target -> no crash
+    engine.apply_spell_conditions(None)                     # no-op
+    engine.apply_spell_conditions({})                       # no-op
+    engine.apply_spell_conditions({"ghost": ["stunned"]})   # unknown target -> no crash

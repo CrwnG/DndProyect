@@ -4565,6 +4565,26 @@ class CombatEngine:
                 return val
         return None
 
+    def apply_spell_conditions(self, conditions_applied) -> None:
+        """Apply a spell result's ``{target_id: [conditions]}`` to combat state
+        (the stats cache and the Combatant object, deduped) so save/control spells
+        (Hold Person, Web, Faerie Fire, …) actually take effect. Shared by the
+        player and enemy spell-cast paths."""
+        if not conditions_applied:
+            return
+        for target_id, conditions in conditions_applied.items():
+            stats = self.state.combatant_stats.get(target_id)
+            if stats is not None:
+                existing = stats.setdefault("conditions", [])
+                for cond in conditions:
+                    if cond not in existing:
+                        existing.append(cond)
+            combatant = self.state.initiative_tracker.get_combatant(target_id)
+            if combatant is not None:
+                for cond in conditions:
+                    if cond not in combatant.conditions:
+                        combatant.conditions.append(cond)
+
     def _distance_ft(self, id_a: str, id_b: str) -> float:
         """5e grid distance in feet between two combatants (5 ft per square, with
         diagonals counted as one square — Chebyshev — so a diagonally adjacent
