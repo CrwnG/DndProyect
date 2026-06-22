@@ -3,7 +3,7 @@
  * Pub/Sub system for decoupled communication between components
  */
 
-class EventBus {
+export class EventBus {
     constructor() {
         this.listeners = new Map();
         this.onceListeners = new Map();
