@@ -781,9 +781,10 @@ def apply_level_up(
         logging.warning(f"Could not load spell slots module for {class_name}: {e}")
         # Spell slots will need to be set manually or remain unchanged
 
-    # Get features gained
+    # Get features gained and record them on the member.
     features = _get_features_for_level(class_name, new_level)
     features_gained = [f.name for f in features]
+    _record_class_features(member, features)
 
     return LevelUpResult(
         success=len(errors) == 0,
@@ -840,17 +841,22 @@ def _get_subclass_options(class_name: str) -> List[Dict[str, Any]]:
 
 
 def _get_features_for_level(class_name: str, level: int) -> List[LevelUpBenefit]:
-    """Get class features gained at a specific level."""
-    # Simplified - would integrate with class_features.py in production
-    features = []
+    """Class features gained AT this specific level, read from the class JSON.
 
-    # Universal features
-    if level == 5:
-        if class_name.lower() in ["fighter", "paladin", "ranger", "barbarian", "monk"]:
+    Each feature benefit's ``value`` is the feature id (so callers can record it
+    on the member). Previously this was a stub that only ever returned Extra
+    Attack at level 5, so leveling reported/recorded no real features."""
+    from app.services.rules_loader import get_rules_loader
+
+    features: List[LevelUpBenefit] = []
+    class_data = get_rules_loader().get_class(class_name.lower()) or {}
+    for feature in class_data.get("class_features", []):
+        if feature.get("level") == level:
             features.append(LevelUpBenefit(
                 benefit_type="feature",
-                name="Extra Attack",
-                description="You can attack twice instead of once when you take the Attack action."
+                name=feature.get("name", feature.get("id", "Feature")),
+                description=feature.get("description", ""),
+                value=feature.get("id"),
             ))
 
     # Proficiency bonus increase
@@ -864,6 +870,16 @@ def _get_features_for_level(class_name: str, level: int) -> List[LevelUpBenefit]
         ))
 
     return features
+
+
+def _record_class_features(member: "PartyMember", features: List[LevelUpBenefit]) -> None:
+    """Record the feature ids from a level's benefits onto member.class_features
+    (deduped) so the granted features are persisted on the character."""
+    if not hasattr(member, "class_features") or member.class_features is None:
+        member.class_features = []
+    for f in features:
+        if f.benefit_type == "feature" and f.value and f.value not in member.class_features:
+            member.class_features.append(f.value)
 
 
 def _get_spell_slot_changes(
@@ -1225,9 +1241,10 @@ def apply_multiclass_level_up(
         import logging
         logging.warning(f"Could not load multiclass spell slots module: {e}")
 
-    # Get features gained for this class level
+    # Get features gained for this class level and record them on the member.
     features = _get_features_for_level(class_name, new_class_level)
     features_gained = [f.name for f in features]
+    _record_class_features(member, features)
 
     new_total_level = member.total_level
 
