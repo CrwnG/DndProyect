@@ -62,3 +62,22 @@ def test_multiclass_slots_dont_refill_expended_lower_slots():
 
     assert member.spell_slots_max.get(1, 0) == 4      # max raised
     assert member.spell_slots.get(1, 0) == 1          # only the +1 gained, not refilled
+
+
+def test_multiclass_slots_never_downgrade_existing_max():
+    """QA: the multiclass slot update must only RAISE the max, never lower it
+    (which would corrupt the character / leave remaining > max)."""
+    member = PartyMember(
+        id="mc3", name="Multi", character_class="wizard",
+        class_levels={"wizard": 2}, _level=2,
+        strength=15, dexterity=15, constitution=15,
+        intelligence=15, wisdom=15, charisma=15,
+        max_hp=14, current_hp=14,
+        hit_die_size=6, hit_dice_total=2, hit_dice_remaining=2,
+        spell_slots={1: 5}, spell_slots_max={1: 5},   # already higher than the table row
+        xp=900,
+    )
+    apply_multiclass_level_up(member, class_choice="bard", hp_choice="average")
+
+    assert member.spell_slots_max.get(1, 0) == 5      # NOT downgraded to the table's 4
+    assert member.spell_slots.get(1, 0) <= member.spell_slots_max.get(1, 0)

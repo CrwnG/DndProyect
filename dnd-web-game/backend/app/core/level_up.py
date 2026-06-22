@@ -1214,9 +1214,12 @@ def apply_multiclass_level_up(
         )
         if new_slots:
             for slot_level, count in new_slots.items():
-                gained = count - member.spell_slots_max.get(slot_level, 0)
-                member.spell_slots_max[slot_level] = count
-                member.spell_slots[slot_level] = member.spell_slots.get(slot_level, 0) + max(0, gained)
+                old_max = member.spell_slots_max.get(slot_level, 0)
+                # Only ever RAISE the max — never lower it (which would corrupt the
+                # character or leave remaining > max).
+                if count > old_max:
+                    member.spell_slots_max[slot_level] = count
+                    member.spell_slots[slot_level] = member.spell_slots.get(slot_level, 0) + (count - old_max)
     except ImportError as e:
         import logging
         logging.warning(f"Could not load multiclass spell slots module: {e}")
