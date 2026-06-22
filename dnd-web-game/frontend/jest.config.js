@@ -24,8 +24,8 @@ module.exports = {
 
     // Module name mapping for imports
     moduleNameMapper: {
-        // Map CSS imports to empty module
-        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+        // Map CSS imports to the file stub
+        '\\.(css|less|scss|sass)$': '<rootDir>/tests/__mocks__/fileMock.js',
         // Map asset imports to mock
         '\\.(jpg|jpeg|png|gif|svg|mp3|wav|ogg)$': '<rootDir>/tests/__mocks__/fileMock.js',
         // Map module paths
@@ -72,14 +72,8 @@ module.exports = {
     testTimeout: 10000,
 
     // Clear mocks between tests
-    clearMocks: true,
-
-    // Globals for browser APIs
-    globals: {
-        'window': {},
-        'document': {},
-        'navigator': {},
-        'localStorage': {},
-        'sessionStorage': {}
-    }
+    clearMocks: true
+    // NOTE: the jsdom test environment already provides window/document/navigator/
+    // localStorage. (A previous `globals` block overrode them with empty objects,
+    // which broke every test that touched the DOM.)
 };

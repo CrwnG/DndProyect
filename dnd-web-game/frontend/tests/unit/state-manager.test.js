@@ -18,7 +18,13 @@ class StateManager {
     }
 
     setState(updates, recordHistory = true) {
+        const oldState = { ...this.state };
+        this.state = { ...this.state, ...updates };
+
         if (recordHistory) {
+            // Record the NEW state so undo() steps back to the prior state and
+            // redo() steps forward to this one (pushing the old state here caused
+            // undo to overshoot).
             this.history = this.history.slice(0, this.historyIndex + 1);
             this.history.push({ ...this.state });
             if (this.history.length > this.maxHistory) {
@@ -27,9 +33,6 @@ class StateManager {
                 this.historyIndex++;
             }
         }
-
-        const oldState = { ...this.state };
-        this.state = { ...this.state, ...updates };
 
         // Notify subscribers
         for (const [key, callbacks] of this.subscribers) {
