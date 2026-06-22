@@ -174,6 +174,7 @@ class TurnState:
     sneak_attack_used: bool = False      # Rogue: once per turn
     reckless_attack_active: bool = False  # Barbarian: advantage but enemies have advantage too
     action_surge_used: bool = False       # Fighter: can use once per turn
+    haste_action_used: bool = False        # Haste: one extra action per turn
 
     def reset(self) -> None:
         """Reset turn state for a new turn."""
@@ -188,6 +189,7 @@ class TurnState:
         self.sneak_attack_used = False
         self.reckless_attack_active = False
         self.action_surge_used = False
+        self.haste_action_used = False
         # Note: reaction_used resets at START of turn, not end
         # Note: max_attacks is set at turn start based on class features
 
@@ -1354,6 +1356,24 @@ class CombatEngine:
                     description=f"Cannot take actions: {', '.join(incap_reasons)}"
                 )
 
+        # Haste's extra action is limited to Attack / Dash / Disengage / Hide / Use an
+        # Object (no spellcasting, etc.). The freed slot after use_haste_action is the
+        # Haste action — identified by haste_action_used while the slot is unspent
+        # (action_taken False). Deriving it from action_taken (which only flips on a
+        # SUCCESSFUL spend) means a failed allowed action keeps the window restricted,
+        # so a disallowed action can't slip through afterward.
+        if self.state.current_turn.haste_action_used and not self.state.current_turn.action_taken:
+            HASTE_ALLOWED = {
+                ActionType.ATTACK, ActionType.DASH, ActionType.DISENGAGE,
+                ActionType.HIDE, ActionType.USE_OBJECT, ActionType.GRAPPLE, ActionType.SHOVE,
+            }
+            if action_type not in HASTE_ALLOWED:
+                return ActionResult(
+                    success=False,
+                    action_type=action_type.value,
+                    description="Haste's extra action allows only Attack, Dash, Disengage, Hide, or Use an Object",
+                )
+
         # For attacks, check can_attack() (supports Extra Attack)
         # For other actions, check can_take_action()
         if action_type == ActionType.ATTACK:
@@ -2511,6 +2531,36 @@ class CombatEngine:
                 "action_available": True
             }
         )
+
+    def use_haste_action(self) -> ActionResult:
+        """Haste grants one extra action each turn (Attack/Dash/Disengage/Hide/Use
+        Object). Available only while a Haste extra-action buff is active on the
+        combatant (concentration-gated), and once per turn. Mirrors Action Surge:
+        frees the action slot + resets the attack counter for the bonus action."""
+        combatant = self.get_current_combatant()
+        if not combatant:
+            return ActionResult(success=False, action_type="haste_action",
+                                description="No active combatant")
+        stats = self.state.combatant_stats.get(combatant.id, {})
+        has_haste = any(b.get("extra_action") and self._buff_is_active(b)
+                        for b in (stats.get("active_buffs") or []))
+        if not has_haste:
+            return ActionResult(success=False, action_type="haste_action",
+                                description=f"{combatant.name} is not Hasted")
+        if self.state.current_turn.haste_action_used:
+            return ActionResult(success=False, action_type="haste_action",
+                                description="Haste's extra action was already used this turn")
+
+        self.state.current_turn.action_taken = False   # free the action slot
+        # Haste's Attack action is ONE weapon attack only (even with Extra Attack), so
+        # allow exactly one more attack rather than a fresh Extra-Attack sequence.
+        self.state.current_turn.max_attacks = self.state.current_turn.attacks_made + 1
+        self.state.current_turn.haste_action_used = True
+
+        desc = f"{combatant.name} uses Haste's extra action!"
+        self.state.add_event("haste_action", desc, combatant_id=combatant.id)
+        return ActionResult(success=True, action_type="haste_action", description=desc,
+                            extra_data={"action_available": True})
 
     def use_divine_smite(self, slot_level: int, target_id: str) -> ActionResult:
         """
