@@ -1470,6 +1470,22 @@ def process_enemy_turn_advanced(
         # Apply control-spell conditions (e.g. a monster casting Hold Person).
         engine.apply_spell_conditions(getattr(result, "conditions_applied", None))
 
+        # Record the monster's concentration whenever it casts a concentration spell,
+        # so the new spell gates correctly AND the previous concentration's effects
+        # lift (casting a concentration spell ends the prior one). This must run
+        # regardless of whether any target failed.
+        if getattr(result, "concentration_started", False):
+            sc = enemy_stats.get("spellcasting")
+            if not isinstance(sc, dict):
+                sc = {}
+                enemy_stats["spellcasting"] = sc
+            sc["concentrating_on"] = result.spell_id
+
+        # Apply failed-save debuffs (a monster casting Bane on the party), gated to the
+        # monster's concentration above so they lift when its concentration breaks.
+        for tid, effects in (getattr(result, "debuffs_applied", None) or {}).items():
+            engine.apply_spell_buffs(enemy.id, effects, [tid], spell_id=spell_id)
+
         # Persist consumed spell slots back to the monster's stats — caster_data is
         # a fresh copy, so cast_spell's slot mutation would otherwise be lost and
         # the enemy could reuse slots every turn.

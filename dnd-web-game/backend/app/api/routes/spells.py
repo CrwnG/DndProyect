@@ -414,6 +414,12 @@ async def cast_spell_in_combat(
                 spell_id=request.spell_id,
             )
 
+        # Apply failed-save debuffs (Bane's -1d4, …) only to the targets that failed.
+        for tid, effects in (getattr(result, "debuffs_applied", None) or {}).items():
+            combat_engine.apply_spell_buffs(
+                request.caster_id, effects, [tid], spell_id=request.spell_id,
+            )
+
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
         # combatant_stats[caster_id]). Deducting again here would double-count.

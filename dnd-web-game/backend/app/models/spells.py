@@ -230,6 +230,7 @@ class SpellCastResult(BaseModel):
     damage_rolls: Optional[List[int]] = None         # [4] - individual die results
     healing_done: Optional[Dict[str, int]] = None    # {target_id: healing}
     conditions_applied: Optional[Dict[str, List[str]]] = None  # {target_id: [conditions]}
+    debuffs_applied: Optional[Dict[str, Dict[str, Any]]] = None  # {target_id: penalty_effects} (Bane, failed saves only)
 
     # Concentration
     concentration_started: bool = False
