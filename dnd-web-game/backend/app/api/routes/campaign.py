@@ -688,6 +688,7 @@ class LevelUpRequest(BaseModel):
     asi_choice: Optional[Dict[str, int]] = None  # e.g., {"strength": 2}
     feat_choice: Optional[str] = None
     subclass_choice: Optional[str] = None
+    ability_choice: Optional[str] = None  # chosen ability for choice-feats (Resilient, …)
 
 
 @router.post("/session/{session_id}/level-up/apply/{member_id}")
@@ -729,6 +730,7 @@ async def apply_level_up(session_id: str, member_id: str, request: LevelUpReques
         asi_choice=request.asi_choice,
         feat_choice=request.feat_choice,
         subclass_choice=request.subclass_choice,
+        ability_choice=request.ability_choice,
     )
 
     session.updated_at = datetime.utcnow().isoformat()

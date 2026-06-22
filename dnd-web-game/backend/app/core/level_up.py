@@ -667,6 +667,7 @@ def apply_level_up(
     asi_choice: Optional[Dict[str, int]] = None,  # {"strength": 2} or {"dexterity": 1, "wisdom": 1}
     feat_choice: Optional[str] = None,
     subclass_choice: Optional[str] = None,
+    ability_choice: Optional[str] = None,  # for choice-feats (Resilient, Athlete, …)
 ) -> LevelUpResult:
     """
     Apply a level-up to a party member.
@@ -737,8 +738,8 @@ def apply_level_up(
     # Apply ASI or Feat
     if gets_asi_at_level(class_name, new_level):
         if feat_choice:
-            # Apply feat effects
-            feat_result = apply_feat_effects(member, feat_choice)
+            # Apply feat effects (ability_choice drives choice-feats like Resilient)
+            feat_result = apply_feat_effects(member, feat_choice, ability_choice)
             choices_applied["feat"] = feat_choice
             choices_applied["feat_effects"] = feat_result
 
@@ -1034,6 +1035,7 @@ def apply_multiclass_level_up(
     asi_choice: Optional[Dict[str, int]] = None,
     feat_choice: Optional[str] = None,
     subclass_choice: Optional[str] = None,
+    ability_choice: Optional[str] = None,  # for choice-feats (Resilient, Athlete, …)
 ) -> LevelUpResult:
     """
     Apply a multiclass level-up to a party member.
@@ -1177,7 +1179,7 @@ def apply_multiclass_level_up(
     # Apply ASI or Feat (based on class level, not total level)
     if gets_asi_at_level(class_name, new_class_level):
         if feat_choice:
-            feat_result = apply_feat_effects(member, feat_choice)
+            feat_result = apply_feat_effects(member, feat_choice, ability_choice)
             choices_applied["feat"] = feat_choice
             choices_applied["feat_effects"] = feat_result
         elif asi_choice:
@@ -1201,6 +1203,26 @@ def apply_multiclass_level_up(
                 choices_applied["subclass"] = subclass_choice
             else:
                 errors.append(f"Subclass choice required for {class_name} but not provided")
+
+    # Update spell slots from the COMBINED multiclass caster level (this was never
+    # done — multiclass casters gained no new slots). Mirror the single-class delta
+    # logic: raise the max and grant only the newly gained slots.
+    try:
+        from app.core.class_spellcasting import get_multiclass_spell_slots
+        new_slots = get_multiclass_spell_slots(
+            member.class_levels, getattr(member, "subclasses", None)
+        )
+        if new_slots:
+            for slot_level, count in new_slots.items():
+                old_max = member.spell_slots_max.get(slot_level, 0)
+                # Only ever RAISE the max — never lower it (which would corrupt the
+                # character or leave remaining > max).
+                if count > old_max:
+                    member.spell_slots_max[slot_level] = count
+                    member.spell_slots[slot_level] = member.spell_slots.get(slot_level, 0) + (count - old_max)
+    except ImportError as e:
+        import logging
+        logging.warning(f"Could not load multiclass spell slots module: {e}")
 
     # Get features gained for this class level
     features = _get_features_for_level(class_name, new_class_level)
