@@ -54,6 +54,40 @@ def test_attack_buff_bonus_rolls_and_stacks():
     assert eng._attack_buff_bonus(stats) == 0
 
 
+def test_recasting_bless_does_not_stack():
+    """QA: re-casting the same spell (or the same spell from another caster) must
+    replace, not stack, the buff on a target."""
+    eng = _engine()
+    eng.apply_spell_buffs("cleric", {"attack_bonus_dice": "1d4"}, ["hero"], spell_id="bless")
+    eng.apply_spell_buffs("cleric", {"attack_bonus_dice": "1d4"}, ["hero"], spell_id="bless")
+    buffs = [b for b in eng.state.combatant_stats["hero"]["active_buffs"]
+             if b.get("spell_id") == "bless"]
+    assert len(buffs) == 1                       # not two
+
+    # Bless from a DIFFERENT caster also doesn't stack (same spell).
+    eng.apply_spell_buffs("bard", {"attack_bonus_dice": "1d4"}, ["hero"], spell_id="bless")
+    bless = [b for b in eng.state.combatant_stats["hero"]["active_buffs"]
+             if b.get("spell_id") == "bless"]
+    assert len(bless) == 1
+
+
+def test_buff_inactive_once_caster_stops_concentrating():
+    """QA: a concentration buff stops applying as soon as the caster is no longer
+    concentrating on it (covers voluntary drop / switch / death, not just a failed
+    save)."""
+    eng = _engine()
+    # Caster 'hero' concentrates on bless and buffs itself.
+    stats = eng.state.combatant_stats["hero"]
+    stats["spellcasting"] = {"concentrating_on": "bless"}
+    eng.apply_spell_buffs("hero", {"attack_bonus_dice": "1d4"}, ["hero"], spell_id="bless")
+    for _ in range(10):
+        assert eng._attack_buff_bonus(stats) >= 1        # active while concentrating
+
+    # Concentration ends (any reason) -> the buff no longer applies.
+    stats["spellcasting"]["concentrating_on"] = None
+    assert eng._attack_buff_bonus(stats) == 0
+
+
 def test_remove_buffs_from_caster_on_concentration_end():
     eng = _engine()
     eng.apply_spell_buffs("cleric", {"attack_bonus_dice": "1d4"}, ["hero"])
