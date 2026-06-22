@@ -1184,6 +1184,11 @@ def _get_target_save_modifier(target: Dict, save_type: Optional[str]) -> int:
     if not save_type:
         return 0
 
+    # A concentration-gated save buff (Bless's +1d4) pre-rolled by the combat engine
+    # and stamped on the target — this resolver has no access to combat state, so the
+    # engine does the gating/rolling and we just add the number.
+    buff_bonus = target.get("_save_buff_bonus", 0)
+
     save_type_lower = save_type.lower()
 
     # Map abbreviated to full names
@@ -1200,38 +1205,42 @@ def _get_target_save_modifier(target: Dict, save_type: Optional[str]) -> int:
     full_name = ABILITY_MAP.get(save_type_lower, save_type_lower)
     short_name = save_type_lower[:3]
 
-    # Try to find save modifier in order of preference:
-    # 1. Explicit save bonus (e.g., "dexterity_save", "dex_save")
-    save_mod = target.get(f"{full_name}_save")
-    if save_mod is not None:
-        return save_mod
+    # Find the base save modifier in order of preference; the buff is added to
+    # whichever base we land on (including the 0 default).
+    def _base() -> int:
+        # 1. Explicit save bonus (e.g., "dexterity_save", "dex_save")
+        save_mod = target.get(f"{full_name}_save")
+        if save_mod is not None:
+            return save_mod
 
-    save_mod = target.get(f"{short_name}_save")
-    if save_mod is not None:
-        return save_mod
+        save_mod = target.get(f"{short_name}_save")
+        if save_mod is not None:
+            return save_mod
 
-    # 2. Ability modifier (e.g., "dex_mod", "dexterity_mod")
-    ability_mod = target.get(f"{short_name}_mod")
-    if ability_mod is not None:
-        return ability_mod
+        # 2. Ability modifier (e.g., "dex_mod", "dexterity_mod")
+        ability_mod = target.get(f"{short_name}_mod")
+        if ability_mod is not None:
+            return ability_mod
 
-    ability_mod = target.get(f"{full_name}_mod")
-    if ability_mod is not None:
-        return ability_mod
+        ability_mod = target.get(f"{full_name}_mod")
+        if ability_mod is not None:
+            return ability_mod
 
-    # 3. Calculate from ability score
-    ability_score = target.get(full_name) or target.get(short_name)
-    if ability_score is not None:
-        return (ability_score - 10) // 2
+        # 3. Calculate from ability score
+        ability_score = target.get(full_name) or target.get(short_name)
+        if ability_score is not None:
+            return (ability_score - 10) // 2
 
-    # 4. Check in abilities dict
-    abilities = target.get("abilities", {})
-    ability_score = abilities.get(full_name) or abilities.get(short_name)
-    if ability_score is not None:
-        return (ability_score - 10) // 2
+        # 4. Check in abilities dict
+        abilities = target.get("abilities", {})
+        ability_score = abilities.get(full_name) or abilities.get(short_name)
+        if ability_score is not None:
+            return (ability_score - 10) // 2
 
-    # Default to 0 if nothing found
-    return 0
+        # Default to 0 if nothing found
+        return 0
+
+    return _base() + buff_bonus
 
 
 def cast_spell(

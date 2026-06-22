@@ -342,6 +342,9 @@ async def cast_spell_in_combat(
             target_data_with_pos = target_data.copy()
             target_data_with_pos["id"] = target_id
             target_data_with_pos["position"] = pos
+            # Pre-roll the target's active save buff (Bless +1d4) so the save
+            # resolver, which can't see combat state, applies it.
+            combat_engine.stamp_save_buff(target_data_with_pos)
             targets.append(target_data_with_pos)
 
     # Cast the spell
