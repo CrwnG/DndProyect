@@ -1422,6 +1422,8 @@ def cast_spell(
                 cast_level
             )
 
+            if spell.conditions_applied:
+                result.conditions_applied = {}
             for target_id, target_result in area_result["targets"].items():
                 result.save_results[target_id] = {
                     "roll": target_result["save_roll"],
@@ -1430,6 +1432,11 @@ def cast_spell(
                 }
                 if target_result["damage"] > 0:
                     result.damage_dealt[target_id] = target_result["damage"]
+                # An area spell that ALSO imposes a condition (Sunburst blinds,
+                # Weird frightens, …) applies it to targets that failed their save —
+                # the dispatch used to drop the condition entirely.
+                if spell.conditions_applied and not target_result["saved"]:
+                    result.conditions_applied[target_id] = spell.conditions_applied
 
             result.description = (
                 f"{result.caster_name} casts {spell.name}! "
@@ -1450,6 +1457,13 @@ def cast_spell(
             )
 
             result.conditions_applied = {}
+            # The spell may ALSO deal damage (Phantasmal Killer 4d10, Prismatic
+            # Spray, Psychic Scream, …) — resolve it off the SAME save instead of
+            # dropping it (full on fail, half/none on save).
+            cond_damage_dice = (
+                SpellEffectResolver._calculate_spell_damage(spell, caster_level, cast_level)
+                if spell.damage_dice else None
+            )
             for target_id, target_result in condition_result["targets"].items():
                 result.save_results[target_id] = {
                     "roll": target_result["save_roll"],
@@ -1458,6 +1472,16 @@ def cast_spell(
                 }
                 if target_result["conditions_applied"]:
                     result.conditions_applied[target_id] = target_result["conditions_applied"]
+                if cond_damage_dice:
+                    rolled = roll_damage(cond_damage_dice)
+                    if target_result["saved"]:
+                        # For condition-primary spells the damage rides on FAILING, so
+                        # a save deals nothing unless the spell explicitly grants half.
+                        dmg = rolled.total // 2 if spell.half_damage_on_save else 0
+                    else:
+                        dmg = rolled.total
+                    if dmg > 0:
+                        result.damage_dealt[target_id] = dmg
 
             result.description = (
                 f"{result.caster_name} casts {spell.name}! "
