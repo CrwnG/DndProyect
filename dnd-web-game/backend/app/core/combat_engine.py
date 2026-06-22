@@ -4312,7 +4312,7 @@ class CombatEngine:
             target_data = []
             for t_id in targets:
                 t_stats = self.state.combatant_stats.get(t_id, {})
-                save_mod = t_stats.get(f"{save_type}_save", t_stats.get(f"{save_type}_mod", 0))
+                save_mod = self._target_save_modifier(t_stats, save_type)
 
                 # Check for Evasion (Rogue 7+, Monk 7+)
                 t_class = t_stats.get("class", "").lower()
@@ -4342,7 +4342,7 @@ class CombatEngine:
             target_data = []
             for t_id in targets:
                 t_stats = self.state.combatant_stats.get(t_id, {})
-                save_mod = t_stats.get(f"{save_type}_save", t_stats.get(f"{save_type}_mod", 0))
+                save_mod = self._target_save_modifier(t_stats, save_type)
                 target_data.append({"id": t_id, "save_mod": save_mod})
 
             immune_targets = self.state.frightful_presence_immune.get(combatant.id, [])
@@ -4368,7 +4368,7 @@ class CombatEngine:
             target_data = []
             for t_id in targets:
                 t_stats = self.state.combatant_stats.get(t_id, {})
-                save_mod = t_stats.get(f"{save_type}_save", t_stats.get(f"{save_type}_mod", 0))
+                save_mod = self._target_save_modifier(t_stats, save_type)
                 target_data.append({"id": t_id, "save_mod": save_mod})
 
             result = execute_mind_blast(ability, target_data, combatant.id)
@@ -4399,7 +4399,7 @@ class CombatEngine:
 
                 for t_id in targets:
                     t_stats = self.state.combatant_stats.get(t_id, {})
-                    save_mod = t_stats.get(f"{save_type}_save", t_stats.get(f"{save_type}_mod", 0))
+                    save_mod = self._target_save_modifier(t_stats, save_type)
                     save_roll = random.randint(1, 20) + save_mod
 
                     if save_roll >= ability.save_dc:
@@ -4642,6 +4642,26 @@ class CombatEngine:
             if ac and self._buff_is_active(buff):
                 bonus += ac
         return base_ac + bonus
+
+    def _save_buff_bonus(self, target_stats: Dict[str, Any]) -> int:
+        """Roll + sum any active saving-throw bonus dice (Bless's +1d4 to saves)
+        from a combatant's active buffs. 0 when there are none. One save = one
+        roll, mirroring _attack_buff_bonus for attack rolls."""
+        from app.core.dice import roll_dice
+        total = 0
+        for buff in ((target_stats or {}).get("active_buffs") or []):
+            dice = buff.get("save_bonus_dice")
+            if dice and self._buff_is_active(buff):
+                total += roll_dice(dice)
+        return total
+
+    def _target_save_modifier(self, target_stats: Dict[str, Any], save_type: str) -> int:
+        """The save modifier for a combatant resisting an ability: their proficient
+        save (falling back to the raw ability mod) plus any active save buffs. Used
+        by every monster-ability save path so Bless helps saves, not just attacks."""
+        stats = target_stats or {}
+        base = stats.get(f"{save_type}_save", stats.get(f"{save_type}_mod", 0))
+        return base + self._save_buff_bonus(stats)
 
     def remove_buffs_from_caster(self, caster_id: str) -> None:
         """Remove every buff granted by a caster (e.g. when their concentration
@@ -4951,7 +4971,7 @@ class CombatEngine:
                 target_data = []
                 for t_id in targets:
                     t_stats = self.state.combatant_stats.get(t_id, {})
-                    save_mod = t_stats.get("wis_save", t_stats.get("wis_mod", 0))
+                    save_mod = self._target_save_modifier(t_stats, "wis")
                     target_data.append({"id": t_id, "save_mod": save_mod})
 
                 # Execute

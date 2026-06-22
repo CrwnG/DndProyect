@@ -115,6 +115,56 @@ def test_ac_buff_respects_concentration():
     assert eng._effective_ac(stats, 15) == 15                  # gone when concentration ends
 
 
+def test_save_buff_bonus_rolls_active_save_dice():
+    """Bless's other half: +1d4 to the buffed creature's saving throws."""
+    eng = _engine()
+    stats = eng.state.combatant_stats["hero"]
+    assert eng._save_buff_bonus(stats) == 0                     # no buffs
+
+    stats["active_buffs"] = [{"source": "c", "save_bonus_dice": "1d4"}]
+    for _ in range(25):
+        assert 1 <= eng._save_buff_bonus(stats) <= 4           # one 1d4
+
+    stats["active_buffs"] = [{"save_bonus_dice": "1d4"}, {"save_bonus_dice": "1d4"}]
+    for _ in range(25):
+        assert 2 <= eng._save_buff_bonus(stats) <= 8           # two 1d4 stack
+
+    # An attack-only buff (Bless's attack die) contributes nothing to saves.
+    stats["active_buffs"] = [{"attack_bonus_dice": "1d4"}]
+    assert eng._save_buff_bonus(stats) == 0
+
+
+def test_target_save_modifier_includes_base_and_buff():
+    """The save modifier used by every monster-ability save path = the target's
+    proficient save (falling back to the raw ability mod) PLUS active save buffs."""
+    eng = _engine()
+    stats = eng.state.combatant_stats["hero"]
+    stats["dex_save"] = 3
+    assert eng._target_save_modifier(stats, "dex") == 3        # base, no buff
+
+    stats["active_buffs"] = [{"save_bonus_dice": "1d4"}]
+    for _ in range(25):
+        assert 4 <= eng._target_save_modifier(stats, "dex") <= 7   # 3 + 1d4
+
+    # Falls back to the raw ability mod when no proficient save is recorded.
+    stats.pop("dex_save", None)
+    stats["dex_mod"] = 2
+    stats["active_buffs"] = []
+    assert eng._target_save_modifier(stats, "dex") == 2
+
+
+def test_save_buff_respects_concentration():
+    eng = _engine()
+    stats = eng.state.combatant_stats["hero"]
+    stats["spellcasting"] = {"concentrating_on": "bless"}
+    stats["active_buffs"] = [{"source": "hero", "spell_id": "bless", "save_bonus_dice": "1d4"}]
+    for _ in range(10):
+        assert eng._save_buff_bonus(stats) >= 1               # active while concentrating
+
+    stats["spellcasting"]["concentrating_on"] = None
+    assert eng._save_buff_bonus(stats) == 0                    # gone when concentration ends
+
+
 def test_remove_buffs_from_caster_on_concentration_end():
     eng = _engine()
     eng.apply_spell_buffs("cleric", {"attack_bonus_dice": "1d4"}, ["hero"])
