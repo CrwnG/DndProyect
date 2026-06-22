@@ -619,6 +619,8 @@ class CombatEngine:
             "weapon_stats": weapon_stats,
             # Inventory for consumables (potions, scrolls, etc.)
             "inventory": combatant_data.get("inventory", []),
+            # Gold carried into combat (shop buy/sell mutate this; persisted back).
+            "gold": combatant_data.get("gold", 0),
             # Monster action data consumed by the multiattack / monster-ability /
             # legendary-action handlers (no-ops if these are missing).
             "actions": combatant_data.get("actions", []),
