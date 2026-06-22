@@ -1198,6 +1198,8 @@ class CombatEngine:
         save_bonus = con_mod
         if is_proficient:
             save_bonus += proficiency_bonus
+        # Bless (and friends) add their +1d4 to this CON save, like any other save.
+        save_bonus += self._save_buff_bonus(stats)
 
         # Check for War Caster feat (advantage on concentration checks)
         # This would be in a feats list if the character has it
@@ -4654,6 +4656,17 @@ class CombatEngine:
             if dice and self._buff_is_active(buff):
                 total += roll_dice(dice)
         return total
+
+    def stamp_save_buff(self, target_dict: Dict[str, Any],
+                        source_stats: Optional[Dict[str, Any]] = None) -> None:
+        """Pre-roll a target's active (concentration-gated) save buff and stash it
+        under ``_save_buff_bonus`` on the target dict, so the combat-state-agnostic
+        spell save resolver (``_get_target_save_modifier``) can add it. One roll per
+        target. ``source_stats`` is where ``active_buffs`` actually live — defaults to
+        ``target_dict`` itself (player route copies combatant_stats), but the enemy
+        route hand-builds a thin target dict and must pass the real stats."""
+        stats = source_stats if source_stats is not None else target_dict
+        target_dict["_save_buff_bonus"] = self._save_buff_bonus(stats)
 
     def _target_save_modifier(self, target_stats: Dict[str, Any], save_type: str) -> int:
         """The save modifier for a combatant resisting an ability: their proficient

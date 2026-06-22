@@ -1428,13 +1428,17 @@ def process_enemy_turn_advanced(
             target = engine.state.initiative_tracker.get_combatant(decision.target_id)
             target_stats = engine.state.combatant_stats.get(decision.target_id, {})
             if target:
-                targets.append({
+                enemy_target = {
                     "id": target.id,
                     "name": target.name,
                     "ac": target_stats.get("ac", target.ac),
                     "current_hp": target_stats.get("current_hp", 0),
                     "saving_throws": target_stats.get("saving_throws", {}),
-                })
+                }
+                # A Blessed PC keeps its +1d4 when an enemy targets it with a save
+                # spell. This thin dict has no active_buffs, so stamp from real stats.
+                engine.stamp_save_buff(enemy_target, source_stats=target_stats)
+                targets.append(enemy_target)
 
         # Determine slot level (cantrips use None)
         slot_level = None if spell.level == 0 else spell.level
