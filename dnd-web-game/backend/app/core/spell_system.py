@@ -1118,6 +1118,18 @@ class SpellEffectResolver:
         return None
 
     @staticmethod
+    def _determine_debuff_effects(spell: Spell) -> Dict[str, Any]:
+        """Penalty effects a failed-save debuff imposes for its duration. Bane is the
+        mirror of Bless: -1d4 to the target's attack rolls AND saving throws. Stored
+        on the target as active_buffs and gated by the caster's concentration, exactly
+        like a buff — only the dice are subtracted."""
+        effects: Dict[str, Any] = {}
+        if "bane" in spell.id:
+            effects["attack_penalty_dice"] = "1d4"
+            effects["save_penalty_dice"] = "1d4"
+        return effects
+
+    @staticmethod
     def _determine_buff_effects(spell: Spell) -> Dict[str, Any]:
         """Determine mechanical effects of a buff spell."""
         effects = {}
@@ -1405,6 +1417,10 @@ def cast_spell(
 
         else:
             # Standard single-target save spells
+            # Pure debuffs (Bane) impose penalty dice on every target that FAILS.
+            debuff_effects = SpellEffectResolver._determine_debuff_effects(spell)
+            if debuff_effects:
+                result.debuffs_applied = {}
             for target in targets:
                 # Get save modifier - try explicit save key first, then calculate from ability mod
                 save_mod = _get_target_save_modifier(target, spell.save_type)
@@ -1432,9 +1448,19 @@ def cast_spell(
                 if save_result.get("damage_rolls"):
                     result.damage_rolls = save_result["damage_rolls"]
 
+                if debuff_effects and not save_result["saved"]:
+                    result.debuffs_applied[target_id] = debuff_effects
+
             total_damage = sum(result.damage_dealt.values())
             saves = sum(1 for r in result.save_results.values() if r["saved"])
-            result.description = f"{result.caster_name} casts {spell.name}! {len(targets) - saves}/{len(targets)} fail their saves for {total_damage} total damage!"
+            failed = len(targets) - saves
+            if debuff_effects:
+                result.description = (
+                    f"{result.caster_name} casts {spell.name}! "
+                    f"{failed}/{len(targets)} fail and are afflicted."
+                )
+            else:
+                result.description = f"{result.caster_name} casts {spell.name}! {failed}/{len(targets)} fail their saves for {total_damage} total damage!"
 
     elif spell.healing_dice and targets:
         # Healing spell

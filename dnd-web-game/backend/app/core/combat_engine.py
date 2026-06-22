@@ -4625,14 +4625,17 @@ class CombatEngine:
         return (caster.get("spellcasting") or {}).get("concentrating_on") == spell_id
 
     def _attack_buff_bonus(self, attacker_stats: Dict[str, Any]) -> int:
-        """Roll + sum any active attack-roll bonus dice (e.g. Bless +1d4) from a
-        combatant's active buffs. 0 when there are none."""
+        """Net attack-roll dice from a combatant's active buffs: +bonus (Bless +1d4)
+        minus penalties (Bane -1d4). 0 when there are none. Can be negative."""
         from app.core.dice import roll_dice
         total = 0
         for buff in (attacker_stats.get("active_buffs") or []):
-            dice = buff.get("attack_bonus_dice")
-            if dice and self._buff_is_active(buff):
-                total += roll_dice(dice)
+            if not self._buff_is_active(buff):
+                continue
+            if buff.get("attack_bonus_dice"):
+                total += roll_dice(buff["attack_bonus_dice"])
+            if buff.get("attack_penalty_dice"):
+                total -= roll_dice(buff["attack_penalty_dice"])
         return total
 
     def _effective_ac(self, target_stats: Dict[str, Any], base_ac: int) -> int:
@@ -4648,13 +4651,17 @@ class CombatEngine:
     def _save_buff_bonus(self, target_stats: Dict[str, Any]) -> int:
         """Roll + sum any active saving-throw bonus dice (Bless's +1d4 to saves)
         from a combatant's active buffs. 0 when there are none. One save = one
-        roll, mirroring _attack_buff_bonus for attack rolls."""
+        roll, mirroring _attack_buff_bonus for attack rolls. Net of save penalties
+        (Bane -1d4), so it can be negative."""
         from app.core.dice import roll_dice
         total = 0
         for buff in ((target_stats or {}).get("active_buffs") or []):
-            dice = buff.get("save_bonus_dice")
-            if dice and self._buff_is_active(buff):
-                total += roll_dice(dice)
+            if not self._buff_is_active(buff):
+                continue
+            if buff.get("save_bonus_dice"):
+                total += roll_dice(buff["save_bonus_dice"])
+            if buff.get("save_penalty_dice"):
+                total -= roll_dice(buff["save_penalty_dice"])
         return total
 
     def stamp_save_buff(self, target_dict: Dict[str, Any],
@@ -4734,6 +4741,10 @@ class CombatEngine:
         # restrained, paralyzed, frightened, …) — monster attacks previously
         # ignored these and never got auto-crit vs paralyzed/unconscious targets.
         attack_bonus = attack.attack_bonus or 0
+        # Monster attacks honor active attack buffs/penalties too (e.g. Bane -1d4 on
+        # an enemy, Bless +1d4 on a charmed/allied creature) — the player path does
+        # this; without it Bane never touched enemy attack rolls.
+        attack_bonus += self._attack_buff_bonus(stats)
         attacker_conditions = stats.get("conditions", getattr(combatant, "conditions", []))
         target_conditions = target_stats.get("conditions", getattr(target, "conditions", []))
         distance_ft = self._distance_ft(combatant.id, target_id)
