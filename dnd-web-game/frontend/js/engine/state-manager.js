@@ -94,7 +94,7 @@ const initialState = {
     playerIds: [],
 };
 
-class StateManager {
+export class StateManager {
     constructor() {
         this.state = JSON.parse(JSON.stringify(initialState));
         this.subscribers = new Set();
