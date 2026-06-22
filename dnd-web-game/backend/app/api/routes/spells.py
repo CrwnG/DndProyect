@@ -420,6 +420,10 @@ async def cast_spell_in_combat(
                 request.caster_id, effects, [tid], spell_id=request.spell_id,
             )
 
+        # Stow a smite-spell rider on the caster for their next weapon hit.
+        if getattr(result, "pending_smite", None):
+            combat_engine.state.combatant_stats[request.caster_id]["pending_smite"] = result.pending_smite
+
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
         # combatant_stats[caster_id]). Deducting again here would double-count.

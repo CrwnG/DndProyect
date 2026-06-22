@@ -3258,6 +3258,14 @@ class CombatEngine:
                     total_damage += rage_damage
 
             # ============================================================
+            # SMITE SPELL RIDER - a smite cast earlier fires on THIS hit (bonus
+            # damage now; its save-or-condition lands after the damage is applied).
+            # ============================================================
+            smite_rider = self._consume_pending_smite(attacker.id, attack_result.critical_hit)
+            if smite_rider:
+                total_damage += smite_rider["bonus_damage"]
+
+            # ============================================================
             # DIVINE SMITE OPPORTUNITY (Paladin) - Returns option to player
             # D&D 2024: Divine Smite is a spell that costs a bonus action
             # ============================================================
@@ -3307,6 +3315,16 @@ class CombatEngine:
                     f"{target.name} is defeated!",
                     combatant_id=target.id
                 )
+
+            # Smite rider condition (Wrathful->frightened, Blinding->blinded, …):
+            # the still-standing target makes the smite's save or is afflicted.
+            if smite_rider and smite_rider.get("condition") and target.is_active:
+                if self._apply_smite_condition(target.id, smite_rider):
+                    self.state.add_event(
+                        "smite_condition",
+                        f"{target.name} is {smite_rider['condition']} by the smite!",
+                        combatant_id=target.id,
+                    )
 
             # ============================================================
             # CONCENTRATION CHECK - Target must save to maintain concentration
@@ -4672,6 +4690,47 @@ class CombatEngine:
             if buff.get("save_penalty_dice"):
                 total -= roll_dice(buff["save_penalty_dice"])
         return total
+
+    def _consume_pending_smite(self, attacker_id: str, is_crit: bool = False) -> Optional[Dict[str, Any]]:
+        """If the attacker has a pending smite-spell rider (Searing/Wrathful/Blinding
+        Smite, … cast on a prior turn), roll its bonus damage for THIS hit (dice
+        doubled on a crit) and clear it — smites fire on "the next time you hit".
+        Returns {bonus_damage, damage_type, condition, save_type, save_dc} or None."""
+        stats = self.state.combatant_stats.get(attacker_id, {})
+        smite = stats.get("pending_smite")
+        if not smite:
+            return None
+        stats["pending_smite"] = None
+        from app.core.dice import roll_dice, dice_only
+        dice = smite.get("damage_dice")
+        bonus = roll_dice(dice) if dice else 0
+        if is_crit and dice:
+            bonus += roll_dice(dice_only(dice))
+        return {
+            "bonus_damage": bonus,
+            "damage_type": smite.get("damage_type", "radiant"),
+            "condition": smite.get("condition"),
+            "save_type": smite.get("save_type"),
+            "save_dc": smite.get("save_dc", 13),
+        }
+
+    def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
+        """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
+        …): the target makes the smite's save (if any) or is afflicted. Returns
+        whether the condition landed."""
+        condition = rider.get("condition")
+        if not condition:
+            return False
+        save_type = rider.get("save_type")
+        if save_type:
+            # Spell save types are full names ("wisdom"); combatant stats key saves by
+            # the 3-letter form ("wis_save") — normalize so the mod is actually found.
+            t_stats = self.state.combatant_stats.get(target_id, {})
+            short = save_type[:3].lower()
+            if random.randint(1, 20) + self._target_save_modifier(t_stats, short) >= rider.get("save_dc", 13):
+                return False  # saved
+        self.apply_spell_conditions({target_id: [condition]})
+        return True
 
     def stamp_save_buff(self, target_dict: Dict[str, Any],
                         source_stats: Optional[Dict[str, Any]] = None) -> None:

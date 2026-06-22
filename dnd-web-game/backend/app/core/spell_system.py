@@ -1176,6 +1176,23 @@ class SpellEffectResolver:
         return effects
 
     @staticmethod
+    def _determine_smite_effects(spell: Spell) -> Optional[Dict[str, Any]]:
+        """Smite spells ("the next time you hit a creature with a melee weapon attack
+        before the spell ends, …") are a pending rider on the caster's next hit, not a
+        self-cast AoE. Returns the rider derived from the spell's own fields (damage +
+        optional save/condition) or None. Divine Smite is a separate post-hit action."""
+        if not spell.id.endswith("_smite") or spell.id == "divine_smite":
+            return None
+        if not spell.damage_dice:
+            return None
+        return {
+            "damage_dice": spell.damage_dice,
+            "damage_type": spell.damage_type or "radiant",
+            "save_type": spell.save_type,
+            "condition": (spell.conditions_applied or [None])[0],
+        }
+
+    @staticmethod
     def _determine_buff_effects(spell: Spell) -> Dict[str, Any]:
         """Determine mechanical effects of a buff spell. Matches on a normalized id
         (underscores -> spaces) so multi-word ids like ``shield_of_faith`` /
@@ -1376,7 +1393,19 @@ def cast_spell(
         save_results={},
     )
 
-    if spell.attack_type and targets:
+    smite_rider = SpellEffectResolver._determine_smite_effects(spell)
+    if smite_rider:
+        # Smite spell: stow a rider for the caster's NEXT weapon hit instead of
+        # resolving damage/condition now (it's self-cast — the old path hit the caster).
+        result.pending_smite = {
+            **smite_rider, "save_dc": spell_caster.spellcasting.spell_save_dc,
+            "spell_id": spell.id,
+        }
+        result.description = (
+            f"{result.caster_name} is wreathed in power — {spell.name} strikes on the next hit!"
+        )
+
+    elif spell.attack_type and targets:
         # Attack spell
         target = targets[0]
         attack_result = SpellEffectResolver.resolve_attack_spell(
