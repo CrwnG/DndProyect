@@ -4639,14 +4639,23 @@ class CombatEngine:
         return total
 
     def _effective_ac(self, target_stats: Dict[str, Any], base_ac: int) -> int:
-        """Base AC plus any active AC buffs (Shield of Faith +2, Haste +2, …) on
-        the defender. Returns base_ac unchanged when there are no AC buffs."""
+        """Base AC plus active AC buffs (Shield of Faith +2, Haste +2, …), and any
+        Mage Armor floor (unarmored AC = 13 + DEX). Returns base_ac unchanged when
+        there are no AC buffs; an AC floor only ever raises it."""
+        stats = target_stats or {}
         bonus = 0
-        for buff in ((target_stats or {}).get("active_buffs") or []):
-            ac = buff.get("ac_bonus")
-            if ac and self._buff_is_active(buff):
-                bonus += ac
-        return base_ac + bonus
+        floor = base_ac
+        for buff in (stats.get("active_buffs") or []):
+            if not self._buff_is_active(buff):
+                continue
+            if buff.get("ac_bonus"):
+                bonus += buff["ac_bonus"]
+            if buff.get("base_ac"):
+                dex = stats.get("dex_mod")
+                if dex is None:
+                    dex = (stats.get("abilities", {}).get("dexterity", 10) - 10) // 2
+                floor = max(floor, buff["base_ac"] + dex)
+        return floor + bonus
 
     def _save_buff_bonus(self, target_stats: Dict[str, Any]) -> int:
         """Roll + sum any active saving-throw bonus dice (Bless's +1d4 to saves)
