@@ -5253,9 +5253,12 @@ class CombatEngine:
         damage_mod = max(str_mod, dex_mod)
 
         # Get target AC
-        target_ac = self._effective_ac(target_stats, target_stats.get("ac", 10))
-        if target_ac == 0:
-            target_ac = target.armor_class if target.armor_class else 10
+        # Resolve the base AC first (0 is treated as missing), THEN add buffs —
+        # otherwise a +2 buff turns a 0 base into 2 and skips this fallback.
+        base_ac = target_stats.get("ac", 10)
+        if base_ac == 0:
+            base_ac = target.armor_class if target.armor_class else 10
+        target_ac = self._effective_ac(target_stats, base_ac)
 
         # Roll attack
         attack_roll = roll_d20()
