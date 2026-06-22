@@ -2215,6 +2215,39 @@ async def use_action_surge(
     )
 
 
+@router.post("/{combat_id}/haste-action", response_model=ClassFeatureResponse)
+async def use_haste_action(
+    combat_id: str,
+    combatant_id: str = Query(..., description="The Hasted combatant taking the extra action"),
+    combat_repo: CombatStateRepository = Depends(get_combat_repo),
+):
+    """
+    Use Haste's extra action (Attack/Dash/Disengage/Hide/Use Object).
+
+    - Requires an active Haste buff on the combatant (concentration-gated).
+    - Frees the action slot for one additional action, once per turn.
+    """
+    engine = active_combats.get(combat_id)
+    if not engine:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Combat not found")
+
+    current = engine.get_current_combatant()
+    if not current or current.id != combatant_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Can only use Haste's extra action on your turn",
+        )
+
+    result = engine.use_haste_action()
+    await persist_combat_state(combat_id, engine, combat_repo)
+    return ClassFeatureResponse(
+        success=result.success,
+        description=result.description,
+        extra_data=result.extra_data,
+        combat_state=engine.get_combat_state(),
+    )
+
+
 @router.post("/{combat_id}/divine-smite", response_model=ClassFeatureResponse)
 async def use_divine_smite(
     combat_id: str,
