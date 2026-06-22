@@ -33,6 +33,32 @@ def _ability_modifier_from_stats(stats: dict, ability: str) -> int:
     return (score - 10) // 2
 
 
+# Conditions are prose-extracted (any condition word in the description), which
+# yields false positives: spells that CURE/PREVENT a condition, or merely mention it,
+# were applying it. Correct the clear cases per-spell. "*" drops every extracted
+# condition (cure/prevent/immunity spells); a set drops only those listed (spells that
+# just mention `invisible`). Spells that genuinely impose a condition are absent here.
+_CONDITION_FALSE_POSITIVES = {
+    # Remove/prevent/grant-immunity-to conditions — must not apply them:
+    "heal": "*", "mass_heal": "*", "lesser_restoration": "*",
+    "greater_restoration": "*", "power_word_heal": "*", "freedom_of_movement": "*",
+    "protection_from_poison": "*", "mind_blank": "*", "aura_of_purity": "*",
+    "heroes_feast": "*", "protection_from_evil_and_good": "*", "calm_emotions": "*",
+    "dispel_evil_and_good": "*",
+    # Only MENTION `invisible` (utility/self/anti-invisibility) — never debuff an enemy:
+    "faerie_fire": {"invisible"}, "branding_smite": {"invisible"},
+    "starry_wisp": {"invisible"}, "see_invisibility": {"invisible"},
+    "antimagic_field": {"invisible"}, "arcane_eye": {"invisible"},
+    "clairvoyance": {"invisible"}, "drawmijs_instant_summons": {"invisible"},
+    "faithful_hound": {"invisible"}, "forcecage": {"invisible"},
+    "rope_trick": {"invisible"}, "scrying": {"invisible"},
+    "unseen_servant": {"invisible"},
+    "wall_of_force": {"invisible"}, "shield": {"invisible"},
+    # NB: sequester (grants Invisible to a willing target) and dream_of_the_blue_veil
+    # (renders participants Unconscious) genuinely impose those — left untouched.
+}
+
+
 class SpellRegistry:
     """
     Singleton that loads and indexes all spells from JSON files.
@@ -282,6 +308,16 @@ class SpellRegistry:
                      "incapacitated", "invisible", "paralyzed", "petrified",
                      "poisoned", "prone", "restrained", "stunned", "unconscious"]
         spell.conditions_applied = [c for c in conditions if c in description]
+
+        # Drop prose false positives (cure/prevent/mention-only) so a spell only
+        # imposes conditions it actually inflicts.
+        false_positive = _CONDITION_FALSE_POSITIVES.get(spell.id)
+        if false_positive == "*":
+            spell.conditions_applied = []
+        elif false_positive:
+            spell.conditions_applied = [
+                c for c in spell.conditions_applied if c not in false_positive
+            ]
 
     def _index_spell(self, spell: Spell):
         """Add spell to all indexes."""
