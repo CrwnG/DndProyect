@@ -1167,46 +1167,50 @@ class SpellEffectResolver:
 
     @staticmethod
     def _determine_buff_effects(spell: Spell) -> Dict[str, Any]:
-        """Determine mechanical effects of a buff spell."""
+        """Determine mechanical effects of a buff spell. Matches on a normalized id
+        (underscores -> spaces) so multi-word ids like ``shield_of_faith`` /
+        ``mage_armor`` actually hit the names below — the old checks used spaces
+        against underscore ids and silently returned nothing."""
         effects = {}
-        description = spell.description.lower()
+        key = spell.id.replace("_", " ").lower()
 
-        # Bless: +1d4 to attack rolls and saving throws
-        if "bless" in spell.id or "1d4" in description and "attack" in description:
+        # Bless: +1d4 to attack rolls and saving throws. (Match by id only — the
+        # old "1d4 + attack in description" heuristic mis-tagged e.g. Divine Favor.)
+        if "bless" in key:
             effects["attack_bonus_dice"] = "1d4"
             effects["save_bonus_dice"] = "1d4"
 
         # Shield of Faith: +2 AC
-        if "shield of faith" in spell.id or "+2 bonus to ac" in description:
+        if "shield of faith" in key:
             effects["ac_bonus"] = 2
 
         # Haste: Various bonuses
-        if "haste" in spell.id:
+        if "haste" in key:
             effects["ac_bonus"] = 2
             effects["advantage_dex_saves"] = True
             effects["extra_action"] = True
             effects["speed_multiplier"] = 2
 
         # Heroism: Temp HP and immunity to frightened
-        if "heroism" in spell.id:
+        if "heroism" in key:
             effects["temp_hp_per_round"] = True
             effects["immunity"] = ["frightened"]
 
         # Mage Armor: AC = 13 + DEX
-        if "mage armor" in spell.id:
+        if "mage armor" in key:
             effects["base_ac"] = 13
 
         # Guidance: +1d4 to ability checks
-        if "guidance" in spell.id:
+        if "guidance" in key:
             effects["ability_check_bonus_dice"] = "1d4"
 
         # Resistance: +1d4 to saving throws (single use)
-        if "resistance" in spell.id and spell.level == 0:
+        if "resistance" in key and spell.level == 0:
             effects["save_bonus_dice"] = "1d4"
             effects["single_use"] = True
 
         # Protection from Evil and Good
-        if "protection from evil" in spell.id:
+        if "protection from evil" in key:
             effects["attack_disadvantage_from"] = ["aberration", "celestial", "elemental", "fey", "fiend", "undead"]
             effects["charm_immunity_from"] = ["aberration", "celestial", "elemental", "fey", "fiend", "undead"]
 
@@ -1517,7 +1521,11 @@ def cast_spell(
         # Utility/buff/debuff spell
         current_round = combat_state.get("round_number", 1) if combat_state else 1
 
-        if spell.effect_type == SpellEffectType.BUFF and targets:
+        # Detect buffs by their recognized mechanical effects, NOT the effect_type
+        # tag — Bless/Mage Armor are tagged UTILITY, so the old `== BUFF` gate left
+        # them (and their +1d4 / AC) completely unapplied through the cast route.
+        utility_buff_effects = SpellEffectResolver._determine_buff_effects(spell)
+        if utility_buff_effects and targets:
             # Buff spell - resolve and track effects
             buff_result = SpellEffectResolver.resolve_buff_spell(
                 spell, targets, caster_level, current_round
@@ -1526,11 +1534,11 @@ def cast_spell(
             result.buff_effects = buff_result["effects"]
             result.description = f"{result.caster_name} casts {spell.name} on {len(targets)} target(s)!"
 
-            # Store buff data for duration tracking
-            if hasattr(result, 'extra_data'):
-                result.extra_data["buff"] = buff_result
-            else:
-                result.extra_data = {"buff": buff_result}
+            # Store buff data for duration tracking. extra_data defaults to None (it's
+            # a model field, so hasattr is always True) — guard against the None.
+            if result.extra_data is None:
+                result.extra_data = {}
+            result.extra_data["buff"] = buff_result
 
         elif spell.conditions_applied and targets:
             # Condition-applying utility spell (no save required)
