@@ -3012,9 +3012,12 @@ class CombatEngine:
             # Remove steady aim after using it (one-time use per turn)
             attacker.conditions.remove("steady_aim")
 
-        # Apply condition-based advantage/disadvantage
-        attacker_conditions = attacker_stats.get("conditions", getattr(attacker, "conditions", []))
-        target_conditions = target_stats.get("conditions", getattr(target, "conditions", []))
+        # Apply condition-based advantage/disadvantage. An outlined target (Faerie Fire)
+        # can't benefit from Invisible, so its conditions are filtered first.
+        attacker_conditions = self._attack_modifier_conditions(
+            attacker_stats, attacker_stats.get("conditions", getattr(attacker, "conditions", [])))
+        target_conditions = self._attack_modifier_conditions(
+            target_stats, target_stats.get("conditions", getattr(target, "conditions", [])))
 
         condition_mods = get_attack_modifiers(
             attacker_conditions=attacker_conditions,
@@ -3029,6 +3032,12 @@ class CombatEngine:
         if condition_mods.disadvantage:
             disadvantage = True
             attack_reasons.extend(condition_mods.reasons)
+
+        # Faerie Fire (and similar): attack rolls against an outlined target have
+        # advantage. Stored as a concentration-gated debuff on the target.
+        if self._has_active_buff_flag(target_stats, "attacks_against_advantage"):
+            advantage = True
+            attack_reasons.append("Target is outlined (attackers have advantage)")
 
         # D&D Rule: Small creatures have disadvantage with heavy weapons
         if is_heavy:
@@ -4808,6 +4817,15 @@ class CombatEngine:
             for buff in ((stats or {}).get("active_buffs") or [])
         )
 
+    def _attack_modifier_conditions(self, stats: Dict[str, Any], conditions):
+        """A combatant's conditions as they affect attack-roll advantage. An outlined
+        creature (Faerie Fire) can't benefit from the Invisible condition, so drop it —
+        this both removes the disadvantage attackers would suffer AND removes the
+        advantage the outlined creature's own attacks would gain from being unseen."""
+        if conditions and self._has_active_buff_flag(stats, "attacks_against_advantage"):
+            return [c for c in conditions if c != "invisible"]
+        return conditions
+
     def _speed_multiplier(self, stats: Dict[str, Any]) -> float:
         """Product of active speed multipliers from buffs/debuffs (Haste x2, Slow
         x0.5). 1.0 when there are none. Concentration-gated like every other buff."""
@@ -4899,8 +4917,11 @@ class CombatEngine:
         # an enemy, Bless +1d4 on a charmed/allied creature) — the player path does
         # this; without it Bane never touched enemy attack rolls.
         attack_bonus += self._attack_buff_bonus(stats)
-        attacker_conditions = stats.get("conditions", getattr(combatant, "conditions", []))
-        target_conditions = target_stats.get("conditions", getattr(target, "conditions", []))
+        # Outlined creatures (Faerie Fire) can't benefit from Invisible — filter first.
+        attacker_conditions = self._attack_modifier_conditions(
+            stats, stats.get("conditions", getattr(combatant, "conditions", [])))
+        target_conditions = self._attack_modifier_conditions(
+            target_stats, target_stats.get("conditions", getattr(target, "conditions", [])))
         distance_ft = self._distance_ft(combatant.id, target_id)
         is_melee = distance_ft <= 5
         cmods = get_attack_modifiers(
@@ -4909,9 +4930,12 @@ class CombatEngine:
             is_melee=is_melee,
             distance_ft=distance_ft,
         )
+        # Faerie Fire: attacks against an outlined target have advantage (the player
+        # path applies the same flag). Concentration-gated on the caster.
+        target_outlined = self._has_active_buff_flag(target_stats, "attacks_against_advantage")
         attack_roll = roll_d20(
             modifier=attack_bonus,
-            advantage=cmods.advantage,
+            advantage=cmods.advantage or target_outlined,
             disadvantage=cmods.disadvantage,
         )
         is_miss = attack_roll.natural_1

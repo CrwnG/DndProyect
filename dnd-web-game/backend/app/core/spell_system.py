@@ -1186,6 +1186,11 @@ class SpellEffectResolver:
         # attacks until the spell ends.
         if spell.id == "ray_of_enfeeblement":
             effects["halve_strength_damage"] = True
+        # Faerie Fire: an outlined creature can't benefit from Invisible and ATTACK
+        # ROLLS AGAINST IT have advantage for the duration. The advantage is the
+        # mechanical payload (the spell has no damage and no standard condition).
+        if spell.id == "faerie_fire":
+            effects["attacks_against_advantage"] = True
         return effects
 
     @staticmethod
