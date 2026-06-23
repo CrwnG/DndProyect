@@ -2029,6 +2029,17 @@ class CombatEngine:
                 description=f"Invalid Cunning Action type: {cunning_type}. Use 'dash', 'disengage', 'hide', or 'steady_aim' (2024, level 3+)."
             )
 
+    @staticmethod
+    def _martial_arts_die(level: int) -> str:
+        """The Monk's level-scaled Martial Arts die (2024): 1d6 -> 1d8 -> 1d10 -> 1d12."""
+        if level >= 17:
+            return "1d12"
+        if level >= 11:
+            return "1d10"
+        if level >= 5:
+            return "1d8"
+        return "1d6"
+
     def _handle_martial_arts(
         self,
         target_id: Optional[str],
@@ -2090,14 +2101,7 @@ class CombatEngine:
 
         # Get Martial Arts die based on level
         level = stats.get("level", 1)
-        if level >= 17:
-            martial_arts_die = "1d12"
-        elif level >= 11:
-            martial_arts_die = "1d10"
-        elif level >= 5:
-            martial_arts_die = "1d8"
-        else:
-            martial_arts_die = "1d6"
+        martial_arts_die = self._martial_arts_die(level)
 
         # Attack roll
         from app.core.rules_engine import resolve_attack, DamageType
@@ -2234,14 +2238,7 @@ class CombatEngine:
 
         # Get Martial Arts die
         level = stats.get("level", 1)
-        if level >= 17:
-            martial_arts_die = "1d12"
-        elif level >= 11:
-            martial_arts_die = "1d10"
-        elif level >= 5:
-            martial_arts_die = "1d8"
-        else:
-            martial_arts_die = "1d6"
+        martial_arts_die = self._martial_arts_die(level)
 
         from app.core.rules_engine import resolve_attack, apply_damage, DamageType
         dex_mod = stats.get("dex_mod", 0)
@@ -3053,7 +3050,18 @@ class CombatEngine:
         # - Finesse: higher of STR/DEX  - Ranged (ammunition): DEX  - else (melee/thrown): STR
         is_finesse = "finesse" in weapon_properties
         is_ammunition_based = "ammunition" in weapon_properties
-        if is_finesse:
+
+        # Monk Martial Arts (2024): an Unarmed Strike may use DEX in place of STR (higher
+        # of the two). The level-scaled MA damage die is applied below. (Monk *weapons*
+        # that are already finesse get DEX via the finesse branch; non-finesse simple
+        # melee monk weapons need weapon-category data we don't yet load — a follow-up.)
+        is_monk_unarmed = (
+            (attacker_stats.get("class") or "").lower() == "monk"
+            and (weapon_name or "").lower() in ("unarmed", "unarmed_strike")
+        )
+        dex_capable = is_finesse or is_monk_unarmed
+
+        if dex_capable:
             ability_mod = max(
                 attacker_stats.get("str_mod", 0),
                 attacker_stats.get("dex_mod", 0)
@@ -3064,10 +3072,10 @@ class CombatEngine:
             ability_mod = attacker_stats.get("str_mod", 0)
 
         # Does this attack "use Strength" (for Ray of Enfeeblement)? Melee, not ranged,
-        # and either non-finesse or a finesse weapon where STR is STRICTLY the better
-        # mod — on a tie (or DEX-favored) a finesse wielder uses DEX, dodging the half.
+        # and either non-DEX-capable or a DEX-capable attack where STR is STRICTLY the
+        # better mod — on a tie (or DEX-favored) the wielder uses DEX, dodging the half.
         uses_strength = (not is_ammunition_based) and (
-            not is_finesse
+            not dex_capable
             or attacker_stats.get("str_mod", 0) > attacker_stats.get("dex_mod", 0)
         )
 
@@ -3197,11 +3205,20 @@ class CombatEngine:
         # Add any active attack-roll buff (e.g. Bless +1d4) to the bonus.
         attack_bonus += self._attack_buff_bonus(attacker_stats)
 
+        # Damage dice (weapon's, or the cached default). A Monk's Unarmed Strike uses the
+        # level-scaled Martial Arts die instead of the default unarmed damage.
+        attack_damage_dice = (
+            weapon_data.get("damage", attacker_stats.get("damage_dice", "1d6"))
+            if weapon_data else attacker_stats.get("damage_dice", "1d6")
+        )
+        if is_monk_unarmed:
+            attack_damage_dice = self._martial_arts_die(attacker_stats.get("level", 1))
+
         # Resolve the attack with advantage/disadvantage
         attack_result = resolve_attack(
             attack_bonus=attack_bonus,
             target_ac=target_ac,
-            damage_dice=weapon_data.get("damage", attacker_stats.get("damage_dice", "1d6")) if weapon_data else attacker_stats.get("damage_dice", "1d6"),
+            damage_dice=attack_damage_dice,
             damage_modifier=damage_modifier,
             damage_type=weapon_data.get("damage_type", attacker_stats.get("damage_type", "slashing")) if weapon_data else attacker_stats.get("damage_type", "slashing"),
             advantage=advantage,
