@@ -3046,7 +3046,22 @@ class CombatEngine:
         # Calculate attack bonus using D&D 5e rules:
         # Attack = d20 + ability_modifier + proficiency_bonus + weapon_bonus
         attack_bonus = attacker_stats.get("attack_bonus", 0)
-        ability_mod = 0
+
+        # D&D 5e weapon ability — computed ALWAYS (the damage modifier needs it even
+        # when a precomputed attack_bonus is used, else a finesse/ranged attacker would
+        # roll to-hit with DEX but deal damage with STR):
+        # - Finesse: higher of STR/DEX  - Ranged (ammunition): DEX  - else (melee/thrown): STR
+        is_finesse = "finesse" in weapon_properties
+        is_ammunition_based = "ammunition" in weapon_properties
+        if is_finesse:
+            ability_mod = max(
+                attacker_stats.get("str_mod", 0),
+                attacker_stats.get("dex_mod", 0)
+            )
+        elif is_ammunition_based:
+            ability_mod = attacker_stats.get("dex_mod", 0)
+        else:
+            ability_mod = attacker_stats.get("str_mod", 0)
 
         if attack_bonus == 0:
             # Get character level for proficiency calculation
@@ -3054,39 +3069,12 @@ class CombatEngine:
             # D&D 5e proficiency: starts at +2, increases every 4 levels
             proficiency_bonus = 2 + ((level - 1) // 4)
 
-            # D&D 5e ability score rules for weapons:
-            # - Finesse: use higher of STR or DEX
-            # - Ranged (ammunition): use DEX
-            # - Thrown (without finesse): use STR
-            is_finesse = "finesse" in weapon_properties
-            is_thrown = "thrown" in weapon_properties
-            is_ammunition_based = "ammunition" in weapon_properties
-
-            if is_finesse:
-                # Finesse weapons can use STR or DEX (player's choice, we use higher)
-                ability_mod = max(
-                    attacker_stats.get("str_mod", 0),
-                    attacker_stats.get("dex_mod", 0)
-                )
-            elif is_ammunition_based:
-                # Ranged weapons with ammunition use DEX
-                ability_mod = attacker_stats.get("dex_mod", 0)
-            else:
-                # Melee and thrown weapons use STR
-                ability_mod = attacker_stats.get("str_mod", 0)
-
-            # Weapon bonus (magical weapons, etc.)
+            # Weapon bonus (magical weapons, etc.) + magic weapon bonus from equipment
             weapon_bonus = weapon_data.get("attack_bonus", 0) if weapon_data else 0
-
-            # Add magic weapon bonus from equipment
-            weapon_magic_bonus = attacker_stats.get("weapon_magic_bonus", 0)
-            weapon_bonus += weapon_magic_bonus
+            weapon_bonus += attacker_stats.get("weapon_magic_bonus", 0)
 
             # D&D 5e attack bonus formula
             attack_bonus = ability_mod + proficiency_bonus + weapon_bonus
-        else:
-            # If attack_bonus was provided, extract ability_mod for damage
-            ability_mod = attacker_stats.get("str_mod", 0)
 
         # Get target AC
         target_ac = self._effective_ac(target_stats, target_stats.get("ac", target.armor_class))

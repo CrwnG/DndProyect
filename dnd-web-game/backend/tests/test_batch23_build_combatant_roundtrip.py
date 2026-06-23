@@ -8,9 +8,9 @@ a non-fallback AC — not the 10 HP / AC 10 / +0 fallback that broke created cha
 An audit (2026-06-22) confirmed all 12 classes are healthy; this locks that in so the
 invariant can't silently regress when the builder or the adapter changes.
 
-NOTE (documented gap, not asserted here): the wizard's equipment step is a placeholder,
-so a created martial gets no armor -> AC stays unarmored (10 + DEX). That's a separate
-feature, tracked in the frontend notes.
+NOTE: starting equipment (armor → AC, weapons → damage) is now applied by the builder —
+see test_batch25_starting_equipment.py. So created martials no longer sit at the bare
+10+DEX; this file only asserts the floor (ac >= 12), which still holds for casters.
 """
 import pytest
 

@@ -144,14 +144,17 @@ class RulesLoader:
                                     weapon["item_type"] = "weapon"
                                     self._equipment[weapon["id"]] = weapon
 
-                    # Check for armor categories
-                    armor_keys = [k for k in equip_data.keys() if 'armor' in k.lower()]
+                    # Check for armor + shield categories. NB: the "shields" key has
+                    # no "armor" substring, so shields were silently never loaded.
+                    armor_keys = [k for k in equip_data.keys()
+                                  if 'armor' in k.lower() or 'shield' in k.lower()]
                     for key in armor_keys:
                         items = equip_data.get(key, [])
                         if isinstance(items, list):
+                            is_shield_cat = 'shield' in key.lower()
                             for armor in items:
                                 if isinstance(armor, dict) and "id" in armor:
-                                    armor["item_type"] = "armor"
+                                    armor["item_type"] = "shield" if is_shield_cat else "armor"
                                     self._equipment[armor["id"]] = armor
 
                     # Check for generic items/gear
