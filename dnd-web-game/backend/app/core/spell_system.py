@@ -249,6 +249,10 @@ class SpellRegistry:
             spell.trigger = data["trigger"]
         if data.get("healing_dice"):
             spell.healing_dice = data["healing_dice"]
+        if data.get("temp_hp") is not None:
+            spell.temp_hp = str(data["temp_hp"])
+        if data.get("temp_hp_scale") is not None:
+            spell.temp_hp_scale = int(data["temp_hp_scale"])
         if data.get("scaling"):
             spell.scaling = data["scaling"]
         if data.get("half_damage_on_save") is not None:
@@ -1194,6 +1198,19 @@ class SpellEffectResolver:
         return effects
 
     @staticmethod
+    def _resolve_temp_hp(spell: Spell, cast_level: int) -> int:
+        """Temporary HP a temp-HP spell grants at the given slot level. The base may be a
+        flat number ("5") or dice ("2d4+4"); +temp_hp_scale per slot above the spell's
+        base level (False Life / Armor of Agathys both scale +5/slot)."""
+        base = str(spell.temp_hp or "0")
+        try:
+            amount = roll_damage(base).total if "d" in base.lower() else int(base)
+        except (ValueError, TypeError):
+            amount = 0          # malformed data → grant nothing rather than crash a cast
+        amount += max(0, cast_level - spell.level) * (spell.temp_hp_scale or 0)
+        return amount
+
+    @staticmethod
     def _determine_smite_effects(spell: Spell) -> Optional[Dict[str, Any]]:
         """Smite spells ("the next time you hit a creature with a melee weapon attack
         before the spell ends, …") are a pending rider on the caster's next hit, not a
@@ -1645,6 +1662,21 @@ def cast_spell(
 
         else:
             result.description = f"{result.caster_name} casts {spell.name}!"
+
+    # Temporary HP grant (False Life, Armor of Agathys, …) — applies on top of any branch
+    # above. Self-target spells grant to the caster when no explicit target is given. The
+    # cast routes consume result.temp_hp_granted via CombatEngine.grant_temp_hp.
+    if getattr(spell, "temp_hp", None):
+        thp = SpellEffectResolver._resolve_temp_hp(spell, cast_level)
+        # A Self-range temp-HP spell (False Life, Armor of Agathys) always buffs the
+        # caster, even if the route passes a target list; others use the targets.
+        if (spell.range or "").lower() == "self":
+            ids = [result.caster_id]
+        else:
+            ids = [t.get("id", "target") for t in targets] if targets else [result.caster_id]
+        result.temp_hp_granted = {i: thp for i in ids}
+        if not result.damage_dealt and not result.healing_done:
+            result.description = f"{result.caster_name} casts {spell.name}! (+{thp} temporary HP)"
 
     # Handle concentration
     if spell.concentration:

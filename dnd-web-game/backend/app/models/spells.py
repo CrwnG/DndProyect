@@ -115,6 +115,8 @@ class Spell(BaseModel):
     area_size: Optional[int] = None
     max_targets: Optional[int] = None
     conditions_applied: List[str] = []
+    temp_hp: Optional[str] = None  # temporary HP granted, e.g. "2d4+4" or "5" (False Life, Armor of Agathys)
+    temp_hp_scale: int = 0  # extra temporary HP per slot level above the spell's base level
     combat_usable: bool = True  # Whether this spell can be used in combat (default True)
     trigger: Optional[str] = None  # "on_hit" for spells cast after hitting (Divine Smite, Ensnaring Strike)
     notes_2024: Optional[str] = None  # Notes about 2024 PHB changes
@@ -229,6 +231,7 @@ class SpellCastResult(BaseModel):
     damage_dice: Optional[str] = None                # "1d8" - for damage animation
     damage_rolls: Optional[List[int]] = None         # [4] - individual die results
     healing_done: Optional[Dict[str, int]] = None    # {target_id: healing}
+    temp_hp_granted: Optional[Dict[str, int]] = None  # {target_id: temp HP} (False Life, Armor of Agathys)
     conditions_applied: Optional[Dict[str, List[str]]] = None  # {target_id: [conditions]}
     debuffs_applied: Optional[Dict[str, Dict[str, Any]]] = None  # {target_id: penalty_effects} (Bane, failed saves only)
     pending_smite: Optional[Dict[str, Any]] = None  # smite-spell rider stowed on the caster for the next weapon hit

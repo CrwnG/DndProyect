@@ -394,6 +394,11 @@ async def cast_spell_in_combat(
                             combatant.current_hp = new_hp
                             break
 
+        # Apply temporary HP grants (False Life, Armor of Agathys, …) — non-stacking,
+        # depleted before real HP by the Batch-30 damage pipeline.
+        for target_id, amount in (getattr(result, "temp_hp_granted", None) or {}).items():
+            combat_engine.grant_temp_hp(target_id, amount)
+
         # Apply conditions from save/control spells (Hold Person, Web, Faerie Fire,
         # …) so they actually take effect rather than being cosmetic.
         combat_engine.apply_spell_conditions(result.conditions_applied)
@@ -474,6 +479,20 @@ async def cast_spell_in_combat(
                 combatants_list.append({
                     "id": target_id,
                     "current_hp": stats.get("current_hp", 0),
+                    "is_active": stats.get("current_hp", 0) > 0
+                })
+                included_ids.add(target_id)
+
+    # Include temp-HP grant recipients (e.g. a self-cast False Life buffs the caster,
+    # who would otherwise be absent from the response so the frontend never sees it).
+    if result.temp_hp_granted:
+        for target_id in result.temp_hp_granted.keys():
+            if target_id not in included_ids and target_id in combat_engine.state.combatant_stats:
+                stats = combat_engine.state.combatant_stats[target_id]
+                combatants_list.append({
+                    "id": target_id,
+                    "current_hp": stats.get("current_hp", 0),
+                    "temp_hp": stats.get("temp_hp", 0),
                     "is_active": stats.get("current_hp", 0) > 0
                 })
                 included_ids.add(target_id)
