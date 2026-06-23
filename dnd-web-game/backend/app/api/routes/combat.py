@@ -765,9 +765,9 @@ async def move_combatant(
             detail="Combatant has no position"
         )
 
-    # Get available movement
+    # Get available movement (effective speed honors Haste/Slow + encumbrance)
     stats = engine.state.combatant_stats.get(current.id, {})
-    speed = stats.get("speed", 30)
+    speed = engine._get_effective_speed(current.id, stats)
     turn = engine.get_turn_state()
     remaining = speed - (turn.movement_used if turn else 0)
 
@@ -1549,9 +1549,9 @@ def _execute_ai_movement(
             description=f"{enemy.name} has nowhere to move."
         )
 
-    # Get enemy speed
+    # Get enemy speed (effective speed honors Slow/Haste + encumbrance/conditions)
     enemy_stats = engine.state.combatant_stats.get(enemy.id, {})
-    speed = enemy_stats.get("speed", 30)
+    speed = engine._get_effective_speed(enemy.id, enemy_stats)
     if is_dash:
         speed *= 2
 
@@ -1759,12 +1759,15 @@ def process_enemy_turn(engine: CombatEngine, grid: CombatGrid, enemy) -> Optiona
         )
     else:
         # Try to move toward the player
-        # Get reachable cells for enemy
+        # Get reachable cells for enemy (effective speed honors Slow/Haste).
+        enemy_speed = engine._get_effective_speed(
+            enemy.id, engine.state.combatant_stats.get(enemy.id, {})
+        )
         reachable = get_reachable_cells(
             grid,
             enemy_pos[0],
             enemy_pos[1],
-            30,  # Assume 30ft speed
+            enemy_speed,
             include_occupied=False
         )
 
@@ -1788,7 +1791,7 @@ def process_enemy_turn(engine: CombatEngine, grid: CombatGrid, enemy) -> Optiona
                     enemy_pos[1],
                     best_cell[0],
                     best_cell[1],
-                    max_movement=30
+                    max_movement=enemy_speed
                 )
 
                 # Move to that cell - update BOTH engine state AND grid occupancy
@@ -1947,7 +1950,10 @@ async def get_reachable_positions(combat_id: str):
         return {"reachable": []}
 
     stats = engine.state.combatant_stats.get(current.id, {})
-    speed = stats.get("speed", 30)
+    # Effective speed (Haste/Slow + encumbrance) so the highlighted reachable cells
+    # match what POST /move actually allows — otherwise the UI and the enforcement
+    # disagree for a Slowed/Hasted/encumbered combatant.
+    speed = engine._get_effective_speed(current.id, stats)
     turn = engine.get_turn_state()
     remaining = speed - (turn.movement_used if turn else 0)
 
