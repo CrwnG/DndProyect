@@ -21,7 +21,6 @@ from app.core.initiative import (
 from app.core.dice import roll_d20, roll_damage
 from app.core.rules_engine import (
     resolve_attack,
-    apply_damage,
     calculate_ac,
     AttackResult,
 )
@@ -575,6 +574,8 @@ class CombatEngine:
             "name": combatant_data.get("name", "Unknown"),
             "current_hp": combatant_data.get("current_hp", combatant_data.get("hp", 10)),
             "max_hp": combatant_data.get("max_hp", combatant_data.get("hp", 10)),
+            # Temporary HP (Heroism / False Life / etc.) — a buffer depleted before real HP.
+            "temp_hp": combatant_data.get("temp_hp", 0) or 0,
             "ac": effective_ac,
             "speed": combatant_data.get("speed", 30),
             "str_mod": combatant_data.get("str_mod", 0),
@@ -968,7 +969,8 @@ class CombatEngine:
 
             if attack_result.hit:
                 damage = attack_result.total_damage
-                target_stats["current_hp"] = max(0, target_stats.get("current_hp", 0) - damage)
+                # Temp HP depleted first (no target object in scope here, only stats).
+                self._apply_damage_with_temp(None, target_stats, damage)
 
                 self.state.add_event(
                     "legendary_action",
@@ -1644,16 +1646,14 @@ class CombatEngine:
             has_immunity = damage_type in immunities
             has_vulnerability = damage_type in vulnerabilities
 
-            new_hp, damage_dealt, is_unconscious = apply_damage(
-                current_hp=target_stats.get("current_hp", target.current_hp),
-                max_hp=target_stats.get("max_hp", target.max_hp),
-                damage=attack_result.total_damage,
+            new_hp, damage_dealt, is_unconscious = self._apply_damage_with_temp(
+                target, target_stats, attack_result.total_damage,
                 resistance=has_resistance,
                 immunity=has_immunity,
-                vulnerability=has_vulnerability
+                vulnerability=has_vulnerability,
             )
 
-            # Update target HP
+            # Update target HP (temp HP handled inside the chokepoint)
             target.current_hp = new_hp
             if target.id in self.state.combatant_stats:
                 self.state.combatant_stats[target.id]["current_hp"] = new_hp
@@ -2124,13 +2124,8 @@ class CombatEngine:
 
         damage_dealt = 0
         if attack_result.hit:
-            from app.core.rules_engine import apply_damage
-            new_hp, damage_dealt, _ = apply_damage(
-                current_hp=target_stats.get("current_hp", target.current_hp),
-                max_hp=target_stats.get("max_hp", target.max_hp),
-                damage=attack_result.total_damage
-            )
-            target.current_hp = new_hp
+            new_hp, damage_dealt, _ = self._apply_damage_with_temp(
+                target, target_stats, attack_result.total_damage)
             if target_id in self.state.combatant_stats:
                 self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
@@ -2240,7 +2235,7 @@ class CombatEngine:
         level = stats.get("level", 1)
         martial_arts_die = self._martial_arts_die(level)
 
-        from app.core.rules_engine import resolve_attack, apply_damage, DamageType
+        from app.core.rules_engine import resolve_attack, DamageType
         dex_mod = stats.get("dex_mod", 0)
         str_mod = stats.get("str_mod", 0)
         ability_mod = max(dex_mod, str_mod)
@@ -2269,14 +2264,9 @@ class CombatEngine:
 
             if attack_result.hit:
                 hits += 1
-                current_hp = self.state.combatant_stats.get(target_id, {}).get("current_hp", target.current_hp)
-                new_hp, damage_dealt, _ = apply_damage(
-                    current_hp=current_hp,
-                    max_hp=target_stats.get("max_hp", target.max_hp),
-                    damage=attack_result.total_damage
-                )
+                new_hp, damage_dealt, _ = self._apply_damage_with_temp(
+                    target, target_stats, attack_result.total_damage)
                 total_damage += damage_dealt
-                target.current_hp = new_hp
                 if target_id in self.state.combatant_stats:
                     self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
@@ -2629,12 +2619,9 @@ class CombatEngine:
 
         smite_damage = smite_result.value
 
-        # Apply damage to target
+        # Apply damage to target (temp HP depleted first inside the chokepoint)
         if target:
-            current_hp = target_stats.get("current_hp", target.current_hp)
-            new_hp = max(0, current_hp - smite_damage)
-
-            target.current_hp = new_hp
+            new_hp, _, _ = self._apply_damage_with_temp(target, target_stats, smite_damage)
             if target_id in self.state.combatant_stats:
                 self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
@@ -3370,17 +3357,15 @@ class CombatEngine:
             has_immunity = damage_type in immunities
             has_vulnerability = damage_type in vulnerabilities
 
-            new_hp, damage_dealt, is_unconscious = apply_damage(
-                current_hp=target_stats.get("current_hp", target.current_hp),
-                max_hp=target_stats.get("max_hp", target.max_hp),
-                damage=total_damage,
+            new_hp, damage_dealt, is_unconscious = self._apply_damage_with_temp(
+                target, target_stats, total_damage,
                 resistance=has_resistance,
                 immunity=has_immunity,
-                vulnerability=has_vulnerability
+                vulnerability=has_vulnerability,
             )
 
-            # Update target HP
-            target.current_hp = new_hp
+            # HP is written back inside the chokepoint (incl. temp HP); keep the cache
+            # mirror in case target_stats was a transient default.
             if target.id in self.state.combatant_stats:
                 self.state.combatant_stats[target.id]["current_hp"] = new_hp
 
@@ -3494,12 +3479,8 @@ class CombatEngine:
 
                             # For Graze, apply damage to original target
                             if mastery_type == MasteryType.GRAZE:
-                                new_hp, graze_dealt, _ = apply_damage(
-                                    current_hp=target_stats.get("current_hp", target.current_hp),
-                                    max_hp=target_stats.get("max_hp", target.max_hp),
-                                    damage=mastery_extra_damage
-                                )
-                                target.current_hp = new_hp
+                                new_hp, graze_dealt, _ = self._apply_damage_with_temp(
+                                    target, target_stats, mastery_extra_damage)
                                 if target.id in self.state.combatant_stats:
                                     self.state.combatant_stats[target.id]["current_hp"] = new_hp
                                 damage_dealt += graze_dealt
@@ -3518,12 +3499,8 @@ class CombatEngine:
                                 cleave_target = self.state.initiative_tracker.get_combatant(cleave_target_id)
                                 cleave_stats = self.state.combatant_stats.get(cleave_target_id, {})
                                 if cleave_target:
-                                    new_hp, cleave_dealt, _ = apply_damage(
-                                        current_hp=cleave_stats.get("current_hp", cleave_target.current_hp),
-                                        max_hp=cleave_stats.get("max_hp", cleave_target.max_hp),
-                                        damage=mastery_extra_damage
-                                    )
-                                    cleave_target.current_hp = new_hp
+                                    new_hp, cleave_dealt, _ = self._apply_damage_with_temp(
+                                        cleave_target, cleave_stats, mastery_extra_damage)
                                     if cleave_target_id in self.state.combatant_stats:
                                         self.state.combatant_stats[cleave_target_id]["current_hp"] = new_hp
 
@@ -4147,8 +4124,15 @@ class CombatEngine:
                                 if effect.get("damage", 0) > 0:
                                     hazard_damage += effect["damage"]
                                     hazard_effects.append(f"{effect['surface_type']} ({effect['damage']} {effect.get('damage_type', '')} damage)")
-                                    # Apply damage to target
-                                    target.hp = max(0, target.hp - effect["damage"])
+                                    # Temp HP absorbs hazard damage first (inline, like
+                                    # fall damage — this path writes the .hp field directly).
+                                    surf_dmg = effect["damage"]
+                                    surf_temp = target_stats.get("temp_hp", 0) or 0
+                                    if surf_temp > 0:
+                                        surf_absorbed = min(surf_temp, surf_dmg)
+                                        target_stats["temp_hp"] = surf_temp - surf_absorbed
+                                        surf_dmg -= surf_absorbed
+                                    target.hp = max(0, target.hp - surf_dmg)
                                 if effect.get("condition"):
                                     if effect["condition"] not in target.conditions:
                                         target.conditions.append(effect["condition"])
@@ -5009,42 +4993,96 @@ class CombatEngine:
             "attack_name": attack.name,
         }
 
+    def _apply_damage_with_temp(
+        self,
+        target,
+        target_stats: Dict[str, Any],
+        damage: int,
+        *,
+        resistance: bool = False,
+        vulnerability: bool = False,
+        immunity: bool = False,
+    ) -> tuple[int, int, bool]:
+        """The single damage chokepoint. Applies resistance/vulnerability/immunity (RAW:
+        resistance + vulnerability to the same type CANCEL, matching rules_engine
+        apply_damage), then depletes TEMPORARY HP before real HP, writing temp_hp +
+        current_hp back to target_stats (and target.current_hp when the object carries it).
+        Returns (new_hp, damage_dealt, is_unconscious); damage_dealt is the post-resistance
+        damage amount (the full hit, as apply_damage returned — NOT clamped to remaining HP,
+        so on an overkill it reflects the attack's damage, not just the HP removed)."""
+        current_hp = target_stats.get(
+            "current_hp", getattr(target, "current_hp", 0) if target is not None else 0)
+        if immunity or damage <= 0:
+            return current_hp, 0, current_hp <= 0
+
+        eff = damage
+        if resistance and vulnerability:
+            pass                                  # cancel out
+        elif resistance:
+            eff = damage // 2
+        elif vulnerability:
+            eff = damage * 2
+
+        temp = target_stats.get("temp_hp", 0) or 0
+        absorbed = min(temp, eff) if temp > 0 else 0
+        if absorbed:
+            target_stats["temp_hp"] = temp - absorbed
+
+        new_hp = max(0, current_hp - (eff - absorbed))
+        target_stats["current_hp"] = new_hp
+        if target is not None and hasattr(target, "current_hp"):
+            target.current_hp = new_hp
+        return new_hp, eff, new_hp <= 0
+
+    def grant_temp_hp(self, combatant_id: str, amount: int) -> None:
+        """Grant temporary HP. Temp HP does NOT stack — keep the larger of the current and
+        new values (RAW). Healing never restores it; it is a pool separate from real HP."""
+        if not amount or amount <= 0:
+            return
+        stats = self.state.combatant_stats.get(combatant_id)
+        if stats is None:
+            return
+        if amount > (stats.get("temp_hp", 0) or 0):
+            stats["temp_hp"] = amount
+
+    def apply_spell_damage(self, target_id: str, amount: int) -> Optional[int]:
+        """Apply spell damage to a target's HP from the cast routes, depleting temp HP
+        first. Resistance for spells is resolved by the caller (currently not applied), so
+        this only handles the temp-HP/HP split + defeat. Returns the new HP (or None)."""
+        target = self.state.initiative_tracker.get_combatant(target_id)
+        target_stats = self.state.combatant_stats.get(target_id)
+        if target_stats is None:
+            return None
+        new_hp, _, _ = self._apply_damage_with_temp(target, target_stats, amount)
+        if target is not None and new_hp <= 0:
+            target.is_active = False
+        return new_hp
+
     def _apply_damage_to_target(
         self,
         target_id: str,
         damage: int,
         damage_type: str
     ) -> None:
-        """Apply damage to a target, respecting resistances/immunities."""
+        """Apply damage to a target, respecting resistances/immunities and temp HP."""
         target = self.state.initiative_tracker.get_combatant(target_id)
         target_stats = self.state.combatant_stats.get(target_id, {})
 
         if not target:
             return
 
-        # Check immunities (cache stores these as immunities/resistances/vulnerabilities;
-        # accept the legacy damage_* keys too).
+        # Resist/immune/vuln (cache stores these as immunities/resistances/vulnerabilities;
+        # accept the legacy damage_* keys too). Temp HP is depleted in the chokepoint.
+        dt = (damage_type or "").lower()
         immunities = target_stats.get("immunities", target_stats.get("damage_immunities", []))
-        if damage_type.lower() in [i.lower() for i in immunities]:
-            return  # No damage
-
-        # Check resistances
         resistances = target_stats.get("resistances", target_stats.get("damage_resistances", []))
-        if damage_type.lower() in [r.lower() for r in resistances]:
-            damage = damage // 2
-
-        # Check vulnerabilities
         vulnerabilities = target_stats.get("vulnerabilities", target_stats.get("damage_vulnerabilities", []))
-        if damage_type.lower() in [v.lower() for v in vulnerabilities]:
-            damage = damage * 2
-
-        # Apply damage
-        current_hp = target_stats.get("current_hp", target.current_hp if hasattr(target, "current_hp") else 0)
-        new_hp = max(0, current_hp - damage)
-        target_stats["current_hp"] = new_hp
-
-        if hasattr(target, "current_hp"):
-            target.current_hp = new_hp
+        self._apply_damage_with_temp(
+            target, target_stats, damage,
+            resistance=dt in [r.lower() for r in resistances],
+            vulnerability=dt in [v.lower() for v in vulnerabilities],
+            immunity=dt in [i.lower() for i in immunities],
+        )
 
     @staticmethod
     def _aoe_includes(shape, origin, direction, target, length_ft, width_ft=5):
@@ -5515,13 +5553,9 @@ class CombatEngine:
                 crit_damage = roll_damage(damage_dice)
                 damage += crit_damage.total
 
-            # Apply damage to target
+            # Apply damage to target (temp HP depleted first inside the chokepoint)
             if target.current_hp is not None:
-                target.current_hp = max(0, target.current_hp - damage)
-
-            # Update stats cache
-            if target_id in self.state.combatant_stats:
-                self.state.combatant_stats[target_id]["current_hp"] = target.current_hp
+                self._apply_damage_with_temp(target, target_stats, damage)
 
             # Check for concentration break
             if damage > 0:
@@ -5666,6 +5700,7 @@ class CombatEngine:
                 "type": stats.get("type", c.combatant_type.value if hasattr(c, 'combatant_type') else "enemy"),
                 "current_hp": c.current_hp or stats.get("current_hp", stats.get("hp", 0)),
                 "max_hp": c.max_hp or stats.get("max_hp", stats.get("hp", 0)),
+                "temp_hp": stats.get("temp_hp", 0),
                 "ac": c.armor_class if c.armor_class is not None else stats.get("ac", 10),
                 "speed": stats.get("speed", 30),
                 "initiative_roll": c.initiative_roll,

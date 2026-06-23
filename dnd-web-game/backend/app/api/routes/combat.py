@@ -1130,19 +1130,12 @@ async def use_reaction(
         # Apply damage to target if opportunity attack or riposte hit
         damage_reactions = [ReactionType.OPPORTUNITY_ATTACK, ReactionType.RIPOSTE]
         if result.damage_dealt > 0 and reaction_type in damage_reactions:
+            # Deplete temp HP first, then real HP (chokepoint writes stats + object).
             target_stats = engine.state.combatant_stats.get(request.trigger_source_id, {})
-            current_hp = target_stats.get("current_hp", trigger_source.current_hp if trigger_source else 0)
-            new_hp = max(0, current_hp - result.damage_dealt)
-
-            # Update stats
-            if request.trigger_source_id in engine.state.combatant_stats:
-                engine.state.combatant_stats[request.trigger_source_id]["current_hp"] = new_hp
-
-            # Update combatant object
-            if trigger_source:
-                trigger_source.current_hp = new_hp
-                if new_hp <= 0:
-                    trigger_source.is_active = False
+            new_hp, _, _ = engine._apply_damage_with_temp(
+                trigger_source, target_stats, result.damage_dealt)
+            if trigger_source and new_hp <= 0:
+                trigger_source.is_active = False
 
             # Check for Sentinel speed reduction on OA hit
             is_sentinel_attack = result.extra_data.get("sentinel", False)
@@ -1455,17 +1448,11 @@ def process_enemy_turn_advanced(
                           else {decision.target_id: result.damage_dealt})
             for tid, amount in per_target.items():
                 total_damage += amount
-                tstats = engine.state.combatant_stats.get(tid)
-                if tstats is None:
+                if engine.state.combatant_stats.get(tid) is None:
                     continue
-                new_hp = max(0, tstats.get("current_hp", 0) - amount)
-                tstats["current_hp"] = new_hp
-                # Mirror onto the Combatant object so it doesn't "come back to life".
-                tcomb = engine.state.initiative_tracker.get_combatant(tid)
-                if tcomb:
-                    tcomb.current_hp = new_hp
-                    if new_hp <= 0:
-                        tcomb.is_active = False
+                # Deplete temp HP first, then real HP; mirrors onto the Combatant object
+                # and flags defeat (so it doesn't "come back to life").
+                engine.apply_spell_damage(tid, amount)
 
         # Apply control-spell conditions (e.g. a monster casting Hold Person).
         engine.apply_spell_conditions(getattr(result, "conditions_applied", None))

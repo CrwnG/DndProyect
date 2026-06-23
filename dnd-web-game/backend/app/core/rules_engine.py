@@ -324,6 +324,11 @@ def apply_damage(
     """
     Apply damage to a creature.
 
+    NOTE: this is the stateless rules-math helper and does NOT model TEMPORARY HP.
+    Combat damage must go through ``CombatEngine._apply_damage_with_temp`` (the single
+    chokepoint that depletes temp HP first); do not call this directly from a combat
+    damage site or temp HP will be bypassed.
+
     Args:
         current_hp: Current hit points
         max_hp: Maximum hit points
