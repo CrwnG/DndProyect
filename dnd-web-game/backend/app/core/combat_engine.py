@@ -3063,6 +3063,14 @@ class CombatEngine:
         else:
             ability_mod = attacker_stats.get("str_mod", 0)
 
+        # Does this attack "use Strength" (for Ray of Enfeeblement)? Melee, not ranged,
+        # and either non-finesse or a finesse weapon where STR is STRICTLY the better
+        # mod — on a tie (or DEX-favored) a finesse wielder uses DEX, dodging the half.
+        uses_strength = (not is_ammunition_based) and (
+            not is_finesse
+            or attacker_stats.get("str_mod", 0) > attacker_stats.get("dex_mod", 0)
+        )
+
         if attack_bonus == 0:
             # Get character level for proficiency calculation
             level = attacker_stats.get("level", 1)
@@ -3302,6 +3310,11 @@ class CombatEngine:
             smite_rider = self._consume_pending_smite(attacker.id, attack_result.critical_hit)
             if smite_rider:
                 total_damage += smite_rider["bonus_damage"]
+
+            # Ray of Enfeeblement: a STR weapon attack from an enfeebled creature deals
+            # only HALF damage (the whole attack, after riders).
+            if uses_strength and self._has_active_buff_flag(attacker_stats, "halve_strength_damage"):
+                total_damage //= 2
 
             # ============================================================
             # DIVINE SMITE OPPORTUNITY (Paladin) - Returns option to player
@@ -4770,6 +4783,14 @@ class CombatEngine:
         self.apply_spell_conditions({target_id: [condition]})
         return True
 
+    def _has_active_buff_flag(self, stats: Dict[str, Any], key: str) -> bool:
+        """Whether any active (concentration-gated) buff/debuff on the combatant sets a
+        truthy boolean flag (e.g. ``halve_strength_damage`` from Ray of Enfeeblement)."""
+        return any(
+            buff.get(key) and self._buff_is_active(buff)
+            for buff in ((stats or {}).get("active_buffs") or [])
+        )
+
     def _speed_multiplier(self, stats: Dict[str, Any]) -> float:
         """Product of active speed multipliers from buffs/debuffs (Haste x2, Slow
         x0.5). 1.0 when there are none. Concentration-gated like every other buff."""
@@ -4910,6 +4931,15 @@ class CombatEngine:
                 if is_crit:
                     extra += roll_dice(dice_only(attack.extra_damage_dice))
                 damage += extra
+
+            # Ray of Enfeeblement: an enfeebled monster's MELEE (Strength) attack —
+            # incl. each Multiattack swing — deals half damage. Gate on the attack's
+            # NATURE (melee vs ranged), not distance, so a reach attack still halves and
+            # a ranged attack at point-blank does not. Ranged (DEX) is unaffected.
+            from app.core.monster_abilities import AbilityType
+            if (attack.ability_type == AbilityType.MELEE_ATTACK
+                    and self._has_active_buff_flag(stats, "halve_strength_damage")):
+                damage //= 2
 
             # Apply damage to target
             self._apply_damage_to_target(target_id, damage, attack.damage_type or "untyped")
