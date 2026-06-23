@@ -1473,6 +1473,10 @@ def process_enemy_turn_advanced(
         for tid, effects in (getattr(result, "debuffs_applied", None) or {}).items():
             engine.apply_spell_buffs(enemy.id, effects, [tid], spell_id=spell_id)
 
+        # Apply temporary HP grants (e.g. an enemy casting False Life / Armor of Agathys).
+        for tid, amount in (getattr(result, "temp_hp_granted", None) or {}).items():
+            engine.grant_temp_hp(tid, amount)
+
         # Persist consumed spell slots back to the monster's stats — caster_data is
         # a fresh copy, so cast_spell's slot mutation would otherwise be lost and
         # the enemy could reuse slots every turn.

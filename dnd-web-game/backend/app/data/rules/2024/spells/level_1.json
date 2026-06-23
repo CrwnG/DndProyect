@@ -25,6 +25,8 @@
       "duration": "1 hour",
       "description": "Protective magical cold surrounds you. You gain 5 Temporary Hit Points. If a creature hits you with a melee attack roll before the spell ends, the creature takes 5 Cold damage.",
       "higher_levels": "The Temporary Hit Points and Cold damage both increase by 5 for each spell slot level above 1.",
+      "temp_hp": "5",
+      "temp_hp_scale": 5,
       "classes": ["warlock"]
     },
     {
@@ -303,6 +305,8 @@
       "duration": "Instantaneous",
       "description": "You gain 2d4 + 4 Temporary Hit Points.",
       "higher_levels": "You gain 5 additional Temporary Hit Points for each slot level above 1.",
+      "temp_hp": "2d4+4",
+      "temp_hp_scale": 5,
       "classes": ["artificer", "sorcerer", "wizard"]
     },
     {
