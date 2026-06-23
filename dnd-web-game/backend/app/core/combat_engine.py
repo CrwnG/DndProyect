@@ -4770,6 +4770,16 @@ class CombatEngine:
         self.apply_spell_conditions({target_id: [condition]})
         return True
 
+    def _speed_multiplier(self, stats: Dict[str, Any]) -> float:
+        """Product of active speed multipliers from buffs/debuffs (Haste x2, Slow
+        x0.5). 1.0 when there are none. Concentration-gated like every other buff."""
+        mult = 1.0
+        for buff in ((stats or {}).get("active_buffs") or []):
+            m = buff.get("speed_multiplier")
+            if m and self._buff_is_active(buff):
+                mult *= m
+        return mult
+
     def stamp_save_buff(self, target_dict: Dict[str, Any],
                         source_stats: Optional[Dict[str, Any]] = None) -> None:
         """Pre-roll a target's active (concentration-gated) save buff and stash it
@@ -5226,6 +5236,11 @@ class CombatEngine:
 
         # Ensure speed doesn't go below 0
         effective_speed = max(0, condition_speed)
+
+        # Apply active speed multipliers (Haste x2, Slow x0.5) last.
+        mult = self._speed_multiplier(stats)
+        if mult != 1.0:
+            effective_speed = max(0, int(effective_speed * mult))
 
         return effective_speed
 

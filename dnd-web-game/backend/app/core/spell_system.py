@@ -1173,6 +1173,11 @@ class SpellEffectResolver:
         if "bane" in spell.id:
             effects["attack_penalty_dice"] = "1d4"
             effects["save_penalty_dice"] = "1d4"
+        # Slow: -2 AC and half speed for the duration (the most-felt parts; the action
+        # restriction / -2 DEX saves remain a follow-up).
+        if spell.id == "slow":
+            effects["ac_bonus"] = -2
+            effects["speed_multiplier"] = 0.5
         return effects
 
     @staticmethod

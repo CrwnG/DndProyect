@@ -577,6 +577,7 @@
       "name": "Slow",
       "level": 3,
       "school": "Transmutation",
+      "save_type": "wisdom",
       "casting_time": "Action",
       "range": "120 feet",
       "components": ["V", "S", "M"],
