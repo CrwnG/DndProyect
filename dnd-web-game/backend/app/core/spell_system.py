@@ -54,6 +54,9 @@ _CONDITION_FALSE_POSITIVES = {
     "rope_trick": {"invisible"}, "scrying": {"invisible"},
     "unseen_servant": {"invisible"},
     "wall_of_force": {"invisible"}, "shield": {"invisible"},
+    # Conjure Fey SUMMONS a fey ally; "frightened" is a prose false positive (it must
+    # not be imposed on the conjure_fey spell-attack target).
+    "conjure_fey": {"frightened"},
     # NB: sequester (grants Invisible to a willing target) and dream_of_the_blue_veil
     # (renders participants Unconscious) genuinely impose those — left untouched.
 }
@@ -1170,7 +1173,8 @@ class SpellEffectResolver:
         on the target as active_buffs and gated by the caster's concentration, exactly
         like a buff — only the dice are subtracted."""
         effects: Dict[str, Any] = {}
-        if "bane" in spell.id:
+        # Exact id — "bane" in spell.id also matched elemental_bane (a different spell).
+        if spell.id == "bane":
             effects["attack_penalty_dice"] = "1d4"
             effects["save_penalty_dice"] = "1d4"
         # Slow: -2 AC and half speed for the duration (the most-felt parts; the action
@@ -1178,6 +1182,10 @@ class SpellEffectResolver:
         if spell.id == "slow":
             effects["ac_bonus"] = -2
             effects["speed_multiplier"] = 0.5
+        # Ray of Enfeeblement: the target deals only HALF damage with STR weapon
+        # attacks until the spell ends.
+        if spell.id == "ray_of_enfeeblement":
+            effects["halve_strength_damage"] = True
         return effects
 
     @staticmethod
@@ -1427,8 +1435,23 @@ def cast_spell(
         result.critical = attack_result["critical"]
 
         if attack_result["hit"]:
-            result.damage_dealt = {target.get("id", "target"): attack_result["damage"]}
-            result.description = f"{result.caster_name} casts {spell.name}! Hits for {attack_result['damage']} {spell.damage_type} damage!"
+            target_id = target.get("id", "target")
+            if attack_result["damage"]:
+                result.damage_dealt = {target_id: attack_result["damage"]}
+            # Apply on-hit rider effects the spell declares — a condition (Contagion ->
+            # poisoned) and/or a debuff (Ray of Enfeeblement -> half STR damage). The
+            # attack branch used to drop these, so such spells did nothing.
+            if spell.conditions_applied:
+                result.conditions_applied = {target_id: spell.conditions_applied}
+            on_hit_debuff = SpellEffectResolver._determine_debuff_effects(spell)
+            if on_hit_debuff:
+                result.debuffs_applied = {target_id: on_hit_debuff}
+            result.description = (
+                f"{result.caster_name} casts {spell.name}! Hits for "
+                f"{attack_result['damage']} {spell.damage_type} damage!"
+                if attack_result["damage"] else
+                f"{result.caster_name} casts {spell.name}! It hits {target.get('name', 'the target')}!"
+            )
         else:
             result.description = f"{result.caster_name} casts {spell.name}... but misses!"
 
