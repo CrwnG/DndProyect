@@ -365,18 +365,9 @@ async def cast_spell_in_combat(
         if result.damage_dealt:
             for target_id, damage in result.damage_dealt.items():
                 if target_id in combat_engine.state.combatant_stats:
-                    hp = combat_engine.state.combatant_stats[target_id].get("current_hp", 0)
-                    new_hp = max(0, hp - damage)
-                    combat_engine.state.combatant_stats[target_id]["current_hp"] = new_hp
-
-                    # CRITICAL: Also update the Combatant object so get_combat_state() returns correct values
-                    # Without this, end-turn would return old HP and enemy would "come back to life"
-                    for combatant in combat_engine.state.initiative_tracker.combatants:
-                        if combatant.id == target_id:
-                            combatant.current_hp = new_hp
-                            if new_hp <= 0:
-                                combatant.is_active = False
-                            break
+                    # Deplete temp HP first, then real HP; also mirrors onto the Combatant
+                    # object and flags defeat (so it doesn't "come back to life").
+                    combat_engine.apply_spell_damage(target_id, damage)
 
                     # Check concentration for targets who take spell damage
                     if damage > 0:

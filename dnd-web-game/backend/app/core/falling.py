@@ -127,6 +127,14 @@ def apply_falling_damage(
     }
 
     if damage > 0:
+        # Temporary HP absorbs fall damage before real HP (RAW), like every other
+        # damage source. combatant_stats is the live combat cache.
+        temp = combatant_stats.get("temp_hp", 0) or 0
+        if temp > 0:
+            absorbed = min(temp, damage)
+            combatant_stats["temp_hp"] = temp - absorbed
+            damage -= absorbed
+
         # Apply the damage
         old_hp = combatant.hp
         combatant.hp = max(0, combatant.hp - damage)

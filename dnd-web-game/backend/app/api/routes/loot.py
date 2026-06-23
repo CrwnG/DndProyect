@@ -821,12 +821,9 @@ async def use_item_in_combat(request: UseItemRequest):
             damage_amount = damage_roll.total
             damage_type = effect.get("damage_type", "fire")
 
-            # Apply damage to target
+            # Apply damage to target (temp HP depleted first; writes stats + object).
             target_current_hp = target_stats.get("current_hp", target.current_hp)
-            target_new_hp = max(0, target_current_hp - damage_amount)
-
-            engine.state.combatant_stats[request.target_id]["current_hp"] = target_new_hp
-            target.current_hp = target_new_hp
+            target_new_hp = engine.apply_spell_damage(request.target_id, damage_amount)
 
             effect_result = {
                 "type": "damage",
