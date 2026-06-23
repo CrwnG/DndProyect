@@ -623,6 +623,114 @@ class CharacterBuilder:
             warnings=warnings
         )
 
+    def _lookup_item(self, item_id: Any) -> Optional[Dict[str, Any]]:
+        """Resolve a starting-equipment item id to its registry entry. Starting
+        equipment sometimes uses ids that differ from the armor/weapon registry
+        (e.g. "leather_armor" vs "leather"), so try a couple of normalizations."""
+        if not isinstance(item_id, str):
+            return None
+        item = self.rules.get_equipment(item_id)
+        if item is None and item_id.endswith("_armor"):
+            item = self.rules.get_equipment(item_id[: -len("_armor")])
+        return item
+
+    def _default_loadout_ids(self, class_data: Dict[str, Any]) -> List[str]:
+        """Resolve a class's `starting_equipment` into a flat list of item ids, taking
+        the FIRST option of each choice plus all fixed defaults — the iconic loadout
+        a created character should start with (chain mail + greatsword, etc.)."""
+        se = class_data.get("starting_equipment") or {}
+        ids: List[str] = []
+
+        def add(opt: Any) -> None:
+            if isinstance(opt, str):
+                ids.append(opt)
+            elif isinstance(opt, dict):
+                if "item" in opt:
+                    ids.append(opt["item"])
+                for sub in opt.get("items", []) or []:
+                    add(sub)
+                # "with" companions (e.g. crossbow + bolts) don't affect AC/weapon choice
+
+        # Pattern A: choices (first option of each) + always-granted defaults.
+        for choice in se.get("choices", []) or []:
+            opts = choice.get("options", []) if isinstance(choice, dict) else []
+            if opts:
+                add(opts[0])
+        for item in se.get("default", []) or []:
+            add(item)
+        # Pattern B: `options` is a list of complete loadout-arrays — take the first.
+        options = se.get("options")
+        if isinstance(options, list) and options and isinstance(options[0], list):
+            for entry in options[0]:
+                add(entry)
+        return ids
+
+    def _equip_ac_and_weapons(
+        self, class_data: Dict[str, Any], modifiers: Dict[str, int], proficiency_bonus: int
+    ) -> Tuple[int, List[Dict[str, Any]]]:
+        """Compute starting AC (from the iconic armor + shield, or class unarmored
+        defense) and a weapons list (with damage + a proficient attack bonus) from the
+        class's default starting loadout."""
+        from app.core.rules_engine import parse_armor_class_string, calculate_ac
+
+        dex = modifiers.get("dexterity", 0)
+        con = modifiers.get("constitution", 0)
+        wis = modifiers.get("wisdom", 0)
+
+        armor_item: Optional[Dict[str, Any]] = None
+        has_shield = False
+        weapons: List[Dict[str, Any]] = []
+
+        for iid in self._default_loadout_ids(class_data):
+            item = self._lookup_item(iid)
+            if not item:
+                continue
+            itype = item.get("item_type")
+            if itype == "shield" or iid == "shield":
+                has_shield = True
+            elif itype == "armor":
+                if armor_item is None:        # the first body armor in the loadout
+                    armor_item = item
+            elif itype == "weapon":
+                props = item.get("properties", []) or []
+                str_mod = modifiers.get("strength", 0)
+                # Finesse uses the better of STR/DEX; ranged (ammunition) uses DEX;
+                # everything else (incl. thrown like handaxe/javelin) uses STR.
+                if "finesse" in props:
+                    ability_mod = max(str_mod, dex)
+                elif "ammunition" in props:
+                    ability_mod = dex
+                else:
+                    ability_mod = str_mod
+                weapons.append({
+                    "name": item.get("name", iid),
+                    "damage": item.get("damage", "1d4"),
+                    "damage_type": item.get("damage_type", "bludgeoning"),
+                    "properties": props,
+                    # Combat reads this cached attack bonus directly, so include
+                    # proficiency (else a created martial would attack at +mod only).
+                    "attack_bonus": ability_mod + proficiency_bonus,
+                })
+
+        shield_bonus = 2 if has_shield else 0
+        if armor_item:
+            parsed = parse_armor_class_string(armor_item.get("armor_class"))
+            ac = calculate_ac(
+                base_ac=parsed["base_ac"], dex_modifier=dex,
+                shield_bonus=shield_bonus, max_dex_bonus=parsed["max_dex_bonus"],
+            )
+        else:
+            # Unarmored: class-specific defense (Barbarian 10+DEX+CON, Monk 10+DEX+WIS
+            # — Monk's requires no shield), else plain 10+DEX. A shield still adds +2.
+            cid = class_data.get("id", "")
+            if cid == "barbarian":
+                ac = 10 + dex + con + shield_bonus
+            elif cid == "monk" and not has_shield:
+                ac = 10 + dex + wis
+            else:
+                ac = 10 + dex + shield_bonus
+        return ac, weapons
+
     def finalize_character(self, build: CharacterBuild) -> Tuple[bool, Dict[str, Any]]:
         """
         Finalize the character build into a full character sheet.
@@ -646,8 +754,10 @@ class CharacterBuilder:
         hit_die_max = int(hit_die[1:])  # Extract number from "d10" -> 10
         hp = self._hp_for_level(hit_die_max, modifiers.get("constitution", 0), build.level)
 
-        # Calculate AC (base 10 + DEX mod, no armor)
-        ac = 10 + modifiers.get("dexterity", 0)
+        # AC + starting weapons from the class's iconic starting loadout (armor +
+        # shield → real AC; weapons → real damage instead of 1d4 unarmed).
+        proficiency_bonus = self.rules.get_proficiency_bonus(build.level)
+        ac, starting_weapons = self._equip_ac_and_weapons(class_data, modifiers, proficiency_bonus)
 
         # Build proficiencies
         skill_proficiencies = list(build.skill_choices) + background.get("skill_proficiencies", [])
@@ -726,6 +836,7 @@ class CharacterBuilder:
 
             # Equipment (simplified for now)
             "equipment": build.equipment_choices,
+            "weapons": starting_weapons,
             "gold": background.get("starting_equipment", {}).get("gold", 0),
 
             # Details

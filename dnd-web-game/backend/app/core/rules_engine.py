@@ -130,10 +130,16 @@ def calculate_ac(
     Returns:
         Total Armor Class
     """
-    # Apply max DEX bonus if armor limits it
-    effective_dex = dex_modifier
-    if max_dex_bonus is not None:
+    # Apply DEX per armor category. Heavy armor (max_dex_bonus == 0) ignores DEX
+    # ENTIRELY — no bonus AND no penalty — so a low-DEX fighter in chain mail is still
+    # the armor's flat AC, not base-1. Light (None) takes full DEX; medium caps the
+    # bonus at +2 but a negative DEX still reduces it (that's RAW).
+    if max_dex_bonus == 0:
+        effective_dex = 0
+    elif max_dex_bonus is not None:
         effective_dex = min(dex_modifier, max_dex_bonus)
+    else:
+        effective_dex = dex_modifier
 
     return base_ac + effective_dex + armor_bonus + shield_bonus + other_bonuses
 
