@@ -14,6 +14,7 @@ from app.models.spells import (
 )
 from app.core.dice import roll_d20, D20Result
 from app.core.rules_engine import roll_damage
+from app.core.condition_effects import get_attack_modifiers
 
 
 _ABILITY_FULL_NAMES = {
@@ -745,17 +746,24 @@ class SpellEffectResolver:
         target_ac: int,
         caster_level: int = 1,
         slot_level: Optional[int] = None,
+        advantage: bool = False,
+        disadvantage: bool = False,
+        auto_crit: bool = False,
     ) -> Dict[str, Any]:
         """
         Resolve a spell attack.
 
+        advantage/disadvantage come from the caster's and target's conditions (computed by
+        cast_spell). auto_crit makes a hit a critical (a paralyzed/unconscious target hit by
+        a melee spell attack within 5 ft).
+
         Returns dict with: hit, critical, attack_roll, attack_total, damage
         """
-        attack_roll = roll_d20()
+        attack_roll = roll_d20(advantage=advantage, disadvantage=disadvantage)
         attack_total = attack_roll.total + spell_attack_bonus
 
-        critical = attack_roll.natural_20
-        hit = critical or (attack_total >= target_ac and not attack_roll.natural_1)
+        hit = attack_roll.natural_20 or (attack_total >= target_ac and not attack_roll.natural_1)
+        critical = attack_roll.natural_20 or (hit and auto_crit)
 
         result = {
             "hit": hit,
@@ -1443,12 +1451,26 @@ def cast_spell(
     elif spell.attack_type and targets:
         # Attack spell
         target = targets[0]
+        # Spell attacks honor advantage/disadvantage from the caster's and target's
+        # conditions (prone, restrained, stunned, paralyzed, blinded, invisible, …), just
+        # like weapon attacks. Faerie Fire (a concentration-gated buff) is a follow-up.
+        # `or []` guards a conditions key explicitly set to None (not just missing).
+        is_melee_spell = spell.attack_type == "melee_spell"
+        cmods = get_attack_modifiers(
+            attacker_conditions=caster_data.get("conditions") or [],
+            target_conditions=target.get("conditions") or [],
+            is_melee=is_melee_spell,
+            distance_ft=5 if is_melee_spell else 100,
+        )
         attack_result = SpellEffectResolver.resolve_attack_spell(
             spell,
             spell_caster.spellcasting.spell_attack_bonus,
             target.get("ac", 10),
             caster_level,
-            cast_level
+            cast_level,
+            advantage=cmods.advantage,
+            disadvantage=cmods.disadvantage,
+            auto_crit=cmods.auto_critical,
         )
 
         result.attack_roll = attack_result["attack_roll"]
