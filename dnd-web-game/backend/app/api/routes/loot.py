@@ -838,9 +838,9 @@ async def use_item_in_combat(request: UseItemRequest):
             }
             message_suffix = f" {target.name} takes {damage_amount} {damage_type} damage!"
 
-            # Check if target is defeated
-            if target_new_hp <= 0:
-                target.is_active = False
+            # apply_spell_damage already marked the target defeated (player-aware: enemies
+            # become inactive, players are left for death saves).
+            if target_new_hp is not None and target_new_hp <= 0 and not getattr(target, "is_active", True):
                 effect_result["target_defeated"] = True
                 message_suffix += f" {target.name} is defeated!"
 

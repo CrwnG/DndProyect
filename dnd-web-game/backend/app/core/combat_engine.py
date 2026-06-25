@@ -969,8 +969,11 @@ class CombatEngine:
 
             if attack_result.hit:
                 damage = attack_result.total_damage
-                # Temp HP depleted first (no target object in scope here, only stats).
-                self._apply_damage_with_temp(None, target_stats, damage)
+                # Temp HP depleted first; mark the target defeated if it drops to 0.
+                lt = self.state.initiative_tracker.get_combatant(target_id)
+                lt_new_hp, _, _ = self._apply_damage_with_temp(lt, target_stats, damage)
+                if lt_new_hp <= 0:
+                    self._mark_defeated(lt)
 
                 self.state.add_event(
                     "legendary_action",
@@ -1660,12 +1663,7 @@ class CombatEngine:
 
             # Check if target is defeated
             if new_hp <= 0:
-                target.is_active = False
-                self.state.add_event(
-                    "combatant_defeated",
-                    f"{target.name} is defeated!",
-                    combatant_id=target.id
-                )
+                self._mark_defeated(target)
 
         # Build description
         weapon_name = weapon_data.get("name", offhand_weapon) if weapon_data else offhand_weapon
@@ -2132,7 +2130,7 @@ class CombatEngine:
                 self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
             if new_hp <= 0:
-                target.is_active = False
+                self._mark_defeated(target)
 
         if attack_result.critical_hit:
             desc = f"{combatant.name} lands a critical Martial Arts strike on {target.name} for {damage_dealt} damage!"
@@ -2275,8 +2273,10 @@ class CombatEngine:
                     self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
                 if new_hp <= 0:
-                    target.is_active = False
-                    descriptions.append(f"Strike {i+1}: {damage_dealt} damage - {target.name} is defeated!")
+                    self._mark_defeated(target)
+                    # "defeated" only if actually removed (players drop to 0 but death-save).
+                    tail = f" - {target.name} is defeated!" if not target.is_active else ""
+                    descriptions.append(f"Strike {i+1}: {damage_dealt} damage{tail}")
                 else:
                     descriptions.append(f"Strike {i+1}: {damage_dealt} damage")
             else:
@@ -2635,12 +2635,7 @@ class CombatEngine:
 
             # Check if target defeated
             if new_hp <= 0:
-                target.is_active = False
-                self.state.add_event(
-                    "combatant_defeated",
-                    f"{target.name} is defeated by Divine Smite!",
-                    combatant_id=target_id
-                )
+                self._mark_defeated(target)
 
         # Consume spell slot
         if str(slot_level) in spell_slots:
@@ -3394,16 +3389,13 @@ class CombatEngine:
 
             # Check if target is defeated
             if new_hp <= 0:
-                target.is_active = False
-                self.state.add_event(
-                    "combatant_defeated",
-                    f"{target.name} is defeated!",
-                    combatant_id=target.id
-                )
+                self._mark_defeated(target)
 
-            # Smite rider condition (Wrathful->frightened, Blinding->blinded, …):
-            # the still-standing target makes the smite's save or is afflicted.
-            if smite_rider and smite_rider.get("condition") and target.is_active:
+            # Smite rider condition (Wrathful->frightened, Blinding->blinded, …): the
+            # STILL-STANDING target makes the smite's save or is afflicted. Gate on HP
+            # (not is_active) — a 0-HP player stays active for death saves but shouldn't
+            # be afflicted.
+            if smite_rider and smite_rider.get("condition") and new_hp > 0:
                 if self._apply_smite_condition(target.id, smite_rider):
                     self.state.add_event(
                         "smite_condition",
@@ -3509,6 +3501,8 @@ class CombatEngine:
                                 if target.id in self.state.combatant_stats:
                                     self.state.combatant_stats[target.id]["current_hp"] = new_hp
                                 damage_dealt += graze_dealt
+                                if new_hp <= 0:
+                                    self._mark_defeated(target)
 
                                 # Concentration check for Graze damage
                                 if graze_dealt > 0:
@@ -3530,6 +3524,8 @@ class CombatEngine:
                                         resistance=cl_r, vulnerability=cl_v, immunity=cl_i)
                                     if cleave_target_id in self.state.combatant_stats:
                                         self.state.combatant_stats[cleave_target_id]["current_hp"] = new_hp
+                                    if new_hp <= 0:
+                                        self._mark_defeated(cleave_target)
 
                                     # Concentration check for Cleave damage
                                     if cleave_dealt > 0:
@@ -4160,6 +4156,8 @@ class CombatEngine:
                                         target_stats["temp_hp"] = surf_temp - surf_absorbed
                                         surf_dmg -= surf_absorbed
                                     target.hp = max(0, target.hp - surf_dmg)
+                                    if target.hp <= 0:
+                                        self._mark_defeated(target)
                                 if effect.get("condition"):
                                     if effect["condition"] not in target.conditions:
                                         target.conditions.append(effect["condition"])
@@ -4638,9 +4636,8 @@ class CombatEngine:
 
                 # Stop if the attacker was defeated mid-multiattack — e.g. Armor of
                 # Agathys cold retaliation burned it to 0 — so a dead monster doesn't
-                # keep swinging.
+                # keep swinging (the retaliation already marked it defeated).
                 if (stats.get("current_hp", 1) or 0) <= 0:
-                    combatant.is_active = False
                     break
 
         # Log combined result
@@ -5082,6 +5079,24 @@ class CombatEngine:
             target.current_hp = new_hp
         return new_hp, eff, new_hp <= 0
 
+    def _mark_defeated(self, target) -> None:
+        """The single defeat path — call after damage drops a combatant to 0 HP. Enemies
+        and NPCs become inactive and emit a `combatant_defeated` event; PLAYERS are left
+        active so the death-save flow (triggered at their turn start) can run. Idempotent
+        and None-safe: an already-inactive (or None) target is a no-op, so it never
+        double-emits the event."""
+        if target is None or not getattr(target, "is_active", False):
+            return
+        from app.core.initiative import CombatantType
+        if getattr(target, "combatant_type", None) == CombatantType.PLAYER:
+            return  # unconscious + death saves, not removed from combat
+        target.is_active = False
+        self.state.add_event(
+            "combatant_defeated",
+            f"{target.name} is defeated!",
+            combatant_id=target.id,
+        )
+
     def grant_temp_hp(self, combatant_id: str, amount: int) -> None:
         """Grant temporary HP. Temp HP does NOT stack — keep the larger of the current and
         new values (RAW). Healing never restores it; it is a pool separate from real HP."""
@@ -5111,8 +5126,10 @@ class CombatEngine:
         if amount <= 0 or not bearer_had_temp or attacker is None:
             return 0
         r, v, i = self._resist_flags(attacker_stats, "cold")
-        _, dealt, _ = self._apply_damage_with_temp(
+        new_hp, dealt, _ = self._apply_damage_with_temp(
             attacker, attacker_stats, amount, resistance=r, vulnerability=v, immunity=i)
+        if new_hp <= 0:
+            self._mark_defeated(attacker)
         return dealt
 
     def apply_spell_damage(self, target_id: str, amount: int) -> Optional[int]:
@@ -5124,8 +5141,8 @@ class CombatEngine:
         if target_stats is None:
             return None
         new_hp, _, _ = self._apply_damage_with_temp(target, target_stats, amount)
-        if target is not None and new_hp <= 0:
-            target.is_active = False
+        if new_hp <= 0:
+            self._mark_defeated(target)
         return new_hp
 
     def _resist_flags(self, target_stats: Dict[str, Any], damage_type) -> tuple[bool, bool, bool]:
@@ -5155,10 +5172,12 @@ class CombatEngine:
             return
 
         resistance, vulnerability, immunity = self._resist_flags(target_stats, damage_type)
-        self._apply_damage_with_temp(
+        new_hp, _, _ = self._apply_damage_with_temp(
             target, target_stats, damage,
             resistance=resistance, vulnerability=vulnerability, immunity=immunity,
         )
+        if new_hp <= 0:
+            self._mark_defeated(target)
 
     @staticmethod
     def _aoe_includes(shape, origin, direction, target, length_ft, width_ft=5):
@@ -5631,7 +5650,9 @@ class CombatEngine:
 
             # Apply damage to target (temp HP depleted first inside the chokepoint)
             if target.current_hp is not None:
-                self._apply_damage_with_temp(target, target_stats, damage)
+                oa_new_hp, _, _ = self._apply_damage_with_temp(target, target_stats, damage)
+                if oa_new_hp <= 0:
+                    self._mark_defeated(target)
 
             # Check for concentration break
             if damage > 0:

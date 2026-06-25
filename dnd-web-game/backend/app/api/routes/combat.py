@@ -1134,8 +1134,8 @@ async def use_reaction(
             target_stats = engine.state.combatant_stats.get(request.trigger_source_id, {})
             new_hp, _, _ = engine._apply_damage_with_temp(
                 trigger_source, target_stats, result.damage_dealt)
-            if trigger_source and new_hp <= 0:
-                trigger_source.is_active = False
+            if new_hp <= 0:
+                engine._mark_defeated(trigger_source)
 
             # Check for Sentinel speed reduction on OA hit
             is_sentinel_attack = result.extra_data.get("sentinel", False)
