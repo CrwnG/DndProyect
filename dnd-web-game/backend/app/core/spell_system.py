@@ -1697,6 +1697,10 @@ def cast_spell(
         else:
             ids = [t.get("id", "target") for t in targets] if targets else [result.caster_id]
         result.temp_hp_granted = {i: thp for i in ids}
+        # Armor of Agathys also burns melee attackers for the same amount of Cold damage
+        # while the bearer keeps these temporary HP.
+        if spell.id == "armor_of_agathys":
+            result.cold_retaliate = {i: thp for i in ids}
         if not result.damage_dealt and not result.healing_done:
             result.description = f"{result.caster_name} casts {spell.name}! (+{thp} temporary HP)"
 
