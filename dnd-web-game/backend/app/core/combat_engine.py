@@ -2124,8 +2124,10 @@ class CombatEngine:
 
         damage_dealt = 0
         if attack_result.hit:
+            ma_r, ma_v, ma_i = self._resist_flags(target_stats, "bludgeoning")
             new_hp, damage_dealt, _ = self._apply_damage_with_temp(
-                target, target_stats, attack_result.total_damage)
+                target, target_stats, attack_result.total_damage,
+                resistance=ma_r, vulnerability=ma_v, immunity=ma_i)
             if target_id in self.state.combatant_stats:
                 self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
@@ -2264,8 +2266,10 @@ class CombatEngine:
 
             if attack_result.hit:
                 hits += 1
+                fb_r, fb_v, fb_i = self._resist_flags(target_stats, "bludgeoning")
                 new_hp, damage_dealt, _ = self._apply_damage_with_temp(
-                    target, target_stats, attack_result.total_damage)
+                    target, target_stats, attack_result.total_damage,
+                    resistance=fb_r, vulnerability=fb_v, immunity=fb_i)
                 total_damage += damage_dealt
                 if target_id in self.state.combatant_stats:
                     self.state.combatant_stats[target_id]["current_hp"] = new_hp
@@ -2619,9 +2623,13 @@ class CombatEngine:
 
         smite_damage = smite_result.value
 
-        # Apply damage to target (temp HP depleted first inside the chokepoint)
+        # Apply damage to target (temp HP depleted first inside the chokepoint). Divine
+        # Smite deals Radiant damage, so honor radiant resistance/immunity/vulnerability.
         if target:
-            new_hp, _, _ = self._apply_damage_with_temp(target, target_stats, smite_damage)
+            sm_r, sm_v, sm_i = self._resist_flags(target_stats, "radiant")
+            new_hp, _, _ = self._apply_damage_with_temp(
+                target, target_stats, smite_damage,
+                resistance=sm_r, vulnerability=sm_v, immunity=sm_i)
             if target_id in self.state.combatant_stats:
                 self.state.combatant_stats[target_id]["current_hp"] = new_hp
 
@@ -3479,8 +3487,10 @@ class CombatEngine:
 
                             # For Graze, apply damage to original target
                             if mastery_type == MasteryType.GRAZE:
+                                gz_r, gz_v, gz_i = self._resist_flags(target_stats, damage_type)
                                 new_hp, graze_dealt, _ = self._apply_damage_with_temp(
-                                    target, target_stats, mastery_extra_damage)
+                                    target, target_stats, mastery_extra_damage,
+                                    resistance=gz_r, vulnerability=gz_v, immunity=gz_i)
                                 if target.id in self.state.combatant_stats:
                                     self.state.combatant_stats[target.id]["current_hp"] = new_hp
                                 damage_dealt += graze_dealt
@@ -3499,8 +3509,10 @@ class CombatEngine:
                                 cleave_target = self.state.initiative_tracker.get_combatant(cleave_target_id)
                                 cleave_stats = self.state.combatant_stats.get(cleave_target_id, {})
                                 if cleave_target:
+                                    cl_r, cl_v, cl_i = self._resist_flags(cleave_stats, damage_type)
                                     new_hp, cleave_dealt, _ = self._apply_damage_with_temp(
-                                        cleave_target, cleave_stats, mastery_extra_damage)
+                                        cleave_target, cleave_stats, mastery_extra_damage,
+                                        resistance=cl_r, vulnerability=cl_v, immunity=cl_i)
                                     if cleave_target_id in self.state.combatant_stats:
                                         self.state.combatant_stats[cleave_target_id]["current_hp"] = new_hp
 
@@ -5058,6 +5070,19 @@ class CombatEngine:
             target.is_active = False
         return new_hp
 
+    def _resist_flags(self, target_stats: Dict[str, Any], damage_type) -> tuple[bool, bool, bool]:
+        """(resistance, vulnerability, immunity) for a damage type against a target. Reads
+        the cache's resistances/immunities/vulnerabilities (or the legacy damage_* keys),
+        case-insensitively. Accepts a DamageType enum or a string."""
+        dt = damage_type.value if hasattr(damage_type, "value") else damage_type
+        dt = str(dt or "").lower()
+        if not dt:
+            return False, False, False
+        res = [str(r).lower() for r in target_stats.get("resistances", target_stats.get("damage_resistances", []))]
+        vul = [str(v).lower() for v in target_stats.get("vulnerabilities", target_stats.get("damage_vulnerabilities", []))]
+        imm = [str(i).lower() for i in target_stats.get("immunities", target_stats.get("damage_immunities", []))]
+        return dt in res, dt in vul, dt in imm
+
     def _apply_damage_to_target(
         self,
         target_id: str,
@@ -5071,17 +5096,10 @@ class CombatEngine:
         if not target:
             return
 
-        # Resist/immune/vuln (cache stores these as immunities/resistances/vulnerabilities;
-        # accept the legacy damage_* keys too). Temp HP is depleted in the chokepoint.
-        dt = (damage_type or "").lower()
-        immunities = target_stats.get("immunities", target_stats.get("damage_immunities", []))
-        resistances = target_stats.get("resistances", target_stats.get("damage_resistances", []))
-        vulnerabilities = target_stats.get("vulnerabilities", target_stats.get("damage_vulnerabilities", []))
+        resistance, vulnerability, immunity = self._resist_flags(target_stats, damage_type)
         self._apply_damage_with_temp(
             target, target_stats, damage,
-            resistance=dt in [r.lower() for r in resistances],
-            vulnerability=dt in [v.lower() for v in vulnerabilities],
-            immunity=dt in [i.lower() for i in immunities],
+            resistance=resistance, vulnerability=vulnerability, immunity=immunity,
         )
 
     @staticmethod
