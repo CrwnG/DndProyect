@@ -1477,6 +1477,10 @@ def process_enemy_turn_advanced(
         for tid, amount in (getattr(result, "temp_hp_granted", None) or {}).items():
             engine.grant_temp_hp(tid, amount)
 
+        # Armor of Agathys: arm the bearer so melee attackers take Cold damage.
+        for tid, amount in (getattr(result, "cold_retaliate", None) or {}).items():
+            engine.grant_cold_retaliate(tid, amount)
+
         # Persist consumed spell slots back to the monster's stats — caster_data is
         # a fresh copy, so cast_spell's slot mutation would otherwise be lost and
         # the enemy could reuse slots every turn.

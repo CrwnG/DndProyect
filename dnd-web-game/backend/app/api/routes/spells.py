@@ -399,6 +399,10 @@ async def cast_spell_in_combat(
         for target_id, amount in (getattr(result, "temp_hp_granted", None) or {}).items():
             combat_engine.grant_temp_hp(target_id, amount)
 
+        # Armor of Agathys: arm the bearer so melee attackers take Cold damage.
+        for target_id, amount in (getattr(result, "cold_retaliate", None) or {}).items():
+            combat_engine.grant_cold_retaliate(target_id, amount)
+
         # Apply conditions from save/control spells (Hold Person, Web, Faerie Fire,
         # …) so they actually take effect rather than being cosmetic.
         combat_engine.apply_spell_conditions(result.conditions_applied)

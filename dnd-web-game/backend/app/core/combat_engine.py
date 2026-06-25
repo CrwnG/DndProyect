@@ -3365,6 +3365,10 @@ class CombatEngine:
             has_immunity = damage_type in immunities
             has_vulnerability = damage_type in vulnerabilities
 
+            # Did the target have Armor of Agathys temp HP when hit? (captured before the
+            # damage, which may deplete it).
+            bearer_had_temp = (target_stats.get("temp_hp", 0) or 0) > 0
+
             new_hp, damage_dealt, is_unconscious = self._apply_damage_with_temp(
                 target, target_stats, total_damage,
                 resistance=has_resistance,
@@ -3376,6 +3380,17 @@ class CombatEngine:
             # mirror in case target_stats was a transient default.
             if target.id in self.state.combatant_stats:
                 self.state.combatant_stats[target.id]["current_hp"] = new_hp
+
+            # Armor of Agathys: a MELEE hit on the bearer burns the attacker with Cold.
+            if not is_ranged:
+                cold = self._apply_melee_retaliation(
+                    attacker, attacker_stats, target_stats, bearer_had_temp)
+                if cold > 0:
+                    self.state.add_event(
+                        "armor_of_agathys",
+                        f"{attacker.name} is burned for {cold} cold by {target.name}'s Armor of Agathys!",
+                        combatant_id=attacker.id,
+                    )
 
             # Check if target is defeated
             if new_hp <= 0:
@@ -4621,6 +4636,13 @@ class CombatEngine:
                 else:
                     misses += 1
 
+                # Stop if the attacker was defeated mid-multiattack — e.g. Armor of
+                # Agathys cold retaliation burned it to 0 — so a dead monster doesn't
+                # keep swinging.
+                if (stats.get("current_hp", 1) or 0) <= 0:
+                    combatant.is_active = False
+                    break
+
         # Log combined result
         self.state.add_event(
             "multiattack",
@@ -4978,8 +5000,22 @@ class CombatEngine:
                     and self._has_active_buff_flag(stats, "halve_strength_damage")):
                 damage //= 2
 
+            # Armor of Agathys: did the target have temp HP when hit? (before the damage).
+            bearer_had_temp = (target_stats.get("temp_hp", 0) or 0) > 0
+
             # Apply damage to target
             self._apply_damage_to_target(target_id, damage, attack.damage_type or "untyped")
+
+            # A MELEE attacker that hits the bearer takes Cold damage.
+            if attack.ability_type == AbilityType.MELEE_ATTACK:
+                cold = self._apply_melee_retaliation(
+                    combatant, stats, target_stats, bearer_had_temp)
+                if cold > 0:
+                    self.state.add_event(
+                        "armor_of_agathys",
+                        f"{combatant.name} is burned for {cold} cold by {target.name}'s Armor of Agathys!",
+                        combatant_id=combatant.id,
+                    )
 
         # Log individual attack
         self.state.add_event(
@@ -5056,6 +5092,28 @@ class CombatEngine:
             return
         if amount > (stats.get("temp_hp", 0) or 0):
             stats["temp_hp"] = amount
+
+    def grant_cold_retaliate(self, combatant_id: str, amount: int) -> None:
+        """Store the Armor of Agathys cold-retaliation amount on a combatant. It burns
+        melee attackers for `amount` Cold damage while the bearer still has temporary HP."""
+        if not amount or amount <= 0:
+            return
+        stats = self.state.combatant_stats.get(combatant_id)
+        if stats is not None:
+            stats["cold_retaliate"] = amount
+
+    def _apply_melee_retaliation(self, attacker, attacker_stats: Dict[str, Any],
+                                 target_stats: Dict[str, Any], bearer_had_temp: bool) -> int:
+        """Armor of Agathys: a creature that HITS the bearer with a MELEE attack takes Cold
+        damage, but only while the bearer still has the temporary HP (captured BEFORE the
+        hit, since the hit itself may deplete it). Returns the Cold damage dealt."""
+        amount = target_stats.get("cold_retaliate", 0) or 0
+        if amount <= 0 or not bearer_had_temp or attacker is None:
+            return 0
+        r, v, i = self._resist_flags(attacker_stats, "cold")
+        _, dealt, _ = self._apply_damage_with_temp(
+            attacker, attacker_stats, amount, resistance=r, vulnerability=v, immunity=i)
+        return dealt
 
     def apply_spell_damage(self, target_id: str, amount: int) -> Optional[int]:
         """Apply spell damage to a target's HP from the cast routes, depleting temp HP
