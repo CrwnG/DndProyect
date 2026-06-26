@@ -587,6 +587,7 @@ class CombatEngine:
             "resistances": combatant_data.get("resistances", []),
             "immunities": combatant_data.get("immunities", []),
             "vulnerabilities": combatant_data.get("vulnerabilities", []),
+            "condition_immunities": combatant_data.get("condition_immunities", []),
             "conditions": combatant_data.get("conditions", []),
             # Class and level for Extra Attack calculation
             "class": char_class,
@@ -3537,8 +3538,7 @@ class CombatEngine:
 
                         # Handle target conditions (Sap, Slow, Prone, etc.)
                         if mastery_effect.target_condition:
-                            if mastery_effect.target_condition not in target.conditions:
-                                target.conditions.append(mastery_effect.target_condition)
+                            self._apply_condition(target, target_stats, mastery_effect.target_condition)
 
                         # Handle Vex (grants advantage on next attack vs target)
                         if mastery_effect.grants_advantage:
@@ -3946,9 +3946,18 @@ class CombatEngine:
         target_roll = random.randint(1, 20) + target_escape_mod
 
         if attacker_roll > target_roll:
-            # Grapple succeeds
-            if "grappled" not in target.conditions:
-                target.conditions.append("grappled")
+            # Grapple succeeds — unless the target is immune to the Grappled condition,
+            # in which case no grapple state is established.
+            if not self._apply_condition(target, target_stats, "grappled"):
+                desc = f"{combatant.name} can't grapple {target.name} — it is immune to the Grappled condition!"
+                self.state.add_event(
+                    "grapple_failed", desc, combatant_id=combatant.id,
+                    data={"target_id": target_id, "success": False, "immune": True})
+                return ActionResult(
+                    success=True, action_type=ActionType.GRAPPLE.value, description=desc,
+                    effects_applied=[],
+                    extra_data={"target_id": target_id, "grapple_success": False, "immune": True,
+                                "attacker_roll": attacker_roll, "target_roll": target_roll})
 
             # Track who is grappling whom
             if "grappling" not in attacker_stats:
@@ -4086,10 +4095,12 @@ class CombatEngine:
 
         if attacker_roll > target_roll:
             if shove_type == "prone":
-                if "prone" not in target.conditions:
-                    target.conditions.append("prone")
-                desc = f"{combatant.name} shoves {target.name} prone! (Athletics {attacker_roll} vs {target_roll})"
-                effects = ["prone"]
+                if self._apply_condition(target, target_stats, "prone"):   # respects prone-immunity
+                    desc = f"{combatant.name} shoves {target.name} prone! (Athletics {attacker_roll} vs {target_roll})"
+                    effects = ["prone"]
+                else:
+                    desc = f"{combatant.name} shoves {target.name}, but it is immune to being knocked Prone!"
+                    effects = []
             else:
                 # Push 5ft away
                 # Calculate push direction
@@ -4159,9 +4170,8 @@ class CombatEngine:
                                     if target.hp <= 0:
                                         self._mark_defeated(target)
                                 if effect.get("condition"):
-                                    if effect["condition"] not in target.conditions:
-                                        target.conditions.append(effect["condition"])
-                                    effects.append(effect["condition"])
+                                    if self._apply_condition(target, target_stats, effect["condition"]):
+                                        effects.append(effect["condition"])
 
                         # Update position
                         self.state.positions[target_id] = (new_x, new_y)
@@ -4458,9 +4468,9 @@ class CombatEngine:
             for t_id, conditions in result.conditions_applied.items():
                 t = self.state.initiative_tracker.get_combatant(t_id)
                 if t:
+                    t_stats = self.state.combatant_stats.get(t.id, {})
                     for cond in conditions:
-                        if cond not in t.conditions:
-                            t.conditions.append(cond)
+                        self._apply_condition(t, t_stats, cond)  # respects condition immunity
 
             # Add saved targets to immune list
             if combatant.id not in self.state.frightful_presence_immune:
@@ -4487,9 +4497,9 @@ class CombatEngine:
             for t_id, conditions in result.conditions_applied.items():
                 t = self.state.initiative_tracker.get_combatant(t_id)
                 if t:
+                    t_stats = self.state.combatant_stats.get(t.id, {})
                     for cond in conditions:
-                        if cond not in t.conditions:
-                            t.conditions.append(cond)
+                        self._apply_condition(t, t_stats, cond)  # respects condition immunity
 
             # Mark on cooldown
             if combatant.id not in self.state.monster_ability_recharge:
@@ -4694,16 +4704,9 @@ class CombatEngine:
             return
         for target_id, conditions in conditions_applied.items():
             stats = self.state.combatant_stats.get(target_id)
-            if stats is not None:
-                existing = stats.setdefault("conditions", [])
-                for cond in conditions:
-                    if cond not in existing:
-                        existing.append(cond)
             combatant = self.state.initiative_tracker.get_combatant(target_id)
-            if combatant is not None:
-                for cond in conditions:
-                    if cond not in combatant.conditions:
-                        combatant.conditions.append(cond)
+            for cond in conditions:
+                self._apply_condition(combatant, stats, cond)  # refuses immune targets
 
     def apply_spell_buffs(self, caster_id: str, buff_effects, target_ids, spell_id=None) -> None:
         """Store a buff spell's effects (Bless's +1d4, …) on each target so combat
@@ -4722,6 +4725,18 @@ class CombatEngine:
                         if b.get("source") != caster_id
                         and (not spell_id or b.get("spell_id") != spell_id)]
             buffs.append({"source": caster_id, "spell_id": spell_id, **buff_effects})
+
+            # An immunity-granting buff (Heroism -> Frightened) also ENDS those conditions
+            # already on the target (RAW: Heroism removes existing Frightened).
+            imm = buff_effects.get("immunity")
+            if imm:
+                imm_set = {str(c).lower() for c in imm}
+                stats["conditions"] = [c for c in stats.get("conditions", [])
+                                       if str(c).lower() not in imm_set]
+                combatant = self.state.initiative_tracker.get_combatant(tid)
+                if combatant is not None:
+                    combatant.conditions[:] = [c for c in combatant.conditions
+                                               if str(c).lower() not in imm_set]
 
     def _buff_is_active(self, buff: Dict[str, Any]) -> bool:
         """A concentration buff is only active while its caster is still
@@ -5169,6 +5184,40 @@ class CombatEngine:
         imm = [str(i).lower() for i in target_stats.get("immunities", target_stats.get("damage_immunities", []))]
         return dt in res, dt in vul, dt in imm
 
+    def _is_condition_immune(self, target_stats: Dict[str, Any], condition) -> bool:
+        """Whether a target is immune to a (real D&D) condition — innate
+        ``condition_immunities`` (creature stats) OR an active, concentration-gated buff
+        granting immunity (Heroism -> frightened). Case-insensitive. Mirrors _resist_flags;
+        action-states (disengaged/dodging/…) are never in an immunity list, so they pass."""
+        if not condition:
+            return False
+        cond = str(condition).lower()
+        stats = target_stats or {}
+        if cond in [str(c).lower() for c in stats.get("condition_immunities", [])]:
+            return True
+        for buff in (stats.get("active_buffs") or []):
+            imm = buff.get("immunity")
+            if imm and self._buff_is_active(buff) and cond in [str(c).lower() for c in imm]:
+                return True
+        return False
+
+    def _apply_condition(self, target, target_stats: Dict[str, Any], condition) -> bool:
+        """The single chokepoint for applying a real D&D condition: refuse it if the target
+        is immune (innate or buff-granted), else dedup-append it (case-insensitively) to both
+        the stats cache and the Combatant object. Returns False ONLY when the target is immune
+        (condition refused); True otherwise (applied now or already present) — so callers can
+        gate their effect/description text on whether the condition was accepted."""
+        if self._is_condition_immune(target_stats, condition):
+            return False
+        cond_l = str(condition).lower()
+        if target_stats is not None:
+            existing = target_stats.setdefault("conditions", [])
+            if cond_l not in [str(c).lower() for c in existing]:
+                existing.append(condition)
+        if target is not None and cond_l not in [str(c).lower() for c in target.conditions]:
+            target.conditions.append(condition)
+        return True
+
     def _apply_damage_to_target(
         self,
         target_id: str,
@@ -5337,9 +5386,9 @@ class CombatEngine:
                 for t_id, conditions in result.conditions_applied.items():
                     t = self.state.initiative_tracker.get_combatant(t_id)
                     if t:
+                        t_stats = self.state.combatant_stats.get(t.id, {})
                         for cond in conditions:
-                            if cond not in t.conditions:
-                                t.conditions.append(cond)
+                            self._apply_condition(t, t_stats, cond)  # respects condition immunity
 
                 # Update immunity list
                 if combatant_id not in self.state.frightful_presence_immune:

@@ -1050,6 +1050,9 @@ class CampaignEngine:
                     },
                     "weapons": [],
                     "actions": template.get("actions", []),
+                    # Carry the stat block's condition immunities so they reach the combat
+                    # cache (else a campaign-spawned construct/undead loses its immunities).
+                    "condition_immunities": template.get("condition_immunities", []),
                 }
                 enemies.append(enemy_dict)
 
