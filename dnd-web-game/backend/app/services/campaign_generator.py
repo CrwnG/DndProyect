@@ -52,6 +52,62 @@ def sanitize_combat_encounters(campaign: Campaign) -> None:
             )
 
 
+# Deterministic tier ladder for offline encounters — SRD-safe generic foes (no Product
+# Identity). The engine tolerates unknown templates, but these keep the fight roughly
+# level-appropriate without an LLM.
+_OFFLINE_FOE_LADDER = [
+    (2, "goblin"),
+    (4, "orc"),
+    (7, "ogre"),
+    (10, "troll"),
+]
+
+
+def _offline_foe_for_level(party_level: int) -> str:
+    for max_level, template in _OFFLINE_FOE_LADDER:
+        if party_level <= max_level:
+            return template
+    return _OFFLINE_FOE_LADDER[-1][1]
+
+
+def build_offline_encounter(
+    campaign: Campaign,
+    encounter_type: str,
+    context: Dict[str, Any],
+) -> Encounter:
+    """Build a deterministic, level-scaled encounter when the AI generator is unavailable
+    (no ANTHROPIC_API_KEY). Combat encounters get a CombatSetup scaled to party level and
+    difficulty; non-combat types get a simple templated story beat. Upholds the project's
+    'graceful degradation is a hard requirement' rule so offline play stays unblocked."""
+    party_level = max(1, int(context.get("party_level") or 1))
+    difficulty = str(context.get("difficulty") or "medium").lower()
+    try:
+        et = EncounterType(encounter_type)
+    except ValueError:
+        et = EncounterType.COMBAT
+
+    enc_id = f"offline-{et.value}-{len(campaign.encounters) + 1}"
+    name = f"{et.value.title()} Encounter (Lv {party_level})"
+
+    if et == EncounterType.COMBAT:
+        template = _offline_foe_for_level(party_level)
+        count = 2 + party_level // 3
+        if difficulty in ("hard", "deadly"):
+            count += 1 + party_level // 4
+        story = StoryContent(
+            intro_text=f"A band of {template.replace('_', ' ')}s blocks the party's path."
+        )
+        return Encounter(
+            id=enc_id, type=et, name=name, story=story,
+            combat=CombatSetup(enemies=[EnemySpawn(template=template, count=count)]),
+        )
+
+    story = StoryContent(
+        intro_text=f"The party reaches a {et.value} moment in {campaign.name}."
+    )
+    return Encounter(id=enc_id, type=et, name=name, story=story)
+
+
 class CampaignGeneratorService:
     """
     Generates BG3-quality campaigns from prompts.
