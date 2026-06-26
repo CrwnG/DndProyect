@@ -4,7 +4,7 @@ Combat Engine.
 Core state machine for managing combat encounters.
 Handles combat phases, actions, and turn resolution.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, is_dataclass, asdict
 from enum import Enum, auto
 from typing import List, Optional, Dict, Any, Callable
 from pathlib import Path
@@ -5997,6 +5997,22 @@ class CombatEngine:
     # SERIALIZATION
     # =========================================================================
 
+    @staticmethod
+    def _json_safe(value):
+        """Convert event-log data to a JSON-serializable form for persistence. Event
+        `data` is Dict[str, Any] and may hold roll objects (e.g. a D20Result dataclass);
+        dataclasses become dicts (lossless), other non-JSON objects fall back to their
+        string form. Recurses dicts/lists."""
+        if value is None or isinstance(value, (str, int, float, bool)):
+            return value
+        if isinstance(value, dict):
+            return {k: CombatEngine._json_safe(v) for k, v in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [CombatEngine._json_safe(v) for v in value]
+        if is_dataclass(value) and not isinstance(value, type):
+            return CombatEngine._json_safe(asdict(value))
+        return str(value)
+
     def to_dict(self) -> Dict[str, Any]:
         """Serialize the combat engine state."""
         return {
@@ -6024,7 +6040,7 @@ class CombatEngine:
                         "round": e.round_number,
                         "combatant_id": e.combatant_id,
                         "description": e.description,
-                        "data": e.data
+                        "data": self._json_safe(e.data)
                     }
                     for e in self.state.event_log
                 ]
