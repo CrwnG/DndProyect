@@ -59,6 +59,21 @@ USE_ADVANCED_AI = True
 router = APIRouter()
 
 
+async def _resolve_engine(combat_id: str, combat_repo: CombatStateRepository):
+    """Return the live CombatEngine for ``combat_id``, rehydrating from the DB on a cache
+    miss (which also repopulates active_grids + reactions_managers) so combat survives a
+    restart/eviction. Raises 404 only when there is no recoverable combat."""
+    engine = active_combats.get(combat_id)
+    if engine is None:
+        engine = await rehydrate_combat(combat_id, combat_repo)
+    if engine is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Combat not found"
+        )
+    return engine
+
+
 # =============================================================================
 # Request/Response Models
 # =============================================================================
@@ -419,12 +434,7 @@ async def end_combat(
         combat_id: The combat session ID
         reason: Reason for ending (manual, victory, defeat, fled)
     """
-    engine = active_combats.get(combat_id)
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     try:
         result = engine.end_combat(reason)
@@ -527,14 +537,8 @@ async def take_action(
     Supports: attack, dash, disengage, dodge, help, hide, ready
     Persists state to database after action.
     """
-    engine = active_combats.get(request.combat_id)
+    engine = await _resolve_engine(request.combat_id, combat_repo)
     reactions_mgr = reactions_managers.get(request.combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
 
     # Map string to ActionType
     try:
@@ -655,13 +659,7 @@ async def take_bonus_action(
     Supports: offhand_attack, second_wind
     Persists state to database after action.
     """
-    engine = active_combats.get(request.combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(request.combat_id, combat_repo)
 
     # Map string to BonusActionType
     try:
@@ -734,11 +732,11 @@ async def move_combatant(
     Checks for opportunity attacks if moving away from enemies.
     Persists state to database after movement.
     """
-    engine = active_combats.get(request.combat_id)
+    engine = await _resolve_engine(request.combat_id, combat_repo)
     grid = active_grids.get(request.combat_id)
     reactions_mgr = reactions_managers.get(request.combat_id)
 
-    if not engine or not grid:
+    if not grid:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Combat not found"
@@ -886,13 +884,7 @@ async def use_legendary_action(
     Can only be used at the end of another creature's turn.
     Persists state to database after use.
     """
-    engine = active_combats.get(request.combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(request.combat_id, combat_repo)
 
     # Execute the legendary action
     result = engine.execute_legendary_action(
@@ -1007,10 +999,10 @@ async def use_reaction(
           f"reaction_type={request.reaction_type}, trigger_source_id={request.trigger_source_id}, "
           f"extra_data={request.extra_data}", flush=True)
 
-    engine = active_combats.get(request.combat_id)
+    engine = await _resolve_engine(request.combat_id, combat_repo)
     reactions_mgr = reactions_managers.get(request.combat_id)
 
-    if not engine or not reactions_mgr:
+    if not reactions_mgr:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Combat not found"
@@ -1827,15 +1819,9 @@ async def end_turn(
     until it's a player's turn again.
     Persists state to database after turn changes.
     """
-    engine = active_combats.get(combat_id)
+    engine = await _resolve_engine(combat_id, combat_repo)
     grid = active_grids.get(combat_id)
     reactions_mgr = reactions_managers.get(combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
 
     enemy_actions: List[EnemyAction] = []
     tracker = engine.state.initiative_tracker
@@ -2187,13 +2173,7 @@ async def use_action_surge(
     - Can only be used once per turn
     - Limited uses per short/long rest
     """
-    engine = active_combats.get(combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     # Verify it's the combatant's turn
     current = engine.get_current_combatant()
@@ -2228,9 +2208,7 @@ async def use_haste_action(
     - Requires an active Haste buff on the combatant (concentration-gated).
     - Frees the action slot for one additional action, once per turn.
     """
-    engine = active_combats.get(combat_id)
-    if not engine:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Combat not found")
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     current = engine.get_current_combatant()
     if not current or current.id != combatant_id:
@@ -2266,13 +2244,7 @@ async def use_divine_smite(
     - +1d8 vs undead or fiends
     - Can be used after a successful hit
     """
-    engine = active_combats.get(combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     if not target_id:
         raise HTTPException(
@@ -2458,13 +2430,7 @@ async def roll_death_save(
     This is typically called automatically at turn start, but can be
     triggered manually for certain situations.
     """
-    engine = active_combats.get(combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     combatant = engine.state.initiative_tracker.get_combatant(combatant_id)
     if not combatant:
@@ -2583,13 +2549,7 @@ async def stabilize_combatant(
         method: How stabilization is being attempted
         helper_id: Who is doing the stabilization (for medicine check)
     """
-    engine = active_combats.get(combat_id)
-
-    if not engine:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Combat not found"
-        )
+    engine = await _resolve_engine(combat_id, combat_repo)
 
     target = engine.state.initiative_tracker.get_combatant(request.target_id)
     if not target:

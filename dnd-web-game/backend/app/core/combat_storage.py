@@ -156,13 +156,15 @@ async def load_combat_from_db(
 
 
 async def rehydrate_combat(combat_id: str, repo: Any) -> Optional[Any]:
-    """Reconstruct a CombatEngine from its persisted snapshot and cache it in
-    active_combats, so a combat survives a backend restart. Returns the engine,
-    or None if there is no usable snapshot.
+    """Reconstruct a CombatEngine from its persisted snapshot and repopulate every
+    route-level cache (active_combats, active_grids, reactions_managers), so a combat
+    survives a backend restart and the mutation routes work after reload. Returns the
+    engine, or None if there is no usable snapshot.
 
-    Note: the snapshot captures core state (phase, initiative, turn, positions,
-    combatant_stats, event log). The tactical grid and recharge/legendary
-    bookkeeping are not serialized and reset on reload.
+    The snapshot captures phase, initiative, turn, positions, combatant_stats, the event
+    log, the tactical grid (terrain/elevation/occupancy for cover), and the per-combat
+    trackers (legendary actions, recharge, frightful-presence immunity, reactions used).
+    The ReactionsManager is rebuilt fresh with every combatant registered.
     """
     existing = active_combats.get(combat_id)
     if existing is not None:
@@ -175,4 +177,15 @@ async def rehydrate_combat(combat_id: str, repo: Any) -> Optional[Any]:
     from app.core.combat_engine import CombatEngine
     engine = CombatEngine.from_dict(loaded["engine_snapshot"])
     active_combats[combat_id] = engine
+
+    # Restore the route-level grid (from the engine snapshot) + a reactions manager with
+    # every combatant registered, so action/move/reaction routes function after reload.
+    if engine.state.grid is not None:
+        active_grids[combat_id] = engine.state.grid
+    from app.core.reactions import ReactionsManager
+    mgr = ReactionsManager()
+    for combatant_id in engine.state.combatant_stats:
+        mgr.register_combatant(combatant_id)
+    reactions_managers[combat_id] = mgr
+
     return engine
