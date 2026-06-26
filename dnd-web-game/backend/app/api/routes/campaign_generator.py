@@ -17,6 +17,7 @@ import logging
 from app.services.campaign_generator import (
     CampaignGeneratorService,
     get_campaign_generator,
+    build_offline_encounter,
 )
 from app.services.npc_generator import (
     NPCGeneratorService,
@@ -420,15 +421,11 @@ async def get_parser_status():
 
 @router.post("/encounter/generate")
 async def generate_encounter(request: GenerateEncounterRequest):
-    """Generate a single encounter for a campaign."""
-    generator = get_campaign_generator()
+    """Generate a single encounter for a campaign.
 
-    if not generator.is_available:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Generator not available",
-        )
-
+    Falls back to a deterministic, level-scaled encounter when the AI generator is
+    unavailable (no API key) so offline play stays unblocked.
+    """
     campaign = generated_campaigns.get(request.campaign_id)
     if not campaign:
         raise HTTPException(
@@ -436,24 +433,32 @@ async def generate_encounter(request: GenerateEncounterRequest):
             detail=f"Campaign {request.campaign_id} not found",
         )
 
+    generator = get_campaign_generator()
+
+    context = {
+        "act_name": request.act_name,
+        "act_theme": request.act_theme,
+        "chapter_name": request.chapter_name,
+        "story_summary": request.story_summary,
+        "party_level": request.party_level,
+        "party_composition": request.party_composition,
+        "recent_events": request.recent_events,
+        "active_flags": request.active_flags,
+        "pacing": request.pacing,
+        "difficulty": request.difficulty,
+        "callbacks": request.callbacks,
+    }
+
     try:
-        encounter = await generator.generate_encounter(
-            campaign=campaign,
-            encounter_type=request.encounter_type,
-            context={
-                "act_name": request.act_name,
-                "act_theme": request.act_theme,
-                "chapter_name": request.chapter_name,
-                "story_summary": request.story_summary,
-                "party_level": request.party_level,
-                "party_composition": request.party_composition,
-                "recent_events": request.recent_events,
-                "active_flags": request.active_flags,
-                "pacing": request.pacing,
-                "difficulty": request.difficulty,
-                "callbacks": request.callbacks,
-            },
-        )
+        if generator.is_available:
+            encounter = await generator.generate_encounter(
+                campaign=campaign,
+                encounter_type=request.encounter_type,
+                context=context,
+            )
+        else:
+            # Offline degrade: deterministic level-scaled encounter (no LLM needed).
+            encounter = build_offline_encounter(campaign, request.encounter_type, context)
 
         if not encounter:
             raise HTTPException(
