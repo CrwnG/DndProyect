@@ -4862,6 +4862,17 @@ class CombatEngine:
         stats = source_stats if source_stats is not None else target_dict
         target_dict["_save_buff_bonus"] = self._save_buff_bonus(stats)
 
+    def stamp_attack_advantage(self, target_dict: Dict[str, Any],
+                               source_stats: Optional[Dict[str, Any]] = None) -> None:
+        """Pre-stamp whether attacks against this target have advantage from a
+        concentration-gated buff (Faerie Fire's ``attacks_against_advantage``), so the
+        combat-state-agnostic ``cast_spell`` honors it on SPELL attacks just like weapon
+        attacks do. ``source_stats`` is where ``active_buffs`` live (defaults to the target
+        dict, which the player route copies from combatant_stats)."""
+        stats = source_stats if source_stats is not None else target_dict
+        if self._has_active_buff_flag(stats, "attacks_against_advantage"):
+            target_dict["_grants_attack_advantage"] = True
+
     def _target_save_modifier(self, target_stats: Dict[str, Any], save_type: str) -> int:
         """The save modifier for a combatant resisting an ability: their proficient
         save (falling back to the raw ability mod) plus any active save buffs. Used

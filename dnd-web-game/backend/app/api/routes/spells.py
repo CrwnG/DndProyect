@@ -345,6 +345,9 @@ async def cast_spell_in_combat(
             # Pre-roll the target's active save buff (Bless +1d4) so the save
             # resolver, which can't see combat state, applies it.
             combat_engine.stamp_save_buff(target_data_with_pos)
+            # Pre-stamp Faerie Fire advantage (concentration-gated) so a SPELL attack vs an
+            # outlined target gets advantage like a weapon attack does.
+            combat_engine.stamp_attack_advantage(target_data_with_pos)
             targets.append(target_data_with_pos)
 
     # Cast the spell

@@ -1453,12 +1453,17 @@ def cast_spell(
         target = targets[0]
         # Spell attacks honor advantage/disadvantage from the caster's and target's
         # conditions (prone, restrained, stunned, paralyzed, blinded, invisible, …), just
-        # like weapon attacks. Faerie Fire (a concentration-gated buff) is a follow-up.
-        # `or []` guards a conditions key explicitly set to None (not just missing).
+        # like weapon attacks. `or []` guards a conditions key explicitly set to None.
+        # The route pre-stamps `_grants_attack_advantage` for a target outlined by a
+        # concentration-gated buff (Faerie Fire) — which also can't benefit from Invisible.
         is_melee_spell = spell.attack_type == "melee_spell"
+        target_outlined = bool(target.get("_grants_attack_advantage"))
+        target_conditions = target.get("conditions") or []
+        if target_outlined:
+            target_conditions = [c for c in target_conditions if c != "invisible"]
         cmods = get_attack_modifiers(
             attacker_conditions=caster_data.get("conditions") or [],
-            target_conditions=target.get("conditions") or [],
+            target_conditions=target_conditions,
             is_melee=is_melee_spell,
             distance_ft=5 if is_melee_spell else 100,
         )
@@ -1468,7 +1473,7 @@ def cast_spell(
             target.get("ac", 10),
             caster_level,
             cast_level,
-            advantage=cmods.advantage,
+            advantage=cmods.advantage or target_outlined,
             disadvantage=cmods.disadvantage,
             auto_crit=cmods.auto_critical,
         )
