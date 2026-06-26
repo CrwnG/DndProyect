@@ -74,7 +74,7 @@ async def persist_created_character(char: Dict[str, Any], repo: Any) -> Any:
 
     Returns the created Character row. `repo` is a CharacterRepository.
     """
-    from app.database.models import CharacterCreate
+    from app.database.models import CharacterCreate, CharacterUpdate
 
     data = CharacterCreate(
         id=char.get("id"),
@@ -86,7 +86,35 @@ async def persist_created_character(char: Dict[str, Any], repo: Any) -> Any:
         background=char.get("background_id") or char.get("background"),
         abilities=char.get("ability_scores") or None,
     )
-    return await repo.create(data)
+    created = await repo.create(data)
+
+    # Follow the create with the combat-critical fields the builder computed (HP, spell
+    # slots, gold, XP) so a reloaded character is a faithful combatant, not the 10-HP /
+    # no-spellcasting default. Mirrors the PDF/JSON import path's create+update. HP fields
+    # are set only when present so we never overwrite the create default with None (the
+    # column is NOT NULL).
+    # Use presence (is not None), not truthiness, so a downed character at 0 HP is not
+    # silently revived to full on reload.
+    max_hp = char.get("max_hit_points")
+    if max_hp is None:
+        max_hp = char.get("max_hp")
+    current_hp = char.get("hit_points")
+    if current_hp is None:
+        current_hp = char.get("hp")
+    if current_hp is None:
+        current_hp = max_hp
+    update_kwargs = {
+        "temp_hp": char.get("temp_hp", 0),
+        "experience": char.get("experience", 0),
+        "gold": char.get("gold", 0),
+        "spellcasting": char.get("spellcasting"),
+    }
+    if max_hp is not None:
+        update_kwargs["max_hp"] = max_hp
+    if current_hp is not None:
+        update_kwargs["current_hp"] = current_hp
+    await repo.update(created.id, CharacterUpdate(**update_kwargs))
+    return created
 
 
 def db_character_to_combatant(db_char: Any) -> Dict[str, Any]:
