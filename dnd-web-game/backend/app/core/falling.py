@@ -153,12 +153,20 @@ def apply_falling_damage(
                     combatant.is_active = False
                     result["defeated"] = True
 
-    if lands_prone:
-        # Add prone condition
-        if hasattr(combatant, 'conditions'):
-            if "prone" not in combatant.conditions:
-                combatant.conditions.append("prone")
+    # Prone on landing — unless the creature is immune to the Prone condition. (Only innate
+    # immunity matters: no buff grants Prone immunity.) Sync BOTH the Combatant object and the
+    # stats cache so the condition isn't divergent.
+    prone_immune = "prone" in [str(c).lower()
+                               for c in combatant_stats.get("condition_immunities", [])]
+    if lands_prone and not prone_immune:
+        if hasattr(combatant, 'conditions') and "prone" not in combatant.conditions:
+            combatant.conditions.append("prone")
+        cache_conditions = combatant_stats.setdefault("conditions", [])
+        if "prone" not in [str(c).lower() for c in cache_conditions]:
+            cache_conditions.append("prone")
         result["applied_prone"] = True
+    else:
+        result["applied_prone"] = False
 
     # Log the event if combat state available
     if combat_state and hasattr(combat_state, 'add_event'):
