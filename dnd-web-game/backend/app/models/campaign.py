@@ -876,6 +876,17 @@ class WorldState:
             self.time["hour"] -= 24
             self.time["day"] += 1
 
+    def get_time_of_day(self) -> str:
+        """Return the current time of day as a label (matches ai_dm's convention)."""
+        hour = self.time.get("hour", 12)
+        if 6 <= hour < 12:
+            return "morning"
+        if 12 <= hour < 18:
+            return "afternoon"
+        if 18 <= hour < 22:
+            return "evening"
+        return "night"
+
     def get_npc_disposition(self, npc_id: str, default: int = 0) -> int:
         """Get NPC disposition (BG3-style approval rating)."""
         return self.npc_dispositions.get(npc_id, default)

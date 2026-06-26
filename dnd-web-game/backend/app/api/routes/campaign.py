@@ -84,6 +84,22 @@ async def _get_or_load_session_engine(
     return engine
 
 
+async def _require_session_engine(
+    session_id: str,
+    session_repo: GameSessionRepository,
+) -> CampaignEngine:
+    """Resolve the live engine, rehydrating from the DB on a cache miss; raise 404 if the
+    session cannot be recovered. Use this in every session route so a session survives a
+    restart instead of 404ing."""
+    engine = await _get_or_load_session_engine(session_id, session_repo)
+    if engine is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Session not found: {session_id}"
+        )
+    return engine
+
+
 async def _sync_party_to_characters(
     char_repo: CharacterRepository,
     session: GameSession,
@@ -441,20 +457,20 @@ async def advance_session(
 
 
 @router.post("/session/{session_id}/rest")
-async def take_rest(session_id: str, rest_type: str = "short"):
+async def take_rest(
+    session_id: str,
+    rest_type: str = "short",
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """Take a short or long rest (legacy endpoint)."""
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
 
     # Advance with rest action
     rest_data = {"rest_type": rest_type}
     action = CampaignAction.REST
     new_state, extra_data = engine.advance(action, rest_data)
+
+    await _persist_session_state(session_repo, session_id, engine)
 
     return {
         "success": True,
@@ -469,7 +485,11 @@ class ShortRestRequest(BaseModel):
 
 
 @router.post("/session/{session_id}/rest/short")
-async def take_short_rest(session_id: str, request: ShortRestRequest):
+async def take_short_rest(
+    session_id: str,
+    request: ShortRestRequest,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Take a short rest with optional hit dice allocation.
 
@@ -480,13 +500,7 @@ async def take_short_rest(session_id: str, request: ShortRestRequest):
     - Warlock spell slots restore
     - Short rest class abilities restore
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     from app.core.rest_system import party_short_rest
@@ -497,6 +511,8 @@ async def take_short_rest(session_id: str, request: ShortRestRequest):
     # Update session
     session.updated_at = datetime.utcnow().isoformat()
 
+    await _persist_session_state(session_repo, session_id, engine)
+
     return {
         "success": True,
         "rest_result": rest_result.to_dict(),
@@ -505,7 +521,10 @@ async def take_short_rest(session_id: str, request: ShortRestRequest):
 
 
 @router.post("/session/{session_id}/rest/long")
-async def take_long_rest(session_id: str):
+async def take_long_rest(
+    session_id: str,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Take a long rest.
 
@@ -518,13 +537,7 @@ async def take_long_rest(session_id: str):
     - Reduces exhaustion by 1
     - Clears most conditions
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     from app.core.rest_system import party_long_rest
@@ -535,6 +548,8 @@ async def take_long_rest(session_id: str):
     # Update session
     session.updated_at = datetime.utcnow().isoformat()
 
+    await _persist_session_state(session_repo, session_id, engine)
+
     return {
         "success": True,
         "rest_result": rest_result.to_dict(),
@@ -543,19 +558,17 @@ async def take_long_rest(session_id: str):
 
 
 @router.get("/session/{session_id}/rest/preview")
-async def get_rest_preview(session_id: str, rest_type: str = "short"):
+async def get_rest_preview(
+    session_id: str,
+    rest_type: str = "short",
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Get a preview of what a rest would provide.
 
     Useful for UI to show potential healing before committing to rest.
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     from app.core.rest_system import get_rest_preview, RestType, calculate_recommended_hit_dice
@@ -588,19 +601,16 @@ async def get_rest_preview(session_id: str, rest_type: str = "short"):
 # =============================================================================
 
 @router.get("/session/{session_id}/level-up/check")
-async def check_level_ups(session_id: str):
+async def check_level_ups(
+    session_id: str,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Check which party members can level up.
 
     Returns list of members with enough XP to level up.
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     from app.core.level_up import check_level_up
@@ -640,19 +650,17 @@ async def check_level_ups(session_id: str):
 
 
 @router.get("/session/{session_id}/level-up/preview/{member_id}")
-async def preview_level_up(session_id: str, member_id: str):
+async def preview_level_up(
+    session_id: str,
+    member_id: str,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Get a preview of what a character will gain from leveling up.
 
     Shows HP options, new features, choices required, etc.
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     # Find the member
@@ -692,17 +700,16 @@ class LevelUpRequest(BaseModel):
 
 
 @router.post("/session/{session_id}/level-up/apply/{member_id}")
-async def apply_level_up(session_id: str, member_id: str, request: LevelUpRequest):
+async def apply_level_up(
+    session_id: str,
+    member_id: str,
+    request: LevelUpRequest,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """
     Apply a level-up to a party member with the player's choices.
     """
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
 
     # Find the member
@@ -735,6 +742,8 @@ async def apply_level_up(session_id: str, member_id: str, request: LevelUpReques
 
     session.updated_at = datetime.utcnow().isoformat()
 
+    await _persist_session_state(session_repo, session_id, engine)
+
     response = {
         "success": result.success,
         "result": result.to_dict(),
@@ -759,15 +768,10 @@ async def save_game(
     request: SaveGameRequest,
     save_repo: SaveGameRepository = Depends(get_savegame_repo),
     char_repo: CharacterRepository = Depends(get_character_repo),
+    session_repo: GameSessionRepository = Depends(get_session_repo),
 ):
     """Save the current game state. Persisted to database for durability."""
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
     session = engine.session
     campaign = engine.campaign
 
@@ -926,15 +930,12 @@ async def delete_save(
 # =============================================================================
 
 @router.get("/session/{session_id}/combat")
-async def get_combat_state(session_id: str):
+async def get_combat_state(
+    session_id: str,
+    session_repo: GameSessionRepository = Depends(get_session_repo),
+):
     """Get current combat state if in combat."""
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
 
     if engine.session.phase != SessionPhase.COMBAT:
         return {"in_combat": False}
@@ -958,13 +959,7 @@ async def end_combat(
     char_repo: CharacterRepository = Depends(get_character_repo),
 ):
     """End combat and return to campaign flow with combat summary."""
-    if session_id not in active_sessions:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Session not found: {session_id}"
-        )
-
-    engine = active_sessions[session_id]
+    engine = await _require_session_engine(session_id, session_repo)
 
     # Idempotent: If not in COMBAT phase, combat already ended - return cached summary
     # This handles ALL post-combat phases (COMBAT_RESOLUTION, STORY_OUTCOME, VICTORY,
