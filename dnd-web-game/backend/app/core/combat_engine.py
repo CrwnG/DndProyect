@@ -6034,6 +6034,13 @@ class CombatEngine:
                 ),
                 "positions": self.state.positions,
                 "combatant_stats": self.state.combatant_stats,
+                # Grid (terrain/elevation/occupancy for cover) + per-combat trackers, so a
+                # rehydrated combat keeps cover, monster recharge, legendary actions, etc.
+                "grid": self.state.grid.to_dict() if self.state.grid else None,
+                "legendary_actions_remaining": self.state.legendary_actions_remaining,
+                "monster_ability_recharge": self.state.monster_ability_recharge,
+                "frightful_presence_immune": self.state.frightful_presence_immune,
+                "reactions_used_this_round": self.state.reactions_used_this_round,
                 "event_log": [
                     {
                         "type": e.event_type,
@@ -6083,5 +6090,14 @@ class CombatEngine:
                 description=event_data["description"],
                 data=event_data.get("data", {})
             ))
+
+        # Restore the grid (terrain/elevation/occupancy for cover) + per-combat trackers.
+        grid_data = state_data.get("grid")
+        if grid_data:
+            state.grid = CombatGrid.from_dict(grid_data)
+        state.legendary_actions_remaining = state_data.get("legendary_actions_remaining", {})
+        state.monster_ability_recharge = state_data.get("monster_ability_recharge", {})
+        state.frightful_presence_immune = state_data.get("frightful_presence_immune", {})
+        state.reactions_used_this_round = state_data.get("reactions_used_this_round", {})
 
         return cls(combat_state=state)
