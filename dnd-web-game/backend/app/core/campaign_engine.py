@@ -1050,8 +1050,13 @@ class CampaignEngine:
                     },
                     "weapons": [],
                     "actions": template.get("actions", []),
-                    # Carry the stat block's condition immunities so they reach the combat
-                    # cache (else a campaign-spawned construct/undead loses its immunities).
+                    # Carry the stat block's defenses to the combat cache (else a
+                    # campaign-spawned monster loses its immunities/resistances). Map the
+                    # stat block's `damage_*` keys onto the `immunities`/`resistances`/
+                    # `vulnerabilities` keys the cache + _resist_flags read; ditto conditions.
+                    "immunities": template.get("damage_immunities", template.get("immunities", [])),
+                    "resistances": template.get("damage_resistances", template.get("resistances", [])),
+                    "vulnerabilities": template.get("damage_vulnerabilities", template.get("vulnerabilities", [])),
                     "condition_immunities": template.get("condition_immunities", []),
                 }
                 enemies.append(enemy_dict)
