@@ -1657,6 +1657,21 @@ def cast_spell(
 
         result.description = f"{result.caster_name} casts {spell.name}! Heals for {healing_result['healing']} HP!"
 
+    elif spell.damage_dice and targets:
+        # Auto-hit damage spell (Magic Missile): no attack roll and no save — the magical
+        # darts always strike. Roll the upcast-scaled damage and apply it to the target.
+        # (Multi-target dart distribution isn't modeled; all darts strike the first target.)
+        dice = SpellEffectResolver._calculate_spell_damage(spell, caster_level, cast_level)
+        rolled = roll_damage(dice)
+        target_id = targets[0].get("id", "target")
+        result.damage_dealt = {target_id: rolled.total}
+        result.damage_dice = dice
+        result.damage_rolls = getattr(rolled, "rolls", None)
+        result.description = (
+            f"{result.caster_name} casts {spell.name}! "
+            f"{rolled.total} {spell.damage_type} damage!"
+        )
+
     else:
         # Utility/buff/debuff spell
         current_round = combat_state.get("round_number", 1) if combat_state else 1
