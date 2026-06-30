@@ -15,9 +15,9 @@ The combat and campaign loops are **genuinely wired** (not stubbed): action bar 
 ## Verified bugs
 
 - 🟠 **Auth is doubly broken.** `js/services/auth.js:295` does `fetch(`${API_BASE_URL}${url}`)` where `API_BASE_URL` already ends `/api` and `url` is `/api/auth/...` → `…/api/api/auth/login` → 404. AND the access token is **never attached** as a Bearer header in `api-client.js`, so even if login worked, gameplay calls are unauthenticated.
-- 🟠 **Created character never reaches combat.** `main.js:341` stores the wizard result in `this.importedCharacter`, but `loadDemoCombat` (`:684`) always sends hardcoded `demoPlayers`; `importedCharacter` is **never read** → the new-player → fight path can't complete. (Backend side of this seam is invariant #1 — see [core](../backend/app/core/CLAUDE.md).)
-- 🟠 `main.js:229` passes a 5th `playerIds` arg to `collectLoot`, but the signature only takes 4 → party gold split silently dropped.
-- 🟡 `main.js:348` updates `#btn-start-combat` which doesn't exist in `index.html` (dead wiring); `combat-grid.js:357` writes an orphan `combatant_stats.*` state branch nothing reads.
+- ✅ **FIXED — created character reaches combat.** The Quick Combat handler (`main.js:446`) reads `this.importedCharacter`, builds a `playerOverride` from its `combatant`, and passes it to `loadDemoCombat(playerOverride)` (`:687`), which uses the override (`:693`) instead of the hardcoded `demoPlayers`. The new-player → fight path completes.
+- ✅ **FIXED — `collectLoot` party gold.** `api-client.js:1260` signature is `collectLoot(combatId, characterId, itemIds, takeCoins, partyCharacterIds=[])` — the 5th arg is accepted; `main.js` passes `playerIds` for gold division.
+- ✅ **FIXED — dead `#btn-start-combat` wiring removed** (`main.js`, 2026-06-26). (`combat-grid.js:357` orphan `combatant_stats.*` state branch — still present, minor.)
 - 🟡 Character creation: equipment step is a placeholder (`creation-wizard.js:1022`); Standard Array is non-interactive (hard-assigns a fixed spread, `:881`); errors use `alert()`.
 
 ## Notes
