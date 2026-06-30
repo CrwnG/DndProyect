@@ -37,6 +37,7 @@ from app.core.movement import (
     CombatGrid,
     check_opportunity_attack_triggers,
 )
+from app.core.surfaces import SurfaceManager
 from app.core.ammunition import (
     AmmunitionTracker,
     check_ammunition_for_attack,
@@ -266,6 +267,9 @@ class CombatState:
     # Resets at the start of each combatant's turn
     reactions_used_this_round: Dict[str, bool] = field(default_factory=dict)
 
+    # BG3-style hazardous surfaces (fire/grease/ice/…); created in start_combat.
+    surface_manager: Optional[SurfaceManager] = None
+
     def add_event(
         self,
         event_type: str,
@@ -347,6 +351,9 @@ class CombatEngine:
             self.state.grid = grid
         else:
             self.state.grid = CombatGrid(width=grid_width, height=grid_height)
+
+        # BG3-style hazardous surfaces (fire on the ground, grease, ice, …).
+        self.state.surface_manager = SurfaceManager(self.state.grid)
 
         # Cache combatant stats for quick lookup
         for player in players:
@@ -4845,6 +4852,36 @@ class CombatEngine:
                 dtype = buff.get("bonus_weapon_damage_type") or dtype
         return total, dtype
 
+    def _apply_surface_on_enter(self, combatant_id: str, x: int, y: int) -> Tuple[int, List[str]]:
+        """Apply hazardous-surface effects (BG3-style) when a combatant enters tile (x, y):
+        fire/acid/etc. deal damage, grease/ice/web apply conditions. Damage goes through
+        `_apply_damage_to_target` so resistances/temp-HP/defeat are honored. Returns
+        (total_damage, notes)."""
+        sm = getattr(self.state, "surface_manager", None)
+        if not sm:
+            return 0, []
+        stats = self.state.combatant_stats.get(combatant_id, {})
+        total = 0
+        notes: List[str] = []
+        for effect in sm.process_movement_enter(combatant_id, x, y, stats):
+            dmg = effect.get("damage", 0) or 0
+            if dmg > 0:
+                hp_before = stats.get("current_hp", 0)
+                self._apply_damage_to_target(combatant_id, dmg, effect.get("damage_type", ""))
+                # Report the HP actually lost (after resistance), not the raw roll.
+                applied = max(0, hp_before - stats.get("current_hp", hp_before))
+                total += applied
+                notes.append(f"{effect['surface_type']} ({applied} {effect.get('damage_type', '')})".strip())
+            cond = effect.get("condition")
+            if cond:
+                target = self.state.initiative_tracker.get_combatant(combatant_id)
+                if target is not None and self._apply_condition(target, stats, cond):
+                    notes.append(cond)
+            # Don't keep piling effects onto an already-defeated combatant.
+            if stats.get("current_hp", 1) <= 0:
+                break
+        return total, notes
+
     def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
         """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
         …): the target makes the smite's save (if any) or is afflicted. Returns
@@ -5830,6 +5867,10 @@ class CombatEngine:
         # Update position
         self.state.positions[combatant_id] = (new_x, new_y)
 
+        # Hazardous surfaces at the destination (BG3-style: fire/acid deal damage,
+        # grease/ice/web impose conditions) resolve on entry.
+        surface_damage, surface_notes = self._apply_surface_on_enter(combatant_id, new_x, new_y)
+
         self.state.add_event(
             "move",
             f"{combatant.name} moves to ({new_x}, {new_y})",
@@ -5849,6 +5890,8 @@ class CombatEngine:
                 for r in opportunity_attack_results
             ])
             description += f" [OA: {oa_summary}]"
+        if surface_notes:
+            description += f" [surface: {', '.join(surface_notes)}]"
 
         return ActionResult(
             success=True,
@@ -5859,7 +5902,9 @@ class CombatEngine:
                 "to": (new_x, new_y),
                 "distance": distance,
                 "movement_remaining": speed - (self.state.current_turn.movement_used if self.state.current_turn else 0),
-                "opportunity_attacks": opportunity_attack_results
+                "opportunity_attacks": opportunity_attack_results,
+                "surface_damage": surface_damage,
+                "surface_effects": surface_notes,
             }
         )
 
@@ -6119,6 +6164,9 @@ class CombatEngine:
         grid_data = state_data.get("grid")
         if grid_data:
             state.grid = CombatGrid.from_dict(grid_data)
+        # Rebuild a surface manager so a reloaded combat keeps processing hazardous surfaces
+        # on movement. (Active surfaces themselves aren't yet persisted — a follow-up.)
+        state.surface_manager = SurfaceManager(state.grid)
         state.legendary_actions_remaining = state_data.get("legendary_actions_remaining", {})
         state.monster_ability_recharge = state_data.get("monster_ability_recharge", {})
         state.frightful_presence_immune = state_data.get("frightful_presence_immune", {})
