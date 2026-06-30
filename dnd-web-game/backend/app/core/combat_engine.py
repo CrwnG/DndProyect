@@ -657,6 +657,26 @@ class CombatEngine:
             # Get combatant stats
             stats = self.state.combatant_stats.get(current.id, {})
 
+            # Hazardous surfaces: decay durations once per round, then deal "standing in it"
+            # damage (a creature that begins its turn in fire/acid keeps taking damage).
+            sm = getattr(self.state, "surface_manager", None)
+            if sm:
+                round_now = self.state.initiative_tracker.current_round
+                last_round = getattr(self.state, "_surface_decay_round", None)
+                if last_round is None:
+                    self.state._surface_decay_round = round_now   # first turn: record, don't decay
+                elif last_round != round_now:
+                    sm.advance_round()
+                    self.state._surface_decay_round = round_now
+                pos = self.state.positions.get(current.id)
+                if pos:
+                    self._apply_surface_turn_start(current.id, pos[0], pos[1])
+                    # A surface may have just defeated this combatant. An enemy dropped here
+                    # is marked inactive and shouldn't proceed to take a turn; a player stays
+                    # active and falls through to the death-save handling below.
+                    if not getattr(current, "is_active", True):
+                        return
+
             # Check for death saving throws (player at 0 HP)
             death_save_result = self._process_death_save_if_needed(current.id, stats)
             if death_save_result:
@@ -4852,23 +4872,18 @@ class CombatEngine:
                 dtype = buff.get("bonus_weapon_damage_type") or dtype
         return total, dtype
 
-    def _apply_surface_on_enter(self, combatant_id: str, x: int, y: int) -> Tuple[int, List[str]]:
-        """Apply hazardous-surface effects (BG3-style) when a combatant enters tile (x, y):
-        fire/acid/etc. deal damage, grease/ice/web apply conditions. Damage goes through
-        `_apply_damage_to_target` so resistances/temp-HP/defeat are honored. Returns
-        (total_damage, notes)."""
-        sm = getattr(self.state, "surface_manager", None)
-        if not sm:
-            return 0, []
+    def _apply_surface_effects(self, combatant_id: str, effects: List[Dict[str, Any]]) -> Tuple[int, List[str]]:
+        """Apply a list of surface effect dicts (damage + conditions) to a combatant. Damage
+        goes through `_apply_damage_to_target` so resistance/temp-HP/defeat are honored; the
+        reported amount is the HP actually lost. Stops once the combatant is defeated."""
         stats = self.state.combatant_stats.get(combatant_id, {})
         total = 0
         notes: List[str] = []
-        for effect in sm.process_movement_enter(combatant_id, x, y, stats):
+        for effect in effects:
             dmg = effect.get("damage", 0) or 0
             if dmg > 0:
                 hp_before = stats.get("current_hp", 0)
                 self._apply_damage_to_target(combatant_id, dmg, effect.get("damage_type", ""))
-                # Report the HP actually lost (after resistance), not the raw roll.
                 applied = max(0, hp_before - stats.get("current_hp", hp_before))
                 total += applied
                 notes.append(f"{effect['surface_type']} ({applied} {effect.get('damage_type', '')})".strip())
@@ -4877,10 +4892,27 @@ class CombatEngine:
                 target = self.state.initiative_tracker.get_combatant(combatant_id)
                 if target is not None and self._apply_condition(target, stats, cond):
                     notes.append(cond)
-            # Don't keep piling effects onto an already-defeated combatant.
             if stats.get("current_hp", 1) <= 0:
                 break
         return total, notes
+
+    def _apply_surface_on_enter(self, combatant_id: str, x: int, y: int) -> Tuple[int, List[str]]:
+        """BG3-style: a combatant entering tile (x, y) is hit by its hazardous surfaces
+        (fire/acid damage, grease/ice/web conditions)."""
+        sm = getattr(self.state, "surface_manager", None)
+        if not sm:
+            return 0, []
+        stats = self.state.combatant_stats.get(combatant_id, {})
+        return self._apply_surface_effects(combatant_id, sm.process_movement_enter(combatant_id, x, y, stats))
+
+    def _apply_surface_turn_start(self, combatant_id: str, x: int, y: int) -> Tuple[int, List[str]]:
+        """A combatant that STARTS its turn standing in a hazardous surface is affected again
+        (standing in fire keeps burning you)."""
+        sm = getattr(self.state, "surface_manager", None)
+        if not sm:
+            return 0, []
+        stats = self.state.combatant_stats.get(combatant_id, {})
+        return self._apply_surface_effects(combatant_id, sm.process_turn_start(combatant_id, x, y, stats))
 
     def apply_spell_surfaces(
         self,
