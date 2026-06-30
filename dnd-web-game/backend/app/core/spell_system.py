@@ -1284,6 +1284,19 @@ class SpellEffectResolver:
             effects["attack_disadvantage_from"] = ["aberration", "celestial", "elemental", "fey", "fiend", "undead"]
             effects["charm_immunity_from"] = ["aberration", "celestial", "elemental", "fey", "fiend", "undead"]
 
+        # Per-hit weapon-damage buffs: extra damage on every weapon attack the caster makes
+        # while the spell lasts (the combat engine consumes `bonus_weapon_damage` per hit,
+        # gated by concentration). Damage type defaults to a common choice for the spell.
+        if "spirit shroud" in key:
+            effects["bonus_weapon_damage"] = "1d8"          # Radiant/Necrotic/Cold (choice)
+            effects["bonus_weapon_damage_type"] = "radiant"
+        if "elemental weapon" in key:
+            effects["bonus_weapon_damage"] = "1d4"          # Acid/Cold/Fire/Lightning/Thunder
+            effects["bonus_weapon_damage_type"] = "fire"
+        if "holy weapon" in key:
+            effects["bonus_weapon_damage"] = "2d8"
+            effects["bonus_weapon_damage_type"] = "radiant"
+
         return effects
 
 
