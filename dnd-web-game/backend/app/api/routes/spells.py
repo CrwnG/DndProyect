@@ -427,6 +427,23 @@ async def cast_spell_in_combat(
         if getattr(result, "pending_smite", None):
             combat_engine.state.combatant_stats[request.caster_id]["pending_smite"] = result.pending_smite
 
+        # Place hazardous surfaces created by the spell (Grease, Wall of Fire, Web, …) at
+        # the targeted tiles, so a creature later moving onto them is affected.
+        if getattr(result, "surfaces_created", None):
+            surface_positions = []
+            for tgt in targets:
+                pos = tgt.get("position")
+                if isinstance(pos, dict):
+                    x, y = pos.get("x"), pos.get("y")
+                    if x is not None and y is not None:   # don't default a missing coord to 0
+                        surface_positions.append((x, y))
+                elif isinstance(pos, (list, tuple)) and len(pos) >= 2:
+                    surface_positions.append((pos[0], pos[1]))
+            combat_engine.apply_spell_surfaces(
+                result.surfaces_created, surface_positions,
+                caster_id=request.caster_id, spell_id=request.spell_id,
+            )
+
         # Spell-slot consumption is handled inside cast_spell(), which persists the
         # updated spellcasting back onto caster_data (the same object as
         # combatant_stats[caster_id]). Deducting again here would double-count.

@@ -4882,6 +4882,40 @@ class CombatEngine:
                 break
         return total, notes
 
+    def apply_spell_surfaces(
+        self,
+        surface_types: List[str],
+        positions: List[Tuple[int, int]],
+        caster_id: Optional[str] = None,
+        spell_id: Optional[str] = None,
+        duration_rounds: int = 10,
+    ) -> int:
+        """Create hazardous ground surfaces (Grease, Wall of Fire, Web, …) at the given
+        tiles. Called by the combat cast route from a SpellCastResult's surfaces_created.
+        Returns how many surfaces were placed."""
+        sm = getattr(self.state, "surface_manager", None)
+        if not sm or not surface_types or not positions:
+            return 0
+        from app.core.surfaces import SurfaceType
+        grid = getattr(self.state, "grid", None)
+        placed = 0
+        for pos in positions:
+            try:
+                x, y = int(pos[0]), int(pos[1])
+            except (TypeError, ValueError, IndexError):
+                continue
+            # Skip tiles outside the grid (a malformed/off-board target shouldn't litter surfaces).
+            if grid is not None and (x < 0 or y < 0 or x >= grid.width or y >= grid.height):
+                continue
+            for st in surface_types:
+                try:
+                    sm.add_surface(x, y, SurfaceType(st), creator_id=caster_id,
+                                   spell_id=spell_id, duration_rounds=duration_rounds)
+                    placed += 1
+                except (ValueError, TypeError):
+                    continue
+        return placed
+
     def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
         """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
         …): the target makes the smite's save (if any) or is afflicted. Returns
