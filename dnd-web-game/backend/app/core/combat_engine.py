@@ -6,7 +6,7 @@ Handles combat phases, actions, and turn resolution.
 """
 from dataclasses import dataclass, field, is_dataclass, asdict
 from enum import Enum, auto
-from typing import List, Optional, Dict, Any, Callable
+from typing import List, Optional, Dict, Any, Callable, Tuple
 from pathlib import Path
 import json
 import uuid
@@ -3333,6 +3333,12 @@ class CombatEngine:
             if uses_strength and self._has_active_buff_flag(attacker_stats, "halve_strength_damage"):
                 total_damage //= 2
 
+            # Persistent weapon-damage buffs (Spirit Shroud, Elemental Weapon, Holy Weapon)
+            # add their extra damage to every hit while concentration holds. Added after the
+            # enfeeblement halve since it's separately-typed extra damage, not weapon damage.
+            weapon_buff_bonus, _ = self._consume_weapon_damage_buff(attacker.id, attack_result.critical_hit)
+            total_damage += weapon_buff_bonus
+
             # ============================================================
             # DIVINE SMITE OPPORTUNITY (Paladin) - Returns option to player
             # D&D 2024: Divine Smite is a spell that costs a bonus action
@@ -4820,6 +4826,24 @@ class CombatEngine:
             "save_type": smite.get("save_type"),
             "save_dc": smite.get("save_dc", 13),
         }
+
+    def _consume_weapon_damage_buff(self, attacker_id: str, is_crit: bool = False) -> Tuple[int, Optional[str]]:
+        """Sum rolled bonus weapon damage from the attacker's active concentration-gated
+        buffs (Spirit Shroud 1d8, Elemental Weapon 1d4, Holy Weapon 2d8 — extra damage on
+        every weapon hit while the spell lasts). Dice double on a crit. Unlike a smite the
+        buff is NOT consumed; it lasts until concentration drops. Returns (amount, type)."""
+        from app.core.dice import roll_dice, dice_only
+        stats = self.state.combatant_stats.get(attacker_id, {})
+        total = 0
+        dtype = None
+        for buff in (stats.get("active_buffs") or []):
+            dice = buff.get("bonus_weapon_damage")
+            if dice and self._buff_is_active(buff):
+                total += roll_dice(dice)
+                if is_crit:
+                    total += roll_dice(dice_only(dice))
+                dtype = buff.get("bonus_weapon_damage_type") or dtype
+        return total, dtype
 
     def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
         """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
