@@ -343,13 +343,8 @@ class Game {
             // Show success notification
             this.showNotification(`Imported: ${data.character.name} (${data.character.class || 'Unknown'} ${data.character.level || 1})`, 'success');
             this.updateCombatLog(`Imported character: ${data.character.name}`);
-
-            // Update start combat button to show imported character
-            const startBtn = document.getElementById('btn-start-combat');
-            if (startBtn) {
-                startBtn.innerHTML = `<span class="action-icon">⚔️</span><span class="action-label">Start Combat with ${data.character.name}</span>`;
-                startBtn.classList.add('has-import');
-            }
+            // (The imported character is dropped into combat via the Quick Combat flow,
+            // which reads this.importedCharacter — no separate "start combat" button.)
         });
 
         // Import button click
