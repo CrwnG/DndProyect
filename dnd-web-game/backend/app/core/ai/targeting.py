@@ -201,7 +201,9 @@ class TargetEvaluator:
         Score based on target's HP percentage.
         Lower HP = higher score (finish them off).
         """
-        current_hp = target_stats.get("current_hp", target.hp)
+        current_hp = target_stats.get("current_hp")
+        if current_hp is None:
+            current_hp = getattr(target, "current_hp", getattr(target, "max_hp", 1))
         max_hp = target_stats.get("max_hp", getattr(target, "max_hp", current_hp))
 
         if max_hp <= 0:
@@ -237,8 +239,8 @@ class TargetEvaluator:
         """
         score = 0.0
 
-        # Check for equipped weapons
-        equipment = target_stats.get("equipment", {})
+        # Check for equipped weapons (stats may store equipment as an explicit None)
+        equipment = target_stats.get("equipment") or {}
         main_weapon = equipment.get("main_hand")
         if main_weapon:
             damage_dice = main_weapon.get("damage_dice", "1d6")
@@ -252,7 +254,7 @@ class TargetEvaluator:
         # Check for spellcasting
         spellcasting = target_stats.get("spellcasting")
         if spellcasting:
-            spell_slots = spellcasting.get("spell_slots", {})
+            spell_slots = spellcasting.get("spell_slots") or {}
             total_slots = sum(spell_slots.values())
             if total_slots > 0:
                 score += total_slots * 5
