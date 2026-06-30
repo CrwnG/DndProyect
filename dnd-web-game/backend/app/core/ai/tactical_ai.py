@@ -260,7 +260,7 @@ class TacticalAI:
 
     def _get_offhand_weapon(self) -> Optional[Dict]:
         """Get offhand weapon if dual wielding."""
-        equipment = self._stats.get("equipment", {})
+        equipment = self._stats.get("equipment") or {}
         offhand = equipment.get("offhand")
         if offhand and offhand.get("type") == "weapon":
             return offhand
@@ -512,7 +512,7 @@ class TacticalAI:
         Returns reach in feet (default 5ft).
         """
         # Check equipped weapon for reach property
-        equipment = self._stats.get("equipment", {})
+        equipment = self._stats.get("equipment") or {}
         main_weapon = equipment.get("mainhand") or equipment.get("weapon")
 
         if main_weapon:
@@ -1126,7 +1126,7 @@ def get_ai_for_combatant(engine: "CombatEngine", combatant_id: str):
         return get_ai_for_role("spellcaster", engine, combatant_id)
 
     # Check for ranged weapon
-    equipment = stats.get("equipment", {})
+    equipment = stats.get("equipment") or {}
     if equipment.get("ranged"):
         return get_ai_for_role("ranged_striker", engine, combatant_id)
 
