@@ -632,8 +632,8 @@ class SpellcasterAI(BaseBehavior):
     def __init__(self, engine: "CombatEngine", combatant_id: str):
         super().__init__(engine, combatant_id)
 
-        # Try structured spellcasting data first
-        self.spellcasting = self.stats.get("spellcasting", {})
+        # Try structured spellcasting data first (stats may store an explicit None)
+        self.spellcasting = self.stats.get("spellcasting") or {}
         self.spell_slots = self.spellcasting.get("spell_slots", {})
         self.spell_slots_used = self.spellcasting.get("spell_slots_used", {})
 

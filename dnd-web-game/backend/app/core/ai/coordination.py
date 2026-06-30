@@ -504,8 +504,8 @@ class CombatCoordinator:
         """Estimate damage an enemy can deal in one round."""
         damage = 0
 
-        # Check equipped weapon
-        equipment = enemy_stats.get("equipment", {})
+        # Check equipped weapon (stats may store an explicit None)
+        equipment = enemy_stats.get("equipment") or {}
         main_weapon = equipment.get("main_hand", {})
 
         if main_weapon:
