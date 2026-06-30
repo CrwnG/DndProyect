@@ -1299,6 +1299,20 @@ class SpellEffectResolver:
 
         return effects
 
+    # Spells that create a hazardous ground surface -> SurfaceType value (see surfaces.py).
+    _SURFACE_SPELLS: Dict[str, str] = {
+        "grease": "grease",
+        "wall_of_fire": "fire",
+        "web": "web",
+        "wall_of_ice": "ice",
+        "cloudkill": "poison",
+    }
+
+    @staticmethod
+    def _determine_surface_created(spell: Spell) -> Optional[str]:
+        """Return the SurfaceType value a spell creates on the ground, or None."""
+        return SpellEffectResolver._SURFACE_SPELLS.get(spell.id)
+
 
 def _get_target_save_modifier(target: Dict, save_type: Optional[str]) -> int:
     """
@@ -1736,6 +1750,12 @@ def cast_spell(
             result.cold_retaliate = {i: thp for i in ids}
         if not result.damage_dealt and not result.healing_done:
             result.description = f"{result.caster_name} casts {spell.name}! (+{thp} temporary HP)"
+
+    # Surface-creating spells (Grease, Wall of Fire, Web, …) flag the surface for the combat
+    # route to place at the targeted tiles via CombatEngine.apply_spell_surfaces.
+    surface_type = SpellEffectResolver._determine_surface_created(spell)
+    if surface_type:
+        result.surfaces_created = [surface_type]
 
     # Handle concentration
     if spell.concentration:
