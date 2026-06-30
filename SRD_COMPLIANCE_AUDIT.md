@@ -15,18 +15,17 @@ The repo ships substantially more content than a minimal SRD subset. The 2024 SR
 hulk**), but a set of iconic creatures remain **WotC Product Identity, excluded from every SRD**.
 Shipping those by name is the main licensing exposure.
 
-## TIER 1 — HIGH confidence Product Identity (remove or rename; keep mechanics)
-These iconic creatures have **never** appeared in any SRD. All in `rules/2024/monsters/aberrations.json`
-(beholder_zombie in `undead.json`):
+## TIER 1 — HIGH confidence Product Identity — ✅ REMOVED (Batch B2, PR pending)
+These iconic creatures have **never** appeared in any SRD. All 11 were **deleted** from the
+bestiary (`rules/2024/monsters/aberrations.json` + `undead.json`) — pure removal, no other
+content reformatted. They were reference-bestiary only (the live `data/enemies/` templates don't
+include them and no campaign references them), so gameplay is unaffected. Guarded by
+`tests/test_batch49_srd_no_product_identity.py`.
 
-| Family | Entries (id) |
+| Family | Entries (id) — removed |
 |---|---|
 | Beholder-kin | `beholder`, `beholder_zombie`, `gauth`, `gazer`, `spectator` |
 | Mind flayer / illithid | `mind_flayer`, `mind_flayer_arcanist`, `elder_brain`, `intellect_devourer`, `cranium_rat`, `neothelid` |
-
-**Remediation:** delete these entries, or rename to generic equivalents (e.g. beholder→"floating eye
-tyrant", mind flayer→"mind eater") and rewrite descriptive prose in our own words. The campaign
-engine tolerates unknown templates (falls back), so removal won't break gameplay.
 
 ## TIER 2 — MEDIUM confidence (verify against SRD 5.2.1, likely excluded)
 | Entry | File | Note |
