@@ -451,6 +451,16 @@ async def get_choice_status(choice_session_id: str):
     """Get current status of a choice session."""
     choice_handler = get_multiplayer_choice_handler()
 
+    # Enforce the vote timeout on poll, so a missing voter can't deadlock the session even
+    # if no further votes are cast (the deadline is only checked when something interacts).
+    timed_out = await choice_handler.check_timeout(choice_session_id)
+    if timed_out is not None:
+        return {
+            "success": True,
+            "resolved": True,
+            "result": choice_handler.serialize_result(timed_out),
+        }
+
     session = choice_handler.get_active_session(choice_session_id)
     if not session:
         raise HTTPException(

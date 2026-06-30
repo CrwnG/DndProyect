@@ -234,6 +234,13 @@ class MultiplayerChoiceHandler:
         Returns:
             VoteResult with current status
         """
+        # Enforce the vote timeout first, so a session with a missing voter resolves from
+        # the votes cast instead of sitting IN_PROGRESS forever. check_timeout returns a
+        # result (and retires the session) only when the window has actually elapsed.
+        timed_out = await self.check_timeout(choice_session_id)
+        if timed_out is not None:
+            return timed_out
+
         session = self._active_sessions.get(choice_session_id)
         if not session:
             raise ValueError(f"Choice session {choice_session_id} not found")
