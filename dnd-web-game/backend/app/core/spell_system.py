@@ -1329,6 +1329,22 @@ class SpellEffectResolver:
                 "reach": 5,
                 "on_cast_attack": True,   # "When you cast the spell, you can make a melee spell attack"
             }
+        if spell.id == "conjure_animals":
+            # 2024 SRD: the pack is a movable entity, not a stat-block creature. A
+            # creature it reaches makes a Dex save or takes 3d10 slashing (+1d10 per
+            # slot level above 3); the save NEGATES, and each creature saves only
+            # once per turn.
+            extra = max(0, cast_level - 3)
+            return {
+                "summon_id": "conjure_animals",
+                "damage": f"{3 + extra}d10",
+                "damage_type": "slashing",
+                "move_speed": 30,
+                "save": "dex",
+                "aura": 10,
+                "save_negates": True,
+                "once_per_turn": True,
+            }
         if spell.id == "flaming_sphere":
             # Per the spell JSON: +1d6 per slot level above 2. Save-based (Dex, half on
             # success): ram on move, burn creatures ending their turn within 5 ft. No

@@ -897,6 +897,7 @@ class CombatGrid {
         const glyphs = {
             spiritual_weapon: '⚔',
             flaming_sphere: '🔥',
+            conjure_animals: '🐺',
         };
 
         for (const s of summons) {
