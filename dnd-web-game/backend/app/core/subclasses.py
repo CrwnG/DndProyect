@@ -1496,10 +1496,10 @@ THE_FATHOMLESS = Subclass(
             id="grasping_tentacles",
             name="Grasping Tentacles",
             level=10,
-            description="You can cast Evard's Black Tentacles once without a spell slot. When you cast it this way, you can concentrate on it and another spell simultaneously.",
+            description="You can cast Black Tentacles once without a spell slot. When you cast it this way, you can concentrate on it and another spell simultaneously.",
             feature_type=FeatureType.PASSIVE,
             uses_per_rest=1,
-            grants_spells=["evards_black_tentacles"],
+            grants_spells=["black_tentacles"],
         ),
         SubclassFeature(
             id="fathomless_plunge",

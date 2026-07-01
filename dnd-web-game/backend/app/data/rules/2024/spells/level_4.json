@@ -209,8 +209,8 @@
       "at_higher_levels": "You can target one additional creature for each slot level above 4th."
     },
     {
-      "id": "evards_black_tentacles",
-      "name": "Evard's Black Tentacles",
+      "id": "black_tentacles",
+      "name": "Black Tentacles",
       "level": 4,
       "school": "Conjuration",
       "casting_time": "Action",
@@ -361,8 +361,8 @@
       "at_higher_levels": "The Bludgeoning damage increases by 1d10 for each slot level above 4th."
     },
     {
-      "id": "leomunds_secret_chest",
-      "name": "Leomund's Secret Chest",
+      "id": "secret_chest",
+      "name": "Secret Chest",
       "level": 4,
       "school": "Conjuration",
       "casting_time": "Action",
@@ -387,21 +387,8 @@
       "description": "Describe or name a creature that is familiar to you. You sense the direction to the creature's location if that creature is within 1,000 feet of you. If the creature is moving, you know the direction of its movement. The spell can't locate a creature if any thickness of lead blocks a direct path between you and the creature."
     },
     {
-      "id": "mordenkainens_faithful_hound",
-      "name": "Mordenkainen's Faithful Hound",
-      "level": 4,
-      "school": "Conjuration",
-      "casting_time": "Action",
-      "range": "30 feet",
-      "components": ["V", "S", "M"],
-      "material": "a silver whistle",
-      "duration": "8 hours",
-      "classes": ["wizard"],
-      "description": "You conjure a phantom watchdog in an unoccupied space that you can see within range, where it remains for the duration. Only you can see the hound. If any creature enters the warded area, the hound starts barking. The hound has Truesight with a range of 60 feet."
-    },
-    {
-      "id": "mordenkainens_private_sanctum",
-      "name": "Mordenkainen's Private Sanctum",
+      "id": "private_sanctum",
+      "name": "Private Sanctum",
       "level": 4,
       "school": "Abjuration",
       "casting_time": "10 minutes",
@@ -414,8 +401,8 @@
       "at_higher_levels": "The Cube can be up to 100 feet larger for each slot level above 4th."
     },
     {
-      "id": "otilukes_resilient_sphere",
-      "name": "Otiluke's Resilient Sphere",
+      "id": "resilient_sphere",
+      "name": "Resilient Sphere",
       "level": 4,
       "school": "Evocation",
       "casting_time": "Action",

@@ -159,8 +159,8 @@
       "description": "You make terrain in an area up to 1 mile square look, sound, smell, and even feel like some other sort of terrain. Open fields or a road can be made to resemble a swamp, hill, crevasse, or some other difficult or impassable terrain. A pond can be made to seem like a grassy meadow, or a rocky cliff like a gentle slope."
     },
     {
-      "id": "mordenkainens_magnificent_mansion",
-      "name": "Mordenkainen's Magnificent Mansion",
+      "id": "magnificent_mansion",
+      "name": "Magnificent Mansion",
       "level": 7,
       "school": "Conjuration",
       "casting_time": "1 minute",
@@ -172,8 +172,8 @@
       "description": "You conjure an extradimensional dwelling in range that lasts for the duration. You choose where its one entrance is located. The entrance is 5 feet wide and 10 feet tall. The mansion consists of a foyer with numerous chambers beyond. The atmosphere is clean, fresh, and warm."
     },
     {
-      "id": "mordenkainens_sword",
-      "name": "Mordenkainen's Sword",
+      "id": "arcane_sword",
+      "name": "Arcane Sword",
       "level": 7,
       "school": "Evocation",
       "casting_time": "Action",

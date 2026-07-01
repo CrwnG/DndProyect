@@ -50,7 +50,7 @@ _CONDITION_FALSE_POSITIVES = {
     "faerie_fire": {"invisible"}, "branding_smite": {"invisible"},
     "starry_wisp": {"invisible"}, "see_invisibility": {"invisible"},
     "antimagic_field": {"invisible"}, "arcane_eye": {"invisible"},
-    "clairvoyance": {"invisible"}, "drawmijs_instant_summons": {"invisible"},
+    "clairvoyance": {"invisible"}, "instant_summons": {"invisible"},
     "faithful_hound": {"invisible"}, "forcecage": {"invisible"},
     "rope_trick": {"invisible"}, "scrying": {"invisible"},
     "unseen_servant": {"invisible"},

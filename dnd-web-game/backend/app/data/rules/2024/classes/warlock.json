@@ -536,10 +536,10 @@
       "name": "Great Old One Patron",
       "description": "Your patron is a mysterious entity whose nature is utterly foreign to the fabric of reality. It might come from the Far Realm, the space beyond reality, or it could be one of the elder gods known only in legends.",
       "expanded_spells": {
-        "1": ["dissonant_whispers", "tashas_hideous_laughter"],
+        "1": ["dissonant_whispers", "hideous_laughter"],
         "3": ["detect_thoughts", "phantasmal_force"],
         "5": ["clairvoyance", "sending"],
-        "7": ["dominate_beast", "evards_black_tentacles"],
+        "7": ["dominate_beast", "black_tentacles"],
         "9": ["dominate_person", "telekinesis"]
       },
       "features": [

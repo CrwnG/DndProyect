@@ -643,8 +643,8 @@
       "classes": ["bard", "druid", "ranger"]
     },
     {
-      "id": "tashas_hideous_laughter",
-      "name": "Tasha's Hideous Laughter",
+      "id": "hideous_laughter",
+      "name": "Hideous Laughter",
       "school": "Enchantment",
       "casting_time": "Action",
       "range": "30 feet",

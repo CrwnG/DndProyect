@@ -378,8 +378,8 @@
       "at_higher_levels": "You can target one additional creature for each slot level above 3rd."
     },
     {
-      "id": "leomunds_tiny_hut",
-      "name": "Leomund's Tiny Hut",
+      "id": "tiny_hut",
+      "name": "Tiny Hut",
       "level": 3,
       "school": "Evocation",
       "ritual": true,
