@@ -6250,6 +6250,16 @@ class CombatEngine:
             ),
             "positions": positions_dict,
             "combatants": combatants,
+            # Active battlefield surfaces (fire/grease/web/…) so the client can render
+            # them — flat [{x, y, type}] per surface on a tile.
+            "surfaces": [
+                {"x": x, "y": y, "type": s.surface_type.value}
+                for (x, y), tile_surfaces in (
+                    self.state.surface_manager.surfaces.items()
+                    if getattr(self.state, "surface_manager", None) else []
+                )
+                for s in tile_surfaces
+            ],
             "combatant_stats": self.state.combatant_stats,
             "event_count": len(self.state.event_log),
             "is_combat_over": tracker.is_combat_over(),
