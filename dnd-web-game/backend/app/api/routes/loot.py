@@ -41,6 +41,21 @@ class GenerateLootRequest(BaseModel):
     )
 
 
+def _credit_live_combat_gold(combat_id: str, character_id: str, amount: int) -> None:
+    """F3: mirror a loot gold credit onto the live combat's stats (if the combat is
+    still in memory and the character is a combatant) — otherwise the shop wouldn't
+    see looted gold in the same combat, and the end-of-combat character sync would
+    stomp the loot with the stale in-combat amount."""
+    if amount <= 0:
+        return
+    engine = active_combats.get(combat_id)
+    if engine is None:
+        return
+    stats = engine.state.combatant_stats.get(character_id)
+    if stats is not None:
+        stats["gold"] = stats.get("gold", 0) + amount
+
+
 class CollectLootRequest(BaseModel):
     """Request to collect loot items."""
     character_id: str = Field(..., description="Character collecting the loot (gets items)")
@@ -339,6 +354,7 @@ async def collect_loot(
                         "gold_gained": member_gold,
                         "new_total": new_gold,
                     }
+                    _credit_live_combat_gold(combat_id, char_id, member_gold)
                     print(f"[LOOT] {member_char.name} gained {member_gold} gold (now {new_gold})", flush=True)
             except Exception as e:
                 print(f"[LOOT ERROR] Failed to update gold for {char_id}: {e}", flush=True)
@@ -362,6 +378,7 @@ async def collect_loot(
 
         collected["gold_gained"] = total_gold
         collected["new_gold_total"] = updated_gold
+        _credit_live_combat_gold(combat_id, request.character_id, total_gold)
 
     collected["items_added_to_inventory"] = len(new_inventory_items)
 

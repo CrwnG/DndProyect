@@ -47,8 +47,9 @@ from app.core.combat_storage import (
     end_combat_state,
     rehydrate_combat,
 )
-from app.database.dependencies import get_combat_repo
-from app.database.repositories import CombatStateRepository
+from app.database.dependencies import get_combat_repo, get_character_repo
+from app.database.repositories import CombatStateRepository, CharacterRepository
+from app.database.models import CharacterUpdate
 
 # Import Advanced AI System
 from app.core.ai import get_ai_for_combatant, coordinate_enemies
@@ -72,6 +73,31 @@ async def _resolve_engine(combat_id: str, combat_repo: CombatStateRepository):
             detail="Combat not found"
         )
     return engine
+
+
+async def _sync_players_to_characters(engine, char_repo) -> None:
+    """F3: write player combatants' durable state (gold, HP, inventory) back to their
+    matching DB character records at combat end. Loot pays character.gold while shops
+    charge the in-combat gold — without this writeback, quick-combat purchases were
+    refunded and bought items vanished for any DB-backed character. Combatants whose
+    id has no character record (the demo party) are skipped."""
+    for combatant in engine.state.initiative_tracker.combatants:
+        stats = engine.state.combatant_stats.get(combatant.id, {})
+        if stats.get("type") != "player":
+            continue
+        try:
+            character = await char_repo.get_by_id(combatant.id)
+        except Exception:
+            character = None
+        if character is None:
+            continue
+        update = CharacterUpdate(
+            gold=stats.get("gold", character.gold),
+            current_hp=stats.get("current_hp", character.current_hp),
+        )
+        if isinstance(stats.get("inventory"), list):
+            update.inventory = stats["inventory"]
+        await char_repo.update(combatant.id, update)
 
 
 # =============================================================================
@@ -434,6 +460,7 @@ async def end_combat(
     combat_id: str,
     reason: str = "manual",
     combat_repo: CombatStateRepository = Depends(get_combat_repo),
+    char_repo: CharacterRepository = Depends(get_character_repo),
 ):
     """
     End a combat encounter.
@@ -455,6 +482,10 @@ async def end_combat(
     # Persist end state to database
     xp_awarded = result.get("xp_awarded", 0)
     await end_combat_state(combat_id, result=reason, xp_awarded=xp_awarded, repo=combat_repo)
+
+    # Sync player combatants back to their DB character records (gold/HP/inventory) so
+    # mid-combat shop transactions and damage survive into the next fight (F3).
+    await _sync_players_to_characters(engine, char_repo)
 
     # Clean up memory
     del active_combats[combat_id]
