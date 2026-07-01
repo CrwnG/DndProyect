@@ -73,9 +73,13 @@ def test_summon_attack_damages_target_and_respects_reach():
     _summon(eng, pos=(1, 0))              # weapon adjacent to gob at (1,0)... same tile: reach ok
 
     hp0 = eng.state.combatant_stats["gob"]["current_hp"]
-    result = eng.summon_attack("cle", "spiritual_weapon", "gob")
-    assert result.success
-    assert eng.state.combatant_stats["gob"]["current_hp"] < hp0   # AC 1 + atk +30 -> guaranteed hit
+    # AC 1 + atk +30 hits on everything but a natural 1 — retry to make it deterministic.
+    for _ in range(10):
+        result = eng.summon_attack("cle", "spiritual_weapon", "gob")
+        assert result.success
+        if eng.state.combatant_stats["gob"]["current_hp"] < hp0:
+            break
+    assert eng.state.combatant_stats["gob"]["current_hp"] < hp0
 
     # Out of reach without a move: weapon parked far away must fail
     eng2 = _engine()
@@ -153,6 +157,10 @@ def test_summon_survives_serialization_roundtrip():
     eng2.state.phase = CombatPhase.COMBAT_ACTIVE
     eng2.state.current_turn = TurnState(combatant_id="cle")
     hp0 = eng2.state.combatant_stats["gob"]["current_hp"]
-    result = eng2.summon_attack("cle", "spiritual_weapon", "gob")
-    assert result.success
+    # Retry: only a natural 1 misses at +30 vs AC 1.
+    for _ in range(10):
+        result = eng2.summon_attack("cle", "spiritual_weapon", "gob")
+        assert result.success
+        if eng2.state.combatant_stats["gob"]["current_hp"] < hp0:
+            break
     assert eng2.state.combatant_stats["gob"]["current_hp"] < hp0

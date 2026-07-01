@@ -1318,6 +1318,8 @@ class CombatEngine:
                 f"{current.name}'s turn ends",
                 combatant_id=current.id
             )
+            # Ending a turn inside a summon's aura (Flaming Sphere's 5 ft) burns.
+            self._apply_summon_auras_end_turn(current.id)
 
         # Advance to next combatant
         next_combatant = self.state.initiative_tracker.advance_turn()
@@ -5019,10 +5021,29 @@ class CombatEngine:
         if move_to is not None:
             summon["position"] = [pos[0], pos[1]]
 
+        target_stats = self.state.combatant_stats.get(target_id, {})
+
+        # Save-based summons (Flaming Sphere): no attack roll — the target saves against
+        # the caster's spell save DC, taking full dice damage on a failure or half on a
+        # success. No ability modifier is added to the dice.
+        if summon.get("save"):
+            save_type = summon["save"]
+            dc = (stats.get("spellcasting") or {}).get("spell_save_dc", 10)
+            save_mod = target_stats.get(f"{save_type}_save", 0) or target_stats.get(f"{save_type}_mod", 0)
+            saved = roll_d20(modifier=save_mod).total >= dc
+            dmg = roll_damage(summon.get("damage", "2d6"))
+            total = dmg.total // 2 if saved else dmg.total
+            applied = self._apply_summon_damage(
+                caster_id, summon_id, target_id, total, summon.get("damage_type", "fire"))
+            desc = (f"The {summon_id.replace('_', ' ')} burns {target_stats.get('name', target_id)} "
+                    f"for {applied} {summon.get('damage_type', 'fire')} damage"
+                    + (" (save: half)" if saved else ""))
+            return ActionResult(success=True, action_type=summon_id, target_id=target_id,
+                                damage_dealt=applied, description=desc)
+
         # Melee spell attack with the caster's spell attack bonus.
         atk_bonus = (stats.get("spellcasting") or {}).get("spell_attack_bonus", 0)
         attack = roll_d20(modifier=atk_bonus)
-        target_stats = self.state.combatant_stats.get(target_id, {})
         target_ac = target_stats.get("ac", 10)
         hit = attack.natural_20 or (not attack.natural_1 and attack.total >= target_ac)
         if not hit:
@@ -5036,11 +5057,30 @@ class CombatEngine:
         ability = ((stats.get("spellcasting") or {}).get("ability") or "wisdom").lower()
         mod = stats.get(f"{ability[:3]}_mod", 0)
         dmg = roll_damage(summon.get("damage", "1d8"), modifier=mod, critical=attack.natural_20)
-        damage_type = summon.get("damage_type", "force")
-        # Report/gate on the damage actually taken (post resistance/immunity/temp-HP),
-        # not the raw roll — an immune target must not provoke a concentration check.
+        applied = self._apply_summon_damage(
+            caster_id, summon_id, target_id, dmg.total, summon.get("damage_type", "force"),
+            critical=attack.natural_20)
+        desc = (f"The {summon_id.replace('_', ' ')} strikes {target_stats.get('name', target_id)} "
+                f"for {applied} {summon.get('damage_type', 'force')} damage"
+                + (" (critical!)" if attack.natural_20 else ""))
+        return ActionResult(success=True, action_type=summon_id, target_id=target_id,
+                            damage_dealt=applied, description=desc)
+
+    def _apply_summon_damage(
+        self,
+        caster_id: str,
+        summon_id: str,
+        target_id: str,
+        amount: int,
+        damage_type: str,
+        critical: bool = False,
+    ) -> int:
+        """Apply summon damage through the resist/temp-HP/defeat chokepoint. Reports and
+        gates the concentration check on the damage actually taken (post-mitigation) —
+        an immune target must not provoke a concentration check. Returns applied damage."""
+        target_stats = self.state.combatant_stats.get(target_id, {})
         pool_before = target_stats.get("current_hp", 0) + target_stats.get("temp_hp", 0)
-        self._apply_damage_to_target(target_id, dmg.total, damage_type)
+        self._apply_damage_to_target(target_id, amount, damage_type)
         pool_after = target_stats.get("current_hp", 0) + target_stats.get("temp_hp", 0)
         applied = max(0, pool_before - pool_after)
         conc = None
@@ -5049,16 +5089,40 @@ class CombatEngine:
                 target_id=target_id, damage_dealt=applied,
                 damage_source=f"{summon_id.replace('_', ' ')} attack",
             )
-        desc = (f"The {summon_id.replace('_', ' ')} strikes {target_stats.get('name', target_id)} "
-                f"for {applied} {damage_type} damage" + (" (critical!)" if attack.natural_20 else ""))
-        result = ActionResult(success=True, action_type=summon_id, target_id=target_id,
-                              damage_dealt=applied, description=desc)
-        self.state.add_event("summon_attack", desc, combatant_id=caster_id,
-                             data={"summon_id": summon_id, "target_id": target_id,
-                                   "damage": applied, "damage_type": damage_type,
-                                   "critical": attack.natural_20,
-                                   "concentration_check": bool(conc)})
-        return result
+        self.state.add_event(
+            "summon_attack",
+            f"The {summon_id.replace('_', ' ')} deals {applied} {damage_type} damage to "
+            f"{target_stats.get('name', target_id)}",
+            combatant_id=caster_id,
+            data={"summon_id": summon_id, "target_id": target_id, "damage": applied,
+                  "damage_type": damage_type, "critical": critical,
+                  "concentration_check": bool(conc)})
+        return applied
+
+    def _apply_summon_auras_end_turn(self, combatant_id: str) -> None:
+        """A creature ending its turn within a summon's aura (Flaming Sphere's 5 ft)
+        makes the summon's save and takes its damage. Concentration-gated per summon."""
+        pos = self.state.positions.get(combatant_id)
+        ender_stats = self.state.combatant_stats.get(combatant_id, {})
+        if pos is None or ender_stats.get("current_hp", 1) <= 0:
+            return
+        # Snapshot both dicts: an aura hit can break the owner's concentration mid-loop,
+        # which must not mutate the dict we're iterating.
+        for owner_id, stats in list(self.state.combatant_stats.items()):
+            for summon_id, summon in list((stats.get("active_summons") or {}).items()):
+                if ender_stats.get("current_hp", 1) <= 0:
+                    return   # a previous aura already dropped the ender
+                if not summon.get("aura") or not summon.get("save"):
+                    continue
+                if (stats.get("spellcasting") or {}).get("concentrating_on") != \
+                        (summon.get("spell_id") or summon_id):
+                    continue
+                spos = summon.get("position")
+                if not spos:
+                    continue
+                if max(abs(pos[0] - spos[0]), abs(pos[1] - spos[1])) * 5 > summon["aura"]:
+                    continue
+                self.summon_attack(owner_id, summon_id, combatant_id)
 
     def _handle_spiritual_weapon(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
         """Bonus action: move the Spiritual Weapon up to 20 ft and attack."""
