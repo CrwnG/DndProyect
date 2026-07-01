@@ -493,6 +493,9 @@ class CombatGrid {
         // Draw combatants (tokens)
         this.drawCombatants(currentState);
 
+        // Draw caster-controlled summons (Spiritual Weapon, Flaming Sphere)
+        this.drawSummons(currentState);
+
         // Draw ground items (dropped loot)
         this.drawGroundItems();
 
@@ -880,6 +883,47 @@ class CombatGrid {
             this.ctx.strokeStyle = borderColor;
             this.ctx.lineWidth = 2;
             this.ctx.strokeRect(posX + 2, posY + 2, this.cellSize - 4, this.cellSize - 4);
+        }
+    }
+
+    /**
+     * Draw caster-controlled summons (Spiritual Weapon, Flaming Sphere) as small
+     * spectral markers — smaller than combatant tokens, gold-ringed, with a glyph.
+     */
+    drawSummons(gameState) {
+        const summons = gameState.grid.summons || [];
+        if (summons.length === 0) return;
+
+        const glyphs = {
+            spiritual_weapon: '⚔',
+            flaming_sphere: '🔥',
+        };
+
+        for (const s of summons) {
+            const center = this.gridToCanvas(s.x, s.y);
+            const radius = CONFIG.TOKEN.RADIUS * 0.6;
+
+            this.ctx.save();
+            this.ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            this.ctx.shadowBlur = 5;
+            this.ctx.shadowOffsetY = 2;
+            this.ctx.beginPath();
+            this.ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = 'rgba(90, 80, 140, 0.85)';   // spectral violet
+            this.ctx.fill();
+            this.ctx.restore();
+
+            this.ctx.beginPath();
+            this.ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+            this.ctx.strokeStyle = '#d4af37';
+            this.ctx.lineWidth = 2;
+            this.ctx.stroke();
+
+            this.ctx.fillStyle = '#f5e8c8';
+            this.ctx.font = `${Math.floor(radius * 1.1)}px serif`;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText(glyphs[s.id] || '✨', center.x, center.y);
         }
     }
 
