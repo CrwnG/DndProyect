@@ -301,6 +301,9 @@ async def websocket_endpoint(
     registered = multiplayer_sessions.get(session_id, {}).get("players", {}).get(player_id)
     if (not registered or not token
             or not secrets.compare_digest(registered["token"], token)):
+        # Accept BEFORE closing: closing during the handshake reaches real browsers as
+        # an opaque 1006, not our 4401 (found by the e2e websocket spec).
+        await websocket.accept()
         await websocket.close(code=4401)
         return
 
