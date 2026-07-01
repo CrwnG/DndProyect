@@ -57,6 +57,7 @@ class CampaignMenu {
                         <button class="menu-btn" id="btn-continue">Continue</button>
                         <button class="menu-btn" id="btn-load-game">Load Game</button>
                         <button class="menu-btn" id="btn-quick-combat">Quick Combat</button>
+                        <button class="menu-btn" id="btn-multiplayer">Multiplayer</button>
                     </div>
 
                     <!-- Campaign Selection View -->
@@ -165,6 +166,10 @@ class CampaignMenu {
         document.getElementById('btn-continue')?.addEventListener('click', () => this.handleContinue());
         document.getElementById('btn-load-game')?.addEventListener('click', () => this.showLoadGame());
         document.getElementById('btn-quick-combat')?.addEventListener('click', () => this.startQuickCombat());
+        document.getElementById('btn-multiplayer')?.addEventListener('click', () => {
+            this.hide();
+            eventBus.emit(EVENTS.OPEN_MULTIPLAYER_LOBBY);
+        });
 
         // Campaign selection
         document.getElementById('btn-back-main')?.addEventListener('click', () => this.showMainMenu());
