@@ -14,6 +14,7 @@ import InitiativeTracker from './ui/initiative-tracker.js';
 import ActionBar from './ui/action-bar.js';
 import { characterImportUI } from './ui/character-import.js';
 import { campaignMenu } from './ui/campaign-menu.js';
+import { multiplayerLobby } from './ui/multiplayer-lobby.js';
 import { campaignCreator } from './ui/campaign-creator.js';
 import { storyDisplay } from './ui/story-display.js';
 import { choiceDisplay } from './ui/choice-display.js';
@@ -55,6 +56,7 @@ class Game {
 
         // Campaign components
         this.campaignMenu = campaignMenu;
+        this.multiplayerLobby = multiplayerLobby;
         this.campaignCreator = campaignCreator;
         this.storyDisplay = storyDisplay;
         this.choiceDisplay = choiceDisplay;

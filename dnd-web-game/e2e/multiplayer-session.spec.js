@@ -49,3 +49,24 @@ test.describe('Multiplayer session identity', () => {
         expect(await probe(created.code, 'e2e-ws-host', created.token)).toBe('open');
     });
 });
+
+test.describe('Multiplayer lobby UI (G2)', () => {
+    test('menu -> Multiplayer -> host a session shows a real code', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForSelector('.game-container');
+
+        // The new menu entry opens the lobby.
+        await page.locator('#btn-multiplayer').click();
+        await expect(page.locator('#multiplayer-lobby .lobby-modal')).toBeVisible();
+
+        // Host flow: name -> Host Game -> Create.
+        await page.locator('#player-name').fill('Ana');
+        await page.locator('#btn-create-session').click();
+        await page.locator('#btn-confirm-create').click();
+
+        // The server-minted 6-char code is displayed in the waiting room.
+        const code = page.locator('#display-session-code');
+        await expect(code).not.toHaveText('XXXX', { timeout: 10000 });
+        await expect(code).toHaveText(/^[A-Z2-9]{6}$/);
+    });
+});
