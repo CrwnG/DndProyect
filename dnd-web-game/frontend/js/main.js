@@ -347,6 +347,15 @@ class Game {
             // which reads this.importedCharacter — no separate "start combat" button.)
         });
 
+        // Multiplayer: the host started the game from the lobby — enter the campaign
+        // menu so the party picks a campaign; votes then drive that session's choices
+        // (the backend applies winning options via /api/multiplayer votes).
+        eventBus.on(EVENTS.MULTIPLAYER_GAME_START, (data) => {
+            console.log('[Game] Multiplayer game started:', data);
+            this.updateCombatLog(`Multiplayer session started with ${data.players?.length ?? 0} players`);
+            this.campaignMenu.show();
+        });
+
         // Import button click
         const importBtn = document.getElementById('btn-import-character');
         if (importBtn) {

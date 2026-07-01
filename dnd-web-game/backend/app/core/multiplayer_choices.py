@@ -66,6 +66,7 @@ class ChoiceSession:
     created_at: datetime = field(default_factory=datetime.utcnow)
     resolved_at: Optional[datetime] = None
     result: Optional[str] = None  # Winning choice_id
+    applied: bool = False  # Whether the winning choice was applied to gameplay (once)
 
 
 @dataclass
@@ -545,6 +546,19 @@ class MultiplayerChoiceHandler:
     def get_active_session(self, choice_session_id: str) -> Optional[ChoiceSession]:
         """Get an active choice session."""
         return self._active_sessions.get(choice_session_id)
+
+    def find_session(self, choice_session_id: str) -> Optional[ChoiceSession]:
+        """Find a choice session whether it is still active or already resolved
+        (archived to history) — resolution paths need the session object afterwards
+        to apply the winning choice to gameplay."""
+        session = self._active_sessions.get(choice_session_id)
+        if session:
+            return session
+        for sessions in self._history.values():
+            for s in sessions:
+                if s.id == choice_session_id:
+                    return s
+        return None
 
     def get_session_history(
         self,
