@@ -42,6 +42,7 @@ const initialState = {
     grid: {
         cells: [],          // 2D array of cell data
         positions: {},      // combatant_id -> {x, y}
+        surfaces: [],       // active battlefield surfaces: [{x, y, type}]
         reachableCells: [], // List of {x, y} for current combatant
         attackTargets: [],  // List of combatant IDs that can be attacked
         selectedCell: null, // {x, y} or null
@@ -256,6 +257,7 @@ export class StateManager {
         // Set up positions
         console.log('[StateManager] Positions from combatData:', combatData.positions);
         this.state.grid.positions = combatData.positions || {};
+        this.state.grid.surfaces = combatData.surfaces || [];
 
         // Set up grid cells
         if (combatData.grid) {
@@ -284,6 +286,9 @@ export class StateManager {
         }
         if (data.positions) {
             this.state.grid.positions = data.positions;
+        }
+        if (data.surfaces !== undefined) {
+            this.state.grid.surfaces = data.surfaces;
         }
 
         // Update combatants

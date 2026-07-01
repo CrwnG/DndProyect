@@ -469,6 +469,9 @@ class CombatGrid {
         // Draw grid cells
         this.drawGridCells(currentState);
 
+        // Draw active battlefield surfaces (fire/grease/web/…) on the floor
+        this.drawSurfaces(currentState);
+
         // Draw elevation indicators (visual height differentiation)
         this.drawElevationIndicators(currentState);
 
@@ -539,6 +542,43 @@ class CombatGrid {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Draw active battlefield surfaces (fire, grease, web, ice, poison, acid, …)
+     * as a translucent wash + a glyph, between the floor and everything else.
+     */
+    drawSurfaces(gameState) {
+        const surfaces = gameState.grid.surfaces || [];
+        if (surfaces.length === 0) return;
+
+        const styles = {
+            fire: { fill: 'rgba(230, 100, 20, 0.40)', glyph: '🔥' },
+            grease: { fill: 'rgba(60, 45, 20, 0.55)', glyph: '🛢️' },
+            web: { fill: 'rgba(220, 220, 230, 0.30)', glyph: '🕸️' },
+            ice: { fill: 'rgba(140, 200, 255, 0.35)', glyph: '❄️' },
+            poison: { fill: 'rgba(90, 160, 60, 0.40)', glyph: '☠️' },
+            acid: { fill: 'rgba(150, 190, 40, 0.40)', glyph: '🧪' },
+            water: { fill: 'rgba(60, 120, 200, 0.35)', glyph: '💧' },
+            electrified_water: { fill: 'rgba(90, 150, 230, 0.45)', glyph: '⚡' },
+            steam: { fill: 'rgba(200, 200, 200, 0.30)', glyph: '🌫️' },
+            oil: { fill: 'rgba(40, 35, 25, 0.55)', glyph: '🛢️' },
+        };
+        const fallback = { fill: 'rgba(150, 150, 150, 0.30)', glyph: '✳️' };
+
+        for (const s of surfaces) {
+            const style = styles[s.type] || fallback;
+            const posX = s.x * this.cellSize;
+            const posY = s.y * this.cellSize;
+            this.ctx.fillStyle = style.fill;
+            this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
+            this.ctx.font = `${Math.floor(this.cellSize * 0.35)}px serif`;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.globalAlpha = 0.8;
+            this.ctx.fillText(style.glyph, posX + this.cellSize / 2, posY + this.cellSize / 2);
+            this.ctx.globalAlpha = 1;
         }
     }
 
