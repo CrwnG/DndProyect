@@ -87,12 +87,8 @@ app.add_middleware(
 setup_error_handlers(app, debug=settings.DEBUG)
 
 
-@app.get("/")
-async def root():
-    """Health check endpoint."""
-    return {"status": "online", "game": "D&D Combat Engine", "version": "0.1.0"}
-
-
+# NOTE: "/" is the frontend (StaticFiles mount at the bottom of this file), not an API
+# route — health checks live at /health and /api/health.
 @app.get("/health")
 async def health_check():
     """Detailed health check."""
@@ -133,6 +129,16 @@ app.include_router(random_encounters.router, prefix="/api/encounters", tags=["en
 app.include_router(export.router, prefix="/api", tags=["export"])
 app.include_router(multiplayer.router, prefix="/api/multiplayer", tags=["multiplayer"])
 app.include_router(campaign_editor.router, tags=["campaign-editor"])
+
+# Serve the frontend at "/" so the game runs single-process (uvicorn only) and the
+# Playwright e2e suite's page.goto('/') works. Mounted AFTER the routers so /api/*
+# keeps priority; guarded so a backend-only checkout still boots.
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+
+_frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"
+if (_frontend_dir / "index.html").is_file():
+    app.mount("/", StaticFiles(directory=str(_frontend_dir), html=True), name="frontend")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,13 @@
+{
+  "name": "dnd-web-game-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Playwright e2e harness for the D&D web game (config: playwright.config.js).",
+  "scripts": {
+    "e2e": "playwright test --project=chromium",
+    "e2e:smoke": "playwright test e2e/smoke.spec.js --project=chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}

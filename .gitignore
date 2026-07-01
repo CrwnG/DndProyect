@@ -40,3 +40,5 @@ build/
 # Node (if any)
 node_modules/
 nul
+playwright-report/
+test-results/
