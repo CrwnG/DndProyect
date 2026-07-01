@@ -11,8 +11,9 @@ Handles real-time multiplayer functionality:
 import asyncio
 import json
 import logging
+import secrets
 from typing import Dict, Set, Optional, Any, List
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, status, Depends
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, status, Depends, Query
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -199,11 +200,88 @@ class ResolveTieRequest(BaseModel):
 # WEBSOCKET ENDPOINT
 # =============================================================================
 
+# =============================================================================
+# SESSION REGISTRY (D2)
+# =============================================================================
+# Server-side session identity: codes are minted here (collision-checked) and every
+# player gets a join token the websocket requires. In-memory, like the rest of the
+# multiplayer scaffold — single-process only.
+
+# No 0/O/1/I/L: codes get read aloud at the table.
+_SESSION_CODE_ALPHABET = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"
+multiplayer_sessions: Dict[str, Dict[str, Any]] = {}
+
+
+class CreateSessionRequest(BaseModel):
+    host_id: str
+    host_name: str = "Host"
+    mode: str = "voting"
+    timeout: int = 60
+
+
+class JoinSessionRequest(BaseModel):
+    player_id: str
+    player_name: str = "Player"
+
+
+def _new_session_code() -> str:
+    for _ in range(50):
+        code = "".join(secrets.choice(_SESSION_CODE_ALPHABET) for _ in range(6))
+        if code not in multiplayer_sessions:
+            return code
+    raise RuntimeError("Could not allocate a unique session code")
+
+
+def _serialize_session(session: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "code": session["code"],
+        "host_id": session["host_id"],
+        "mode": session["mode"],
+        "timeout": session["timeout"],
+        "players": [{"id": pid, "name": p["name"]}
+                    for pid, p in session["players"].items()],
+    }
+
+
+@router.post("/session")
+async def create_multiplayer_session(request: CreateSessionRequest):
+    """Create a multiplayer session: the server mints the code and the host's token."""
+    code = _new_session_code()
+    token = secrets.token_urlsafe(16)
+    multiplayer_sessions[code] = {
+        "code": code,
+        "host_id": request.host_id,
+        "mode": request.mode,
+        "timeout": request.timeout,
+        "created_at": datetime.utcnow().isoformat(),
+        "players": {request.host_id: {"name": request.host_name, "token": token}},
+    }
+    return {"success": True, "code": code, "token": token,
+            "session": _serialize_session(multiplayer_sessions[code])}
+
+
+@router.post("/session/{code}/join")
+async def join_multiplayer_session(code: str, request: JoinSessionRequest):
+    """Join an existing session by code; returns this player's websocket token."""
+    session = multiplayer_sessions.get(code.upper())
+    if not session:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail="Session not found")
+    if request.player_id in session["players"]:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail="Player id already in this session")
+    token = secrets.token_urlsafe(16)
+    session["players"][request.player_id] = {"name": request.player_name, "token": token}
+    return {"success": True, "code": session["code"], "token": token,
+            "session": _serialize_session(session)}
+
+
 @router.websocket("/ws/{session_id}/{player_id}")
 async def websocket_endpoint(
     websocket: WebSocket,
     session_id: str,
     player_id: str,
+    token: Optional[str] = Query(None),
 ):
     """
     WebSocket endpoint for multiplayer real-time communication.
@@ -213,7 +291,19 @@ async def websocket_endpoint(
     - Choice voting updates
     - Campaign state sync
     - Chat messages (optional)
+
+    Requires the join token issued by POST /session or /session/{code}/join —
+    connections that don't present the right token are closed with 4401.
     """
+    # Codes are minted uppercase; normalize like the join route does — for the token
+    # lookup AND the broadcast room, so lowercase joiners share the same session room.
+    session_id = session_id.upper()
+    registered = multiplayer_sessions.get(session_id, {}).get("players", {}).get(player_id)
+    if (not registered or not token
+            or not secrets.compare_digest(registered["token"], token)):
+        await websocket.close(code=4401)
+        return
+
     await manager.connect(websocket, session_id, player_id)
 
     try:

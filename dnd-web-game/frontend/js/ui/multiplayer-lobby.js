@@ -262,8 +262,10 @@ class MultiplayerLobby {
         const timeout = parseInt(this.container.querySelector('#vote-timeout').value) || 60;
 
         try {
-            // Generate session code (for now, random)
-            const sessionCode = this.generateSessionCode();
+            // The SERVER mints the code (collision-checked) and this host's join token.
+            const created = await api.createMultiplayerSession(
+                this.playerId, this.playerName, mode, timeout);
+            const sessionCode = created.code;
 
             this.currentSession = {
                 id: sessionCode,
@@ -271,12 +273,14 @@ class MultiplayerLobby {
                 mode: mode,
                 timeout: timeout,
                 host: this.playerId,
+                token: created.token,
             };
 
             this.isHost = true;
+            sessionStorage.setItem(`dnd_mp_token_${sessionCode}`, created.token);
 
-            // Connect to WebSocket
-            multiplayerVote.connect(sessionCode, this.playerId);
+            // Connect to WebSocket (token-gated)
+            multiplayerVote.connect(sessionCode, this.playerId, created.token);
 
             // Show waiting room
             this.container.querySelector('#display-session-code').textContent = sessionCode;
@@ -304,15 +308,33 @@ class MultiplayerLobby {
         }
 
         try {
+            // Validate the code server-side and get this player's join token. A 409
+            // means our player_id is already in the session — if this tab has the
+            // token stashed (page refresh), reconnect with it instead of failing.
+            let token;
+            try {
+                const joined = await api.joinMultiplayerSession(code, this.playerId, this.playerName);
+                token = joined.token;
+            } catch (error) {
+                const stashed = sessionStorage.getItem(`dnd_mp_token_${code}`);
+                if (error?.status === 409 && stashed) {
+                    token = stashed;
+                } else {
+                    throw error;
+                }
+            }
+
             this.currentSession = {
                 id: code,
                 code: code,
+                token: token,
             };
 
             this.isHost = false;
+            sessionStorage.setItem(`dnd_mp_token_${code}`, token);
 
-            // Connect to WebSocket
-            multiplayerVote.connect(code, this.playerId);
+            // Connect to WebSocket (token-gated)
+            multiplayerVote.connect(code, this.playerId, token);
 
             // Show waiting room
             this.container.querySelector('#display-session-code').textContent = code;
@@ -402,15 +424,6 @@ class MultiplayerLobby {
     // =========================================================================
     // UTILITIES
     // =========================================================================
-
-    generateSessionCode() {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return code;
-    }
 
     copySessionCode() {
         const code = this.currentSession?.code || '';
