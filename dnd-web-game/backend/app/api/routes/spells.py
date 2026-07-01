@@ -452,6 +452,31 @@ async def cast_spell_in_combat(
         if result.concentration_started:
             combat_engine.state.combatant_stats[request.caster_id]["spellcasting"]["concentrating_on"] = result.spell_id
 
+        # Store a summoned battlefield entity (Spiritual Weapon) on the caster — placed at
+        # the first target's tile — and make the free on-cast attack. Must run AFTER
+        # concentration is set: summon_attack is concentration-gated.
+        if getattr(result, "summon_created", None):
+            summon_pos = None
+            if targets:
+                pos = targets[0].get("position")
+                if isinstance(pos, dict):
+                    x, y = pos.get("x"), pos.get("y")
+                    if x is not None and y is not None:
+                        summon_pos = (x, y)
+                elif isinstance(pos, (list, tuple)) and len(pos) >= 2:
+                    summon_pos = (pos[0], pos[1])
+            combat_engine.apply_spell_summon(
+                request.caster_id, result.summon_created, summon_pos,
+                spell_id=request.spell_id,
+            )
+            if request.target_ids:
+                attack = combat_engine.summon_attack(
+                    request.caster_id, result.summon_created["summon_id"],
+                    request.target_ids[0],
+                )
+                if attack.success:
+                    result.description = (result.description or "").rstrip() + f" {attack.description}."
+
         # Add combat event
         combat_engine.state.add_event(
             "spell_cast",

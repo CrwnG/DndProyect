@@ -237,6 +237,7 @@ class SpellCastResult(BaseModel):
     debuffs_applied: Optional[Dict[str, Dict[str, Any]]] = None  # {target_id: penalty_effects} (Bane, failed saves only)
     pending_smite: Optional[Dict[str, Any]] = None  # smite-spell rider stowed on the caster for the next weapon hit
     surfaces_created: Optional[List[str]] = None  # surface types to create at target tiles (Grease, Wall of Fire, Web, …)
+    summon_created: Optional[Dict[str, Any]] = None  # caster-controlled battlefield entity (Spiritual Weapon)
 
     # Concentration
     concentration_started: bool = False

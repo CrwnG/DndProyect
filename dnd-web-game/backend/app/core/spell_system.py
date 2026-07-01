@@ -1313,6 +1313,23 @@ class SpellEffectResolver:
         """Return the SurfaceType value a spell creates on the ground, or None."""
         return SpellEffectResolver._SURFACE_SPELLS.get(spell.id)
 
+    @staticmethod
+    def _determine_summon_created(spell: Spell, cast_level: int) -> Optional[Dict[str, Any]]:
+        """Return summon parameters for spells that place a caster-controlled entity on
+        the battlefield, or None. The combat route stores this on the caster via
+        CombatEngine.apply_spell_summon; later turns attack via summon_attack."""
+        if spell.id == "spiritual_weapon":
+            # Per the spell JSON: +1d8 for every two slot levels above 2.
+            extra = max(0, (cast_level - 2) // 2)
+            return {
+                "summon_id": "spiritual_weapon",
+                "damage": f"{1 + extra}d8",
+                "damage_type": "force",
+                "move_speed": 20,
+                "reach": 5,
+            }
+        return None
+
 
 def _get_target_save_modifier(target: Dict, save_type: Optional[str]) -> int:
     """
@@ -1756,6 +1773,12 @@ def cast_spell(
     surface_type = SpellEffectResolver._determine_surface_created(spell)
     if surface_type:
         result.surfaces_created = [surface_type]
+
+    # Summon-entity spells (Spiritual Weapon) flag the summon for the combat route to
+    # store on the caster via CombatEngine.apply_spell_summon.
+    summon = SpellEffectResolver._determine_summon_created(spell, cast_level)
+    if summon:
+        result.summon_created = summon
 
     # Handle concentration
     if spell.concentration:
