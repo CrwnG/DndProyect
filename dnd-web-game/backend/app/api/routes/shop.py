@@ -5,12 +5,15 @@ Handles buying and selling items from shops.
 """
 import re
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Dict, Any, List, Optional
 
 from app.models.shop import get_shop, Shop
-from app.api.routes.loot import active_combats
+from app.api.routes.combat import _resolve_engine
+from app.core.combat_storage import persist_combat_state
+from app.database.dependencies import get_combat_repo
+from app.database.repositories import CombatStateRepository
 
 router = APIRouter(prefix="/shop", tags=["shop"])
 
@@ -121,7 +124,8 @@ async def list_available_shops():
 
 
 @router.post("/buy", response_model=TransactionResponse)
-async def buy_item(request: BuyRequest):
+async def buy_item(request: BuyRequest,
+                   combat_repo: CombatStateRepository = Depends(get_combat_repo)):
     """
     Buy an item from a shop.
 
@@ -146,15 +150,17 @@ async def buy_item(request: BuyRequest):
 
     total_price = price * request.quantity
 
-    # Get player gold - either from combat state or we need a session
+    # Get player gold from the combat state — rehydrating from the DB on a cache
+    # miss (golden rule #3: a restart must not zero the party's gold). 404s when the
+    # combat genuinely doesn't exist instead of lying about "not enough gold".
     current_gold = 0
     combatant_stats = None
+    engine = None
 
     if request.combat_id and request.combatant_id:
-        engine = active_combats.get(request.combat_id)
-        if engine:
-            combatant_stats = engine.state.combatant_stats.get(request.combatant_id, {})
-            current_gold = combatant_stats.get("gold", 0)
+        engine = await _resolve_engine(request.combat_id, combat_repo)
+        combatant_stats = engine.state.combatant_stats.get(request.combatant_id, {})
+        current_gold = combatant_stats.get("gold", 0)
 
     if current_gold < total_price:
         raise HTTPException(
@@ -182,6 +188,10 @@ async def buy_item(request: BuyRequest):
     for _ in range(request.quantity):
         shop.purchase_item(request.item_id)
 
+    # Persist the transaction — otherwise a restart refunds the gold and dupes items.
+    if engine is not None:
+        await persist_combat_state(request.combat_id, engine, combat_repo)
+
     return TransactionResponse(
         success=True,
         message=f"Purchased {request.quantity}x {shop_item.item_data.get('name', request.item_id)} for {total_price}gp",
@@ -192,7 +202,8 @@ async def buy_item(request: BuyRequest):
 
 
 @router.post("/sell", response_model=TransactionResponse)
-async def sell_item(request: SellRequest):
+async def sell_item(request: SellRequest,
+                    combat_repo: CombatStateRepository = Depends(get_combat_repo)):
     """
     Sell an item to a shop.
 
@@ -202,10 +213,8 @@ async def sell_item(request: SellRequest):
     if not shop:
         raise HTTPException(status_code=404, detail=f"Shop '{request.shop_id}' not found")
 
-    # Get combat engine and combatant
-    engine = active_combats.get(request.combat_id)
-    if not engine:
-        raise HTTPException(status_code=404, detail="Combat not found")
+    # Get combat engine and combatant — rehydrates from the DB on a cache miss.
+    engine = await _resolve_engine(request.combat_id, combat_repo)
 
     combatant_stats = engine.state.combatant_stats.get(request.combatant_id)
     if not combatant_stats:
@@ -240,6 +249,9 @@ async def sell_item(request: SellRequest):
     # Remove item from inventory
     inventory.pop(item_index)
     engine.state.combatant_stats[request.combatant_id]["inventory"] = inventory
+
+    # Persist the transaction — otherwise a restart refunds the item and takes the gold.
+    await persist_combat_state(request.combat_id, engine, combat_repo)
 
     return TransactionResponse(
         success=True,
