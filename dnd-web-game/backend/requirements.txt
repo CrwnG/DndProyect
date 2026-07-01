@@ -1,5 +1,6 @@
 fastapi>=0.109.0
 uvicorn>=0.27.0
+websockets>=12.0  # uvicorn websocket protocol — multiplayer WS upgrades fail with 1006 without it
 sqlmodel>=0.0.14
 sqlalchemy[asyncio]>=2.0.0
 asyncpg>=0.29.0

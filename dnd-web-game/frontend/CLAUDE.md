@@ -14,7 +14,7 @@ The combat and campaign loops are **genuinely wired** (not stubbed): action bar 
 
 ## Verified bugs
 
-- 🟠 **Auth is doubly broken.** `js/services/auth.js:295` does `fetch(`${API_BASE_URL}${url}`)` where `API_BASE_URL` already ends `/api` and `url` is `/api/auth/...` → `…/api/api/auth/login` → 404. AND the access token is **never attached** as a Bearer header in `api-client.js`, so even if login worked, gameplay calls are unauthenticated.
+- ✅ **FIXED — auth wiring** (verified 2026-07-01). `auth.js` `_request` passes `/auth/...` paths against the `/api` base (correct URLs), and `api-client.js:36-43` attaches `Bearer` from `localStorage['dnd_access_token']` — the same key `AuthService` writes. (Backend still doesn't *enforce* auth on gameplay routes — that's a backend decision, see [api](../backend/app/api/CLAUDE.md).)
 - ✅ **FIXED — created character reaches combat.** The Quick Combat handler (`main.js:446`) reads `this.importedCharacter`, builds a `playerOverride` from its `combatant`, and passes it to `loadDemoCombat(playerOverride)` (`:687`), which uses the override (`:693`) instead of the hardcoded `demoPlayers`. The new-player → fight path completes.
 - ✅ **FIXED — `collectLoot` party gold.** `api-client.js:1260` signature is `collectLoot(combatId, characterId, itemIds, takeCoins, partyCharacterIds=[])` — the 5th arg is accepted; `main.js` passes `playerIds` for gold division.
 - ✅ **FIXED — dead `#btn-start-combat` wiring removed** (`main.js`, 2026-06-26). (`combat-grid.js:357` orphan `combatant_stats.*` state branch — still present, minor.)
@@ -22,6 +22,6 @@ The combat and campaign loops are **genuinely wired** (not stubbed): action bar 
 
 ## Notes
 
-- `CONFIG.WS_BASE_URL` is defined but **never used** — multiplayer EVENTS aren't wired into `main.js` (the multiplayer UI lives in `js/ui/multiplayer-*.js` but isn't connected to the play loop; see [api](../backend/app/api/CLAUDE.md)).
+- The multiplayer lobby (`js/ui/multiplayer-*.js`, token-gated WS since PR #68) has **no entry point in the UI** — nothing calls `multiplayerLobby.show()`. Wiring a menu button to it is the missing piece of the play loop.
 - Frontend depends on the backend API contract — when you change a route's params/response in [api](../backend/app/api/CLAUDE.md), update the matching `api-client.js` method.
-- There is **no real test coverage** of these modules yet — see [tests](../backend/tests/CLAUDE.md).
+- Test coverage: jest (`tests/unit/`) imports the real modules; Playwright e2e (`../e2e/`) runs against the real DOM (`cd dnd-web-game && npm run e2e`).

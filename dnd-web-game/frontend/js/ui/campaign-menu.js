@@ -222,10 +222,16 @@ class CampaignMenu {
             }
         });
 
-        // ESC key
+        // ESC toggles the menu. Previously it only closed with a combat running, so on
+        // first load "Press ESC to close" was false and the overlay made the header
+        // (Create/Import/Sheet) unreachable. Toggling can't strand the player: with no
+        // combat, ESC brings the menu right back.
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isVisible && state.get('combat.id')) {
+            if (e.key !== 'Escape') return;
+            if (this.isVisible) {
                 this.hide();
+            } else if (!state.get('combat.id')) {
+                this.show();
             }
         });
 
