@@ -79,7 +79,15 @@ async def _resolve_engine(combat_id: str, combat_repo: CombatStateRepository):
 # =============================================================================
 
 class CombatantData(BaseModel):
-    """Data for a combatant."""
+    """Data for a combatant.
+
+    extra="allow": the engine's stat cache consumes many more fields than are typed
+    here (type, class, level, gold, inventory, weapons, spellcasting, conditions, ...).
+    The default Pydantic behavior silently STRIPPED those at the HTTP boundary - e.g.
+    a party's gold vanished on /combat/start, so the shop always saw 0gp (invariant #1:
+    don't break the character data contract at a seam)."""
+    model_config = {"extra": "allow"}
+
     id: Optional[str] = None
     name: str
     hp: int = 10
