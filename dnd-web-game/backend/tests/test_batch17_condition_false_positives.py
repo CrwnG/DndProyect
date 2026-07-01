@@ -37,7 +37,7 @@ def test_mention_only_spells_do_not_apply_invisible():
                 "wall_of_force", "antimagic_field", "see_invisibility",
                 "arcane_eye", "clairvoyance", "faithful_hound", "forcecage",
                 "rope_trick", "scrying", "unseen_servant",
-                "drawmijs_instant_summons"]:
+                "instant_summons"]:
         assert "invisible" not in (_spell(sid).conditions_applied or []), sid
 
 

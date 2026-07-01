@@ -54,8 +54,8 @@
       "at_higher_levels": "The damage increases by 1d10 for each slot level above 5th."
     },
     {
-      "id": "bigbys_hand",
-      "name": "Bigby's Hand",
+      "id": "arcane_hand",
+      "name": "Arcane Hand",
       "level": 5,
       "school": "Evocation",
       "casting_time": "Action",
@@ -537,8 +537,8 @@
       "description": "You return a dead creature you touch to life, provided that it has been dead no longer than 10 days. If the creature's soul is both willing and at liberty to rejoin the body, the creature returns to life with 1 Hit Point. The target takes a -4 penalty to D20 Tests, which reduces by 1 after each Long Rest."
     },
     {
-      "id": "rarys_telepathic_bond",
-      "name": "Rary's Telepathic Bond",
+      "id": "telepathic_bond",
+      "name": "Telepathic Bond",
       "level": 5,
       "school": "Divination",
       "ritual": true,

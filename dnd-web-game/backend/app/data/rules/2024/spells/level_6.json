@@ -141,8 +141,8 @@
       "at_higher_levels": "The damage increases by 3d6 for each slot level above 6th."
     },
     {
-      "id": "drawmijs_instant_summons",
-      "name": "Drawmij's Instant Summons",
+      "id": "instant_summons",
+      "name": "Instant Summons",
       "level": 6,
       "school": "Conjuration",
       "ritual": true,
@@ -371,8 +371,8 @@
       "description": "Choose an area of terrain no larger than 40 feet on a side within range. You can reshape dirt, sand, or clay in the area in any manner you choose for the duration. You can raise or lower the area's elevation, create or fill in a trench, erect or flatten a wall, or form a pillar."
     },
     {
-      "id": "otilukes_freezing_sphere",
-      "name": "Otiluke's Freezing Sphere",
+      "id": "freezing_sphere",
+      "name": "Freezing Sphere",
       "level": 6,
       "school": "Evocation",
       "casting_time": "Action",
@@ -385,8 +385,8 @@
       "at_higher_levels": "The damage increases by 1d6 for each slot level above 6th."
     },
     {
-      "id": "ottos_irresistible_dance",
-      "name": "Otto's Irresistible Dance",
+      "id": "irresistible_dance",
+      "name": "Irresistible Dance",
       "level": 6,
       "school": "Enchantment",
       "casting_time": "Action",

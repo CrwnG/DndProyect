@@ -87,7 +87,7 @@ LAND_CIRCLE_SPELLS: Dict[LandType, Dict[int, List[str]]] = {
         9: ["passwall", "wall_of_stone"],
     },
     LandType.SWAMP: {
-        3: ["darkness", "melfs_acid_arrow"],
+        3: ["darkness", "acid_arrow"],
         5: ["water_walk", "stinking_cloud"],
         7: ["freedom_of_movement", "locate_creature"],
         9: ["insect_plague", "scrying"],

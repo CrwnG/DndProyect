@@ -384,8 +384,8 @@
       "notes_2024": "Magic Weapon no longer requires Concentration and scales with character level."
     },
     {
-      "id": "melfs_acid_arrow",
-      "name": "Melf's Acid Arrow",
+      "id": "acid_arrow",
+      "name": "Acid Arrow",
       "school": "Evocation",
       "casting_time": "Action",
       "range": "90 feet",

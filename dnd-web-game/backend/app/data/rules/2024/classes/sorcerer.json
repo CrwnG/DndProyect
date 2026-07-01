@@ -227,8 +227,8 @@
           "spells": {
             "3": ["arms_of_hadar", "calm_emotions", "dissonant_whispers", "detect_thoughts", "mind_sliver"],
             "5": ["hunger_of_hadar", "sending"],
-            "7": ["evards_black_tentacles", "summon_aberration"],
-            "9": ["rarys_telepathic_bond", "telekinesis"]
+            "7": ["black_tentacles", "summon_aberration"],
+            "9": ["telepathic_bond", "telekinesis"]
           }
         },
         {
