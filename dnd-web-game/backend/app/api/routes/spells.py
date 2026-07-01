@@ -469,7 +469,9 @@ async def cast_spell_in_combat(
                 request.caster_id, result.summon_created, summon_pos,
                 spell_id=request.spell_id,
             )
-            if request.target_ids:
+            # Only summons that attack as part of the casting (Spiritual Weapon) do so —
+            # Flaming Sphere appears in an unoccupied space and burns via ram/end-of-turn.
+            if request.target_ids and result.summon_created.get("on_cast_attack"):
                 attack = combat_engine.summon_attack(
                     request.caster_id, result.summon_created["summon_id"],
                     request.target_ids[0],

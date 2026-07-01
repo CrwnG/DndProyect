@@ -1327,6 +1327,20 @@ class SpellEffectResolver:
                 "damage_type": "force",
                 "move_speed": 20,
                 "reach": 5,
+                "on_cast_attack": True,   # "When you cast the spell, you can make a melee spell attack"
+            }
+        if spell.id == "flaming_sphere":
+            # Per the spell JSON: +1d6 per slot level above 2. Save-based (Dex, half on
+            # success): ram on move, burn creatures ending their turn within 5 ft. No
+            # on-cast attack — the sphere appears in an UNOCCUPIED space.
+            extra = max(0, cast_level - 2)
+            return {
+                "summon_id": "flaming_sphere",
+                "damage": f"{2 + extra}d6",
+                "damage_type": "fire",
+                "move_speed": 30,
+                "save": "dex",
+                "aura": 5,
             }
         return None
 
