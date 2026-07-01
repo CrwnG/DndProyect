@@ -12,7 +12,7 @@ import asyncio
 import json
 import logging
 from typing import Dict, Set, Optional, Any, List
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, status
+from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, status, Depends
 from pydantic import BaseModel, Field
 from datetime import datetime
 
@@ -21,6 +21,8 @@ from app.core.multiplayer_choices import (
     DecisionMode,
     get_multiplayer_choice_handler,
 )
+from app.database.dependencies import get_session_repo
+from app.database.repositories import GameSessionRepository
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -367,8 +369,59 @@ async def initiate_choice(request: InitiateChoiceRequest):
     }
 
 
+async def _apply_winning_choice(choice_session, session_repo) -> Optional[Dict[str, Any]]:
+    """D3: apply a resolved vote to gameplay. If the winning option carries a campaign
+    action payload ({"action": ..., "data": ...}), advance the bound campaign session
+    with it (once — guarded by ChoiceSession.applied), persist, and broadcast. Options
+    without an action, unresolved sessions, and unknown campaign sessions are no-ops."""
+    if not choice_session or choice_session.result is None or choice_session.applied:
+        return None
+    option = next(
+        (o for o in choice_session.options if str(o.get("id")) == str(choice_session.result)),
+        None,
+    )
+    if not option or not option.get("action"):
+        return None
+
+    # Late imports: campaign route helpers (avoids a circular import at module load).
+    from app.api.routes import campaign as campaign_route
+    from app.core.campaign_engine import CampaignAction
+
+    try:
+        action = CampaignAction(option["action"])
+    except ValueError:
+        logger.warning("Vote %s won with unknown campaign action %r — not applied",
+                       choice_session.id, option.get("action"))
+        return None
+
+    # Claim BEFORE the first await: the guard-check→claim pair has no awaits, so two
+    # racing resolution paths (deciding vote + status poll) can't both pass it in a
+    # single-process asyncio app. Released again if the apply fails.
+    choice_session.applied = True
+    try:
+        engine = await campaign_route._get_or_load_session_engine(
+            choice_session.session_id, session_repo)
+        if engine is None:
+            return None   # standalone vote, no campaign bound — keep claimed as done
+        new_state, _extra = engine.advance(action, option.get("data"))
+        await campaign_route._persist_session_state(
+            session_repo, choice_session.session_id, engine)
+    except Exception:
+        choice_session.applied = False   # let a later resolution path retry
+        raise
+    await manager.broadcast_to_session(choice_session.session_id, {
+        "type": "choice_applied",
+        "choice_session_id": choice_session.id,
+        "winning_choice": choice_session.result,
+        "action": option["action"],
+        "timestamp": datetime.utcnow().isoformat(),
+    })
+    return new_state if isinstance(new_state, dict) else None
+
+
 @router.post("/choice/vote")
-async def cast_vote(request: VoteRequest):
+async def cast_vote(request: VoteRequest,
+                    session_repo: GameSessionRepository = Depends(get_session_repo)):
     """
     Cast a vote in an active choice session.
 
@@ -407,6 +460,8 @@ async def cast_vote(request: VoteRequest):
                     "tie": result.tie,
                     "timestamp": datetime.utcnow().isoformat(),
                 })
+                # Apply the winning option to the bound campaign session (D3).
+                await _apply_winning_choice(pre, session_repo)
 
         return {
             "success": True,
@@ -421,7 +476,8 @@ async def cast_vote(request: VoteRequest):
 
 
 @router.post("/choice/resolve-tie")
-async def resolve_tie(request: ResolveTieRequest):
+async def resolve_tie(request: ResolveTieRequest,
+                      session_repo: GameSessionRepository = Depends(get_session_repo)):
     """
     Manually resolve a tied vote.
     """
@@ -433,6 +489,11 @@ async def resolve_tie(request: ResolveTieRequest):
             request.method,
             request.forced_choice,
         )
+
+        if result.resolved:
+            # Apply the winning option to the bound campaign session (D3).
+            await _apply_winning_choice(
+                choice_handler.find_session(request.choice_session_id), session_repo)
 
         return {
             "success": True,
@@ -447,7 +508,8 @@ async def resolve_tie(request: ResolveTieRequest):
 
 
 @router.get("/choice/{choice_session_id}")
-async def get_choice_status(choice_session_id: str):
+async def get_choice_status(choice_session_id: str,
+                            session_repo: GameSessionRepository = Depends(get_session_repo)):
     """Get current status of a choice session."""
     choice_handler = get_multiplayer_choice_handler()
 
@@ -455,6 +517,9 @@ async def get_choice_status(choice_session_id: str):
     # if no further votes are cast (the deadline is only checked when something interacts).
     timed_out = await choice_handler.check_timeout(choice_session_id)
     if timed_out is not None:
+        # A timeout resolution must also drive the campaign forward (D3).
+        await _apply_winning_choice(
+            choice_handler.find_session(choice_session_id), session_repo)
         return {
             "success": True,
             "resolved": True,
