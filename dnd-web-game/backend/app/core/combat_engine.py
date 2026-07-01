@@ -1519,6 +1519,7 @@ class CombatEngine:
             BonusActionType.FLURRY_OF_BLOWS: self._handle_flurry_of_blows,
             BonusActionType.PATIENT_DEFENSE: self._handle_patient_defense,
             BonusActionType.STEP_OF_THE_WIND: self._handle_step_of_the_wind,
+            BonusActionType.SPIRITUAL_WEAPON: self._handle_spiritual_weapon,
         }
 
         handler = handlers.get(bonus_type)
@@ -4947,6 +4948,125 @@ class CombatEngine:
                 except (ValueError, TypeError):
                     continue
         return placed
+
+    def apply_spell_summon(
+        self,
+        caster_id: str,
+        summon_effects: Dict[str, Any],
+        position: Optional[Tuple[int, int]] = None,
+        spell_id: Optional[str] = None,
+    ) -> bool:
+        """Store a caster-controlled battlefield entity (Spiritual Weapon) on the caster.
+        Called by the cast route from a SpellCastResult's summon_created. Lives in
+        combatant_stats so it serializes with the combat; every use is concentration-gated."""
+        stats = self.state.combatant_stats.get(caster_id)
+        if not stats or not summon_effects:
+            return False
+        summon_id = summon_effects.get("summon_id") or spell_id or "summon"
+        summons = stats.setdefault("active_summons", {})
+        summons[summon_id] = {
+            **summon_effects,
+            "position": list(position) if position else list(self.state.positions.get(caster_id, (0, 0))),
+            "spell_id": spell_id or summon_id,
+        }
+        return True
+
+    def summon_attack(
+        self,
+        caster_id: str,
+        summon_id: str,
+        target_id: Optional[str],
+        move_to: Optional[Tuple[int, int]] = None,
+    ) -> ActionResult:
+        """Move a summoned entity (up to its move_speed) and make its melee spell attack.
+        Used both for the free on-cast attack and the later-turn bonus action."""
+        stats = self.state.combatant_stats.get(caster_id, {})
+        summon = (stats.get("active_summons") or {}).get(summon_id)
+        if not summon:
+            return ActionResult(success=False, action_type=summon_id,
+                                description=f"No active {summon_id}")
+
+        # The entity only persists while the caster concentrates on its spell.
+        spell_id = summon.get("spell_id") or summon_id
+        if (stats.get("spellcasting") or {}).get("concentrating_on") != spell_id:
+            return ActionResult(success=False, action_type=summon_id,
+                                description=f"{summon_id} has faded (concentration ended)")
+
+        if not target_id or target_id not in self.state.combatant_stats:
+            return ActionResult(success=False, action_type=summon_id,
+                                description="No valid target")
+
+        # Validate the (optional) move and the reach BEFORE committing the new position —
+        # otherwise a failed attack (which doesn't consume the bonus action) would still
+        # grant free movement.
+        pos = tuple(summon.get("position") or self.state.positions.get(caster_id, (0, 0)))
+        if move_to is not None:
+            mx, my = int(move_to[0]), int(move_to[1])
+            move_ft = max(abs(mx - pos[0]), abs(my - pos[1])) * 5
+            if move_ft > summon.get("move_speed", 20):
+                return ActionResult(success=False, action_type=summon_id,
+                                    description=f"{summon_id} can only move {summon.get('move_speed', 20)} ft")
+            pos = (mx, my)
+
+        target_pos = self.state.positions.get(target_id)
+        if target_pos is None:
+            return ActionResult(success=False, action_type=summon_id,
+                                description="Target has no battlefield position")
+        dist_ft = max(abs(target_pos[0] - pos[0]), abs(target_pos[1] - pos[1])) * 5
+        if dist_ft > summon.get("reach", 5):
+            return ActionResult(success=False, action_type=summon_id,
+                                description=f"Target is out of the {summon_id}'s reach")
+        if move_to is not None:
+            summon["position"] = [pos[0], pos[1]]
+
+        # Melee spell attack with the caster's spell attack bonus.
+        atk_bonus = (stats.get("spellcasting") or {}).get("spell_attack_bonus", 0)
+        attack = roll_d20(modifier=atk_bonus)
+        target_stats = self.state.combatant_stats.get(target_id, {})
+        target_ac = target_stats.get("ac", 10)
+        hit = attack.natural_20 or (not attack.natural_1 and attack.total >= target_ac)
+        if not hit:
+            return ActionResult(
+                success=True, action_type=summon_id, target_id=target_id,
+                description=f"The {summon_id.replace('_', ' ')} misses {target_stats.get('name', target_id)} "
+                            f"({attack.total} vs AC {target_ac})",
+            )
+
+        # Damage: summon dice + the caster's spellcasting ability modifier.
+        ability = ((stats.get("spellcasting") or {}).get("ability") or "wisdom").lower()
+        mod = stats.get(f"{ability[:3]}_mod", 0)
+        dmg = roll_damage(summon.get("damage", "1d8"), modifier=mod, critical=attack.natural_20)
+        damage_type = summon.get("damage_type", "force")
+        # Report/gate on the damage actually taken (post resistance/immunity/temp-HP),
+        # not the raw roll — an immune target must not provoke a concentration check.
+        pool_before = target_stats.get("current_hp", 0) + target_stats.get("temp_hp", 0)
+        self._apply_damage_to_target(target_id, dmg.total, damage_type)
+        pool_after = target_stats.get("current_hp", 0) + target_stats.get("temp_hp", 0)
+        applied = max(0, pool_before - pool_after)
+        conc = None
+        if applied > 0:
+            conc = self._check_concentration_on_damage(
+                target_id=target_id, damage_dealt=applied,
+                damage_source=f"{summon_id.replace('_', ' ')} attack",
+            )
+        desc = (f"The {summon_id.replace('_', ' ')} strikes {target_stats.get('name', target_id)} "
+                f"for {applied} {damage_type} damage" + (" (critical!)" if attack.natural_20 else ""))
+        result = ActionResult(success=True, action_type=summon_id, target_id=target_id,
+                              damage_dealt=applied, description=desc)
+        self.state.add_event("summon_attack", desc, combatant_id=caster_id,
+                             data={"summon_id": summon_id, "target_id": target_id,
+                                   "damage": applied, "damage_type": damage_type,
+                                   "critical": attack.natural_20,
+                                   "concentration_check": bool(conc)})
+        return result
+
+    def _handle_spiritual_weapon(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
+        """Bonus action: move the Spiritual Weapon up to 20 ft and attack."""
+        current = self.state.current_turn.combatant_id if self.state.current_turn else None
+        if not current:
+            return ActionResult(success=False, action_type="spiritual_weapon",
+                                description="No active turn")
+        return self.summon_attack(current, "spiritual_weapon", target_id, move_to=move_to)
 
     def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
         """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
