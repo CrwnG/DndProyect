@@ -137,6 +137,7 @@ class BonusActionType(Enum):
     STEP_OF_THE_WIND = "step_of_the_wind"  # Monk: Dash/Disengage as bonus (costs 1 ki)
     SPIRITUAL_WEAPON = "spiritual_weapon"  # Cleric: attack with spiritual weapon
     FLAMING_SPHERE = "flaming_sphere"  # Druid/Wizard: ram the sphere into a creature
+    CONJURED_PACK = "conjure_animals"  # Druid/Ranger: send the spectral pack at a creature
     ACTIVATE_ITEM = "activate_item"  # Activate a magic item
 
 
@@ -1524,6 +1525,7 @@ class CombatEngine:
             BonusActionType.STEP_OF_THE_WIND: self._handle_step_of_the_wind,
             BonusActionType.SPIRITUAL_WEAPON: self._handle_spiritual_weapon,
             BonusActionType.FLAMING_SPHERE: self._handle_flaming_sphere,
+            BonusActionType.CONJURED_PACK: self._handle_conjured_pack,
         }
 
         handler = handlers.get(bonus_type)
@@ -5034,21 +5036,37 @@ class CombatEngine:
 
         target_stats = self.state.combatant_stats.get(target_id, {})
 
-        # Save-based summons (Flaming Sphere): no attack roll — the target saves against
-        # the caster's spell save DC, taking full dice damage on a failure or half on a
-        # success. No ability modifier is added to the dice.
+        # Save-based summons (Flaming Sphere, Conjured Pack): no attack roll — the
+        # target saves against the caster's spell save DC. Default: full dice on a
+        # failure, half on a success; save_negates summons deal nothing on a success.
+        # No ability modifier is added to the dice.
         if summon.get("save"):
+            # once_per_turn summons (Conjured Pack) can't force the same creature to
+            # save twice in a round, whichever path (ram or end-of-turn aura) fires.
+            if summon.get("once_per_turn"):
+                round_now = self.state.initiative_tracker.current_round
+                saved_map = summon.setdefault("saved_this_round", {})
+                if saved_map.get(target_id) == round_now:
+                    return ActionResult(
+                        success=False, action_type=summon_id, target_id=target_id,
+                        description=f"{target_stats.get('name', target_id)} already faced "
+                                    f"the {summon_id.replace('_', ' ')} this round")
+                saved_map[target_id] = round_now
+
             save_type = summon["save"]
             dc = (stats.get("spellcasting") or {}).get("spell_save_dc", 10)
             save_mod = target_stats.get(f"{save_type}_save", 0) or target_stats.get(f"{save_type}_mod", 0)
             saved = roll_d20(modifier=save_mod).total >= dc
             dmg = roll_damage(summon.get("damage", "2d6"))
-            total = dmg.total // 2 if saved else dmg.total
+            if saved:
+                total = 0 if summon.get("save_negates") else dmg.total // 2
+            else:
+                total = dmg.total
             applied = self._apply_summon_damage(
                 caster_id, summon_id, target_id, total, summon.get("damage_type", "fire"))
-            desc = (f"The {summon_id.replace('_', ' ')} burns {target_stats.get('name', target_id)} "
+            desc = (f"The {summon_id.replace('_', ' ')} strikes at {target_stats.get('name', target_id)} "
                     f"for {applied} {summon.get('damage_type', 'fire')} damage"
-                    + (" (save: half)" if saved else ""))
+                    + (" (saved)" if saved else ""))
             return ActionResult(success=True, action_type=summon_id, target_id=target_id,
                                 damage_dealt=applied, description=desc)
 
@@ -5142,6 +5160,11 @@ class CombatEngine:
     def _handle_flaming_sphere(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
         """Bonus action: move the Flaming Sphere up to 30 ft and ram a creature."""
         return self._handle_summon_bonus("flaming_sphere", target_id, move_to)
+
+    def _handle_conjured_pack(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
+        """Bonus action: send the conjured pack at a creature (2024: the saves trigger
+        as the pack moves; commanding it as a bonus action is our approximation)."""
+        return self._handle_summon_bonus("conjure_animals", target_id, move_to)
 
     def _handle_summon_bonus(self, summon_id: str, target_id, move_to) -> ActionResult:
         current = self.state.current_turn.combatant_id if self.state.current_turn else None
