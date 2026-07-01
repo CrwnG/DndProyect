@@ -21,14 +21,18 @@ export const CONFIG = {
         GRID_LINE: '#2a3a4a',
         GRID_LINE_MAJOR: '#3a4a5a',
 
-        // Cells
+        // Cells — the floor is a subtle two-tone stone checkerboard, not flat cells
         CELL_EMPTY: '#1a2332',
-        CELL_WALL: '#444444',
+        CELL_LIGHT: '#222b37',
+        CELL_DARK: '#1b232d',
+        CELL_WALL: '#3a3f47',
+        CELL_WALL_EDGE: '#565d68',
         CELL_DIFFICULT: '#2a3a2a',
 
-        // Highlights
-        HIGHLIGHT_REACHABLE: 'rgba(46, 204, 113, 0.3)',
-        HIGHLIGHT_REACHABLE_BORDER: 'rgba(46, 204, 113, 0.7)',
+        // Highlights — movement range is a soft wash with ONE perimeter outline,
+        // not a bright border on every cell (spreadsheet effect)
+        HIGHLIGHT_REACHABLE: 'rgba(46, 204, 113, 0.14)',
+        HIGHLIGHT_REACHABLE_BORDER: 'rgba(46, 204, 113, 0.55)',
         HIGHLIGHT_ATTACK: 'rgba(231, 76, 60, 0.3)',
         HIGHLIGHT_ATTACK_BORDER: 'rgba(231, 76, 60, 0.7)',
         HIGHLIGHT_SELECTED: 'rgba(212, 175, 55, 0.4)',

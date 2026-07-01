@@ -518,13 +518,24 @@ class CombatGrid {
 
                     // Draw based on terrain type
                     if (cell.blocked || cell.terrain === 'wall') {
+                        // Walls read as raised blocks: slate fill + light top edge
                         this.ctx.fillStyle = CONFIG.COLORS.CELL_WALL;
                         this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
+                        this.ctx.fillStyle = CONFIG.COLORS.CELL_WALL_EDGE;
+                        this.ctx.fillRect(posX, posY, this.cellSize, 3);
+                        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+                        this.ctx.fillRect(posX, posY + this.cellSize - 3, this.cellSize, 3);
                     } else if (cell.terrain === 'difficult') {
                         this.ctx.fillStyle = CONFIG.COLORS.CELL_DIFFICULT;
                         this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
                         // Draw hatching pattern
                         this.drawDifficultTerrainPattern(posX, posY);
+                    } else {
+                        // Stone-floor checkerboard so the battlefield reads as a floor
+                        this.ctx.fillStyle = (x + y) % 2 === 0
+                            ? CONFIG.COLORS.CELL_LIGHT
+                            : CONFIG.COLORS.CELL_DARK;
+                        this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
                     }
                 }
             }
@@ -747,10 +758,14 @@ class CombatGrid {
         const attackTargets = gameState.grid.attackTargets || [];
         const positions = gameState.grid.positions || {};
 
-        // Draw reachable cells (movement mode)
+        // Draw reachable cells (movement mode): a soft wash per cell plus ONE outline
+        // around the whole region — bordering every cell reads as a spreadsheet.
         if (mode === GameMode.MOVING || mode === GameMode.COMBAT) {
             for (const cell of reachable) {
                 this.drawCellHighlight(cell.x, cell.y, 'reachable');
+            }
+            if (reachable.length > 0) {
+                this.strokeRegionPerimeter(reachable, CONFIG.COLORS.HIGHLIGHT_REACHABLE_BORDER);
             }
         }
 
@@ -792,7 +807,7 @@ class CombatGrid {
         switch (type) {
             case 'reachable':
                 fillColor = CONFIG.COLORS.HIGHLIGHT_REACHABLE;
-                borderColor = CONFIG.COLORS.HIGHLIGHT_REACHABLE_BORDER;
+                borderColor = 'transparent';   // outlined once via strokeRegionPerimeter
                 break;
             case 'attack':
                 fillColor = CONFIG.COLORS.HIGHLIGHT_ATTACK;
@@ -826,6 +841,38 @@ class CombatGrid {
             this.ctx.lineWidth = 2;
             this.ctx.strokeRect(posX + 2, posY + 2, this.cellSize - 4, this.cellSize - 4);
         }
+    }
+
+    /**
+     * Stroke the outer perimeter of a set of cells — edges whose neighbor is
+     * outside the set. Gives a region ONE clean outline instead of per-cell boxes.
+     */
+    strokeRegionPerimeter(cells, color) {
+        const inRegion = new Set(cells.map(c => `${c.x},${c.y}`));
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        for (const { x, y } of cells) {
+            const px = x * this.cellSize;
+            const py = y * this.cellSize;
+            if (!inRegion.has(`${x},${y - 1}`)) {       // top
+                this.ctx.moveTo(px, py);
+                this.ctx.lineTo(px + this.cellSize, py);
+            }
+            if (!inRegion.has(`${x},${y + 1}`)) {       // bottom
+                this.ctx.moveTo(px, py + this.cellSize);
+                this.ctx.lineTo(px + this.cellSize, py + this.cellSize);
+            }
+            if (!inRegion.has(`${x - 1},${y}`)) {       // left
+                this.ctx.moveTo(px, py);
+                this.ctx.lineTo(px, py + this.cellSize);
+            }
+            if (!inRegion.has(`${x + 1},${y}`)) {       // right
+                this.ctx.moveTo(px + this.cellSize, py);
+                this.ctx.lineTo(px + this.cellSize, py + this.cellSize);
+            }
+        }
+        this.ctx.stroke();
     }
 
     /**
@@ -1026,16 +1073,30 @@ class CombatGrid {
             this.ctx.fill();
         }
 
-        // Token circle
+        // Token circle — drop shadow + radial shading so tokens sit ON the floor
+        // instead of reading as flat colored dots.
+        const isPlayer = combatant.type === 'player';
+        const base = isPlayer ? CONFIG.COLORS.TOKEN_PLAYER : CONFIG.COLORS.TOKEN_ENEMY;
+        const light = isPlayer ? '#6ee7a8' : '#f0796b';
+
+        this.ctx.save();
+        this.ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+        this.ctx.shadowBlur = 6;
+        this.ctx.shadowOffsetY = 3;
         this.ctx.beginPath();
         this.ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
-
-        // Fill color based on type
-        const isPlayer = combatant.type === 'player';
-        this.ctx.fillStyle = isPlayer ? CONFIG.COLORS.TOKEN_PLAYER : CONFIG.COLORS.TOKEN_ENEMY;
+        const grad = this.ctx.createRadialGradient(
+            center.x - radius / 3, center.y - radius / 3, radius / 6,
+            center.x, center.y, radius);
+        grad.addColorStop(0, light);
+        grad.addColorStop(1, base);
+        this.ctx.fillStyle = grad;
         this.ctx.fill();
+        this.ctx.restore();
 
         // Border
+        this.ctx.beginPath();
+        this.ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
         this.ctx.strokeStyle = isPlayer ? CONFIG.COLORS.TOKEN_PLAYER_BORDER : CONFIG.COLORS.TOKEN_ENEMY_BORDER;
         this.ctx.lineWidth = CONFIG.TOKEN.BORDER_WIDTH;
         this.ctx.stroke();
