@@ -45,6 +45,7 @@ class ActionBar {
             useItem: document.getElementById('btn-use-item'),
             secondWind: document.getElementById('btn-second-wind'),
             offhand: document.getElementById('btn-offhand'),
+            summonAttack: document.getElementById('btn-summon-attack'),
             // Class feature buttons
             actionSurge: document.getElementById('btn-action-surge'),
             rage: document.getElementById('btn-rage'),
@@ -98,6 +99,7 @@ class ActionBar {
         this.buttons.useItem?.addEventListener('click', () => this.handleUseItem());
         this.buttons.secondWind?.addEventListener('click', () => this.handleSecondWind());
         this.buttons.offhand?.addEventListener('click', () => this.handleOffhandAttack());
+        this.buttons.summonAttack?.addEventListener('click', () => this.handleSummonAttack());
 
         // Class feature buttons
         this.buttons.actionSurge?.addEventListener('click', () => this.handleActionSurge());
@@ -215,6 +217,15 @@ class ActionBar {
         // Show/hide off-hand button based on availability
         if (this.buttons.offhand) {
             this.buttons.offhand.style.display = turn.canOffhandAttack ? 'flex' : 'none';
+        }
+
+        // Summon Attack: available while the player has an active summon on the field
+        // (Spiritual Weapon, Flaming Sphere — the payload is concentration-gated).
+        const playerSummon = (gameState.grid.summons || [])
+            .find(s => s.owner_id === gameState.playerId);
+        this.setButtonEnabled(this.buttons.summonAttack, canUseBonusAction && !!playerSummon);
+        if (this.buttons.summonAttack) {
+            this.buttons.summonAttack.style.display = playerSummon ? 'flex' : 'none';
         }
 
         // Class feature buttons - show/hide and enable based on class and level
@@ -3505,6 +3516,46 @@ class ActionBar {
      * Handle Off-Hand Attack (Two-Weapon Fighting bonus action)
      * D&D 5e: Attack with off-hand light weapon after attacking with main-hand light weapon
      */
+    /**
+     * Command the player's summon (Spiritual Weapon, Flaming Sphere): pick a target,
+     * then the server moves the summon to the target's tile and resolves its attack.
+     */
+    async handleSummonAttack() {
+        if (!state.isPlayerTurn() || state.getState().turn.bonusActionUsed) return;
+
+        const gameState = state.getState();
+        const summon = (gameState.grid.summons || [])
+            .find(s => s.owner_id === gameState.playerId);
+        if (!summon) return;
+
+        state.setSelectedAction('summon_attack');
+        this.targetingSystem.startTargeting('ranged', async (target) => {
+            const combatId = gameState.combat.id;
+            const targetPos = state.getState().grid.positions[target.id];
+            try {
+                const response = await api.performBonusAction(combatId, summon.id, target.id, {
+                    extraData: targetPos ? { move_to: [targetPos.x, targetPos.y] } : {},
+                });
+                if (response.success) {
+                    state.set('turn.bonusActionUsed', true);
+                    if (response.combat_state) {
+                        state.updateCombatState(response.combat_state);
+                    }
+                    state.addLogEntry({
+                        type: 'attack',
+                        actor: gameState.combatants[gameState.playerId]?.name,
+                        message: response.description || `The ${summon.id.replace('_', ' ')} strikes!`,
+                    });
+                } else {
+                    toast.error(response.description || response.message || 'Summon attack failed');
+                }
+            } catch (error) {
+                console.error('[ActionBar] Summon attack failed:', error);
+                toast.error('Summon attack failed');
+            }
+        });
+    }
+
     async handleOffhandAttack() {
         if (!state.isPlayerTurn() || state.getState().turn.bonusActionUsed) return;
         if (!state.getState().turn.canOffhandAttack) return;

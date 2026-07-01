@@ -34,3 +34,20 @@ describe('StateManager surfaces plumbing', () => {
         expect(sm.get('grid.surfaces')).toEqual([{ x: 1, y: 1, type: 'fire' }]);
     });
 });
+
+describe('StateManager summons plumbing (batch 63)', () => {
+    let sm;
+    beforeEach(() => { sm = new StateManager(); });
+
+    test('grid state starts with no summons', () => {
+        expect(sm.get('grid.summons')).toEqual([]);
+    });
+
+    test('updateCombatState stores and clears the summons payload', () => {
+        const weapon = { id: 'spiritual_weapon', owner_id: 'p1', x: 2, y: 2 };
+        sm.updateCombatState({ summons: [weapon] });
+        expect(sm.get('grid.summons')).toEqual([weapon]);
+        sm.updateCombatState({ summons: [] });   // concentration dropped
+        expect(sm.get('grid.summons')).toEqual([]);
+    });
+});

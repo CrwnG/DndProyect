@@ -136,6 +136,7 @@ class BonusActionType(Enum):
     PATIENT_DEFENSE = "patient_defense"  # Monk: Dodge as bonus action (costs 1 ki)
     STEP_OF_THE_WIND = "step_of_the_wind"  # Monk: Dash/Disengage as bonus (costs 1 ki)
     SPIRITUAL_WEAPON = "spiritual_weapon"  # Cleric: attack with spiritual weapon
+    FLAMING_SPHERE = "flaming_sphere"  # Druid/Wizard: ram the sphere into a creature
     ACTIVATE_ITEM = "activate_item"  # Activate a magic item
 
 
@@ -1522,6 +1523,7 @@ class CombatEngine:
             BonusActionType.PATIENT_DEFENSE: self._handle_patient_defense,
             BonusActionType.STEP_OF_THE_WIND: self._handle_step_of_the_wind,
             BonusActionType.SPIRITUAL_WEAPON: self._handle_spiritual_weapon,
+            BonusActionType.FLAMING_SPHERE: self._handle_flaming_sphere,
         }
 
         handler = handlers.get(bonus_type)
@@ -5135,11 +5137,18 @@ class CombatEngine:
 
     def _handle_spiritual_weapon(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
         """Bonus action: move the Spiritual Weapon up to 20 ft and attack."""
+        return self._handle_summon_bonus("spiritual_weapon", target_id, move_to)
+
+    def _handle_flaming_sphere(self, target_id: Optional[str], move_to=None, **kwargs) -> ActionResult:
+        """Bonus action: move the Flaming Sphere up to 30 ft and ram a creature."""
+        return self._handle_summon_bonus("flaming_sphere", target_id, move_to)
+
+    def _handle_summon_bonus(self, summon_id: str, target_id, move_to) -> ActionResult:
         current = self.state.current_turn.combatant_id if self.state.current_turn else None
         if not current:
-            return ActionResult(success=False, action_type="spiritual_weapon",
+            return ActionResult(success=False, action_type=summon_id,
                                 description="No active turn")
-        return self.summon_attack(current, "spiritual_weapon", target_id, move_to=move_to)
+        return self.summon_attack(current, summon_id, target_id, move_to=move_to)
 
     def _apply_smite_condition(self, target_id: str, rider: Dict[str, Any]) -> bool:
         """Apply a smite's rider condition (Wrathful->frightened, Blinding->blinded,
@@ -6259,6 +6268,17 @@ class CombatEngine:
                     if getattr(self.state, "surface_manager", None) else []
                 )
                 for s in tile_surfaces
+            ],
+            # Caster-controlled summons (Spiritual Weapon, Flaming Sphere) with a grid
+            # position — concentration-gated, so a dropped spell removes the marker.
+            "summons": [
+                {"id": summon_id, "owner_id": cid,
+                 "x": s["position"][0], "y": s["position"][1]}
+                for cid, stats in self.state.combatant_stats.items()
+                for summon_id, s in (stats.get("active_summons") or {}).items()
+                if s.get("position")
+                and (stats.get("spellcasting") or {}).get("concentrating_on")
+                == (s.get("spell_id") or summon_id)
             ],
             "combatant_stats": self.state.combatant_stats,
             "event_count": len(self.state.event_log),
