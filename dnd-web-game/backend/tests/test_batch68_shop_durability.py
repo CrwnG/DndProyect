@@ -6,6 +6,8 @@ cache miss (buy even soft-failed to gold=0, reporting a misleading "Not enough g
 (gold restored, items duped or lost). Both violate golden rule #3. Now they resolve
 the engine like the combat routes do and persist after every transaction.
 """
+import asyncio
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -13,6 +15,14 @@ from app.main import app
 from app.api.routes.loot import active_combats
 
 client = TestClient(app)
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _init_db():
+    """TestClient doesn't run the app lifespan, so the DB tables the shop persistence
+    writes to don't exist in a fresh environment (CI) — create them explicitly."""
+    from app.database.engine import init_db
+    asyncio.run(init_db())
 
 
 def _start_combat_with_gold():
