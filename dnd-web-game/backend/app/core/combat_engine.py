@@ -6172,6 +6172,11 @@ class CombatEngine:
                 # Grid (terrain/elevation/occupancy for cover) + per-combat trackers, so a
                 # rehydrated combat keeps cover, monster recharge, legendary actions, etc.
                 "grid": self.state.grid.to_dict() if self.state.grid else None,
+                "surface_manager": (
+                    self.state.surface_manager.to_dict()
+                    if self.state.surface_manager else None
+                ),
+                "surface_decay_round": getattr(self.state, "_surface_decay_round", None),
                 "legendary_actions_remaining": self.state.legendary_actions_remaining,
                 "monster_ability_recharge": self.state.monster_ability_recharge,
                 "frightful_presence_immune": self.state.frightful_presence_immune,
@@ -6230,9 +6235,16 @@ class CombatEngine:
         grid_data = state_data.get("grid")
         if grid_data:
             state.grid = CombatGrid.from_dict(grid_data)
-        # Rebuild a surface manager so a reloaded combat keeps processing hazardous surfaces
-        # on movement. (Active surfaces themselves aren't yet persisted — a follow-up.)
-        state.surface_manager = SurfaceManager(state.grid)
+        # Restore the surface manager WITH its active surfaces (Grease/Wall of Fire/etc.),
+        # so hazards survive a save/reload; older snapshots without the key get an empty one.
+        sm_data = state_data.get("surface_manager")
+        if sm_data:
+            state.surface_manager = SurfaceManager.from_dict(sm_data, state.grid)
+        else:
+            state.surface_manager = SurfaceManager(state.grid)
+        decay_round = state_data.get("surface_decay_round")
+        if decay_round is not None:
+            state._surface_decay_round = decay_round
         state.legendary_actions_remaining = state_data.get("legendary_actions_remaining", {})
         state.monster_ability_recharge = state_data.get("monster_ability_recharge", {})
         state.frightful_presence_immune = state_data.get("frightful_presence_immune", {})
