@@ -4931,14 +4931,23 @@ class CombatEngine:
         sm = getattr(self.state, "surface_manager", None)
         if not sm or not surface_types or not positions:
             return 0
-        from app.core.surfaces import SurfaceType
+        from app.core.surfaces import SurfaceType, spell_surface_tiles, SPELL_SURFACES
         grid = getattr(self.state, "grid", None)
-        placed = 0
+        # Expand each targeted tile into the spell's real area (Grease 2x2, Cloudkill
+        # sphere, walls as lines …); spells without a shape mapping stay single-tile.
+        # The spell's own duration (Web lasts an hour, not 10 rounds) wins when mapped.
+        caster_pos = self.state.positions.get(caster_id) if caster_id else None
+        expanded: List[Tuple[int, int]] = []
         for pos in positions:
             try:
-                x, y = int(pos[0]), int(pos[1])
+                anchor = (int(pos[0]), int(pos[1]))
             except (TypeError, ValueError, IndexError):
                 continue
+            expanded.extend(spell_surface_tiles(spell_id, anchor, caster_pos) or [anchor])
+        if spell_id in SPELL_SURFACES:
+            duration_rounds = SPELL_SURFACES[spell_id].get("duration_rounds", duration_rounds)
+        placed = 0
+        for x, y in dict.fromkeys(expanded):   # dedupe, keep order
             # Skip tiles outside the grid (a malformed/off-board target shouldn't litter surfaces).
             if grid is not None and (x < 0 or y < 0 or x >= grid.width or y >= grid.height):
                 continue

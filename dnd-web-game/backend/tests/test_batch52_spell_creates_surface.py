@@ -43,7 +43,7 @@ def _engine():
 def test_apply_spell_surfaces_places_surface_on_grid():
     eng = _engine()
     n = eng.apply_spell_surfaces(["grease"], [(1, 0)], caster_id="w", spell_id="grease")
-    assert n == 1
+    assert n == 4   # batch 57: grease covers its real 10-ft square (2x2 tiles)
     assert eng.state.surface_manager.has_surface(1, 0, SurfaceType.GREASE)
 
 

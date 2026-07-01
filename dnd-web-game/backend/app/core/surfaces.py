@@ -610,12 +610,15 @@ class SurfaceManager:
         return manager
 
 
-# Spell-to-surface mapping
+# Spell-to-surface mapping. "shape"/size fields drive spell_surface_tiles (2024 areas):
+# square N = NxN tiles anchored at the target tile; circle r = tiles within r (Euclidean);
+# line n = n tiles perpendicular to the caster->target axis, centered on the target.
 SPELL_SURFACES: Dict[str, Dict[str, Any]] = {
     "grease": {
         "surface_type": SurfaceType.GREASE,
         "duration_rounds": 10,  # 1 minute
-        "radius": 2
+        "radius": 2,
+        "shape": ("square", 2)  # 10-ft square
     },
     "create_bonfire": {
         "surface_type": SurfaceType.FIRE,
@@ -624,8 +627,9 @@ SPELL_SURFACES: Dict[str, Dict[str, Any]] = {
     },
     "web": {
         "surface_type": SurfaceType.WEB,
-        "duration_rounds": 60,  # 1 hour
-        "radius": 4
+        "duration_rounds": 600,  # 1 hour (6-second rounds)
+        "radius": 4,
+        "shape": ("square", 4)  # 20-ft cube
     },
     "fog_cloud": {
         "surface_type": SurfaceType.STEAM,
@@ -636,7 +640,18 @@ SPELL_SURFACES: Dict[str, Dict[str, Any]] = {
         "surface_type": SurfaceType.POISON,
         "duration_rounds": 10,
         "radius": 4,
+        "shape": ("circle", 4),  # 20-ft-radius sphere
         "damage_dice": "5d8"
+    },
+    "wall_of_fire": {
+        "surface_type": SurfaceType.FIRE,
+        "duration_rounds": 10,  # concentration, 1 minute
+        "shape": ("line", 12)   # up to 60 ft long (clips to the grid)
+    },
+    "wall_of_ice": {
+        "surface_type": SurfaceType.ICE,
+        "duration_rounds": 100,  # concentration, 10 minutes
+        "shape": ("line", 12)
     },
     "acid_splash": {
         "surface_type": SurfaceType.ACID,
@@ -664,6 +679,40 @@ SPELL_SURFACES: Dict[str, Dict[str, Any]] = {
         "radius": 8
     }
 }
+
+
+def spell_surface_tiles(
+    spell_id: str,
+    anchor: "Tuple[int, int]",
+    caster_pos: "Optional[Tuple[int, int]]" = None,
+) -> "Optional[List[Tuple[int, int]]]":
+    """Expand a spell's target tile into the tiles its surface area covers (unclipped —
+    the caller drops off-grid tiles). Returns None for spells with no shape mapping.
+
+    square n: n x n tiles with the anchor as the top-left corner (Grease, Web).
+    circle r: tiles within r tiles (Euclidean) of the anchor (Cloudkill).
+    line n:   n tiles centered on the anchor, perpendicular to the caster->anchor axis
+              (a wall between you and them); horizontal if the caster is unknown.
+    """
+    shape = SPELL_SURFACES.get(spell_id, {}).get("shape")
+    if not shape:
+        return None
+    kind, size = shape
+    ax, ay = anchor
+    if kind == "square":
+        return [(ax + dx, ay + dy) for dx in range(size) for dy in range(size)]
+    if kind == "circle":
+        return [(ax + dx, ay + dy)
+                for dx in range(-size, size + 1) for dy in range(-size, size + 1)
+                if dx * dx + dy * dy <= size * size]
+    if kind == "line":
+        vertical = caster_pos is not None and \
+            abs(ax - caster_pos[0]) >= abs(ay - caster_pos[1])
+        half = size // 2
+        if vertical:
+            return [(ax, ay + d) for d in range(-half, size - half)]
+        return [(ax + d, ay) for d in range(-half, size - half)]
+    return None
 
 
 def create_surface_from_spell(
