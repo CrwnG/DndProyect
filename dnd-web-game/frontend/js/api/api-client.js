@@ -107,6 +107,30 @@ class APIClient {
         return this.request(endpoint, { method: 'DELETE' });
     }
 
+    // ==================== Multiplayer Session Endpoints ====================
+
+    /**
+     * Create a multiplayer session — the server mints the code and this host's token.
+     */
+    async createMultiplayerSession(hostId, hostName, mode = 'voting', timeout = 60) {
+        return this.post('/multiplayer/session', {
+            host_id: hostId,
+            host_name: hostName,
+            mode,
+            timeout,
+        });
+    }
+
+    /**
+     * Join a multiplayer session by code; returns this player's websocket token.
+     */
+    async joinMultiplayerSession(code, playerId, playerName) {
+        return this.post(`/multiplayer/session/${code}/join`, {
+            player_id: playerId,
+            player_name: playerName,
+        });
+    }
+
     // ==================== Combat Endpoints ====================
 
     /**

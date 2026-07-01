@@ -89,12 +89,16 @@ class MultiplayerVote {
     // WEBSOCKET CONNECTION
     // =========================================================================
 
-    connect(sessionId, playerId) {
+    connect(sessionId, playerId, token = null) {
         this.sessionId = sessionId;
         this.playerId = playerId;
 
-        const wsUrl = `${CONFIG.WS_BASE_URL}/api/multiplayer/ws/${sessionId}/${playerId}`;
-        console.log('[MultiplayerVote] Connecting to:', wsUrl);
+        // The join token (from POST /multiplayer/session[/join]) — the server closes
+        // tokenless or mismatched connections with 4401.
+        const query = token ? `?token=${encodeURIComponent(token)}` : '';
+        const wsUrl = `${CONFIG.WS_BASE_URL}/api/multiplayer/ws/${sessionId}/${playerId}${query}`;
+        // Never log the URL with the token in it.
+        console.log('[MultiplayerVote] Connecting to session:', sessionId, 'as', playerId);
 
         this.ws = new WebSocket(wsUrl);
 
